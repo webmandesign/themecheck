@@ -6,9 +6,15 @@ Dozens of tests are run to check best practice compliance : CMS standards, secur
 
 This service is compatible with Wordpress and Joomla themes. More CMS will be added later on.
 
-This service was inspired by Simon Posser and Samuel Wood (Otto) work on Theme-CHeck plugin for wordpress (http://wordpress.org/plugins/theme-check/)
+It is as a fork of the theme-check plugin for wordpress (http://wordpress.org/plugins/theme-check/).
 
 Please add your contribution to improve the checks !
+
+License 
+=======
+
+MIT
+
 
 Installation 
 ============
