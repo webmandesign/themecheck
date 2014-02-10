@@ -1,0 +1,6 @@
+error404.php=erreur404.php
+results.php=resultats.php
+results=resultats
+score=score
+wordpress_theme=theme_wordpress
+joomla_template=template_joomla
