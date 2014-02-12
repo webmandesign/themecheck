@@ -11,7 +11,7 @@ class NavMenu_Checker extends CheckPart
         
         if ( strpos( $php, $this->code ) === false )
         {
-            $this->messages[] = __('No reference to nav_menu was found in the theme.');
+            $this->messages[] = __all('No reference to nav_menu was found in the theme.');
             $this->errorLevel = $this->threatLevel;
         }
     }
@@ -21,9 +21,9 @@ class NavMenu extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Nav menu");
+			$this->title = __all("Nav menu");
 			$this->checks = array(
-						new NavMenu_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __("Correct integration"), 'nav_menu' , 'ut_navmenu.zip'),
+						new NavMenu_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Correct integration"), 'nav_menu' , 'ut_navmenu.zip'),
 			);
     }
 }

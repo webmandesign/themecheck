@@ -23,7 +23,7 @@ class JManifest_Checker extends CheckPart
                             if ( !preg_match( '/<' . $this->code . '>/i' , $otherfile, $matches ) )
                             {
                                 $filename = tc_filename( $other_key );
-                                $this->messages[] = sprintf(__('Missing tag "%1$s" in %2$s.'), $this->code, $filename);
+                                $this->messages[] = __all('Missing tag "%1$s" in %2$s.', $this->code, $filename);
                                 $this->errorLevel = $this->threatLevel;
                             }
                         }
@@ -31,7 +31,7 @@ class JManifest_Checker extends CheckPart
                 } else 
 								{
 									$filename = tc_filename( $other_key );
-									$this->messages[] = sprintf(__('Cannot read xml content <strong>%1$s</strong>.'), $filename);
+									$this->messages[] = __all('Cannot read xml content <strong>%1$s</strong>.', $filename);
                   $this->errorLevel = ERRORLEVEL_ERROR;
 								}
             }
@@ -43,15 +43,15 @@ class JManifest extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Manifest and Metadata");
+			$this->title = __all("Manifest and Metadata");
 			$this->checks = array(
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of name'), 'name', 'ut_jmanifestjoomla_manifest_name.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of creationDate'), 'creationDate', 'ut_jmanifestjoomla_manifest_creationDate.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of author'), 'author', 'ut_jmanifestjoomla_manifest_author.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of copyright'), 'copyright', 'ut_jmanifestjoomla_manifest_copyright.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of authorUrl'), 'authorUrl', 'ut_jmanifestjoomla_manifest_authorUrl.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of version'), 'version', 'ut_jmanifestjoomla_manifest_version.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of description'), 'description', 'ut_jmanifestjoomla_manifest_description.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of name'), 'name', 'ut_jmanifestjoomla_manifest_name.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of creationDate'), 'creationDate', 'ut_jmanifestjoomla_manifest_creationDate.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of author'), 'author', 'ut_jmanifestjoomla_manifest_author.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of copyright'), 'copyright', 'ut_jmanifestjoomla_manifest_copyright.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of authorUrl'), 'authorUrl', 'ut_jmanifestjoomla_manifest_authorUrl.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of version'), 'version', 'ut_jmanifestjoomla_manifest_version.zip'),
+						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of description'), 'description', 'ut_jmanifestjoomla_manifest_description.zip'),
 			);
     }
 }

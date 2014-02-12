@@ -153,6 +153,10 @@ class I18N
 			return unpack($format, fread($file, 4 * $pNum));
 	}
 
+	/**
+	 * Load a PO translation file. Use this function to avoid using gettext for translations.
+	 * @return array of key/translation pairs 
+	 */
 	private function loadPOfile($fullname)
 	{
 		$file = is_file($fullname) ? fopen($fullname, 'rb') : $fullname;
@@ -238,3 +242,30 @@ function __($key, $lang=null)
 	if (empty($lang)) $lang = I18N::getCurLang();
 	return $i18n->__($key, $lang);
 }
+
+	/**
+	 * Returns an array of translations of a key in all available languages
+	 * This function is variadic and allows up to 8 arguments, just as sprintf.
+	 * @return integer
+	 */
+	 function __all($key)
+	{
+		global $ExistingLangs;
+		$numargs = func_num_args();
+		$args = func_get_args();
+		$key = $args[0];
+		
+		$ret = array();
+		foreach($ExistingLangs as $l)
+		{
+			if ($numargs == 1) $ret[$l] = i18n::__($key, $l);
+			else if ($numargs == 2) $ret[$l] = sprintf(i18n::__($key, $l), $args[1]);
+			else if ($numargs == 3) $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2]);
+			else if ($numargs == 4) $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2], $args[3]);
+			else if ($numargs == 5) $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2], $args[3], $args[4]);
+			else if ($numargs == 6) $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2], $args[3], $args[4], $args[5]);
+			else if ($numargs == 7) $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]);
+			else $ret[$l] = sprintf(i18n::__($key, $l), $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7]);
+		}
+		return $ret;
+	}

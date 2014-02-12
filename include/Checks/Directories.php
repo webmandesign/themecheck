@@ -24,7 +24,7 @@ class Directories_Checker extends CheckPart
         if ($error)
         {
             $this->messages[] = $this->hint;
-						$this->messages[] = sprintf(__('<strong>%1$s</strong> was found.'), $this->code);
+						$this->messages[] = __all('<strong>%1$s</strong> was found.', $this->code);
             $this->errorLevel = $this->threatLevel;
         }
     }
@@ -34,12 +34,12 @@ class Directories extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Unwanted directories");
+			$this->title = __all("Unwanted directories");
 			$this->checks = array(
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('GIT revision control directory'), '.git', 'ut_directories_git.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('SVN revision control directory'), '.svn', 'ut_directories_svn.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Mercurial revision control directory'), '.hg', 'ut_directories_hg.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('OSX system directory'), '__macosx', 'ut_directories___MACOSX.zip')
+						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('GIT revision control directory'), '.git', 'ut_directories_git.zip'),
+						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('SVN revision control directory'), '.svn', 'ut_directories_svn.zip'),
+						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Mercurial revision control directory'), '.hg', 'ut_directories_hg.zip'),
+						new Directories_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('OSX system directory'), '__macosx', 'ut_directories___MACOSX.zip')
 			);
     }
 }

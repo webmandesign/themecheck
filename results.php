@@ -14,7 +14,8 @@ $routeParts = Route::getInstance()->match();
 if (isset($routeParts["hash"])) // already uploaded file
 {
 	$hash = $routeParts["hash"];
-	$fileValidator = FileValidator::unserialize($hash, I18N::getCurLang());
+	$fileValidator = FileValidator::unserialize($hash);
+//	var_dump($fileValidator->check_successes[0]);
 } else if (isset($_GET["filename"])) // unit tests
 {	
 	// check unit test existence
@@ -31,31 +32,9 @@ if (isset($routeParts["hash"])) // already uploaded file
 {
 	$archiveInfo = FileValidator::upload();
 	
-	// validation is actually run in all available languages because error messages adapt to the current language and the context of the error, so translation must be done during the tests.
-	$lang_saved = I18N::getCurLang(); // memorize cur lang
-	
-	// run validation in english
-	$i18n = I18N::getInstance();
-	$i18n->curLang = 'en';
-	$fileValidator_en_EN = new FileValidator($archiveInfo);
-	$fileValidator_en_EN->validate();	
-	$fileValidator_en_EN->serialize();
-	
-	// run validation in french
-	$i18n->curLang = 'fr';
-	$fileValidator_fr_FR = new FileValidator($archiveInfo);
-	$fileValidator_fr_FR->validate();	
-	$fileValidator_fr_FR->serialize();
-	
-	// back to user's language
-	$i18n->curLang = $lang_saved;
-	
-	if ($i18n->curLang=='fr')
-	{
-		$fileValidator = $fileValidator_fr_FR;
-	} else {
-		$fileValidator = $fileValidator_en_EN;
-	}
+	$fileValidator = new FileValidator($archiveInfo);
+	$fileValidator->validate();	
+	$fileValidator->serialize();
 }
 
 if ($fileValidator)
@@ -178,7 +157,6 @@ if ($fileValidator)
 					<?php
 					echo '<div class="row"><div class="col-md-12">';
 					
-					
 					$panes = array("failures" => $fileValidator->check_fails, "warnings" =>$fileValidator->check_warnings, "successes" => $fileValidator->check_successes);
 					if (count($fileValidator->check_undefined)>0) $panes["undefined"] = $fileValidator->check_undefined;
 					$glyphicons = array("failures" => "glyphicon-remove-sign", "warnings" =>"glyphicon-exclamation-sign", "successes" => "glyphicon-ok-sign", "undefined" => "glyphicon-question-sign");
@@ -193,7 +171,7 @@ if ($fileValidator)
 					<div class="tab-content">
 						<?php 
 						foreach ($panes as $pane => $checks)
-						{
+						{									
 							if ($pane == 'failures')
 								echo '<div class="tab-pane active" id="'.$pane.'">';
 							else 
@@ -202,13 +180,22 @@ if ($fileValidator)
 								echo '<div class="panel-group" id="accordion">';
 								
 								$collapseIndex = 1;
+								
 								foreach($checks as $check)
 								{
+								//var_dump($checks);
+									$hint = '';
+									
+									if (isset($check->hint[$i18n->curLang])) $hint = $check->hint[$i18n->curLang];
+									else if (isset($check->hint['en'])) $hint = $check->hint['en'];
+									$title = '';
+									if (isset($check->title[$i18n->curLang])) $title = $check->title[$i18n->curLang];
+									else if (isset($check->title['en'])) $title = $check->title['en'];
 									echo '<div class="panel panel-default">';
 										echo '<div class="panel-heading">';
 											echo '<h4 class="panel-title">';
 												echo '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_'.$pane.$collapseIndex.'">';
-													echo '<span class="glyphicon '.$glyphicons[$pane].'" style="margin-right:10px"></span>'.$check->title.' : '.$check->hint;
+													echo '<span class="glyphicon '.$glyphicons[$pane].'" style="margin-right:10px"></span>'.$title.' : '.$hint;
 												echo '</a>';
 												echo '<span class="badge pull-right">'.number_format($check->duration,3).'s</span>';
 												//echo '<span class="badge pull-right"><a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results.php", "themetype"=>$check->themetype, "filename"=>$check->unittest)).'">'.$check->unittest.'</a></span>';
@@ -220,7 +207,15 @@ if ($fileValidator)
 										if ($pane == 'successes') echo '<div id="collapse_'.$pane.$collapseIndex.'" class="panel-collapse collapse">';
 										else echo '<div id="collapse_'.$pane.$collapseIndex.'" class="panel-collapse">';
 											echo '<div class="panel-body">';
-												if (!empty($check->messages)) echo '<p>'.implode('<br/>',$check->messages).'</p>';
+												if (!empty($check->messages)) {
+													$messages = array();
+													foreach ($check->messages as $i18nArray)
+													{
+														if (isset($i18nArray[$i18n->curLang])) $messages[] = $i18nArray[$i18n->curLang];
+														else if (isset($i18nArray['en'])) $messages[] = $i18nArray['en'];
+													}
+												echo '<p>'.implode('<br/>',$messages).'</p>';
+												}
 											echo '</div>';
 										echo '</div>';
 									echo '</div>';

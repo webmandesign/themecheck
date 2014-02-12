@@ -14,7 +14,7 @@ class LineEndings_Checker extends CheckPart
 			if ( isset( $e['extension'] ) && in_array( $e['extension'], array( 'php', 'css', 'txt', 'js' ) ) ) {
 					if (preg_match("/\r\n/", $file_content) && preg_match("/[^\r]\n/", $file_content)) {
 						$filename = tc_filename( $key );
-						$this->messages[] = sprintf(__('Found a mix of &#92;r&#92;n and &#92;n line endings in file <strong>%1$s</strong>.'), $filename);
+						$this->messages[] = __all('Found a mix of &#92;r&#92;n and &#92;n line endings in file <strong>%1$s</strong>.', $filename);
 						$this->errorLevel = $this->threatLevel;
 					}
 			}
@@ -29,9 +29,9 @@ class LineEndings extends Check
 		//	$test = "windows style line ending\r\nunix style line ending\n";
 		//	file_put_contents('C:\xampp\htdocs\PIQPAQ\themecheck\include\unittests\index.php',$test);
 		
-			$this->title = __("Line endings consistency");
+			$this->title = __all("Line endings consistency");
 			$this->checks = array(
-						new LineEndings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
+						new LineEndings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
 			);
     }
 }

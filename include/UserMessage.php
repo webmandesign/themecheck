@@ -22,7 +22,7 @@ class UserMessage {
 	
 	public function enqueueMessage($message, $errorlevel)
 	{
-		$this->messages[$message] = $errorlevel;
+		if (!isset($this->messages[$message])) $this->messages[$message] = $errorlevel;
 	}
 	
 	public function getMessagesHtml()

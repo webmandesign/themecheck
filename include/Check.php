@@ -15,7 +15,7 @@ abstract class CheckPart
 		public $threatLevel; // ERRORLEVEL_ERROR, ERRORLEVEL_WARNING or ERRORLEVEL_SUCCESS
 		public $code;				// code to be tested
 		public $messages;		// array of messages, variable depending on errors detected while checking
-		public $hint;				// hint/explanation
+		public $hint = array();				// hint/explanation
 		public $unittest;		// zip file of unit tests
 		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA
 		public $errorLevel; // errorlelvel of tested check
@@ -39,9 +39,9 @@ abstract class CheckPart
 			$this->duration = 0;
 			$this->threatLevel = $threatLevel;
 			$this->code = $code;
-			$this->hint = $badPraticeDescription;
+			$this->hint = $badPraticeDescription; // multilingual array of hints
 			$this->unittest = $unittest;
-			$this->messages = array();
+			$this->messages = array(); // array of multilingual messages (array of array)
 			$this->errorLevel = ERRORLEVEL_UNDEFINED;			
     }
 		
@@ -55,12 +55,12 @@ abstract class Check
 {
 		public $duration;		// duration in seconds (float)
 		public $checkCount; // total number of checks the class is supposed to make
-		public $title;			// title
+		public $title;			// title (multilingual array)
 		public $checks = array(); // checklist
 		
     public function __construct()
     {
-			$this->title = '';
+			$this->title = array();
 			$this->createChecks();
 			$this->duration = 0;
 			$this->checkCount = count($this->checks);

@@ -14,9 +14,8 @@ class Badthings_Checker extends CheckPart
             if ( preg_match( $this->code, $phpfile, $matches ) ) {
                 $filename = tc_filename( $php_key );
                 $error = ltrim( trim( $matches[0], '(' ) );
-               // $grep = tc_grep( $error, $php_key );
 								$grep = tc_preg( $this->code, $php_key ); 
-                $this->messages[] = sprintf(__('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s'), $error, $filename, $grep );
+								$this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', $error, $filename, $grep);
                 $this->errorLevel = $this->threatLevel;
             }
         }
@@ -27,18 +26,18 @@ class Badthings extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Security breaches");
+			$this->title = __all("Security breaches");
 			$this->checks = array(
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of eval()')													, '/(?<![_|a-z0-9|\.])eval\s?\(/i', 'ut_badthings_eval.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of PHP sytem calls')							  , '/[^a-z0-9](?<!_)(popen|proc_open|[^_]exec|shell_exec|system|passthru)\(/', 'ut_badthings_systemcalls.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of backticks in PHP code')					, '/`/'														, 'ut_badthings_backticks.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Modification of PHP server settings')		, '/\s?ini_set\(/'								, 'ut_badthings_serversettings.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of base64_decode()')								, '/base64_decode/'								, 'ut_badthings_base64_decode.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of base64_encode()')								, '/base64_encode/'								, 'ut_badthings_base64_encode.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of uudecode()')											, '/uudecode/ims'									, 'ut_badthings_uudecode.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('Use of str_rot13()')										, '/str_rot13/ims'								, 'ut_badthings_str_rot13.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of Google search code')			, '/cx=[0-9]{21}:/'								, 'ut_badthings_googlesearch.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Presence of Google advertising code')	, '/pub-[0-9]{16}/i'							, 'ut_badthings_googleadvertising.zip')
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of eval()')													, '/(?<![_|a-z0-9|\.])eval\s?\(/i', 'ut_badthings_eval.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of PHP sytem calls')							  , '/[^a-z0-9](?<!_)(popen|proc_open|[^_]exec|shell_exec|system|passthru)\(/', 'ut_badthings_systemcalls.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of backticks in PHP code')					, '/`/'														, 'ut_badthings_backticks.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Modification of PHP server settings')		, '/\s?ini_set\(/'								, 'ut_badthings_serversettings.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of base64_decode()')								, '/base64_decode/'								, 'ut_badthings_base64_decode.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of base64_encode()')								, '/base64_encode/'								, 'ut_badthings_base64_encode.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of uudecode()')											, '/uudecode/ims'									, 'ut_badthings_uudecode.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Use of str_rot13()')										, '/str_rot13/ims'								, 'ut_badthings_str_rot13.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google search code')			, '/cx=[0-9]{21}:/'								, 'ut_badthings_googlesearch.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google advertising code')	, '/pub-[0-9]{16}/i'							, 'ut_badthings_googleadvertising.zip')
 			);
     }
 }

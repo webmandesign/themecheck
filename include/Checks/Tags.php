@@ -11,7 +11,7 @@ class Tags_Checker extends CheckPart
         
         if ( strpos( $php, 'the_tags' ) === false && strpos( $php, 'get_the_tag_list' ) === false && strpos( $php, 'get_the_term_list' ) === false )
         {
-            $this->messages[] = __('This theme doesn\'t seem to display tags.');
+            $this->messages[] = __all('This theme doesn\'t seem to display tags.');
             $this->errorLevel = $this->threatLevel;
         }
                 
@@ -22,9 +22,9 @@ class Tags extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Tags");
+			$this->title = __all("Tags");
 			$this->checks = array(
-						new Tags_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __('Tags display'), null, 'ut_tags.zip'),
+						new Tags_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('Tags display'), null, 'ut_tags.zip'),
 			);
     }
 }

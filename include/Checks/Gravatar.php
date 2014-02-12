@@ -11,7 +11,7 @@ class Gravatar_Checker extends CheckPart
         
         if ( (strpos( $php, $this->code[0] ) === false) && ( strpos( $php, $this->code[1] ) === false ) )
         {
-            $this->messages[] = __('This theme doesn&#39;t seem to support the standard avatar functions. Use <strong>get_avatar</strong> or <strong>wp_list_comments</strong> to add this support.');
+            $this->messages[] = __all('This theme doesn&#39;t seem to support the standard avatar functions. Use <strong>get_avatar</strong> or <strong>wp_list_comments</strong> to add this support.');
             $this->errorLevel = $this->threatLevel;
         }
     }
@@ -21,9 +21,9 @@ class Gravatar extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Avatar");
+			$this->title = __all("Avatar");
 			$this->checks = array(
-						new Gravatar_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __("Support of standard avatar functions"), array('get_avatar','World') , 'ut_gravatar.zip'),
+						new Gravatar_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all("Support of standard avatar functions"), array('get_avatar','World') , 'ut_gravatar.zip'),
 			);
     }
 }

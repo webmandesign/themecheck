@@ -52,7 +52,7 @@ class I18NCheck_Checker extends CheckPart
                             {
                                 $error = ( !strpos( $error, $line[0] ) ) ? $grep : '';	
                             }
-                            $this->messages[] = sprintf(__('Possible variable <strong>%1$s</strong> found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s'), $token[1], $filename, $error);
+                            $this->messages[] = __all('Possible variable <strong>%1$s</strong> found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s', $token[1], $filename, $error);
                             $this->errorLevel = $this->threatLevel;
                             break; // stop looking at the tokens on this line once a variable is found
                         }
@@ -69,20 +69,20 @@ class I18NCheck extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("I18N implementation");
+			$this->title = __all("I18N implementation");
 			$this->checks = array(
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of _e(') , '_e', "ut_i18n__e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of ___(') , '__', "ut_i18n___.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of _x(') , '_x', "ut_i18n__x.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of _ex(') , '_ex', "ut_i18n__ex.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_attr___(') , 'esc_attr__', "ut_i18n_esc_attr__.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_attr_e(') , 'esc_attr_e', "ut_i18n_esc_attr_e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_attr_x(') , 'esc_attr_x', "ut_i18n_esc_attr_x.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_html___(') , 'esc_html__', "ut_i18n_esc_html__.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_html_e(') , 'esc_html_e', "ut_i18n_esc_html_e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Proper use of esc_html_x(') , 'esc_html_x', "ut_i18n_esc_html_x.zip"),
-						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Proper use of __(') , '_', "ut_i18n__.zip"),
-						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __('Proper use of gettext(') , 'gettext', "ut_i18n_gettext.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _e(') , '_e', "ut_i18n__e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of ___all(') , '__', "ut_i18n___.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _x(') , '_x', "ut_i18n__x.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _ex(') , '_ex', "ut_i18n__ex.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr___all(') , 'esc_attr__', "ut_i18n_esc_attr__.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_e(') , 'esc_attr_e', "ut_i18n_esc_attr_e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_x(') , 'esc_attr_x', "ut_i18n_esc_attr_x.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html___all(') , 'esc_html__', "ut_i18n_esc_html__.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html_e(') , 'esc_html_e', "ut_i18n_esc_html_e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html_x(') , 'esc_html_x', "ut_i18n_esc_html_x.zip"),
+						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of __all(') , '_', "ut_i18n__.zip"),
+						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of gettext(') , 'gettext', "ut_i18n_gettext.zip"),
 			);
     }
 }

@@ -40,18 +40,18 @@ class Screenshot_Checker extends CheckPart
                 // we have or screenshot!
                 $image = getimagesize( $other_key );
                 if ( $image[0] > 640 || $image[1] > 480 ) {
-                    $this->messages[] = sprintf(__('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Maximum allowed size is 640x480px.'), $image[0], $image[1]);
+                    $this->messages[] = __all('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Maximum allowed size is 640x480px.', $image[0], $image[1]);
                     $this->errorLevel = $this->threatLevel;
                 }
                 if ( $image[1] / $image[0] != 0.75 ) {
 										$width = $image[0];
 										$height = $image[1];
 										$this->reduc($width, $height);
-                    $this->messages[] = sprintf(__('Wrong screenshot dimensions. Detected: <strong>%1$sx%2$spx (%3$s:%4$s)</strong>. Ratio of width to height should be 4:3.'), $image[0], $image[1], $width, $height);
+                    $this->messages[] = __all('Wrong screenshot dimensions. Detected: <strong>%1$sx%2$spx (%3$s:%4$s)</strong>. Ratio of width to height should be 4:3.', $image[0], $image[1], $width, $height);
                     $this->errorLevel = $this->threatLevel;
                 }
                 if ( $image[0] != 600 || $image[1] != 450 ) {
-                    $this->messages[] = sprintf(__('Screenshot size is <strong>%1$sx%2$spx</strong>. Although any 4:3 image size is acceptable, size should be 600x450 to account for HiDPI displays.'),$image[0], $image[1]);
+                    $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Although any 4:3 image size is acceptable, size should be 600x450 to account for HiDPI displays.',$image[0], $image[1]);
                     $this->errorLevel = ERRORLEVEL_WARNING;
                 }
                 break;
@@ -60,7 +60,7 @@ class Screenshot_Checker extends CheckPart
         
         if(!$found)
         {
-            $this->messages[] = __("No screenshot detected. Theme archive must contain a <strong>screenshot.png</strong> file with a recommanded resolution of 600x450.");
+            $this->messages[] = __all("No screenshot detected. Theme archive must contain a <strong>screenshot.png</strong> file with a recommanded resolution of 600x450.");
 						$this->errorLevel = $this->threatLevel;
         }
     }
@@ -70,9 +70,9 @@ class Screenshot extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Screenshot");
+			$this->title = __all("Screenshot");
 			$this->checks = array(
-						new Screenshot_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
+						new Screenshot_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
 			);
     }
 }

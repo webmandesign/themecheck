@@ -6,6 +6,27 @@ require_once TC_INCDIR.'/Check.php';
 require_once TC_INCDIR.'/tc_helpers.php';
 require_once TC_INCDIR.'/ThemeInfo.php';
 
+function objectToArray($d) {
+	if (is_object($d)) {
+		// Gets the properties of the given object
+		// with get_object_vars function
+		$d = get_object_vars($d);
+	}
+
+	if (is_array($d)) {
+		/*
+		* Return array converted to object
+		* Using __FUNCTION__ (Magic constant)
+		* for recursive call
+		*/
+		return array_map(__FUNCTION__, $d);
+	}
+	else {
+		// Return array
+		return $d;
+	}
+}
+	
 class FileValidator
 {
 	public $themeInfo; // type ThemeInfo
@@ -137,21 +158,21 @@ class FileValidator
 		$phpfiles_tmp = $this->phpfiles; unset($this->phpfiles); // don't store theme content
 		$cssfiles_tmp = $this->cssfiles; unset($this->cssfiles); // don't store theme content
 		$otherfiles_tmp = $this->otherfiles; unset($this->otherfiles); // don't store theme content
+		$checklist_tmp = $this->checklist; unset($this->checklist); // don't store checklist. it's useless at unserialization time and it takes space.
 		$json = json_encode($this);
-		$lang = I18N::getCurLang();
-		file_put_contents($savedirectory_rslt.'/results_'.$lang.'.json', $json);
+		file_put_contents($savedirectory_rslt.'/results.json', $json);
 		// recover temporarily lost properties
 		$this->themeInfo = $themeInfo_tmp;
 		$this->phpfiles = $phpfiles_tmp;
 		$this->cssfiles = $cssfiles_tmp;
 		$this->otherfiles = $otherfiles_tmp;
-		
+		$this->checklist = $checklist_tmp;
 	}
 	
 	/** 
 	*		Restore check results from a JSON file.
 	**/
-	static public function unserialize($hash, $lang)
+	static public function unserialize($hash)
 	{
 		if (!USE_HISTORY) return null;
 		
@@ -162,11 +183,12 @@ class FileValidator
 		$themeInfo = $history->loadThemeFromHash($hash);
 		if (empty($themeInfo)) return null;
 
-		$fullfilename = $directory.'/results_'.$lang.'.json';
+		$fullfilename = $directory.'/results.json';
 		$json = file_get_contents($fullfilename);
 		$obj = json_decode($json);
 		$fileValidator = new FileValidator($themeInfo);
-		$fileValidator->checklist = $obj->checklist;
+		$fileValidator->checklist = null; // not stored
+
 		$fileValidator->phpfiles = null; // never stored
 		$fileValidator->cssfiles = null; // never stored
 		$fileValidator->otherfiles = null; // never stored
@@ -177,6 +199,44 @@ class FileValidator
 		$fileValidator->check_count = $obj->check_count;
 		$fileValidator->check_countOK = $obj->check_countOK;
 		$fileValidator->score = $obj->score;	
+	
+		// convert some objects back to associative arrays. (unlike indexed arrays, associative arrays are converted to objects when serialized to json)
+		for($i = 0 ;$i<count($fileValidator->check_fails);$i++)
+		{
+			for($j = 0 ;$j<count($fileValidator->check_fails[$i]->messages);$j++)
+			{
+				$fileValidator->check_fails[$i]->messages[$j] = objectToArray($fileValidator->check_fails[$i]->messages[$j]);
+			}
+			$fileValidator->check_fails[$i]->hint = objectToArray($fileValidator->check_fails[$i]->hint);
+			$fileValidator->check_fails[$i]->title = objectToArray($fileValidator->check_fails[$i]->title);
+		}
+		for($i = 0 ;$i<count($fileValidator->check_warnings);$i++)
+		{
+			for($j = 0 ;$j<count($fileValidator->check_warnings[$i]->messages);$j++)
+			{
+				$fileValidator->check_warnings[$i]->messages[$j] = objectToArray($fileValidator->check_warnings[$i]->messages[$j]);
+			}
+			$fileValidator->check_warnings[$i]->hint = objectToArray($fileValidator->check_warnings[$i]->hint);
+			$fileValidator->check_warnings[$i]->title = objectToArray($fileValidator->check_warnings[$i]->title);
+		}
+		for($i = 0 ;$i<count($fileValidator->check_successes);$i++)
+		{
+			for($j = 0 ;$j<count($fileValidator->check_successes[$i]->messages);$j++)
+			{
+				$fileValidator->check_successes[$i]->messages[$j] = objectToArray($fileValidator->check_successes[$i]->messages[$j]);
+			}
+			$fileValidator->check_successes[$i]->hint = objectToArray($fileValidator->check_successes[$i]->hint);
+			$fileValidator->check_successes[$i]->title = objectToArray($fileValidator->check_successes[$i]->title);
+		}
+		for($i = 0 ;$i<count($fileValidator->check_undefined);$i++)
+		{
+			for($j = 0 ;$j<count($fileValidator->check_undefined[$i]->messages);$j++)
+			{
+				$fileValidator->check_undefined[$i]->messages[$j] = objectToArray($fileValidator->check_undefined[$i]->messages[$j]);
+			}
+			$fileValidator->check_undefined[$i]->hint = objectToArray($fileValidator->check_undefined[$i]->hint);
+			$fileValidator->check_undefined[$i]->title = objectToArray($fileValidator->check_undefined[$i]->title);
+		}
 	
 		return $fileValidator;
 	}

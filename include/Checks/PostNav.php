@@ -12,7 +12,7 @@ class PostNav_Checker extends CheckPart
         if ( strpos( $php, 'posts_nav_link' ) === false && strpos( $php, 'paginate_links' ) === false &&
            ( strpos( $php, 'previous_posts_link' ) === false && strpos( $php, 'next_posts_link' ) === false )
            ) {
-                $this->messages[] = __('The theme doesn&#39;t have post pagination code in it. Use <strong>posts_nav_link()</strong> or <strong>paginate_links()</strong> or <strong>next_posts_link()</strong> and <strong>previous_posts_link()</strong> to add post pagination.');
+                $this->messages[] = __all('The theme doesn&#39;t have post pagination code in it. Use <strong>posts_nav_link()</strong> or <strong>paginate_links()</strong> or <strong>next_posts_link()</strong> and <strong>previous_posts_link()</strong> to add post pagination.');
                 $this->errorLevel = $this->threatLevel;
         }
     }
@@ -22,9 +22,9 @@ class PostNav extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Post pagination");
+			$this->title = __all("Post pagination");
 			$this->checks = array(
-						new PostNav_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __("Implementation"), null, 'ut_postnav.zip'),
+						new PostNav_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all("Implementation"), null, 'ut_postnav.zip'),
 			);
     }
 }

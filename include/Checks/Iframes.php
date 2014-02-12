@@ -14,7 +14,7 @@ class Iframes_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( trim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = sprintf(__('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s'), htmlspecialchars($error), $filename, $grep );
+                $this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', htmlspecialchars($error), $filename, $grep );
                 $this->errorLevel = $this->threatLevel;
             }
         }
@@ -25,9 +25,9 @@ class Iframes extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Presence of iframes");
+			$this->title = __all("Presence of iframes");
 			$this->checks = array(
-						new Iframes_Checker(TT_COMMON, ERRORLEVEL_ERROR, __('iframes are sometimes used to load unwanted adverts and malicious code on another site'), '/<(iframe)[^>]*>/', 'ut_iframes.zip')
+						new Iframes_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('iframes are sometimes used to load unwanted adverts and malicious code on another site'), '/<(iframe)[^>]*>/', 'ut_iframes.zip')
 			);
     }
 }

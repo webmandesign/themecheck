@@ -13,7 +13,7 @@ class Constants_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = sprintf(__('Constant <strong>%1$s</strong> was found in the file <strong>%2$s</strong>. Use <strong>%3$s</strong> instead. %4$s'), $error, $filename, $this->code[1], $grep );
+                $this->messages[] = __all('Constant <strong>%1$s</strong> was found in the file <strong>%2$s</strong>. Use <strong>%3$s</strong> instead. %4$s', $error, $filename, $this->code[1], $grep );
                 $this->errorLevel = $this->threatLevel;
             }
         }
@@ -24,12 +24,12 @@ class Constants extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __("Inapropriate constants");
+			$this->title = __all("Inapropriate constants");
 			$this->checks = array(
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Use of STYLESHEETPATH') , array('STYLESHEETPATH', 'get_stylesheet_directory()'), 'ut_constants_get_stylesheet_directory.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Use of TEMPLATEPATH') , array('TEMPLATEPATH', 'get_template_directory()'), 'ut_constants_get_template_directory.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Use of PLUGINDIR') , array('PLUGINDIR','WP_PLUGIN_DIR'), 'ut_constants_wp_plugin_dir.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __('Use of MUPLUGINDIR') , array('MUPLUGINDIR','WPMU_PLUGIN_DIR'), 'ut_constants_wpmu_plugin_dir.zip'),
+						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of STYLESHEETPATH') , array('STYLESHEETPATH', 'get_stylesheet_directory()'), 'ut_constants_get_stylesheet_directory.zip'),
+						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of TEMPLATEPATH') , array('TEMPLATEPATH', 'get_template_directory()'), 'ut_constants_get_template_directory.zip'),
+						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of PLUGINDIR') , array('PLUGINDIR','WP_PLUGIN_DIR'), 'ut_constants_wp_plugin_dir.zip'),
+						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of MUPLUGINDIR') , array('MUPLUGINDIR','WPMU_PLUGIN_DIR'), 'ut_constants_wpmu_plugin_dir.zip'),
 			);
     }
 }
