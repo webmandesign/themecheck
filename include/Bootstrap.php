@@ -63,12 +63,12 @@ define("ERRORLEVEL_ERROR", 1);
 define("ERRORLEVEL_WARNING", 2);
 define("ERRORLEVEL_SUCCESS", 3);
 define("ERRORLEVEL_INFO", 4);
-define("USE_HISTORY", true); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
+define("USE_DB", true); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
 
 // ****************************************************************************
 // Init
 // ****************************************************************************
-if (USE_HISTORY) include_once (TC_INCDIR.'/History.php');
+if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
 include_once (TC_INCDIR.'/Route.php');
 include_once (TC_INCDIR.'/I18N.php');
 

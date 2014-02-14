@@ -2,7 +2,7 @@
 namespace ThemeCheck;
 require_once TC_INCDIR."/FileValidator.php";
 require_once TC_INCDIR."/Helpers.php";
-if (USE_HISTORY) include_once (TC_INCDIR.'/History.php');
+if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
 $max_size = Helpers::returnBytes(ini_get('upload_max_filesize'));
 if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
 $max_size_MB = $max_size / (1024*1024);
@@ -31,7 +31,7 @@ $samepage_i18n = array('en' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(
 											 'fr' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"fr", "phpfile"=>"index.php")));
 					
 // display recent validated file if	history is available			
-if (USE_HISTORY) {
+if (USE_DB) {
 $history = new History();
 
 ?>

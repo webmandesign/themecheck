@@ -5,6 +5,7 @@ require_once TC_INCDIR.'/ListDirectoryFiles.php';
 require_once TC_INCDIR.'/Check.php';
 require_once TC_INCDIR.'/tc_helpers.php';
 require_once TC_INCDIR.'/ThemeInfo.php';
+require_once TC_INCDIR.'/ValidationResults.php';
 
 function objectToArray($d) {
 	if (is_object($d)) {
@@ -35,14 +36,7 @@ class FileValidator
 	public $cssfiles = array();
 	public $otherfiles = array();
 					
-	public $check_fails = array();
-	public $check_warnings = array();
-	public $check_successes = array();
-	public $check_undefined = array();
-	public $check_count = 0;
-	public $check_countOK = 0; // warnings + successes
-	public $score = 0; // %warnings + %successes
-	
+	public $validationResults = array();// associative array of $lang => ValidationResult
 	private $history = null; 
 
 	private $checklistCommon = array (
@@ -87,7 +81,7 @@ class FileValidator
 	public function __construct($themeInfo)
 	{
 		$this->themeInfo = $themeInfo;
-		if (USE_HISTORY) $this->history = new History();
+		if (USE_DB) $this->history = new History();
 	}
 	
 	/** 
@@ -147,26 +141,15 @@ class FileValidator
 		$this->themeInfo->imagePath = realpath($savedirectory_img.'/thumbnail.png');
 
 		// save meta data
-		if (USE_HISTORY) {
+		if (USE_DB) {
 			$this->history->saveTheme($this->themeInfo);			
 		}
 		
 		// save validation results
-		$savedirectory_rslt = ThemeInfo::getReportDirectory($this->themeInfo->hash);
-		if (!file_exists($savedirectory_rslt)) mkdir($savedirectory_rslt, 0774, true);
-		$themeInfo_tmp = $this->themeInfo; unset($this->themeInfo);// themeInfo is stored in a separate file
-		$phpfiles_tmp = $this->phpfiles; unset($this->phpfiles); // don't store theme content
-		$cssfiles_tmp = $this->cssfiles; unset($this->cssfiles); // don't store theme content
-		$otherfiles_tmp = $this->otherfiles; unset($this->otherfiles); // don't store theme content
-		$checklist_tmp = $this->checklist; unset($this->checklist); // don't store checklist. it's useless at unserialization time and it takes space.
-		$json = json_encode($this);
-		file_put_contents($savedirectory_rslt.'/results.json', $json);
-		// recover temporarily lost properties
-		$this->themeInfo = $themeInfo_tmp;
-		$this->phpfiles = $phpfiles_tmp;
-		$this->cssfiles = $cssfiles_tmp;
-		$this->otherfiles = $otherfiles_tmp;
-		$this->checklist = $checklist_tmp;
+		foreach($this->validationResults as $lang=>$_validationResults)
+		{
+			$_validationResults->serialize($this->themeInfo->hash);
+		}
 	}
 	
 	/** 
@@ -174,7 +157,7 @@ class FileValidator
 	**/
 	static public function unserialize($hash)
 	{
-		if (!USE_HISTORY) return null;
+		if (!USE_DB) return null;
 		
 		$directory = ThemeInfo::getReportDirectory($hash);
 		if (!file_exists($directory )) return null;
@@ -183,61 +166,16 @@ class FileValidator
 		$themeInfo = $history->loadThemeFromHash($hash);
 		if (empty($themeInfo)) return null;
 
-		$fullfilename = $directory.'/results.json';
-		$json = file_get_contents($fullfilename);
-		$obj = json_decode($json);
 		$fileValidator = new FileValidator($themeInfo);
-		$fileValidator->checklist = null; // not stored
-
-		$fileValidator->phpfiles = null; // never stored
-		$fileValidator->cssfiles = null; // never stored
-		$fileValidator->otherfiles = null; // never stored
-		$fileValidator->check_fails = $obj->check_fails;
-		$fileValidator->check_warnings = $obj->check_warnings;
-		$fileValidator->check_successes = $obj->check_successes;
-		$fileValidator->check_undefined = $obj->check_undefined;
-		$fileValidator->check_count = $obj->check_count;
-		$fileValidator->check_countOK = $obj->check_countOK;
-		$fileValidator->score = $obj->score;	
-	
-		// convert some objects back to associative arrays. (unlike indexed arrays, associative arrays are converted to objects when serialized to json)
-		for($i = 0 ;$i<count($fileValidator->check_fails);$i++)
+		
+		global $ExistingLangs;
+		foreach($ExistingLangs as $l)
 		{
-			for($j = 0 ;$j<count($fileValidator->check_fails[$i]->messages);$j++)
-			{
-				$fileValidator->check_fails[$i]->messages[$j] = objectToArray($fileValidator->check_fails[$i]->messages[$j]);
-			}
-			$fileValidator->check_fails[$i]->hint = objectToArray($fileValidator->check_fails[$i]->hint);
-			$fileValidator->check_fails[$i]->title = objectToArray($fileValidator->check_fails[$i]->title);
+			$_validationResults = ValidationResults::unserialize($hash, $l);
+			if (empty($_validationResults)) continue;
+			$fileValidator->validationResults[$l] = $_validationResults;
 		}
-		for($i = 0 ;$i<count($fileValidator->check_warnings);$i++)
-		{
-			for($j = 0 ;$j<count($fileValidator->check_warnings[$i]->messages);$j++)
-			{
-				$fileValidator->check_warnings[$i]->messages[$j] = objectToArray($fileValidator->check_warnings[$i]->messages[$j]);
-			}
-			$fileValidator->check_warnings[$i]->hint = objectToArray($fileValidator->check_warnings[$i]->hint);
-			$fileValidator->check_warnings[$i]->title = objectToArray($fileValidator->check_warnings[$i]->title);
-		}
-		for($i = 0 ;$i<count($fileValidator->check_successes);$i++)
-		{
-			for($j = 0 ;$j<count($fileValidator->check_successes[$i]->messages);$j++)
-			{
-				$fileValidator->check_successes[$i]->messages[$j] = objectToArray($fileValidator->check_successes[$i]->messages[$j]);
-			}
-			$fileValidator->check_successes[$i]->hint = objectToArray($fileValidator->check_successes[$i]->hint);
-			$fileValidator->check_successes[$i]->title = objectToArray($fileValidator->check_successes[$i]->title);
-		}
-		for($i = 0 ;$i<count($fileValidator->check_undefined);$i++)
-		{
-			for($j = 0 ;$j<count($fileValidator->check_undefined[$i]->messages);$j++)
-			{
-				$fileValidator->check_undefined[$i]->messages[$j] = objectToArray($fileValidator->check_undefined[$i]->messages[$j]);
-			}
-			$fileValidator->check_undefined[$i]->hint = objectToArray($fileValidator->check_undefined[$i]->hint);
-			$fileValidator->check_undefined[$i]->title = objectToArray($fileValidator->check_undefined[$i]->title);
-		}
-	
+			
 		return $fileValidator;
 	}
 	
@@ -414,25 +352,56 @@ class FileValidator
 		}
 		date_default_timezone_set('UTC');
 		$this->themeInfo->validation_datetime = date("U"); // Unix timestamp
+		
+		$check_fails = array();
+		$check_warnings = array();
+		$check_successes = array();
+		$check_undefined = array();
+		$check_count = 0;
+		$check_countOK = 0;
+		$score = 0;
+		
+		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
 		foreach ($this->checklist as $check)
 		{
 			$check->doCheck($this->phpfiles, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{
+				//echo (get_class($check)).'<br>';
 				if ($this->themeInfo->themetype & $checkpart->themetype) 
 				{
 					$checkpart->title = $check->title; // a bit dirty...
-					if ($checkpart->errorLevel == ERRORLEVEL_ERROR) $this->check_fails[] = $checkpart;
-					else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $this->check_warnings[] = $checkpart;
-					else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $this->check_successes[] = $checkpart;
-					else $this->check_undefined[] = $checkpart;
+					if ($checkpart->errorLevel == ERRORLEVEL_ERROR) $check_fails[] = $checkpart;
+					else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
+					else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
+					else $check_undefined[] = $checkpart;
 					
-					$this->check_count++;
+					$check_count++;
 				}
 			}
 		}
-		$this->check_countOK = count($this->check_successes) + count($this->check_warnings);
-		if ($this->check_count > 0) $this->score = (100 * $this->check_countOK) / $this->check_count;
+		$check_countOK = count($check_successes) + count($check_warnings);
+		if ($check_count > 0) $score = (100 * $check_countOK) / $check_count;
+		
+		// generate validationResults, one for each existing language. Checks are monolingual : no more multilingual arrays.
+		global $ExistingLangs;
+		foreach($ExistingLangs as $l)
+		{
+			$this->validationResults[$l] = new ValidationResults($l);
+			foreach($check_fails as $checkpart_multi) $this->validationResults[$l]->check_fails[] = $checkpart_multi->getMonolingual($l);
+			foreach($check_warnings as $checkpart_multi) $this->validationResults[$l]->check_warnings[] = $checkpart_multi->getMonolingual($l);
+			foreach($check_successes as $checkpart_multi) $this->validationResults[$l]->check_successes[] = $checkpart_multi->getMonolingual($l);
+			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
+			$this->validationResults[$l]->check_count = $check_count;
+			$this->validationResults[$l]->check_countOK = $check_countOK;
+			$this->validationResults[$l]->score = $score;
+		}		
+	}
+	
+	public function getValidationResults($lang)
+	{
+		if (isset($this->validationResults[$lang])) return $this->validationResults[$lang];
+		return $this->validationResults['en'];
 	}
 }
 ?>

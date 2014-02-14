@@ -22,8 +22,8 @@ class Custom extends Check
     {
 			$this->title = __all("Custom elements");
 			$this->checks = array(
-						new Custom_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of custom header"), array('#add_theme_support\s?\(\s?[\'|"]custom-header#', __all('custom header')), 'ut_custom_add_theme_support_header.zip'),
-						new Custom_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of custom background"), array('#add_theme_support\s?\(\s?[\'|"]custom-background#', __all('custom background')), 'ut_custom_add_theme_support_background.zip')
+						new Custom_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of custom header"), array('#add_theme_support\s?\(\s?[\'|"]custom-header#', 'custom header'), 'ut_custom_add_theme_support_header.zip'),
+						new Custom_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of custom background"), array('#add_theme_support\s?\(\s?[\'|"]custom-background#', 'custom background'), 'ut_custom_add_theme_support_background.zip')
 			);
     }
 }

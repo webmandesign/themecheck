@@ -15,7 +15,7 @@ if (isset($routeParts["hash"])) // already uploaded file
 {
 	$hash = $routeParts["hash"];
 	$fileValidator = FileValidator::unserialize($hash);
-//	var_dump($fileValidator->check_successes[0]);
+	$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
 } else if (isset($_GET["filename"])) // unit tests
 {	
 	// check unit test existence
@@ -35,6 +35,8 @@ if (isset($routeParts["hash"])) // already uploaded file
 	$fileValidator = new FileValidator($archiveInfo);
 	$fileValidator->validate();	
 	$fileValidator->serialize();
+	
+	$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
 }
 
 if ($fileValidator)
@@ -88,7 +90,7 @@ if ($fileValidator)
 		}
 		*/
 		$themeInfo = $fileValidator->themeInfo;
-		if ($themeInfo->serializable && USE_HISTORY)  $samepage_i18n = array('en' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results.php", "hash"=>$themeInfo->hash)),
+		if ($themeInfo->serializable && USE_DB)  $samepage_i18n = array('en' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results.php", "hash"=>$themeInfo->hash)),
 											 'fr' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"fr", "phpfile"=>"results.php", "hash"=>$themeInfo->hash)));
 		 else $samepage_i18n = array('en' => null, 'fr' => null);
 ?>
@@ -99,17 +101,17 @@ if ($fileValidator)
 					<?php
 						$percentclass = 'text-success';
 						$picto = '<img style="margin-bottom:20px;margin-right:50px" src="'.TC_HTTPDOMAIN.'/img/pictosuccess.png">';
-						if (count($fileValidator->check_fails) > 0)
+						if (count($validationResults->check_fails) > 0)
 						{
 							$percentclass = "text-danger";
 							$picto = '';
 						}
-					  else if (count($fileValidator->check_warnings) > 0)
+					  else if (count($validationResults->check_warnings) > 0)
 						{
 							$percentclass = "text-warning";
 							$picto = '<img style="margin-bottom:20px;margin-right:50px" src="'.TC_HTTPDOMAIN.'/img/pictowarning.png">';
 						}
-						echo '<p class="text-center '.$percentclass.'" style="font-size:100px;">'.$picto.number_format($fileValidator->score,2).'&nbsp%</p>';
+						echo '<p class="text-center '.$percentclass.'" style="font-size:100px;">'.$picto.number_format($validationResults->score,2).'&nbsp%</p>';
 								?>
 				</div>
 			</div>
@@ -157,16 +159,16 @@ if ($fileValidator)
 					<?php
 					echo '<div class="row"><div class="col-md-12">';
 					
-					$panes = array("failures" => $fileValidator->check_fails, "warnings" =>$fileValidator->check_warnings, "successes" => $fileValidator->check_successes);
-					if (count($fileValidator->check_undefined)>0) $panes["undefined"] = $fileValidator->check_undefined;
+					$panes = array("failures" => $validationResults->check_fails, "warnings" =>$validationResults->check_warnings, "successes" => $validationResults->check_successes);
+					if (count($validationResults->check_undefined)>0) $panes["undefined"] = $validationResults->check_undefined;
 					$glyphicons = array("failures" => "glyphicon-remove-sign", "warnings" =>"glyphicon-exclamation-sign", "successes" => "glyphicon-ok-sign", "undefined" => "glyphicon-question-sign");
 					?>
 
 					<ul class="nav nav-tabs">
-						<li class="active"><a class="btn-danger" href="#failures" data-toggle="tab"><?php echo __("Failures").' ('.count($fileValidator->check_fails).')';?></a></li>
-						<li><a class="btn-warning" href="#warnings" data-toggle="tab"><?php echo __("Warnings").' ('.count($fileValidator->check_warnings).')';?></a></li>
-						<li><a class="btn-success" href="#successes" data-toggle="tab"><?php echo __("Successes").' ('.count($fileValidator->check_successes).')';?></a></li>
-						<?php if (count($fileValidator->check_undefined)>0) echo '<li><a href="#undefined" data-toggle="tab">'.__("Undefined").' ('.count($fileValidator->check_undefined).')</a></li>';?>
+						<li class="active"><a class="btn-danger" href="#failures" data-toggle="tab"><?php echo __("Failures").' ('.count($validationResults->check_fails).')';?></a></li>
+						<li><a class="btn-warning" href="#warnings" data-toggle="tab"><?php echo __("Warnings").' ('.count($validationResults->check_warnings).')';?></a></li>
+						<li><a class="btn-success" href="#successes" data-toggle="tab"><?php echo __("Successes").' ('.count($validationResults->check_successes).')';?></a></li>
+						<?php if (count($validationResults->check_undefined)>0) echo '<li><a href="#undefined" data-toggle="tab">'.__("Undefined").' ('.count($validationResults->check_undefined).')</a></li>';?>
 					</ul>
 					<div class="tab-content">
 						<?php 
@@ -183,19 +185,11 @@ if ($fileValidator)
 								
 								foreach($checks as $check)
 								{
-								//var_dump($checks);
-									$hint = '';
-									
-									if (isset($check->hint[$i18n->curLang])) $hint = $check->hint[$i18n->curLang];
-									else if (isset($check->hint['en'])) $hint = $check->hint['en'];
-									$title = '';
-									if (isset($check->title[$i18n->curLang])) $title = $check->title[$i18n->curLang];
-									else if (isset($check->title['en'])) $title = $check->title['en'];
 									echo '<div class="panel panel-default">';
 										echo '<div class="panel-heading">';
 											echo '<h4 class="panel-title">';
 												echo '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse_'.$pane.$collapseIndex.'">';
-													echo '<span class="glyphicon '.$glyphicons[$pane].'" style="margin-right:10px"></span>'.$title.' : '.$hint;
+													echo '<span class="glyphicon '.$glyphicons[$pane].'" style="margin-right:10px"></span>'.$check->title.' : '.$check->hint;
 												echo '</a>';
 												echo '<span class="badge pull-right">'.number_format($check->duration,3).'s</span>';
 												//echo '<span class="badge pull-right"><a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results.php", "themetype"=>$check->themetype, "filename"=>$check->unittest)).'">'.$check->unittest.'</a></span>';
@@ -208,13 +202,7 @@ if ($fileValidator)
 										else echo '<div id="collapse_'.$pane.$collapseIndex.'" class="panel-collapse">';
 											echo '<div class="panel-body">';
 												if (!empty($check->messages)) {
-													$messages = array();
-													foreach ($check->messages as $i18nArray)
-													{
-														if (isset($i18nArray[$i18n->curLang])) $messages[] = $i18nArray[$i18n->curLang];
-														else if (isset($i18nArray['en'])) $messages[] = $i18nArray['en'];
-													}
-												echo '<p>'.implode('<br/>',$messages).'</p>';
+													echo '<p>'.implode('<br/>',$check->messages).'</p>';
 												}
 											echo '</div>';
 										echo '</div>';

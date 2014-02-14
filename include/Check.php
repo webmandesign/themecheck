@@ -14,7 +14,7 @@ abstract class CheckPart
 		public $duration;		// duration in seconds (float)
 		public $threatLevel; // ERRORLEVEL_ERROR, ERRORLEVEL_WARNING or ERRORLEVEL_SUCCESS
 		public $code;				// code to be tested
-		public $messages;		// array of messages, variable depending on errors detected while checking
+		public $messages = array();		// array of messages, variable depending on errors detected while checking
 		public $hint = array();				// hint/explanation
 		public $unittest;		// zip file of unit tests
 		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA
@@ -47,6 +47,30 @@ abstract class CheckPart
 		
 		public function doCheck($php_files, $css_files, $other_files)
 		{
+		}
+		
+		/**
+		* Converts the current multilingual CheckPart to a monolingual CheckPart
+		*/
+		public function getMonolingual($lang)
+		{
+			$_hint = (isset($this->hint[$lang]))?$this->hint[$lang]:$this->hint['en'];
+			
+			$_messages = array();
+			foreach ($this->messages as $m)
+			{
+				$_messages[] = (isset($m[$lang]))?$m[$lang]:$m['en'];
+			}
+
+			$ret = clone $this;
+			$ret->hint = $_hint;
+			$ret->messages = $_messages;
+			
+			if (isset($this->title))
+			{
+				$ret->title = (isset($this->title[$lang]))?$this->title[$lang]:$this->title['en'];
+			}
+			return $ret;
 		}
 }
 
