@@ -380,8 +380,10 @@ class FileValidator
 				}
 			}
 		}
-		$check_countOK = count($check_successes) + count($check_warnings);
-		if ($check_count > 0) $score = (100 * $check_countOK) / $check_count;
+		$this->themeInfo->check_count = $check_count;
+		$this->themeInfo->check_countOK = count($check_successes) + count($check_warnings);
+		if ($check_count > 0) $this->themeInfo->score = (100 * $this->themeInfo->check_countOK) / $this->themeInfo->check_count;
+		else $this->themeInfo->score = 0.0;
 		
 		// generate validationResults, one for each existing language. Checks are monolingual : no more multilingual arrays.
 		global $ExistingLangs;
@@ -392,9 +394,6 @@ class FileValidator
 			foreach($check_warnings as $checkpart_multi) $this->validationResults[$l]->check_warnings[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_successes as $checkpart_multi) $this->validationResults[$l]->check_successes[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
-			$this->validationResults[$l]->check_count = $check_count;
-			$this->validationResults[$l]->check_countOK = $check_countOK;
-			$this->validationResults[$l]->score = $score;
 		}		
 	}
 	

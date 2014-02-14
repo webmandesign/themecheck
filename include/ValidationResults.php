@@ -44,8 +44,8 @@ class ValidationResults
 		$validationResults->check_warnings = $obj->check_warnings;
 		$validationResults->check_successes = $obj->check_successes;
 		$validationResults->check_undefined = $obj->check_undefined;
-		$validationResults->check_count = $obj->check_count;
-		$validationResults->check_countOK = $obj->check_countOK;
+		$validationResults->check_count = count($validationResults->check_fails) + count($validationResults->check_warnings) + count($validationResults->check_successes) + count($validationResults->check_undefined);
+		$validationResults->check_countOK = count($validationResults->check_warnings) + count($validationResults->check_successes);
 		$validationResults->score = $obj->score;	
 
 		return $validationResults;

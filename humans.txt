@@ -5,13 +5,14 @@
 
     Guillaume BAUDHUIN -- Project Manager, Developer -- Twitter : @GuillaumePeoleo
 		Raphaël PERRAUDEAU -- Developer
+		Aurélien SERGHERAERT -- Developer
 
 # THANKS
 
     Simon Prosser
 		Samuel Wood (Otto)
 
-# TECHNOLOGY COLOPHON
+# TECHNOLOGY
 
     HTML5, CSS3
-    jQuery, Modernizr
+		Bootstrap, jQuery, Modernizr

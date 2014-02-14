@@ -111,7 +111,7 @@ if ($fileValidator)
 							$percentclass = "text-warning";
 							$picto = '<img style="margin-bottom:20px;margin-right:50px" src="'.TC_HTTPDOMAIN.'/img/pictowarning.png">';
 						}
-						echo '<p class="text-center '.$percentclass.'" style="font-size:100px;">'.$picto.number_format($validationResults->score,2).'&nbsp%</p>';
+						echo '<p class="text-center '.$percentclass.'" style="font-size:100px;">'.$picto.number_format($themeInfo->score,2).'&nbsp%</p>';
 								?>
 				</div>
 			</div>
