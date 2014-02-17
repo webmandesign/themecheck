@@ -249,9 +249,18 @@ class FileValidator
 	static public function prepareThemeInfo($src_path, $src_name, $src_type, $isUpload=false)
 	{
 		$src_size = filesize($src_path);
+		if ($src_size < 1000)
+		{
+			$userMessage = UserMessage::getInstance();
+			$userMessage->enqueueMessage(__('Files under 1 KB are not accepted. Operation canceled.'), ERRORLEVEL_ERROR);
+			return null;
+		}
 		$hash_md5 = md5_file($src_path); 
 		$sha1_file = sha1_file($src_path); 
 		$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
+		
+		while(strlen($hash_alpha) < 25) $hash_alpha = '0'.$hash_alpha;
+
 		$zipfilepath = self::hashToPathUpload($hash_alpha);
 		if ($isUpload)
 			move_uploaded_file($src_path, $zipfilepath); // move file to final place (overwrites if already existing)
@@ -266,8 +275,10 @@ class FileValidator
 			
 			$res = $zip->open($zipfilepath);
 			if ($res === TRUE) {
+			
 				if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath); // needed to avoid keeped old files that don't exist anymore in the new archive
 				$zip->extractTo($unzippath);
+
 				$zip->close();
 			} else {
 				trigger_error(__("File could not be unzipped."), E_USER_ERROR);

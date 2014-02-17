@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
 "POT-Creation-Date: 2014-02-05 20:04+0100\n"
-"PO-Revision-Date: 2014-02-12 19:28+0100\n"
+"PO-Revision-Date: 2014-02-17 22:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -26,8 +26,8 @@ msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
 "Uploaded file must be a zip archive."
 msgstr ""
-"Mauvais format de fichier. Le type Mime %s n'est pas un format reconnu pour "
-"les themes web. Le fichier doit être une archive zip."
+"Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
+"pour les themes web. Le fichier doit être une archive zip."
 
 #: include/FileValidator.php:243
 #, php-format
@@ -35,8 +35,8 @@ msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
 "\".zip\"."
 msgstr ""
-"Mauvaise extension. L'extension du fichier %s n'est pas reconnue. "
-"L'extension doit être \".zip\"."
+"Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
+"L&#39;extension doit être \".zip\"."
 
 #: include/FileValidator.php:249
 #, php-format
@@ -45,20 +45,21 @@ msgstr "La taille du fichier téléchargé dépasse %s."
 
 #: include/FileValidator.php:255
 msgid "The uploaded file was only partially uploaded."
-msgstr "Le fichier téléchargé n'a été que partiellement téléchargé."
+msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
 
 #: include/FileValidator.php:261
 msgid "No file was uploaded."
-msgstr "Aucun fichier n'a été téléchargé."
+msgstr "Aucun fichier n&#39;a été téléchargé."
 
 #: include/FileValidator.php:299
 msgid "File could not be unzipped."
-msgstr "Fichier n'a pas pu être décompressé."
+msgstr "Fichier n&#39;a pas pu être décompressé."
 
 #: include/FileValidator.php:302
 msgid "Archive extraction failed. The following exception occured : "
 msgstr ""
-"L'extraction de l'archive a échoué. L'exception suivante s'est produite :"
+"L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
+"est produite :"
 
 #: include/History.php:54
 #, php-format
@@ -97,7 +98,7 @@ msgstr "<pre>Ligne"
 #: include/Checks/AdminMenu.php:15
 #, php-format
 msgid "File <strong>%1$s</strong> : %2$s"
-msgstr "Fichier <strong>%1$s</ strong> : %2$s"
+msgstr "Fichier <strong>%1$s</strong> : %2$s"
 
 #: include/Checks/AdminMenu.php:26
 msgid "Admin menu"
@@ -109,7 +110,7 @@ msgid ""
 "instead of other functions (add_admin_page, add_submenu_page...)"
 msgstr ""
 "Les thèmes qui gèrent les pages admin doivent utiliser "
-"<strong>add_theme_page ()</ strong> à la place d'autres fonctions "
+"<strong>add_theme_page ()</strong> à la place d&#39;autres fonctions "
 "(add_admin_page, add_submenu_page...)"
 
 #: include/Checks/AdminMenu.php:29 include/Checks/AdminMenu.php:30
@@ -117,9 +118,9 @@ msgid ""
 "Detection of user levels that were deprecated in Worpress 2.0. <a href="
 "\"http://codex.wordpress.org/Roles_and_Capabilities\">Wordpress codex</a>"
 msgstr ""
-"Détection des niveaux d'utilisateurs devenus obsolètes dans Wordpress 2.0. "
-"<a href=\"http://codex.wordpress.org/Roles_and_Capabilities\">Wordpress "
-"codex</ a>"
+"Détection des niveaux d&#39;utilisateurs devenus obsolètes dans Wordpress "
+"2.0. <a href=\"http://codex.wordpress.org/Roles_and_Capabilities\">Wordpress "
+"codex</a>"
 
 #: include/Checks/Artisteer.php:15
 msgid "Typical Artisteer code was found."
@@ -149,7 +150,7 @@ msgstr "Utilisation de eval()"
 
 #: include/Checks/Badthings.php:33
 msgid "Use of PHP sytem calls"
-msgstr "Utilisation d'appels systèmes PHP"
+msgstr "Utilisation d&#39;appels systèmes PHP"
 
 #: include/Checks/Badthings.php:34
 msgid "Use of backticks in PHP code"
@@ -186,7 +187,7 @@ msgstr "Présence de code Google adsense"
 #: include/Checks/Basic.php:21
 #, php-format
 msgid "Could not find <strong>%1$s</strong>"
-msgstr "<strong>%1$s</ strong> introuvable"
+msgstr "<strong>%1$s</strong> introuvable"
 
 #: include/Checks/Basic.php:31
 msgid "Fundamental theme elements"
@@ -194,7 +195,7 @@ msgstr "Eléments fondamentaux"
 
 #: include/Checks/Basic.php:33
 msgid "Presence of DOCTYPE"
-msgstr "Présence d'un DOCTYPE"
+msgstr "Présence d&#39;un DOCTYPE"
 
 #: include/Checks/Basic.php:34
 msgid ""
@@ -319,10 +320,10 @@ msgid ""
 "reference to 'comment-reply' was found. Make sure that the comment-reply "
 "script is being enqueued properly on singular pages."
 msgstr ""
-"Impossible de trouver le <strong>comment-reply</ strong> le script en file "
+"Impossible de trouver le <strong>comment-reply</strong> le script en file "
 "d'attente, mais une référence au «commentaire-réponse» a été trouvé. Assurez-"
-"vous que le script commentaire de réponse est en file d'attente correctement "
-"sur les pages singulières."
+"vous que le script commentaire de réponse est en file d&#39;attente "
+"correctement sur les pages singulières."
 
 #: include/Checks/CommentReply.php:31
 msgid "Comment reply"
@@ -367,7 +368,7 @@ msgid ""
 "( $content_width ) ) $content_width = 900;</pre>"
 msgstr ""
 "Aucune largeur de contenu a été définie. Exemple: <pre>if ( ! isset "
-"($content_width) ) $content_width = 900;</ pre>"
+"($content_width) ) $content_width = 900;</pre>"
 
 #: include/Checks/ContentWidth.php:24
 msgid "Content width"
@@ -381,7 +382,7 @@ msgstr "Définition correcte de content_width"
 #, php-format
 msgid "No reference to <strong>%1$s</strong> was found in the theme."
 msgstr ""
-"Aucune référence à <strong>%1$s</ strong> n&#39;a été trouvée dans le thème."
+"Aucune référence à <strong>%1$s</strong> n&#39;a été trouvée dans le thème."
 
 #: include/Checks/Custom.php:23
 msgid "Custom elements"
@@ -409,9 +410,9 @@ msgid ""
 "<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since "
 "version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s"
 msgstr ""
-"<strong>%1$s</strong> trouvé dans le fichier <strong>%2$s </ strong>. "
-"Obsolète depuis la version de la <strong>%3$s</ strong>. Il est prérable "
-"d'&#39;utiliser <strong>%4$s</ strong> à la place. %5$s"
+"<strong>%1$s</strong> trouvé dans le fichier <strong>%2$s </strong>. "
+"Obsolète depuis la version de la <strong>%3$s</strong>. Il est prérable "
+"d&#39;utiliser <strong>%4$s</strong> à la place. %5$s"
 
 #: include/Checks/Deprecated.php:33 include/Checks/MoreDeprecated.php:33
 msgid "Deprecated functions"
@@ -1168,7 +1169,7 @@ msgstr "wp_create_thumbnail"
 #: include/Checks/Directories.php:27 include/Checks/File.php:24
 #, php-format
 msgid "<strong>%1$s</strong> was found."
-msgstr "<strong>%1$s</ strong>a été trouvé."
+msgstr "<strong>%1$s</strong>a été trouvé."
 
 #: include/Checks/Directories.php:37
 msgid "Unwanted directories"
@@ -1198,7 +1199,7 @@ msgid ""
 "editor content match the resulting post output in the theme, for a better "
 "user experience."
 msgstr ""
-"Aucune référence à <strong>%1$s() </ strong> n&#39;a été trouvée dans le "
+"Aucune référence à <strong>%1$s() </strong> n&#39;a été trouvée dans le "
 "thème. Il est recommandé que le thème implémente l&#39;édition de style, de "
 "manière à faire correspondre le contenu de l&#39;éditeur l&#39;affichage "
 "dans le thème."
@@ -1266,8 +1267,8 @@ msgid ""
 "support."
 msgstr ""
 "Ce thème ne semble pas supporter les fonctions standard liées aux avatars. "
-"Les fonctions wordpress <strong>get_avatar</ strong> ou "
-"<strong>wp_list_comments</ strong> permette d'ajouter ce support."
+"Les fonctions wordpress <strong>get_avatar</strong> ou "
+"<strong>wp_list_comments</strong> permette d&#39;ajouter ce support."
 
 #: include/Checks/Gravatar.php:24
 msgid "Avatar"
@@ -1284,13 +1285,13 @@ msgid ""
 "<strong>%2$s</strong>. Translation function calls should not contain PHP "
 "variables. %3$s"
 msgstr ""
-"La variable <strong> %1$s </ strong> a été trouvée dans une fonction de "
-"traduction dans le fichier <strong>%2$s </ strong>. Les appels de fonctions "
+"La variable <strong> %1$s </strong> a été trouvée dans une fonction de "
+"traduction dans le fichier <strong>%2$s </strong>. Les appels de fonctions "
 "de traduction ne doivent pas contenir de variables PHP. %3$s"
 
 #: include/Checks/I18NCheck.php:72
 msgid "I18N implementation"
-msgstr "Implémentation de l'internationalisation"
+msgstr "Implémentation de l&#39;internationalisation"
 
 #: include/Checks/I18NCheck.php:74
 msgid "Proper use of _e("
@@ -1342,7 +1343,7 @@ msgstr "Utilisation correcte de gettext("
 
 #: include/Checks/Iframes.php:28
 msgid "Presence of iframes"
-msgstr "Présence d'iframes"
+msgstr "Présence d&#39;iframes"
 
 #: include/Checks/Iframes.php:30
 msgid ""
@@ -1361,9 +1362,9 @@ msgid ""
 "instead. Otherwise, use include_once or require_once instead."
 msgstr ""
 "Le thème semble utiliser include ou require : <strong>%1$s</strong> %2$s Si "
-"ces fonctions sont utilisées pour inclure des sections séparées d'un modèle "
-"à partir de fichiers indépendants, alors <strong>get_template_part ()</ "
-"strong> doit être utilisé à la place."
+"ces fonctions sont utilisées pour inclure des sections séparées d&#39;un "
+"modèle à partir de fichiers indépendants, alors <strong>get_template_part ()"
+"</strong> doit être utilisé à la place."
 
 #: include/Checks/Includes.php:30
 msgid "Use of includes"
@@ -1381,7 +1382,7 @@ msgstr "Le tag &quot;%1$s&quot; est manquant dans %2$s."
 #: include/Checks/JManifest.php:34
 #, php-format
 msgid "Cannot read xml content <strong>%1$s</strong>."
-msgstr "Impossible de lire le contenu xml <strong>%1$s</ strong>."
+msgstr "Impossible de lire le contenu xml <strong>%1$s</strong>."
 
 #: include/Checks/JManifest.php:46
 msgid "Manifest and Metadata"
@@ -1449,7 +1450,7 @@ msgstr "Opérations sur système de fichiers"
 #: include/Checks/MandatoryFiles.php:19
 #, php-format
 msgid "Could not find file <strong>%1$s</strong> in the theme."
-msgstr "Fichierr <strong>%1$s</ strong> introuvable dans le thème."
+msgstr "Fichierr <strong>%1$s</strong> introuvable dans le thème."
 
 #: include/Checks/MandatoryFiles.php:29
 msgid "Mandatory files"
@@ -1501,8 +1502,8 @@ msgid ""
 "Non-printable characters were found in file <strong>%1$s</strong>. This is "
 "an indicator of potential errors in PHP code.%2$s"
 msgstr ""
-"Des caractères non imprimables ont été trouvés dans le fichier <strong>"
-"%1$s</ strong>. Cela indique la présence d'erreurs potentielles dans le code "
+"Des caractères non imprimables ont été trouvés dans le fichier <strong>%1$s</"
+"strong>. Cela indique la présence d&#39;erreurs potentielles dans le code "
 "PHP.%2$s"
 
 #: include/Checks/NonPrintable.php:31
@@ -1524,10 +1525,10 @@ msgid ""
 msgstr ""
 "Présence de balises PHP courtes dans le fichier <strong>%1$s</strong>. &quot;"
 "Il est conseillé de ne pas les utiliser car elles ne sont seulement "
-"disponibles lors de l'activation de la directive de configuration "
-"short_open_tag du php.ini, ou si PHP a été configuré avec l'option --enable-"
-"short-tags&quot; (php.net), ce qui n'est pas le cas sur de nombreux serveurs."
-"%2$s"
+"disponibles lors de l&#39;activation de la directive de configuration "
+"short_open_tag du php.ini, ou si PHP a été configuré avec l&#39;option --"
+"enable-short-tags&quot; (php.net), ce qui n&#39;est pas le cas sur de "
+"nombreux serveurs.%2$s"
 
 #: include/Checks/PHPShort.php:28
 msgid "PHP short tags"
@@ -1544,7 +1545,7 @@ msgid ""
 "strong>. However get_post_format and/or has_post_format were not found%2$s."
 msgstr ""
 "<strongadd_theme_support()</strong> a été trouvé dans le fichier <strong>"
-"%1$s </ strong> alors que get_post_format ou has_post_format sont "
+"%1$s </strong> alors que get_post_format ou has_post_format sont "
 "introuvables %2$s"
 
 #: include/Checks/PostFormat.php:35
@@ -1563,9 +1564,9 @@ msgid ""
 "strong> to add post pagination."
 msgstr ""
 "Le thème n&#39;a pas de pagination. La pagination des posts doit être prise "
-"en charge par les fonctions <strong>posts_nav_link ()</ strong> ou "
-"<strong>paginate_links ()</ strong> ou <strong>next_posts_link ()</ strong> "
-"et <strong>previous_posts_link()</ strong>."
+"en charge par les fonctions <strong>posts_nav_link ()</strong> ou "
+"<strong>paginate_links ()</strong> ou <strong>next_posts_link ()</strong> et "
+"<strong>previous_posts_link()</strong>."
 
 #: include/Checks/PostNav.php:25
 msgid "Post pagination"
@@ -1587,7 +1588,7 @@ msgstr ""
 #: include/Checks/PostThumb.php:27
 msgid "Use of add_theme_support( 'post-thumbnails' ) in functions.php file"
 msgstr ""
-"Utilisation de add_theme_support( 'post-thumbnails' ) dans le fichier "
+"Utilisation de add_theme_support(&#39;post-thumbnails&#39;) dans le fichier "
 "functions.php"
 
 #: include/Checks/Screenshot.php:43
@@ -1596,7 +1597,7 @@ msgid ""
 "Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. "
 "Maximum allowed size is 640x480px."
 msgstr ""
-"Screenshot trop grand : <strong>%1$sx%2$spx</ strong>. La taille maximale "
+"Screenshot trop grand : <strong>%1$sx%2$spx</strong>. La taille maximale "
 "autorisée est de 640x480px."
 
 #: include/Checks/Screenshot.php:50
@@ -1659,8 +1660,7 @@ msgstr "Présence du nom du thème"
 #: include/Checks/Style.php:26
 msgid "<strong>Theme name:</strong> is missing from style.css header."
 msgstr ""
-"<strong>Theme name:</ strong> est absent de l&#39;entête du fichier style."
-"css."
+"<strong>Theme name:</strong> est absent de l&#39;entête du fichier style.css."
 
 #: include/Checks/Style.php:27
 msgid "Presence of theme description"
@@ -1669,7 +1669,7 @@ msgstr "Présence de la description du thème"
 #: include/Checks/Style.php:27
 msgid "<strong>Description:</strong> is missing from style.css header."
 msgstr ""
-"<strong>Description:</ strong> est absent de l&#39;entête du fichier style."
+"<strong>Description:</strong> est absent de l&#39;entête du fichier style."
 "css."
 
 #: include/Checks/Style.php:28
@@ -1716,7 +1716,7 @@ msgstr "Présence de la classe .sticky"
 #: include/Checks/Style.php:32
 msgid "<strong>.sticky</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.sticky</ strong> n&#39;a pas été trouvée dans les "
+"La classe CSS <strong>.sticky</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
 #: include/Checks/Style.php:33
@@ -1726,7 +1726,7 @@ msgstr "Présence de la classe .bypostauthor"
 #: include/Checks/Style.php:33
 msgid "<strong>.bypostauthor</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.bypostauthor</ strong> n&#39;a pas été trouvée dans "
+"La classe CSS <strong>.bypostauthor</strong> n&#39;a pas été trouvée dans "
 "les styles du thème."
 
 #: include/Checks/Style.php:34
@@ -1736,7 +1736,7 @@ msgstr "Présence de la classe .alignleft"
 #: include/Checks/Style.php:34
 msgid "<strong>.alignleft</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.alignleft</ strong> n&#39;a pas été trouvée dans les "
+"La classe CSS <strong>.alignleft</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
 #: include/Checks/Style.php:35
@@ -1746,7 +1746,7 @@ msgstr "Présence de la classe .alignright"
 #: include/Checks/Style.php:35
 msgid "<strong>.alignright</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.alignright</ strong> n&#39;a pas été trouvée dans les "
+"La classe CSS <strong>.alignright</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
 #: include/Checks/Style.php:36
@@ -1756,8 +1756,8 @@ msgstr "Présence de la classe .aligncenter"
 #: include/Checks/Style.php:36
 msgid "<strong>.aligncenter</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.aligncenter</ strong> n&#39;a pas été trouvée dans "
-"les styles du thème."
+"La classe CSS <strong>.aligncenter</strong> n&#39;a pas été trouvée dans les "
+"styles du thème."
 
 #: include/Checks/Style.php:37
 msgid "Presence of .wp-caption class"
@@ -1766,7 +1766,7 @@ msgstr "Présence de la classe .wp-caption"
 #: include/Checks/Style.php:37
 msgid "<strong>.wp-caption</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.wp-caption</ strong> n&#39;a pas été trouvée dans les "
+"La classe CSS <strong>.wp-caption</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
 #: include/Checks/Style.php:38
@@ -1776,8 +1776,8 @@ msgstr "Présence de la classe .wp-caption-text"
 #: include/Checks/Style.php:38
 msgid "<strong>.wp-caption-text</strong> css class is needed in theme css."
 msgstr ""
-"La classe CSS <strong>.wp-caption-text</ strong> n&#39;a pas été trouvée "
-"dans les styles du thème."
+"La classe CSS <strong>.wp-caption-text</strong> n&#39;a pas été trouvée dans "
+"les styles du thème."
 
 #: include/Checks/Style.php:39
 msgid "Presence of .gallery-caption class"
@@ -1799,7 +1799,7 @@ msgstr "<strong>Theme URL:</strong> introuvable."
 
 #: include/Checks/Style.php:41
 msgid "Presence of Author URI"
-msgstr "Présence de l'URI de l'auteur"
+msgstr "Présence de l&#39;URI de l&#39;auteur"
 
 #: include/Checks/Style.php:41
 msgid "Could not find <strong>Author URI:</strong>."
@@ -1823,7 +1823,7 @@ msgid ""
 "At least one hard coded date was found in the file <strong>%s</strong>. "
 "Function get_option( &#39;date_format&#39; ) should be used instead."
 msgstr ""
-"Au moins une date codée en dur a été trouvée dans le fichier <strong>%s</ "
+"Au moins une date codée en dur a été trouvée dans le fichier <strong>%s</"
 "strong>. Il est préférable d&#39;utiliser la fonction get_option( &#39;"
 "date_format&#39; )à la place."
 
@@ -1846,7 +1846,7 @@ msgstr "Utilisation de the_time()"
 #: include/Checks/Worms.php:20
 #, php-format
 msgid "<strong>%1$s</strong> %2$s"
-msgstr "<strong>%1$s</ strong> %2$s"
+msgstr "<strong>%1$s</strong> %2$s"
 
 #: include/Checks/Worms.php:31
 msgid "Worms"
@@ -1858,7 +1858,7 @@ msgid ""
 "of a web server"
 msgstr ""
 "Présence de whsell.php. Cela peut être un script utilisé par les pirates "
-"pour prendre le contrôle d'un serveur"
+"pour prendre le contrôle d&#39;un serveur"
 
 #: include/Checks/Worms.php:34
 msgid ""
@@ -1866,15 +1866,15 @@ msgid ""
 "a web server"
 msgstr ""
 "Présence de ShellBOT. Cela peut être un script utilisé par les pirates pour "
-"prendre le contrôle d'un serveur"
+"prendre le contrôle d&#39;un serveur"
 
 #: include/Checks/Worms.php:35
 msgid ""
 "Detection of uname -a. Tells a hacker what operating system a server is "
 "running"
 msgstr ""
-"Détection de uname-a. Indique aux hackers quel est le système d'exploitation "
-"du serveur web"
+"Détection de uname-a. Indique aux hackers quel est le système d&#39;"
+"exploitation du serveur web"
 
 #: include/Checks/Worms.php:36
 msgid "base64 encoded text found in Search Engine Redirect hack"
@@ -1896,7 +1896,7 @@ msgstr ""
 
 #: include/Checks/Worms.php:39
 msgid "Symptom of a link injection attack"
-msgstr "Symptôme d'injection de lien"
+msgstr "Symptôme d&#39;injection de lien"
 
 #: include/Checks/Worms.php:40
 msgid ""
@@ -1908,7 +1908,7 @@ msgid ""
 msgstr ""
 "Potentielle attaque Javascript &quot;Gumblar&quot;  <a href=\"http://"
 "justcoded.com/article/gumblar-family-virus-removal-tool/ \" target=\"_blank"
-"\">http://justcoded.com/article/gumblar-family-virus-removal-tool/ </ a>"
+"\">http://justcoded.com/article/gumblar-family-virus-removal-tool/ </a>"
 
 #: include/Checks/Worms.php:41
 msgid ""
@@ -1917,7 +1917,7 @@ msgid ""
 "target=\"_blank\">http://blog.sucuri.net/2010/07/understanding-and-cleaning-"
 "the-pharma-hack-on-wordpress.html</a>"
 msgstr ""
-"Symptôme 1 de l'attaque &quot;Pharma&quot; <a href=\"http://blog.sucuri."
+"Symptôme 1 de l&#39;attaque &quot;Pharma&quot; <a href=\"http://blog.sucuri."
 "net/2010/07/understanding-and-cleaning-the-pharma-hack-on-wordpress.html\" "
 "target=\"_blank\">http://blog.sucuri.net/2010/07/understanding-and-cleaning-"
 "the-pharma-hack-on-wordpress.html</a>"
@@ -1929,7 +1929,7 @@ msgid ""
 "target=\"_blank\">http://blog.sucuri.net/2010/07/understanding-and-cleaning-"
 "the-pharma-hack-on-wordpress.html</a>"
 msgstr ""
-"Symptôme 1 de l'attaque &quot;Pharma&quot; <a href=\"http://blog.sucuri."
+"Symptôme 2 de l&#39;attaque &quot;Pharma&quot; <a href=\"http://blog.sucuri."
 "net/2010/07/understanding-and-cleaning-the-pharma-hack-on-wordpress.html\" "
 "target=\"_blank\">http://blog.sucuri.net/2010/07/understanding-and-cleaning-"
 "the-pharma-hack-on-wordpress.html</a>"
@@ -1940,7 +1940,7 @@ msgstr "Injection de code malveillant détecté de bas de page!"
 
 #: error404.php:13
 msgid "Themecheck.org - The page does not exist."
-msgstr "Themecheck.org - La page n'existe pas."
+msgstr "Themecheck.org - La page n&#39;existe pas."
 
 #: error404.php:14 header.php:13
 msgid "Validate your web theme and templates"
@@ -1952,7 +1952,7 @@ msgstr "Erreur 404."
 
 #: error404.php:46
 msgid "Sorry, the page you requested doesn't exist."
-msgstr "Nous sommes désolés, la page demandée n'existe pas."
+msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
 
 #: header.php:12
 msgid "Validate your web themes and templates"

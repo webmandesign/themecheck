@@ -222,10 +222,9 @@ RewriteCond %{REQUEST_URI} (/|\.php|\.html|\.htm|\.feed|\.xml|\.pdf|\.raw|/[^.]*
 RewriteRule (.*) index.php	
 
 #Rewrite dynamic content
-RewriteCond %{REQUEST_URI} /([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{21})/([-0-9a-zA-Z]*)\.(png|jpg)$
+RewriteCond %{REQUEST_URI} /([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{21})/([_0-9a-zA-Z]*)\.(png|jpg)$
 #RewriteCond %{REQUEST_URI} /([0-9a-z]{2})([0-9a-z]{2})([0-9a-z]{21})/snapshot\.png$
 RewriteRule (.*) dyn/%1/%2/%3/%4.%5 
-
 </IfModule>
 
 # ------------------------------------------------------------------------------

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
 "POT-Creation-Date: 2014-02-05 20:12+0100\n"
-"PO-Revision-Date: 2014-02-05 20:15+0100\n"
+"PO-Revision-Date: 2014-02-17 22:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -297,7 +297,7 @@ msgid ""
 "The theme doesn't have comment pagination code in it. Use "
 "<strong>paginate_comments_links()</strong> to add comment pagination."
 msgstr ""
-"The theme doesn't have comment pagination code in it. Use "
+"The theme doesn&#39;t have comment pagination code in it. Use "
 "<strong>paginate_comments_links()</strong> to add comment pagination."
 
 #: include/Checks/CommentPagination.php:26
@@ -315,8 +315,8 @@ msgid ""
 "script is being enqueued properly on singular pages."
 msgstr ""
 "Could not find the <strong>comment-reply</strong> script enqueued, however a "
-"reference to 'comment-reply' was found. Make sure that the comment-reply "
-"script is being enqueued properly on singular pages."
+"reference to &#39;comment-reply&#39; was found. Make sure that the comment-"
+"reply script is being enqueued properly on singular pages."
 
 #: include/Checks/CommentReply.php:31
 msgid "Comment reply"
@@ -1573,7 +1573,8 @@ msgstr "Use of the_post_thumbnail() instead of custom fields for thumbnails"
 
 #: include/Checks/PostThumb.php:27
 msgid "Use of add_theme_support( 'post-thumbnails' ) in functions.php file"
-msgstr "Use of add_theme_support( 'post-thumbnails' ) in functions.php file"
+msgstr ""
+"Use of add_theme_support(&#39;post-thumbnails&#39;) in functions.php file"
 
 #: include/Checks/Screenshot.php:43
 #, php-format
@@ -1765,7 +1766,7 @@ msgstr "Could not find <strong>Author URI:</strong>."
 
 #: include/Checks/Tags.php:14
 msgid "This theme doesn't seem to display tags."
-msgstr "This theme doesn't seem to display tags."
+msgstr "This theme doesn&#39;t seem to display tags."
 
 #: include/Checks/Tags.php:25
 msgid "Tags"
@@ -1911,7 +1912,7 @@ msgstr "Error 404."
 
 #: error404.php:46
 msgid "Sorry, the page you requested doesn't exist."
-msgstr "Sorry, the page you requested doesn't exist."
+msgstr "Sorry, the page you requested doesn&#39;t exist."
 
 #: header.php:12
 msgid "Validate your web themes and templates"

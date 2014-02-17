@@ -31,12 +31,15 @@ if (isset($routeParts["hash"])) // already uploaded file
 } else if (count($_FILES)>0 && isset($_FILES["file"]) && isset($_FILES["file"]["name"])) // uploaded file
 {
 	$archiveInfo = FileValidator::upload();
-	
-	$fileValidator = new FileValidator($archiveInfo);
-	$fileValidator->validate();	
-	$fileValidator->serialize();
-	
-	$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
+	$fileValidator = null;
+	if ($archiveInfo)
+	{
+		$fileValidator = new FileValidator($archiveInfo);
+		$fileValidator->validate();	
+		$fileValidator->serialize();
+		
+		$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
+	}
 }
 
 if ($fileValidator)
@@ -50,11 +53,7 @@ if ($fileValidator)
 			$hash = $_GET["hash"];
 			$fileValidator_tmp = FileValidator::unserialize($hash,I18N::getCurLang());
 		}
-		
-		$userMessage = UserMessage::getInstance();
-		echo UserMessage::getInstance()->getMessagesHtml();
-		
-		
+				
 		// check if a file has been submitted
 		/*if (!$themeAlreadyOnServer)
 		{	
@@ -94,11 +93,12 @@ if ($fileValidator)
 											 'fr' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"fr", "phpfile"=>"results.php", "hash"=>$themeInfo->hash)));
 		 else $samepage_i18n = array('en' => null, 'fr' => null);
 ?>
-			<div class="row">
-				<div class="col-md-3"><div class="center-block" style="wisth:150px;"><img style="box-shadow: 0 0 20px #DDD;" src="<?php echo TC_HTTPDOMAIN.'/'.$themeInfo->hash.'/thumbnail.png';?>"></div></div>
-				<div class="col-md-9">
+			<div class="row text-center">
 					<h1><?php printf(__("Validation results for <strong>%s"), htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));?></h1>
 					<?php
+						$userMessage = UserMessage::getInstance();
+						echo UserMessage::getInstance()->getMessagesHtml();
+		
 						$percentclass = 'text-success';
 						$picto = '<img style="margin-bottom:20px;margin-right:50px" src="'.TC_HTTPDOMAIN.'/img/pictosuccess.png">';
 						if (count($validationResults->check_fails) > 0)
@@ -113,47 +113,29 @@ if ($fileValidator)
 						}
 						echo '<p class="text-center '.$percentclass.'" style="font-size:100px;">'.$picto.number_format($themeInfo->score,2).'&nbsp%</p>';
 								?>
-				</div>
 			</div>
-			<div class="row">
-				<dl class="dl-horizontal">
-					<dt><?php echo __("Theme name");?></dt>
-					<dd><?php echo htmlspecialchars($themeInfo->name);?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("Theme type");?></dt>
-					<dd><?php 
-						if ($themeInfo->themetype == TT_WORDPRESS) $filetype = __("Wordpress theme");
-						if ($themeInfo->themetype == TT_JOOMLA) $filetype = __("Joomla template");
-						echo $filetype.' - '.$themeInfo->cmsVersion;
-					?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("File name");?></dt>
-					<dd><?php echo htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES);?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("File size");?></dt>
-					<dd><?php echo $themeInfo->zipfilesize;?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("Permalink");?></dt>
-					<dd><?php if (!empty($samepage_i18n[I18N::getCurLang()])) echo $samepage_i18n[I18N::getCurLang()]; else echo __('None');?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("License");?></dt>
-					<dd><?php if (empty($themeInfo->licenseUri)) echo ThemeInfo::getLicenseName($themeInfo->license);
-										else echo '<a href="'.$themeInfo->licenseUri.'">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'; 
-					if (!empty($themeInfo->licenseText)) echo '<br>'.htmlspecialchars($themeInfo->licenseText);?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt><?php echo __("Files included");?></dt>
-					<dd><?php echo htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES);?></dd>
-				</dl>
-				<dl class="dl-horizontal">
-					<dt></dt>
-					<dd></dd>
-				</dl>
+			<div class="row" style="color:#888;font-weight:normal;margin:30px 0 60px 0;">
+				<div class="col-md-2"><div><img style="box-shadow: 0 0 20px #DDD;" src="<?php echo TC_HTTPDOMAIN.'/'.$themeInfo->hash.'/thumbnail.png';?>"></div></div>
+				<div class="col-md-10">
+					<ul style="list-style:none;line-height:25px;">
+						<li><b><?php echo __("Theme name");?></b> : <?php echo htmlspecialchars($themeInfo->name);?></li>
+						<li><b><?php echo __("Theme type");?></b> : <?php 
+							if ($themeInfo->themetype == TT_WORDPRESS) $filetype = __("Wordpress theme");
+							if ($themeInfo->themetype == TT_JOOMLA) $filetype = __("Joomla template");
+							echo $filetype.' - '.$themeInfo->cmsVersion;?>
+						</li>
+						<li><b><?php echo __("File name");?></b> : <?php echo htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES);?></li>
+						<li><b><?php echo __("File size");?></b> : <?php echo $themeInfo->zipfilesize;?></li>
+						<li><b><?php echo __("MD5");?></b> : <?php echo strtolower($themeInfo->hash_md5);?></li>
+						<li><b><?php echo __("SHA1");?></b> : <?php echo strtolower($themeInfo->hash_sha1);?></li>
+						<li><b><?php echo __("Permalink");?></b> : <?php if (!empty($samepage_i18n[I18N::getCurLang()])) echo $samepage_i18n[I18N::getCurLang()]; else echo __('None');?></li>
+						<li><b><?php echo __("License");?></b> : <?php if (empty($themeInfo->licenseUri)) echo ThemeInfo::getLicenseName($themeInfo->license);
+											else echo '<a href="'.$themeInfo->licenseUri.'">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'; 
+											if (!empty($themeInfo->licenseText)) echo '<br>'.htmlspecialchars($themeInfo->licenseText);?>
+						</li>
+						<li><b><?php echo __("File included");?></b> : <?php echo htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES);?></li>
+					</ul>
+				</div>
 			</div>
 
 					<?php
@@ -220,6 +202,8 @@ if ($fileValidator)
 } else {
 	$samepage_i18n = array('en' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results.php")),
 											 'fr' => TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"fr", "phpfile"=>"results.php")));
+	$userMessage = UserMessage::getInstance();
+	echo '<div class="container">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
 	?>
 			<div class="jumbotron">
 				<div class="container">
@@ -229,7 +213,9 @@ if ($fileValidator)
 			</div>
 
 			<div class="container">
-	<?php
+		<br/>
+		<?php
+		
 }
  
 
