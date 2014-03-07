@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class Basic_Checker extends CheckPart
 {	
-		 public function doCheck($php_files, $css_files, $other_files)
+		public function doCheck($php_files, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         
@@ -17,6 +17,9 @@ class Basic_Checker extends CheckPart
             if ( $key === 'wp_enqueue_script\(\s?("|\')comment-reply("|\')' ) $key =  'wp_enqueue_script( \'comment-reply\' )';
             if ( $key === '<body.*body_class\(' ) $key =  'body_class call in body tag';
             if ( $key === 'register_sidebar[s]?\(' ) $key =  'register_sidebar() or register_sidebars()';
+						if ( $key === 'charset' ) {
+							if (preg_match( '/encoding/i', $php )) return; // in xhtml charset can be declared with <?xml version="1.0" encoding="UTF-8"...
+						}
             $key = ltrim( trim ( trim( $key, '(' ), '\\' ) );
             $this->messages[] = __all('Could not find <strong>%1$s</strong>', $key );
             $this->errorLevel = $this->threatLevel;

@@ -63,7 +63,7 @@ define("ERRORLEVEL_ERROR", 1);
 define("ERRORLEVEL_WARNING", 2);
 define("ERRORLEVEL_SUCCESS", 3);
 define("ERRORLEVEL_INFO", 4);
-define("USE_DB", false); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
+if (!defined("USE_DB")) define("USE_DB", true); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
 
 // ****************************************************************************
 // Init

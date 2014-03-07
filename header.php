@@ -9,8 +9,8 @@ namespace ThemeCheck;
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title><?php echo __("Validate your web themes and templates"); ?></title>
-		<meta name="description" content="<?php echo __("Validate your web theme and templates"); ?>">
+		<title><?php echo $controller->meta["title"]; ?></title>
+		<meta name="description" content="<?php echo $controller->meta["description"]; ?>">
 		<meta name="viewport" content="width=device-width">
 
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap.min.css">
@@ -21,8 +21,9 @@ namespace ThemeCheck;
 		</style>
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/main.css">
-		<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link href='http://fonts.googleapis.com/css?family=Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	</head>
 	<body>
 <?php include_once("analyticstracking.php") ?>

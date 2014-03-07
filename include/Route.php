@@ -123,16 +123,22 @@ class Route {
 
 		if (count($parts) === 0)
 		{
-			$route["phpfile"] = "home.php";
+			$route["phpfile"] = "home";
 		} if (count($parts) === 1)
 		{
 			$p0 = $parts[0];
 			
-			if (empty($p0) || $p0== "index.php" || $p0 == "index.html" || $p0 == "index") $route["phpfile"] = "home.php";
-			else if ($p0 == $i18n->url($route["lang"], "results.php")) 
+			if (empty($p0) || $p0== "index.php" || $p0 == "index.html" || $p0 == "index") $route["phpfile"] = "home";
+			else if ($p0 == $i18n->url($route["lang"], "score")) 
 			{
-				$route["phpfile"] = "results.php";
-			} 
+				$route["phpfile"] = "results";
+			} else if ($p0 == $i18n->url($route["lang"], "unittests")) 
+			{
+				$route["phpfile"] = "unittests";
+			} else if ($p0 == "massimport") 
+			{
+				$route["phpfile"] = "massimport";
+			}
 				
 			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
 		}
@@ -140,7 +146,7 @@ class Route {
 		{		
 			$p0 = $parts[0];
 
-			if ($p0 == $i18n->url($route["lang"], "score")) 
+			if ($p0 == $i18n->url($route["lang"], "score") || $p0 == $i18n->url($route["lang"], "unittests")) 
 			{
 				$nameSanitized = null;
 				$themetypes = array (TT_WORDPRESS => 'wordpress_theme',
@@ -148,7 +154,8 @@ class Route {
 				foreach ($themetypes as $themetype => $prefix)
 				{
 					$prefixi18n = trim($i18n->url($route["lang"], $prefix));
-					if (preg_match('/^'.$prefixi18n.'_([-_0-1a-zA-Z]+)\.html$/', $parts[1], $matches))
+					
+					if (preg_match('/^'.$prefixi18n.'_([-_0-9a-zA-Z]+)\.html$/', $parts[1], $matches))
 					{
 						$nameSanitized = $matches[1];
 						
@@ -162,7 +169,8 @@ class Route {
 					if (empty($hash)) $route["phpfile"] = "error404.php";
 					else {
 						$route["hash"] = $hash;
-						$route["phpfile"] = "results.php";
+						if ($p0 == $i18n->url($route["lang"], "unittests"))	$route["phpfile"] = "unittests";
+						else $route["phpfile"] = "results";
 					}
 				}				
 			} 
@@ -187,18 +195,23 @@ class Route {
 		$url = "";
 		if (!empty($lang)) $url = $lang.'/';
 		if (!isset($route["phpfile"])) return "Error : phpfile not defined";
-		if ($route["phpfile"] == "home.php")
+		if ($route["phpfile"] == "home")
 		{
 			$url = trim($url, '/ ');
-		} else if ($route["phpfile"] == "results.php")
+		} else if ($route["phpfile"] == "results")
 		{
 			$data = array();
 			if (isset($route["hash"])) 
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
+				
+				if (!USE_DB) {
+					echo 'error in route. cannot assemble route without DB';
+					die;
+				}
 				$history = new History();
-
 				$themeInfo = $history->loadThemeFromHash($route["hash"]);
+				if (empty($themeInfo)) return null;
 				$data["name"] = $themeInfo->namesanitized;
 				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress_theme';
 				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
@@ -211,8 +224,21 @@ class Route {
 				if ($route["themetype"] == 2) 	$data["themetype"] = 'joomla_template';
 				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($route["namesanitized"]).'.html';
 			} else {
-				$url = trim($url.$i18n->url($route["lang"], 'results.php'), '/ ');
+				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 			}
+		} else if ($route["phpfile"] == "unittests")
+		{
+			$url = trim($url.$i18n->url($route["lang"], 'unittests'), '/ ');
+			$data = array();
+			if (isset($route["hash"]) && preg_match("/^[a-zA-Z0-9]{25}$/", $route["hash"]))
+			{
+				$url .= '/'.$route["hash"].'.html';
+			}	else {
+				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
+			}
+		} else if ($route["phpfile"] == "massimport")
+		{
+			$url = "massimport";
 		} else if ($route["phpfile"] == "error404.php")
 		{
 			$url = trim($url.$i18n->url($route["lang"], $route["phpfile"]), '/ ');

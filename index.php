@@ -36,15 +36,12 @@ if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"
 	die;
 } else 
 {
+	include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
+	$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
+	$controller = new $classname();
+	$controller->prepare();
 	require "header.php";
-	//echo 'gg';die;
-	
-	//echo TC_ROOTDIR.'/'.$routeParts["phpfile"];
-	//if (file_exists(TC_ROOTDIR.'/'.$routeParts["phpfile"])) echo ' a';else echo ' b';
-	//die;
-	include (TC_ROOTDIR.'/'.$routeParts["phpfile"]);
-//	require '/home/piqpaq-preprod/themecheck/home.php';
-	//require 'home.php';
+	$controller->render();
 	require "footer.php";
 }
 

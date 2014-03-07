@@ -48,7 +48,7 @@ class ThemeInfo
 	public $tags;
 	
 	public $copyright;
-	public $creationDate;
+	public $modificationDate;
 	public $serializable;
 	
 	public $license;
@@ -75,6 +75,7 @@ class ThemeInfo
 	public function initFromUnzippedArchive($unzippath, $zipfilename, $zipmimetype, $zipfilesize)
 	{
 		$this->themetype = $this->detectThemetype($unzippath);
+		
 		$this->zipfilename = $zipfilename;
 		$this->zipmimetype = $zipmimetype;
 		$this->zipfilesize = $zipfilesize;
@@ -100,78 +101,153 @@ class ThemeInfo
 												'docx'=>false,
 												'rtf'=>false);
 		
+		$files = listdir( $unzippath );
+		
+		if ( empty($files) ) {
+			trigger_error(__("Cannot list files in archive."), E_USER_ERROR);
+			return false;
+		}
+		// test for nested zips
+		$zipfiles_count = 0;
+		$indexphp_count = 0;
+		foreach( $files as $key => $filename ) {
+			$path_parts = pathinfo($filename);
+			if (isset($path_parts['extension']))
+			{
+				if ($path_parts['extension'] == 'zip') $zipfiles_count++;
+				if ($path_parts['basename'] == 'index.php') {
+					$subdir = substr($path_parts['dirname'], strpos($path_parts['dirname'], '/unzip/') + 7);
+					if (strpos($subdir,"\\")!==false || strpos($subdir,"/")!==false)
+					{
+						trigger_error(__("index.php must not be in a subdirectory"), E_USER_ERROR);
+						return false;
+					}
+					$indexphp_count++;
+				}
+			}
+		}
+		if ($zipfiles_count>0 && $indexphp_count==0)
+		{
+			trigger_error(__("Nested zip archives are not supported."), E_USER_ERROR);
+			return false;
+		}
+
+		// undefined theme type
+		if ($this->themetype == TT_UNDEFINED)
+		{
+			trigger_error(__("Archive is not a valid theme file."), E_USER_ERROR);
+			return false;
+		}
 		
 		if ($this->themetype == TT_WORDPRESS)
 		{
-			$files = listdir( $unzippath );
-			if ( $files ) {
-				foreach( $files as $key => $filename ) {
-					$path_parts = pathinfo($filename);
-					$basename = $path_parts['basename'];
-					if ($basename == 'style.css')
-					{
-						$file_content = file_get_contents($filename);
-						
-						if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Description:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->description = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Author:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->author = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Theme URI:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->themeUri = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Author URI:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->authorUri = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Version:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->version = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*License:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $rawlicense = trim($match[1]);
-						if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
-						if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) $this->tags = trim($match[1]);
-					}
+			foreach( $files as $key => $filename ) {
+				$path_parts = pathinfo($filename);
+				$basename = $path_parts['basename'];
+				if ($basename == 'style.css')
+				{
+					$file_content = file_get_contents($filename);
 					
-					if (isset($path_parts['extension'])) {
-						$ext = strtolower(trim($path_parts['extension']));
-						if (isset($filetypes[$ext])) $filetypes[$ext] = true;
+					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
+					else {
+						trigger_error(__("style.css does not contain Theme name. Theme name is mandatory."), E_USER_ERROR);
+						return false;
 					}
+					if ( preg_match('/[ \t\/*#]*Description:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->description = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Author:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->author = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Theme URI:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->themeUri = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Author URI:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->authorUri = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Version:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->version = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*License:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $rawlicense = trim($match[1]);
+					if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) $this->tags = trim($match[1]);
+					
+					$this->creationDate = filemtime($filename);
 				}
+				
+				if (isset($path_parts['extension'])) {
+					$ext = strtolower(trim($path_parts['extension']));
+					if (isset($filetypes[$ext])) $filetypes[$ext] = true;
+				}
+			}
+			if (empty($this->name))
+			{
+				trigger_error(__("style.css is missing or misspelled."), E_USER_ERROR);
+				return false;
 			}
 			$this->cmsVersion = "3.4+";
 		}
 		
 		if ($this->themetype == TT_JOOMLA)
 		{
-			$files = listdir( $unzippath );
-			if ( $files ) {
-				foreach( $files as $key => $filename ) {
-					$path_parts = pathinfo($filename);
-					$basename = $path_parts['basename'];
-					if ($basename == 'templateDetails.xml')
-					{					
+		
+			foreach( $files as $key => $filename ) {
+				$path_parts = pathinfo($filename);
+				$basename = $path_parts['basename'];
+				if ($basename == 'templateDetails.xml')
+				{					
+						libxml_use_internal_errors(true);
 						$xml = simplexml_load_file($filename);
-						if (!empty($xml))
+						if (count(libxml_get_errors()) > 0 )
 						{
-								if ($xml->getName() == 'extension' || $xml->getName() == 'install')
-								{
-									if(!empty($xml->name)) $this->name = (string)$xml->name;
-									if(!empty($xml->description)) $this->description = (string)$xml->description;
-									if(!empty($xml->author)) $this->author = (string)$xml->author;
-									if(!empty($xml->authorUrl)) $this->authorUri = (string)$xml->authorUri;
-									if(!empty($xml->authorMail)) $this->authorUri = (string)$xml->authorMail;
-									if(!empty($xml->version)) $this->version = (string)$xml->version;
-									if(!empty($xml->copyright)) $this->copyright = (string)$xml->copyright;
-									if(!empty($xml->creationDate)) $this->creationDate = (string)$xml->creationDate;
-									if(!empty($xml->license)) {
-										$rawlicense = (string)$xml->license;
-									}
-									
-									if ($xml->getName() == 'extension') {
-										$attrs = $xml->attributes();
-										if (isset($attrs["version"])) $this->cmsVersion = (string)$attrs["version"];
-										else $this->cmsVersion = "3.0";
-									}
-									if ($xml->getName() == 'install') $this->cmsVersion = "1.5";
-								} 
+							foreach (libxml_get_errors() as $error) {
+									$message = __("Malformed xml file templateDetails.xml. Cannot continue. Error details : ");
+									$message .= $error->message;
+									trigger_error($message, E_USER_ERROR);
+							}
+							return false;
+							libxml_clear_errors();
 						}
-					}
-					if (isset($path_parts['extension'])) {
-						$ext = strtolower(trim($path_parts['extension']));
-						if (isset($filetypes[$ext])) $filetypes[$ext] = true;
-					}
+						
+						if (empty($xml)) {
+							trigger_error(__("templateDetails.xml is empty or contains malformed xml"), E_USER_ERROR);
+							return false;
+						}
+
+						if ($xml->getName() == 'extension' || $xml->getName() == 'install' || $xml->getName() == 'mosinstall')
+						{
+							if(!empty($xml->name)) $this->name = (string)$xml->name;
+							else {
+								trigger_error(__("templateDetails.xml does not have a name tag. name is mandatory."), E_USER_ERROR);
+								return false;
+							}
+							if(!empty($xml->description)) $this->description = (string)$xml->description;
+							if(!empty($xml->author)) $this->author = (string)$xml->author;
+							if(!empty($xml->authorUrl)) $this->authorUri = (string)$xml->authorUri;
+							if(!empty($xml->authorMail)) $this->authorUri = (string)$xml->authorMail;
+							if(!empty($xml->version)) $this->version = (string)$xml->version;
+							if(!empty($xml->copyright)) $this->copyright = (string)$xml->copyright;
+							if(!empty($xml->creationDate)) $this->creationDate = (string)$xml->creationDate;
+							else $this->creationDate = filemtime($filename);
+							if(!empty($xml->license)) {
+								$rawlicense = (string)$xml->license;
+							}
+							
+							if ($xml->getName() == 'extension') {
+								$attrs = $xml->attributes();
+								if (isset($attrs["version"])) $this->cmsVersion = (string)$attrs["version"];
+								else $this->cmsVersion = "3.0+";
+							}
+							if ($xml->getName() == 'install') {
+								$attrs = $xml->attributes();
+								if (isset($attrs["version"])) $this->cmsVersion = (string)$attrs["version"];
+								else $this->cmsVersion = "1.5";
+							}
+							if ($xml->getName() == 'mosinstall') $this->cmsVersion = "1.0";
+						}  else {
+							trigger_error(__("templateDetails.xml does not have a mosinstall, extension or install or node"), E_USER_ERROR);
+							return false;
+						}
 				}
+				if (isset($path_parts['extension'])) {
+					$ext = strtolower(trim($path_parts['extension']));
+					if (isset($filetypes[$ext])) $filetypes[$ext] = true;
+				}
+			}
+			if (empty($this->name))
+			{
+				trigger_error(__("templateDetails.xml is emissing or misspelled."), E_USER_ERROR);
+				return false;
 			}
 		}
 		
@@ -200,6 +276,7 @@ class ThemeInfo
 	//	public $modulePositions;
 	//	public $templateParameters;
 	//	public $imagePath;
+		return true;
 	}
 		
 	/** 
@@ -212,6 +289,8 @@ class ThemeInfo
 		$score_wordpress = 0;
 		$score_joomla = 0;
 		
+		$stylecss = false;
+		$templateDetails = false;
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
 				$path_parts = pathinfo($filename);
@@ -224,9 +303,10 @@ class ThemeInfo
 					{
 						$score_wordpress ++;
 					}
+					$stylecss = true;
 				}
 				if ($basename == 'screenshot.png') $score_wordpress ++;
-				if ($basename == 'templateDetails.xml') $score_joomla ++;
+				if ($basename == 'templateDetails.xml') {$score_joomla ++;$templateDetails = true;}
 				if ($basename == 'template_thumbnail.png') $score_joomla ++;
 				if ($basename == 'template_preview.png') $score_joomla ++;
 				if ($basename == 'index.php') 
@@ -237,9 +317,9 @@ class ThemeInfo
 				}
 			}
 		}
-		
-		if ($score_joomla > $score_wordpress) return TT_JOOMLA;
-		if ($score_joomla < $score_wordpress) return TT_WORDPRESS;
+
+		if ($score_joomla > $score_wordpress && $templateDetails) return TT_JOOMLA;
+		if ($score_joomla < $score_wordpress && $stylecss) return TT_WORDPRESS;
 		return TT_UNDEFINED;
 	}
 	

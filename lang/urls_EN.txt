@@ -1,6 +1,5 @@
 error404.php=error404.php
-results.php=results.php
-results=results
 score=score
 wordpress_theme=wordpress_theme
 joomla_template=joomla_template
+unittests=unit_tests

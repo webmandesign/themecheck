@@ -216,6 +216,8 @@ AddDefaultCharset utf-8
   # RewriteBase /
 
 RewriteRule ^error404(.*)$                         		error404.php [QSA,NC,L]
+RewriteRule ^score\.php(.*)$                          score.php$1 [QSA,NC,L]
+RewriteRule ^ajax\.php(.*)$                           ajax.php$1 [QSA,NC,L]
 
 RewriteCond %{REQUEST_URI} !^(/index.php)
 RewriteCond %{REQUEST_URI} (/|\.php|\.html|\.htm|\.feed|\.xml|\.pdf|\.raw|/[^.]*)$

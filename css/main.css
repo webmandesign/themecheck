@@ -4,15 +4,92 @@
    Author's custom styles
    ========================================================================== */
 
-body  {
-  font-family:  'Oxygen', sans-serif;
+body,h1,h2,h3  {
+  font-family: 'Arimo', sans-serif;
+}
+
+.shield1 {
+	display:inline-block;
+	width:201px;
+	height:240px;
+	border:none;
+}
+
+.shield2{
+	font-size:100px;
+	width:201px;
+	border:none;
+	margin-top:90px;
+	line-height:32px;
+	vertical-align: middle;
+	text-align:center;
+}
+
+a {
+color : #b9c913;
+}
+
+a:visited {
+color : #b9c913;
+}
+a:active,a:hover {
+color : #d6e119;
 }
 
 
+a:link {text-decoration: none}
+a:visited {text-decoration: none}
+a:active {text-decoration: none}
+a:hover {text-decoration: none; background-position: 100% 0;}
 
+a {
+	display:inline-block;
+	border:none;
+	font-family: 'Arimo', sans-serif;
+}
 
+.a40 {
+	width:34px;
+	height:40px;
+}
 
+.a80 {
+	width:67px;
+	height:80px;
+}
 
+.a240 {
+	width:200px;
+	height:240px;
+}
+
+a div{
+	border:none;
+	vertical-align: middle;
+	text-align:center;
+}
+
+a .div40{
+	font-size:17px;
+	width:33px;
+	height:40px;
+	line-height:35px;
+}
+
+a .div80{
+	font-size:34px;
+	width:67px;
+	height:80px;
+	line-height:70px;
+}
+
+a .div240{
+	font-size:100px;
+	width:200px;
+	height:240px;
+	margin-top:0px;
+	line-height:210px;
+}
 
 
 

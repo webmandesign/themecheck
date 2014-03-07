@@ -1,0 +1,210 @@
+<?php
+namespace ThemeCheck;
+require_once TC_INCDIR."/FileValidator.php";
+if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
+
+class Controller_massimport
+{
+	public $meta = array();
+	public $samepage_i18n = array();
+	public $importpath;
+	
+	public function __construct()
+	{
+		$this->importpath = 'C:\xampp\htdocs\PIQPAQ\items';
+	}
+	
+	public function prepare()
+	{
+		$this->meta["title"] = __("Mass import");
+		$this->meta["description"] = __("Mass import");
+	}
+	
+	public function render()
+	{
+		?>
+		<div style="text-align:center;"><button type="button" id="import-btn" class="btn">
+				<?php echo __("Import a new file");?>
+			</button>
+		</div>
+		<?php
+		$files = listdir( $this->importpath );
+		$fileszip = array();
+		
+		// read themelist files
+		$themelist = array();
+		foreach ($files as $f)
+		{
+			if (strpos($f, "themelist.csv")!==false) {
+				if (($handle = fopen($f, "r")) !== FALSE) {
+						while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+								if (count($data) == 2)
+								{
+									$zipfilename = $data[0];
+									$date = $data[1];
+									$themelist[$zipfilename] = $date;
+								}
+						}
+						fclose($handle);
+				}
+			}
+		}
+		
+		$history = new History();
+		$countNew = 0;
+		$countTotal = 0;
+		foreach ($files as $f)
+		{
+			$path_parts = pathinfo($f);
+			if (isset($path_parts['extension']) && $path_parts['extension'] == "zip") 
+			{
+				$zipfilename = $path_parts['basename'];
+				if (isset($themelist[$zipfilename]))
+				{
+					$timestamp = strtotime($themelist[$zipfilename]);
+					if ($timestamp > 946681200) // filter buggy dates
+					{
+						$id = $history->getIdFromZipName($zipfilename);
+						if ($id === false) // doesn't exist in DB
+						{
+							$fileszip[$f] = $timestamp;
+							$countNew++;
+						} 
+						$countTotal++;
+					}
+				}
+			}
+		}
+		
+		asort($fileszip);
+		
+		echo "<br/>Not imported yet : $countNew / $countTotal<hr>";
+		
+		foreach ($fileszip as $file => $timestamp)
+		{
+			echo date("Y-m-d", $timestamp).' : '.$file.'<br>';
+		}
+
+	/*	$count = 0;
+		foreach ($fileszip as $f)
+		{
+			if ($count > 5) break;
+			if(USE_DB)
+			{
+				$hash_md5 = md5_file($f); 
+				$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
+				while(strlen($hash_alpha) < 25) $hash_alpha = '0'.$hash_alpha;
+				$history = new History();
+				$themeInfo = $history->loadThemeFromHash($hash_alpha);
+				if (!empty($themeInfo)) continue;
+			}
+			
+			$path_parts = pathinfo($f);
+			$path_item = $path_parts['dirname'];
+			$filename = $path_parts['filename'].'.'.$path_parts['extension'];
+		
+			$themeInfo = FileValidator::prepareThemeInfo($path_item.'/'.$filename, $filename, 'application/zip', false);
+
+			if (!empty($themeInfo))
+			{
+				$this->fileValidator = new FileValidator($themeInfo);
+				$this->fileValidator->validate();	
+				$this->fileValidator->serialize();
+				
+				$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+				$themeInfo = $this->fileValidator->themeInfo;
+				echo '<p>'.htmlspecialchars($themeInfo->name).' : '.intval($themeInfo->score).'%</p>';
+				$count++;
+			}
+		}*/
+		?>
+		<script>
+		var zips = new Array();
+		var zip_index = 0;
+		<?php 
+		$a = array_keys($fileszip);
+		for ($i = 0; $i< count($a); $i++)
+		{
+			echo 'zips['.$i.'] = "'.str_replace('\\','/',$a[$i]).'";'."\n";
+		}
+		?>
+		
+		function importNext()
+		{
+	//		var myVar=setInterval(function(){myTimer()},500);
+			$.ajax({
+				type: "POST",
+				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=importnext';?>",
+				data : {path : zips[zip_index]}
+			}).done(function( obj ) {
+				console.log(obj);
+				zip_index++;
+				importNext();
+			}).fail(function() {
+				console.log("ajax error");
+			})
+		}
+				
+		$('#import-btn').click(importNext);
+
+		</script>
+		<?php
+	}
+	
+	public function ajax_importnext()
+	{
+		$time_start = microtime(true);
+		$response["error"] = "none";
+		$response["file"] = "none";
+		if (file_exists($_POST["path"]))
+		{
+			$response["file"] = $_POST["path"];
+			if (USE_DB)
+			{
+				
+				$f = $_POST["path"];
+				$hash_md5 = md5_file($f); 
+				$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
+				while(strlen($hash_alpha) < 25) $hash_alpha = '0'.$hash_alpha;
+				$history = new History();
+				$themeInfo = $history->loadThemeFromHash($hash_alpha);
+				
+				if (empty($themeInfo)) // don't do anything if already in DB
+				{
+					$path_parts = pathinfo($f);
+					$path_item = $path_parts['dirname'];
+					$filename = $path_parts['filename'].'.'.$path_parts['extension'];
+				
+					$themeInfo = FileValidator::prepareThemeInfo($path_item.'/'.$filename, $filename, 'application/zip', false);
+
+					if (!empty($themeInfo))
+					{
+						$this->fileValidator = new FileValidator($themeInfo);
+						$this->fileValidator->validate();	
+						if ($this->fileValidator->serialize())
+						{
+							// an error occured while serializing (no thumbnail...)
+							$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+							$themeInfo = $this->fileValidator->themeInfo;
+							$response["themeinfo"] = $themeInfo;
+						} else {
+							$response["error"] = "could not serialize validation results";
+						}
+					}
+				}
+			}			
+		}
+		
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		$response["duration"] = $time;
+		//ob_clean();
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}
+}
+
+
+
+
+

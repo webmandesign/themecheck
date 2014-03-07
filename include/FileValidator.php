@@ -4,6 +4,7 @@ require_once 'Bootstrap.php';
 require_once TC_INCDIR.'/ListDirectoryFiles.php';
 require_once TC_INCDIR.'/Check.php';
 require_once TC_INCDIR.'/tc_helpers.php';
+require_once TC_INCDIR.'/Helpers.php';
 require_once TC_INCDIR.'/ThemeInfo.php';
 require_once TC_INCDIR.'/ValidationResults.php';
 
@@ -114,25 +115,24 @@ class FileValidator
 			if ($this->themeInfo->themetype == TT_JOOMLA && $basename == "template_thumbnail.png") $imgfile = $fullpath;
 		}
 
-		if (!empty($imgfile ))
+		if (empty($imgfile )) return false;
+
+		list($width_src, $height_src) = getimagesize($imgfile);
+		$width = 206;
+		$height = intval(($height_src * $width) / $width_src);
+		$image_p = imagecreatetruecolor($width,$height);
+		$image_src = imagecreatefrompng($imgfile);
+		imagecopyresampled($image_p, $image_src, 0, 0, 0, 0, $width, $height, $width_src, $height_src); // resample and copy image. Since the image is shown on page results, resample even if same size, to avoid potential hacks.
+		// 1 : save for front-end display (even if not serializable since we want to display a thumbnail on the results page)
+		$savedirectory_img = ThemeInfo::getPublicDirectory($this->themeInfo->hash);
+		if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
+		imagepng($image_p, $savedirectory_img.'/thumbnail.png');
+		// 2 : save the same pic in the vault
+		if ($this->themeInfo->serializable)
 		{
-			list($width_src, $height_src) = getimagesize($imgfile);
-			$width = 206;
-			$height = intval(($height_src * $width) / $width_src);
-			$image_p = imagecreatetruecolor($width,$height);
-			$image_src = imagecreatefrompng($imgfile);
-			imagecopyresampled($image_p, $image_src, 0, 0, 0, 0, $width, $height, $width_src, $height_src); // resample and copy image. Since the image is shown on page results, resample even if same size, to avoid potential hacks.
-			// 1 : save for front-end display (even if not serializable since we want to display a thumbnail on the results page)
-			$savedirectory_img = ThemeInfo::getPublicDirectory($this->themeInfo->hash);
+			$savedirectory_img = ThemeInfo::getReportDirectory($this->themeInfo->hash);
 			if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
 			imagepng($image_p, $savedirectory_img.'/thumbnail.png');
-			// 2 : save the same pic in the vault
-			if ($this->themeInfo->serializable)
-			{
-				$savedirectory_img = ThemeInfo::getReportDirectory($this->themeInfo->hash);
-				if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
-				imagepng($image_p, $savedirectory_img.'/thumbnail.png');
-			}
 		}
 		
 		// if theme is not serializable (duplicate theme name from different users, etc.)
@@ -190,6 +190,15 @@ class FileValidator
 			return 0;
 		}
 
+		if ($_FILES["file"]["size"] == 0)
+		{
+			$max_size = Helpers::returnBytes(ini_get('upload_max_filesize'));
+			if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
+			$max_size_MB = $max_size / (1024*1024);
+			trigger_error(sprintf(__("Could not upload file. File is empty or bigger than maximum upload file size (%s MB)."), $max_size_MB), E_USER_ERROR);
+			return 0;
+		}
+		
 		$accepted_exts = array("zip");
 		$accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed', 'application/octet-stream');
 		$filetype = strtolower($_FILES["file"]["type"]);
@@ -248,13 +257,17 @@ class FileValidator
 	**/
 	static public function prepareThemeInfo($src_path, $src_name, $src_type, $isUpload=false)
 	{
+	
 		$src_size = filesize($src_path);
-		if ($src_size < 1000)
+
+		if (!($src_size > 1000 || strpos ($src_path, '/unittests/') !== false ))
 		{
+
 			$userMessage = UserMessage::getInstance();
 			$userMessage->enqueueMessage(__('Files under 1 KB are not accepted. Operation canceled.'), ERRORLEVEL_ERROR);
 			return null;
 		}
+		
 		$hash_md5 = md5_file($src_path); 
 		$sha1_file = sha1_file($src_path); 
 		$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
@@ -291,7 +304,8 @@ class FileValidator
 		$themeInfo = new ThemeInfo($hash_alpha);
 		$themeInfo->hash_md5 = $hash_md5;
 		$themeInfo->hash_sha1 = $sha1_file;
-		$themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
+		$r = $themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
+		if (!$r) return null;
 		return $themeInfo;	
 	}
 	
@@ -369,7 +383,6 @@ class FileValidator
 		$check_successes = array();
 		$check_undefined = array();
 		$check_count = 0;
-		$check_countOK = 0;
 		$score = 0;
 		
 		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
@@ -392,7 +405,9 @@ class FileValidator
 			}
 		}
 		$this->themeInfo->check_count = $check_count;
-		$this->themeInfo->check_countOK = count($check_successes) + count($check_warnings);
+		$this->themeInfo->check_countOK = count($check_successes);
+		$this->themeInfo->failuresCount = count($check_fails);
+		$this->themeInfo->warningsCount = count($check_warnings);
 		if ($check_count > 0) $this->themeInfo->score = (100 * $this->themeInfo->check_countOK) / $this->themeInfo->check_count;
 		else $this->themeInfo->score = 0.0;
 		
