@@ -104,7 +104,7 @@ class ThemeInfo
 		$files = listdir( $unzippath );
 		
 		if ( empty($files) ) {
-			trigger_error(__("Cannot list files in archive."), E_USER_ERROR);
+			UserMessage::enqueue(__("Cannot list files in archive."), ERRORLEVEL_FATAL);
 			return false;
 		}
 		// test for nested zips
@@ -119,7 +119,7 @@ class ThemeInfo
 					$subdir = substr($path_parts['dirname'], strpos($path_parts['dirname'], '/unzip/') + 7);
 					if (strpos($subdir,"\\")!==false || strpos($subdir,"/")!==false)
 					{
-						trigger_error(__("index.php must not be in a subdirectory"), E_USER_ERROR);
+						UserMessage::enqueue(__("index.php must be in root directory."), ERRORLEVEL_FATAL);
 						return false;
 					}
 					$indexphp_count++;
@@ -128,14 +128,14 @@ class ThemeInfo
 		}
 		if ($zipfiles_count>0 && $indexphp_count==0)
 		{
-			trigger_error(__("Nested zip archives are not supported."), E_USER_ERROR);
+			UserMessage::enqueue(__("Nested zip archives are not supported."), ERRORLEVEL_FATAL);
 			return false;
 		}
 
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
 		{
-			trigger_error(__("Archive is not a valid theme file."), E_USER_ERROR);
+			UserMessage::enqueue(__("Archive is not a valid theme file."), ERRORLEVEL_FATAL);
 			return false;
 		}
 		
@@ -150,7 +150,7 @@ class ThemeInfo
 					
 					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
 					else {
-						trigger_error(__("style.css does not contain Theme name. Theme name is mandatory."), E_USER_ERROR);
+						UserMessage::enqueue(__("style.css does not contain Theme name. Theme name is mandatory."), ERRORLEVEL_FATAL);
 						return false;
 					}
 					if ( preg_match('/[ \t\/*#]*Description:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->description = trim($match[1]);
@@ -162,7 +162,9 @@ class ThemeInfo
 					if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) $this->tags = trim($match[1]);
 					
-					$this->creationDate = filemtime($filename);
+					// creation date can come from an external source. Happens with massimport where creation date is in csv files.
+					global $g_creationDate;
+					$this->creationDate = $g_creationDate;
 				}
 				
 				if (isset($path_parts['extension'])) {
@@ -172,7 +174,7 @@ class ThemeInfo
 			}
 			if (empty($this->name))
 			{
-				trigger_error(__("style.css is missing or misspelled."), E_USER_ERROR);
+				UserMessage::enqueue(__("style.css is missing or misspelled."), ERRORLEVEL_FATAL);
 				return false;
 			}
 			$this->cmsVersion = "3.4+";
@@ -193,14 +195,14 @@ class ThemeInfo
 							foreach (libxml_get_errors() as $error) {
 									$message = __("Malformed xml file templateDetails.xml. Cannot continue. Error details : ");
 									$message .= $error->message;
-									trigger_error($message, E_USER_ERROR);
+									UserMessage::enqueue($message, ERRORLEVEL_FATAL);
 							}
 							return false;
 							libxml_clear_errors();
 						}
 						
 						if (empty($xml)) {
-							trigger_error(__("templateDetails.xml is empty or contains malformed xml"), E_USER_ERROR);
+							UserMessage::enqueue(__("templateDetails.xml is empty or contains malformed xml"), ERRORLEVEL_FATAL);
 							return false;
 						}
 
@@ -208,7 +210,7 @@ class ThemeInfo
 						{
 							if(!empty($xml->name)) $this->name = (string)$xml->name;
 							else {
-								trigger_error(__("templateDetails.xml does not have a name tag. name is mandatory."), E_USER_ERROR);
+								UserMessage::enqueue(__("templateDetails.xml does not have a name tag. name is mandatory."), ERRORLEVEL_FATAL);
 								return false;
 							}
 							if(!empty($xml->description)) $this->description = (string)$xml->description;
@@ -217,8 +219,12 @@ class ThemeInfo
 							if(!empty($xml->authorMail)) $this->authorUri = (string)$xml->authorMail;
 							if(!empty($xml->version)) $this->version = (string)$xml->version;
 							if(!empty($xml->copyright)) $this->copyright = (string)$xml->copyright;
-							if(!empty($xml->creationDate)) $this->creationDate = (string)$xml->creationDate;
-							else $this->creationDate = filemtime($filename);
+							if(!empty($xml->creationDate)) $this->creationDate = strtotime((string)$xml->creationDate);
+							if (empty($this->creationDate)) {
+								// creation date can come from an external source. Happens with massimport where creation date is in csv files.
+								global $g_creationDate;
+								$this->creationDate = $g_creationDate;
+							}
 							if(!empty($xml->license)) {
 								$rawlicense = (string)$xml->license;
 							}
@@ -235,7 +241,7 @@ class ThemeInfo
 							}
 							if ($xml->getName() == 'mosinstall') $this->cmsVersion = "1.0";
 						}  else {
-							trigger_error(__("templateDetails.xml does not have a mosinstall, extension or install or node"), E_USER_ERROR);
+							UserMessage::enqueue(__("templateDetails.xml does not have a mosinstall, extension or install or node"), ERRORLEVEL_FATAL);
 							return false;
 						}
 				}
@@ -246,7 +252,7 @@ class ThemeInfo
 			}
 			if (empty($this->name))
 			{
-				trigger_error(__("templateDetails.xml is emissing or misspelled."), E_USER_ERROR);
+				UserMessage::enqueue(___("templateDetails.xml is emissing or misspelled."), ERRORLEVEL_FATAL);
 				return false;
 			}
 		}

@@ -59,10 +59,15 @@ define("TC_DEFAULT_LANG", "en");
 define("TC_SITE_NAME", "themecheck.org");
 define("TC_HTTPDOMAIN", 'http://'.TC_DOMAIN);
 define("TC_SALT", '348daf28b36268cf504b066'); // random salt to code file names
-define("ERRORLEVEL_ERROR", 1);
-define("ERRORLEVEL_WARNING", 2);
-define("ERRORLEVEL_SUCCESS", 3);
-define("ERRORLEVEL_INFO", 4);
+define("ERRORLEVEL_FATAL", 1);
+define("ERRORLEVEL_ERROR", 2);
+define("ERRORLEVEL_WARNING", 3);
+define("ERRORLEVEL_SUCCESS", 4);
+define("ERRORLEVEL_INFO", 5);
+
+global $g_creationDate;
+$g_creationDate = time();
+
 if (!defined("USE_DB")) define("USE_DB", true); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
 
 // ****************************************************************************

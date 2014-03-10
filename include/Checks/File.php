@@ -33,7 +33,7 @@ class File extends Check
     {
 			$this->title = __all("Unwanted files");
 			$this->checks = array(
-						new File_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Windows thumbnail store'), 'thumbs.db', 'ut_file_thumbs.zip'),
+						new File_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Windows thumbnail store'), 'thumbs.db', 'ut_file_thumbs.zip'),
 						new File_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Windows system file'), 'desktop.ini', 'ut_file_desktop.zip'),
 						new File_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('NetBeans project file'), 'project.xml', 'ut_file_project_xml.zip'),
 						new File_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('NetBeans project properties file'), 'project.properties', 'ut_file_desktop.zip'),

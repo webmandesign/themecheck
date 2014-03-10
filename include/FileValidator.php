@@ -7,6 +7,7 @@ require_once TC_INCDIR.'/tc_helpers.php';
 require_once TC_INCDIR.'/Helpers.php';
 require_once TC_INCDIR.'/ThemeInfo.php';
 require_once TC_INCDIR.'/ValidationResults.php';
+require_once TC_INCDIR.'/UserMessage.php';
 
 function objectToArray($d) {
 	if (is_object($d)) {
@@ -115,7 +116,12 @@ class FileValidator
 			if ($this->themeInfo->themetype == TT_JOOMLA && $basename == "template_thumbnail.png") $imgfile = $fullpath;
 		}
 
-		if (empty($imgfile )) return false;
+		if (empty( $imgfile ))
+		{
+			if ($this->themeInfo->themetype == TT_WORDPRESS) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_ERROR);
+			if ($this->themeInfo->themetype == TT_JOOMLA) UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_ERROR);
+			return false;
+		}
 
 		list($width_src, $height_src) = getimagesize($imgfile);
 		$width = 206;
@@ -186,7 +192,7 @@ class FileValidator
 	{
 		if (count($_FILES)==0 || !isset($_FILES["file"]) || !isset($_FILES["file"]["name"]) ) 
 		{
-			trigger_error(__("No files to upload"), E_USER_ERROR);
+			UserMessage::enqueue(__("No files to upload"), ERRORLEVEL_FATAL);
 			return 0;
 		}
 
@@ -195,7 +201,7 @@ class FileValidator
 			$max_size = Helpers::returnBytes(ini_get('upload_max_filesize'));
 			if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
 			$max_size_MB = $max_size / (1024*1024);
-			trigger_error(sprintf(__("Could not upload file. File is empty or bigger than maximum upload file size (%s MB)."), $max_size_MB), E_USER_ERROR);
+			UserMessage::enqueue(sprintf(__("Could not upload file. File is empty or bigger than maximum upload file size (%s MB)."), $max_size_MB), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
@@ -215,32 +221,32 @@ class FileValidator
 		if (!$filetype_ok)
 		{
 			if (empty($filetype)) $filetype = '_';
-			trigger_error(sprintf(__("Bad file type. Mime type %s is not a recognized format for web themes. Uploaded file must be a zip archive."), $filetype), E_USER_ERROR);
+			UserMessage::enqueue(sprintf(__("Bad file type. Mime type %s is not a recognized format for web themes. Uploaded file must be a zip archive."), $filetype), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
 		// check file extension
 		if (!in_array($extension, $accepted_exts))
 		{
-			trigger_error(sprintf(__("Bad file extension. File extension %s not recognized. File extension must be \".zip\"."), $_FILES["file"]["name"]), E_USER_ERROR);
+			UserMessage::enqueue(sprintf(__("Bad file extension. File extension %s not recognized. File extension must be \".zip\"."), $_FILES["file"]["name"]), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
 		if ($_FILES["file"]["error"] == UPLOAD_ERR_INI_SIZE || $_FILES["file"]["error"] == UPLOAD_ERR_FORM_SIZE)
 		{
-			trigger_error(sprintf(__("The uploaded file size exceeds %s."), ini_get('upload_max_filesize')), E_USER_ERROR);
+			UserMessage::enqueue(sprintf(__("The uploaded file size exceeds %s."), ini_get('upload_max_filesize')), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
 		if ($_FILES["file"]["error"] == UPLOAD_ERR_PARTIAL)
 		{
-			trigger_error(__("The uploaded file was only partially uploaded."), E_USER_ERROR);
+			UserMessage::enqueue(__("The uploaded file was only partially uploaded."), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
 		if ($_FILES["file"]["error"] == UPLOAD_ERR_NO_FILE)
 		{
-			trigger_error(__("No file was uploaded."), E_USER_ERROR);
+			UserMessage::enqueue(__("No file was uploaded."), ERRORLEVEL_FATAL);
 			return 0;
 		}
 		
@@ -294,10 +300,10 @@ class FileValidator
 
 				$zip->close();
 			} else {
-				trigger_error(__("File could not be unzipped."), E_USER_ERROR);
+				UserMessage::enqueue(__("File could not be unzipped."), ERRORLEVEL_FATAL);
 			}
 		} catch (Exception $e) {
-			trigger_error(__("Archive extraction failed. The following exception occured : ").$e->getMessage(), E_USER_ERROR);
+			UserMessage::enqueue(__("Archive extraction failed. The following exception occured : ").$e->getMessage(), ERRORLEVEL_FATAL);
 		}
 		
 		// create a theme info

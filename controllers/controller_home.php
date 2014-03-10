@@ -16,8 +16,8 @@ class Controller_home
 	
 	public function prepare()
 	{
-		$this->meta["title"] = __("Validate your web themes and templates");
-		$this->meta["description"] = __("Validate your web theme and templates");
+		$this->meta["title"] = __("The Web Template Validation Service");
+		$this->meta["description"] = __("A free service that checks web templates and themes for security and code quality.");
 		global $ExistingLangs;
 		foreach ($ExistingLangs as $l)
 		{
@@ -31,8 +31,8 @@ class Controller_home
 		$namesanitized = $themeInfo['namesanitized'];
 		$themetype = $themeInfo['themetype'];
 		$score = $themeInfo['score'];
-		$themetype_text = __("Wordpress theme");
-		if ($themetype == TT_JOOMLA) $themetype_text = __("Joomla template");
+		$themetype_text = sprintf(__("Wordpress %s theme"),$themeInfo['cmsVersion']);
+		if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $themeInfo['cmsVersion']);
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
 		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
@@ -56,7 +56,9 @@ class Controller_home
 				<div class="jumbotron">
 					<div class="container">
 						<h1><?php echo __("Validate your web theme or template"); ?></h1>
-						<p><?php echo __("Themecheck.org is a quick service that lets you validate web themes or templates. This service is free and compatible with Wordpress themes and Joomla templates."); ?></p>
+						<h2><?php echo __("And make it trustable"); ?></h2>
+						<p><?php echo __("Themecheck.org is a quick service that lets you validate web themes or templates for security and code quality. This service is free and compatible with Wordpress themes and Joomla templates."); ?></p>
+						<p><?php echo __("Share validation score on your site with ThemeCheck.org widget :"); ?>&nbsp;<img src="img/pictosuccess40.png"></p>
 					</div>
 				</div>
 

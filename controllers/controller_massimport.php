@@ -11,7 +11,7 @@ class Controller_massimport
 	
 	public function __construct()
 	{
-		$this->importpath = 'C:\xampp\htdocs\PIQPAQ\items';
+		$this->importpath = TC_ROOTDIR.'/../items';
 	}
 	
 	public function prepare()
@@ -125,7 +125,10 @@ class Controller_massimport
 		$a = array_keys($fileszip);
 		for ($i = 0; $i< count($a); $i++)
 		{
-			echo 'zips['.$i.'] = "'.str_replace('\\','/',$a[$i]).'";'."\n";
+			$unixStylePath = str_replace('\\','/',$a[$i]);
+			$index = $a[$i];
+			$timestamp = $fileszip[$index];
+			echo 'zips['.$i.'] = new Array("'.$unixStylePath.'","'.$timestamp.'");'."\n";
 		}
 		?>
 		
@@ -135,7 +138,7 @@ class Controller_massimport
 			$.ajax({
 				type: "POST",
 				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=importnext';?>",
-				data : {path : zips[zip_index]}
+				data : {path : zips[zip_index][0], timestamp : zips[zip_index][1]}
 			}).done(function( obj ) {
 				console.log(obj);
 				zip_index++;
@@ -156,13 +159,17 @@ class Controller_massimport
 		$time_start = microtime(true);
 		$response["error"] = "none";
 		$response["file"] = "none";
+		
 		if (file_exists($_POST["path"]))
 		{
+
 			$response["file"] = $_POST["path"];
 			if (USE_DB)
 			{
-				
 				$f = $_POST["path"];
+				global $g_creationDate;
+				$g_creationDate = intval($_POST["timestamp"]); // bad style, but so much easier
+
 				$hash_md5 = md5_file($f); 
 				$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
 				while(strlen($hash_alpha) < 25) $hash_alpha = '0'.$hash_alpha;
@@ -179,16 +186,61 @@ class Controller_massimport
 
 					if (!empty($themeInfo))
 					{
+					
 						$this->fileValidator = new FileValidator($themeInfo);
 						$this->fileValidator->validate();	
-						if ($this->fileValidator->serialize())
+						if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
 						{
-							// an error occured while serializing (no thumbnail...)
-							$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
-							$themeInfo = $this->fileValidator->themeInfo;
-							$response["themeinfo"] = $themeInfo;
+							$response["error"] = "fatal error:\n";
+							foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+							{
+								$response["error"] .= "\n".$m;
+							}
 						} else {
-							$response["error"] = "could not serialize validation results";
+							if ($this->fileValidator->serialize())
+							{
+								if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+								{
+									// at least one error occured while serializing (no thumbnail...)
+									$response["error"] = "fatal error, could not serialize validation results:\n";
+									foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+									{
+										$response["error"] .= "\n".$m;
+									}
+									foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+									{
+										$response["error"] .= "\n".$m;
+									}
+								} else {
+									$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+									$themeInfo = $this->fileValidator->themeInfo;
+									$response["themeinfo"] = $themeInfo;
+								}
+							} else {
+								// at least one error occured while serializing (no thumbnail...)
+								if (UserMessage::getCount(ERRORLEVEL_ERROR) > 0)
+								$response["error"] = "could not serialize validation results";
+								foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+								{
+									$response["error"] .= "\n".$m;
+								}
+							}
+						}
+					} else {
+						if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+						{
+							// at least one error occured while serializing (no thumbnail...)
+							$response["error"] = "could not execute validation:\n";
+							foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+							{
+								$response["error"] .= "\n".$m;
+							}
+							foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+							{
+								$response["error"] .= "\n".$m;
+							}
+						} else {
+							$response["error"] = "could not execute validation (unknown error).";
 						}
 					}
 				}
