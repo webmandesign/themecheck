@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-03-07 21:38+0100\n"
-"PO-Revision-Date: 2014-03-07 22:49+0100\n"
+"POT-Creation-Date: 2014-03-10 18:58+0100\n"
+"PO-Revision-Date: 2014-03-10 19:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1949,7 +1949,7 @@ msgstr "<strong>Author URI:</strong> introuvable."
 msgid "This theme doesn't seem to display tags."
 msgstr "Ce theme ne semble pas afficher les tags."
 
-#: include/Checks/Tags.php:25 controllers/controller_results.php:164
+#: include/Checks/Tags.php:25 controllers/controller_results.php:176
 #: controllers/controller_unittests.php:191
 msgid "Tags"
 msgstr "Tags"
@@ -2083,7 +2083,7 @@ msgstr "Injection de code malveillant détecté de bas de page!"
 msgid "Themecheck.org - The page does not exist."
 msgstr "Themecheck.org - La page n&#39;existe pas."
 
-#: error404.php:14 controllers/controller_home.php:20
+#: error404.php:14
 msgid "Validate your web theme and templates"
 msgstr "Validez votre theme ou votre template"
 
@@ -2108,8 +2108,16 @@ msgid "Error : invalid id."
 msgstr "Erruer : identifiant invalide."
 
 #: controllers/controller_home.php:19
-msgid "Validate your web themes and templates"
-msgstr "Validez gratuitement vos themes wordpress et joomla"
+msgid "The Web Template Validation Service"
+msgstr "Le Service de Validation de Modèles Web"
+
+#: controllers/controller_home.php:20
+msgid ""
+"A free service that checks web templates and themes for security and code "
+"quality."
+msgstr ""
+"Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
+"de sites web."
 
 #: controllers/controller_home.php:34
 #, php-format
@@ -2182,60 +2190,80 @@ msgstr "Aucun fichier n&#39;a été téléchargé."
 msgid "No file uploaded"
 msgstr "Aucun fichier n&#39;a été téléchargé"
 
-#: controllers/controller_results.php:50
-msgid "Results"
-msgstr "Résultats"
+#: controllers/controller_results.php:54
+#, php-format
+msgid "Validation results for Joomla template %s"
+msgstr "Résultats de validation pour le template joomla %s"
 
-#: controllers/controller_results.php:51
-#: controllers/controller_results.php:216
+#: controllers/controller_results.php:55
+#, php-format
+msgid "Security and code quality validation score of Joomla template %s."
+msgstr ""
+"Validation de la sécurité et de la qualité de code pour le template Joomla "
+"%s."
+
+#: controllers/controller_results.php:57
+#, php-format
+msgid "Validation results for Wordpress theme %s"
+msgstr "Résultats de validation pour le thème Wordpress %s"
+
+#: controllers/controller_results.php:58
+#, php-format
+msgid "Security and code quality validation score of Wordpress theme %s."
+msgstr ""
+"Validation de la sécurité et de la qualité de code pour le thème Wordpress "
+"%s."
+
+#: controllers/controller_results.php:61 controllers/controller_results.php:62
+#: controllers/controller_results.php:228
 msgid "Validation results"
 msgstr "Résultats de validation"
 
-#: controllers/controller_results.php:82
+#: controllers/controller_results.php:94
 #: controllers/controller_unittests.php:109
 #, php-format
 msgid "Validation results for <strong>%s</strong>"
 msgstr "Résultats de validation pour <strong>%s</strong>"
 
-#: controllers/controller_results.php:93
-#: controllers/controller_results.php:104
+#: controllers/controller_results.php:105
+#: controllers/controller_results.php:116
 #, php-format
 msgid "Validation score : %s%%"
 msgstr "Score de validation  : %s%%"
 
-#: controllers/controller_results.php:100
+#: controllers/controller_results.php:112
 #, php-format
 msgid "Validation score : %s%% (%s checks failed)"
 msgstr "Score de validation : %s%% (%s tests échoués)"
 
-#: controllers/controller_results.php:114
+#: controllers/controller_results.php:126
 msgid "validation score"
 msgstr "Score de validation"
 
-#: controllers/controller_results.php:115
+#: controllers/controller_results.php:127
 #, php-format
 msgid "%s checks failed. %s warnings."
 msgstr "%s tests critiques échoués. %s alertes."
 
-#: controllers/controller_results.php:118
+#: controllers/controller_results.php:130
 msgid "Share this page with the following link :"
 msgstr "Partagez cette page avec le lien suivant :"
 
-#: controllers/controller_results.php:124
+#: controllers/controller_results.php:136
 msgid ""
 "Display this score on your website with the following HTML code that links "
 "to this page :"
 msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
 
-#: controllers/controller_results.php:130
+#: controllers/controller_results.php:142
 msgid "Medium size icon (default) :"
 msgstr "Icône moyenne (défaut) : "
 
-#: controllers/controller_results.php:133
+#: controllers/controller_results.php:145
 msgid "Small size icon :"
 msgstr "Petite icône :"
 
-#: controllers/controller_results.php:135
+#: controllers/controller_results.php:147
 msgid ""
 "You can switch language with <strong>lang</strong> parameter in iframe's "
 "url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
@@ -2246,15 +2274,15 @@ msgstr ""
 "<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
 "strong>."
 
-#: controllers/controller_results.php:143
+#: controllers/controller_results.php:155
 #: controllers/controller_unittests.php:170
 msgid "Theme name"
 msgstr "Nom du thème"
 
-#: controllers/controller_results.php:145
-#: controllers/controller_results.php:146
-#: controllers/controller_results.php:148
-#: controllers/controller_results.php:149
+#: controllers/controller_results.php:157
+#: controllers/controller_results.php:158
+#: controllers/controller_results.php:160
+#: controllers/controller_results.php:161
 #: controllers/controller_unittests.php:172
 #: controllers/controller_unittests.php:173
 #: controllers/controller_unittests.php:175
@@ -2262,49 +2290,49 @@ msgstr "Nom du thème"
 msgid "Theme type"
 msgstr "Type de thème"
 
-#: controllers/controller_results.php:145
-#: controllers/controller_results.php:146
+#: controllers/controller_results.php:157
+#: controllers/controller_results.php:158
 #: controllers/controller_unittests.php:172
 #: controllers/controller_unittests.php:173
 msgid "Wordpress theme"
 msgstr "Theme Wordpress"
 
-#: controllers/controller_results.php:148
-#: controllers/controller_results.php:149
+#: controllers/controller_results.php:160
+#: controllers/controller_results.php:161
 #: controllers/controller_unittests.php:175
 #: controllers/controller_unittests.php:176
 msgid "Joomla template"
 msgstr "Template Joomla"
 
-#: controllers/controller_results.php:150
+#: controllers/controller_results.php:162
 #: controllers/controller_unittests.php:177
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: controllers/controller_results.php:151
+#: controllers/controller_results.php:163
 #: controllers/controller_unittests.php:178
 msgid "File size"
 msgstr "Taille du fichier"
 
-#: controllers/controller_results.php:151
+#: controllers/controller_results.php:163
 #: controllers/controller_unittests.php:178
 msgid "bytes"
 msgstr "octets"
 
-#: controllers/controller_results.php:152
+#: controllers/controller_results.php:164
 #: controllers/controller_unittests.php:179
 msgid "MD5"
 msgstr "MD5"
 
-#: controllers/controller_results.php:153
+#: controllers/controller_results.php:165
 #: controllers/controller_unittests.php:180
 msgid "SHA1"
 msgstr "SHA1"
 
-#: controllers/controller_results.php:155
-#: controllers/controller_results.php:156
-#: controllers/controller_results.php:158
-#: controllers/controller_results.php:159
+#: controllers/controller_results.php:167
+#: controllers/controller_results.php:168
+#: controllers/controller_results.php:170
+#: controllers/controller_results.php:171
 #: controllers/controller_unittests.php:182
 #: controllers/controller_unittests.php:183
 #: controllers/controller_unittests.php:185
@@ -2312,65 +2340,65 @@ msgstr "SHA1"
 msgid "License"
 msgstr "Licence"
 
-#: controllers/controller_results.php:160
+#: controllers/controller_results.php:172
 #: controllers/controller_unittests.php:187
 msgid "Files included"
 msgstr "Fichiers inclus"
 
-#: controllers/controller_results.php:161
+#: controllers/controller_results.php:173
 #: controllers/controller_unittests.php:188
 msgid "Theme URI"
 msgstr "URI du thème URI"
 
-#: controllers/controller_results.php:162
+#: controllers/controller_results.php:174
 #: controllers/controller_unittests.php:189
 msgid "Version"
 msgstr "Version"
 
-#: controllers/controller_results.php:163
+#: controllers/controller_results.php:175
 #: controllers/controller_unittests.php:190
 msgid "Author URI"
 msgstr "URI de l'auteur"
 
-#: controllers/controller_results.php:165
+#: controllers/controller_results.php:177
 #: controllers/controller_unittests.php:192
 msgid "Copyright"
 msgstr "Copyright"
 
-#: controllers/controller_results.php:166
+#: controllers/controller_results.php:178
 #: controllers/controller_unittests.php:193
 msgid "Creation date"
 msgstr "Date de création"
 
-#: controllers/controller_results.php:167
+#: controllers/controller_results.php:179
 #: controllers/controller_unittests.php:194
 msgid "Last update"
 msgstr "Dernière mise à jour"
 
-#: controllers/controller_results.php:183
+#: controllers/controller_results.php:195
 #: controllers/controller_unittests.php:211
 msgid "Failed checks"
 msgstr "Tests échoués"
 
-#: controllers/controller_results.php:197
+#: controllers/controller_results.php:209
 #: controllers/controller_unittests.php:225
 msgid "Warnings"
 msgstr "Alertes"
 
-#: controllers/controller_results.php:224
-#: controllers/controller_results.php:231
+#: controllers/controller_results.php:236
+#: controllers/controller_results.php:243
 msgid "Validation score : 0 %"
 msgstr "Score de validation : 0 %"
 
-#: controllers/controller_results.php:235
+#: controllers/controller_results.php:247
 msgid "Go to home page to submit a new version"
 msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
 
-#: controllers/controller_results.php:246
+#: controllers/controller_results.php:258
 msgid "Please send us a theme to check."
 msgstr "SVP, uploadez un thème à vérifier."
 
-#: controllers/controller_results.php:247
+#: controllers/controller_results.php:259
 msgid "Go to home page"
 msgstr "Aller à la page d'accueil."
 
@@ -2414,6 +2442,12 @@ msgstr "Le nom \""
 #, php-format
 msgid "DB error : %s"
 msgstr "Erreur BDD : %s"
+
+#~ msgid "Validate your web themes and templates"
+#~ msgstr "Validez gratuitement vos themes wordpress et joomla"
+
+#~ msgid "Results"
+#~ msgstr "Résultats"
 
 #~ msgid "wordpress_theme"
 #~ msgstr "theme_wordpress"
