@@ -48,7 +48,9 @@ class ThemeInfo
 	public $tags;
 	
 	public $copyright;
+	public $creationDate;
 	public $modificationDate;
+	public $validationDate;
 	public $serializable;
 	
 	public $license;
@@ -74,8 +76,6 @@ class ThemeInfo
 	**/
 	public function initFromUnzippedArchive($unzippath, $zipfilename, $zipmimetype, $zipfilesize)
 	{
-		$this->themetype = $this->detectThemetype($unzippath);
-		
 		$this->zipfilename = $zipfilename;
 		$this->zipmimetype = $zipmimetype;
 		$this->zipfilesize = $zipfilesize;
@@ -108,30 +108,55 @@ class ThemeInfo
 			return false;
 		}
 		// test for nested zips
-		$zipfiles_count = 0;
+		$nestedzipfiles = array();
 		$indexphp_count = 0;
 		foreach( $files as $key => $filename ) {
 			$path_parts = pathinfo($filename);
 			if (isset($path_parts['extension']))
 			{
-				if ($path_parts['extension'] == 'zip') $zipfiles_count++;
+				if ($path_parts['extension'] == 'zip') $nestedzipfiles[] = $filename;
 				if ($path_parts['basename'] == 'index.php') {
-					$subdir = substr($path_parts['dirname'], strpos($path_parts['dirname'], '/unzip/') + 7);
+				/*	$subdir = substr($path_parts['dirname'], strpos($path_parts['dirname'], '/unzip/') + 7);
 					if (strpos($subdir,"\\")!==false || strpos($subdir,"/")!==false)
 					{
 						UserMessage::enqueue(__("index.php must be in root directory."), ERRORLEVEL_FATAL);
 						return false;
-					}
+					}*/
 					$indexphp_count++;
 				}
 			}
 		}
-		if ($zipfiles_count>0 && $indexphp_count==0)
-		{
-			UserMessage::enqueue(__("Nested zip archives are not supported."), ERRORLEVEL_FATAL);
-			return false;
+
+		if (count($nestedzipfiles)>0 && $indexphp_count==0)
+		{		
+			$curpath = trim($unzippath,"\\/");
+			if (strpos($curpath, '_tc_parentzip') !== false) // prevent infinite looping
+			{
+				UserMessage::enqueue(__("Multiple level nested zip archives are not supported."), ERRORLEVEL_FATAL);
+				return false;
+			}
+			$newpath = $curpath.'_tc_parentzip';
+			if(!file_exists($newpath)) rename($curpath, $newpath);
+			try {
+				$zipfilepath = str_replace($curpath, $newpath, $nestedzipfiles[0]);
+				$zip = new \ZipArchive();
+				$unzippath = $curpath;
+				$res = $zip->open($zipfilepath);
+				if ($res === TRUE) {
+					if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath); // needed to avoid keeping old files that don't exist anymore in the new archive
+					$zip->extractTo($unzippath);
+					$zip->close();
+				} else {
+					UserMessage::enqueue(__("File could not be unzipped."), ERRORLEVEL_FATAL);
+				}
+			} catch (Exception $e) {
+				UserMessage::enqueue(__("Archive extraction failed. The following exception occured : ").$e->getMessage(), ERRORLEVEL_FATAL);
+			}
+			return $this->initFromUnzippedArchive($unzippath, $zipfilename, $zipmimetype, $zipfilesize); // only $unzippath has changed, other values still refer to parent zip
 		}
 
+		$this->themetype = $this->detectThemetype($unzippath);
+		
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
 		{
@@ -256,7 +281,8 @@ class ThemeInfo
 				return false;
 			}
 		}
-		
+		$this->modificationDate = time();
+		$this->validationDate = time();
 		$this->license = self::getLicense($rawlicense);
 		if (preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $rawlicense, $match) && !empty($match) && count($match)==2) // if contains an url
 		{
@@ -313,6 +339,7 @@ class ThemeInfo
 				}
 				if ($basename == 'screenshot.png') $score_wordpress ++;
 				if ($basename == 'templateDetails.xml') {$score_joomla ++;$templateDetails = true;}
+				if ($basename == 'templatedetails.xml') UserMessage::enqueue(__("Invalid joomla template. templatedetails.xml found. Please rename it templateDetails.xml (capital D)"), ERRORLEVEL_FATAL);
 				if ($basename == 'template_thumbnail.png') $score_joomla ++;
 				if ($basename == 'template_preview.png') $score_joomla ++;
 				if ($basename == 'index.php') 

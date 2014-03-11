@@ -34,7 +34,7 @@ class PostFormat extends Check
     {
 			$this->title = __all("Registration of theme features");
 			$this->checks = array(
-						new PostFormat_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all("Implementation of add_theme_support()"), '/add_theme_support\(\s?("|\')post-formats(,*)?("|\')/m', 'ut_postformat.zip'),
+						new PostFormat_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Implementation of add_theme_support()"), '/add_theme_support\(\s?("|\')post-formats(,*)?("|\')/m', 'ut_postformat.zip'),
 			);
     }
 }

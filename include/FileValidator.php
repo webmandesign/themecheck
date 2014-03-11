@@ -101,7 +101,7 @@ class FileValidator
 	/** 
 	*		Save check results in a JSON file.
 	**/
-	public function serialize()
+	public function serialize($update = false)
 	{
 		if($this->themeInfo == null) return false;	
 		
@@ -118,8 +118,8 @@ class FileValidator
 
 		if (empty( $imgfile ))
 		{
-			if ($this->themeInfo->themetype == TT_WORDPRESS) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_ERROR);
-			if ($this->themeInfo->themetype == TT_JOOMLA) UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_ERROR);
+			if ($this->themeInfo->themetype == TT_WORDPRESS) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);
+			if ($this->themeInfo->themetype == TT_JOOMLA) UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_CRITICAL);
 			return false;
 		}
 
@@ -148,9 +148,9 @@ class FileValidator
 
 		// save meta data
 		if (USE_DB) {
-			$this->history->saveTheme($this->themeInfo);			
+			$this->history->saveTheme($this->themeInfo, $update);			
 		}
-		
+
 		// save validation results
 		foreach($this->validationResults as $lang=>$_validationResults)
 		{
@@ -263,14 +263,13 @@ class FileValidator
 	**/
 	static public function prepareThemeInfo($src_path, $src_name, $src_type, $isUpload=false)
 	{
-	
 		$src_size = filesize($src_path);
 
 		if (!($src_size > 1000 || strpos ($src_path, '/unittests/') !== false ))
 		{
 
 			$userMessage = UserMessage::getInstance();
-			$userMessage->enqueueMessage(__('Files under 1 KB are not accepted. Operation canceled.'), ERRORLEVEL_ERROR);
+			$userMessage->enqueueMessage(__('Files under 1 KB are not accepted. Operation canceled.'), ERRORLEVEL_CRITICAL);
 			return null;
 		}
 		
@@ -295,7 +294,7 @@ class FileValidator
 			$res = $zip->open($zipfilepath);
 			if ($res === TRUE) {
 			
-				if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath); // needed to avoid keeped old files that don't exist anymore in the new archive
+				if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath); // needed to avoid keeping old files that don't exist anymore in the new archive
 				$zip->extractTo($unzippath);
 
 				$zip->close();
@@ -319,21 +318,10 @@ class FileValidator
 	*		Dispatch files from an uncompressed archive in $this->phpfiles, $this->cssfiles or $this->otherfiles
 	*		Used to prepare the call to validate()
 	**/
-	private function extractFiles($unzippedPath)
+	/*private function extractFiles($unzippedPath)
 	{
 		$files = listdir( $unzippedPath );
-		/*$data = tc_get_theme_data( $theme . '/style.css' );
-		if ( $data[ 'Template' ] ) {
-			// This is a child theme, so we need to pull files from the parent, which HAS to be installed.
-			$parent = get_theme_root( $data[ 'Template' ] ) . '/' . $data['Template'];
-			if ( ! tc_get_theme_data( $parent . '/style.css' ) ) { // This should never happen but we will check while were here!
-				echo '<h2>' . sprintf(___('Parent theme <strong>%1$s</strong> not found! You have to have parent AND child-theme installed!', 'themecheck'), $data[ 'Template' ] ) . '</h2>';
-				return;
-			}
-			$parent_data = tc_get_theme_data( $parent . '/style.css' );
-			$themename = basename( $parent );
-			$files = array_merge( listdir( $parent ), $files );
-		}*/
+
 
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
@@ -350,7 +338,7 @@ class FileValidator
 				}
 			}
 		}
-	}
+	}*/
 			
 	/** 
 	*		Execute all checks 
@@ -384,7 +372,7 @@ class FileValidator
 		date_default_timezone_set('UTC');
 		$this->themeInfo->validation_datetime = date("U"); // Unix timestamp
 		
-		$check_fails = array();
+		$check_critical = array();
 		$check_warnings = array();
 		$check_successes = array();
 		$check_undefined = array();
@@ -401,7 +389,7 @@ class FileValidator
 				if ($this->themeInfo->themetype & $checkpart->themetype) 
 				{
 					$checkpart->title = $check->title; // a bit dirty...
-					if ($checkpart->errorLevel == ERRORLEVEL_ERROR) $check_fails[] = $checkpart;
+					if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
 					else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
 					else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
 					else $check_undefined[] = $checkpart;
@@ -412,7 +400,7 @@ class FileValidator
 		}
 		$this->themeInfo->check_count = $check_count;
 		$this->themeInfo->check_countOK = count($check_successes);
-		$this->themeInfo->failuresCount = count($check_fails);
+		$this->themeInfo->criticalCount = count($check_critical);
 		$this->themeInfo->warningsCount = count($check_warnings);
 		if ($check_count > 0) $this->themeInfo->score = (100 * $this->themeInfo->check_countOK) / $this->themeInfo->check_count;
 		else $this->themeInfo->score = 0.0;
@@ -422,17 +410,38 @@ class FileValidator
 		foreach($ExistingLangs as $l)
 		{
 			$this->validationResults[$l] = new ValidationResults($l);
-			foreach($check_fails as $checkpart_multi) $this->validationResults[$l]->check_fails[] = $checkpart_multi->getMonolingual($l);
+			foreach($check_critical as $checkpart_multi) $this->validationResults[$l]->check_critical[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_warnings as $checkpart_multi) $this->validationResults[$l]->check_warnings[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_successes as $checkpart_multi) $this->validationResults[$l]->check_successes[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
-		}		
+		}
 	}
 	
 	public function getValidationResults($lang)
 	{
 		if (isset($this->validationResults[$lang])) return $this->validationResults[$lang];
 		return $this->validationResults['en'];
+	}
+	
+	public function clean()
+	{
+		if (!isset($this->themeInfo)) return;
+		if (!isset($this->themeInfo->hash)) return;
+		
+		// don't clean if in DB because it means someone has posted the archive previously, and maybe the current user tries to erase it.
+		if (USE_DB)
+		{
+			$history = new History();
+			$id = $history->getIdFromHash($this->themeInfo->hash);
+			if (!empty($id)) return;
+		}
+		
+		$zipfilepath = self::hashToPathUpload($this->themeInfo->hash);
+		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;
+		$unzippath_parent = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash.'_tc_parentzip';
+		if (file_exists($zipfilepath)) unlink($zipfilepath);
+		if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath);
+		if (file_exists($unzippath_parent)) ListDirectoryFiles::recursiveRemoveDir($unzippath_parent);
 	}
 }
 ?>

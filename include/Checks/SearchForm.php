@@ -27,7 +27,7 @@ class SearchForm extends Check
     {
 			$this->title = __all("Search form");
 			$this->checks = array(
-						new SearchForm_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('Implementation'), '/(include\s?\(\s?TEMPLATEPATH\s?\.?\s?["|\']\/searchform.php["|\']\s?\))/', 'ut_searchform.zip'),
+						new SearchForm_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Implementation'), '/(include\s?\(\s?TEMPLATEPATH\s?\.?\s?["|\']\/searchform.php["|\']\s?\))/', 'ut_searchform.zip'),
 			);
     }
 }

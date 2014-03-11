@@ -32,7 +32,7 @@ class JManifest_Checker extends CheckPart
 								{
 									$filename = tc_filename( $other_key );
 									$this->messages[] = __all('Cannot read xml content <strong>%1$s</strong>.', $filename);
-                  $this->errorLevel = ERRORLEVEL_ERROR;
+                  $this->errorLevel = ERRORLEVEL_CRITICAL;
 								}
             }
         }

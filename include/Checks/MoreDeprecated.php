@@ -20,7 +20,7 @@ class MoreDeprecated_Checker extends CheckPart
                 $grep = tc_grep( $error, $php_key );
 								$this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $key_version, $key_instead, $grep );
 
-                $this->errorLevel = ERRORLEVEL_ERROR;
+                $this->errorLevel = ERRORLEVEL_CRITICAL;
             }
         }
     }
@@ -32,10 +32,10 @@ class MoreDeprecated extends Check
     {
 			$this->title = __all("Deprecated functions");
 			$this->checks = array(
-						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('get_bloginfo'), array('get_bloginfo\(\s?("|\')home("|\')\s?\)', 'home_url()', '2.2' ), 't_moredeprecatedwordpress_get_bloginfo.zip'),
-						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('bloginfo'), array('bloginfo\(\s?("|\')home("|\')\s?\)', 'echo home_url()', '2.2' ), 'ut_moredeprecatedwordpress_bloginfo.zip'),
-						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('get_bloginfo'), array('get_bloginfo\(\s?("|\')site_url("|\')\s?\)', 'home_url()', '2.2' ), 'ut_moredeprecatedwordpress_get_bloginfo_site_url.zip'),
-						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('bloginfo'), array('bloginfo\(\s?("|\')site_url("|\')\s?\)', 'echo home_url()', '2.2' ), 'ut_moredeprecatedwordpress_bloginfo_site_url.zip'),
+						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('get_bloginfo'), array('get_bloginfo\(\s?("|\')home("|\')\s?\)', 'home_url()', '2.2' ), 't_moredeprecatedwordpress_get_bloginfo.zip'),
+						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('bloginfo'), array('bloginfo\(\s?("|\')home("|\')\s?\)', 'echo home_url()', '2.2' ), 'ut_moredeprecatedwordpress_bloginfo.zip'),
+						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('get_bloginfo'), array('get_bloginfo\(\s?("|\')site_url("|\')\s?\)', 'home_url()', '2.2' ), 'ut_moredeprecatedwordpress_get_bloginfo_site_url.zip'),
+						new MoreDeprecated_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('bloginfo'), array('bloginfo\(\s?("|\')site_url("|\')\s?\)', 'echo home_url()', '2.2' ), 'ut_moredeprecatedwordpress_bloginfo_site_url.zip'),
 			);
     }
 }

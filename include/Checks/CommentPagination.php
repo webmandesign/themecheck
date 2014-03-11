@@ -25,7 +25,7 @@ class CommentPagination extends Check
     {
 			$this->title = __all("Comment pagination");
 			$this->checks = array(
-						new CommentPagination_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
+						new CommentPagination_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
 			);
     }
 }

@@ -27,7 +27,7 @@ class Iframes extends Check
     {
 			$this->title = __all("Presence of iframes");
 			$this->checks = array(
-						new Iframes_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('iframes are sometimes used to load unwanted adverts and malicious code on another site'), '/<(iframe)[^>]*>/', 'ut_iframes.zip')
+						new Iframes_Checker(TT_COMMON, ERRORLEVEL_CRITICAL, __all('iframes are sometimes used to load unwanted adverts and malicious code on another site'), '/<(iframe)[^>]*>/', 'ut_iframes.zip')
 			);
     }
 }

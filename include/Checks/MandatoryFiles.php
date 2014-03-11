@@ -28,11 +28,11 @@ class MandatoryFiles extends Check
     {
 			$this->title = __all("Mandatory files");
 			$this->checks = array(
-						new MandatoryFiles_Checker(TT_COMMON, ERRORLEVEL_ERROR, __all('Presence of file index.php'), 'index.php', 'ut_mandatoryfiles_index.zip'),
+						new MandatoryFiles_Checker(TT_COMMON, ERRORLEVEL_CRITICAL, __all('Presence of file index.php'), 'index.php', 'ut_mandatoryfiles_index.zip'),
 						new MandatoryFiles_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of file style.css'), 'style.css', 'ut_mandatoryfiles_style.zip'),
 						new MandatoryFiles_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of file readme.txt'), 'readme.txt', 'ut_mandatoryfiles_readme.zip'),
-						new MandatoryFiles_Checker(TT_JOOMLA, ERRORLEVEL_ERROR, __all('Presence of file templateDetails.xml'), 'templateDetails.xml', 'ut_mandatoryfiles_templatedetails.zip'),
-						new MandatoryFiles_Checker(TT_JOOMLA, ERRORLEVEL_ERROR, __all('Presence of file template_thumbnail.png'), 'template_thumbnail.png', 'ut_mandatoryfiles_template_thumbnail.zip')
+						new MandatoryFiles_Checker(TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('Presence of file templateDetails.xml'), 'templateDetails.xml', 'ut_mandatoryfiles_templatedetails.zip'),
+						new MandatoryFiles_Checker(TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('Presence of file template_thumbnail.png'), 'template_thumbnail.png', 'ut_mandatoryfiles_template_thumbnail.zip')
 			);
     }
 }

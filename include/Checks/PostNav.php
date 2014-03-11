@@ -24,7 +24,7 @@ class PostNav extends Check
     {
 			$this->title = __all("Post pagination");
 			$this->checks = array(
-						new PostNav_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all("Implementation"), null, 'ut_postnav.zip'),
+						new PostNav_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Implementation"), null, 'ut_postnav.zip'),
 			);
     }
 }

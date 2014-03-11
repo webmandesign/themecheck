@@ -29,7 +29,7 @@ class Includes extends Check
     {
 			$this->title = __all("Use of includes");
 			$this->checks = array(
-						new Includes_Checker(TT_WORDPRESS, ERRORLEVEL_ERROR, __all('Use of include or require'), '/(?<![a-z0-9_])(?:requir|includ)e(?:_once){0}\s?\(/', 'ut_includes.zip'),
+						new Includes_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Use of include or require'), '/(?<![a-z0-9_])(?:requir|includ)e(?:_once){0}\s?\(/', 'ut_includes.zip'),
 			);
     }
 }

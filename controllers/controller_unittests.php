@@ -120,11 +120,11 @@ class Controller_unittests
 								$text = sprintf(__('Themecheck.org validation score : %s%%'),intval($themeInfo->score));
 								if ($themeInfo->score<100.0)
 								{
-									if ($themeInfo->failuresCount > 0)
+									if ($themeInfo->criticalCount > 0)
 									{
 										$img = 'shieldred240.png';
 										$color = 'ff1418';
-										$text = sprintf(__('Themecheck.org validation score : %s%% (%s checks failed)'),intval($themeInfo->score),$themeInfo->failuresCount);
+										$text = sprintf(__('Themecheck.org validation score : %s%% (%s critical alerts)'),intval($themeInfo->score),$themeInfo->criticalCount);
 									} else {
 										$img = 'shieldorange240.png';
 										$color = 'd96f11';
@@ -139,7 +139,7 @@ class Controller_unittests
 								</div>
 								<?php
 								echo '<p "color:#'.$color.'">validation score : '.intval($themeInfo->score).' %</p>';
-								echo '<p>'.$themeInfo->failuresCount.' checks failed. '.$themeInfo->warningsCount.' warnings.</p>';
+								echo '<p>'.$themeInfo->criticalCount.' critical alerts. '.$themeInfo->warningsCount.' warnings.</p>';
 								?>
 								<br/><br/>
 								Share this page with the following link : 
@@ -206,11 +206,11 @@ class Controller_unittests
 							<?php
 							echo '<div class="row"><div class="col-md-12">';
 							
-							if (count($this->validationResults->check_fails) > 0)
+							if (count($this->validationResults->check_critical) > 0)
 							{
 								echo '<div style="padding:20px;margin-top:20px;"><h2 style="line-height:100px;color:#D00;">'.__("Failed checks").'</h2>';
 								echo '<ol>';
-								foreach ($this->validationResults->check_fails as $check)
+								foreach ($this->validationResults->check_critical as $check)
 								{
 									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 									if (!empty($check->messages)) {

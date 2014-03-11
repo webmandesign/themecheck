@@ -26,6 +26,22 @@ class Controller_results
 		{
 			$hash = $routeParts["hash"];
 			$this->fileValidator = FileValidator::unserialize($hash);
+			$validationAge = time() - $this->fileValidator->themeInfo->validationDate;
+
+			$checkfiles = scandir(TC_INCDIR.'/Checks');
+			$youngestCheckTimestamp = 0;
+			foreach($checkfiles as $f)
+			{
+				if ($f == '.' || $f == '..') continue;
+				$m = filemtime(TC_INCDIR.'/Checks/'.$f);
+				if($youngestCheckTimestamp < $m) $youngestCheckTimestamp = $m;
+			}
+			if ($validationAge < $youngestCheckTimestamp) // if checks changed, revalidate
+			{
+				$this->fileValidator->validate();	
+				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
+				$this->fileValidator->serialize(true);
+			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
 		{
@@ -35,9 +51,13 @@ class Controller_results
 				$this->fileValidator = new FileValidator($themeInfo);
 				$this->fileValidator->validate();	
 				
-				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
+				if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+				{
+					$this->fileValidator->clean();
+				} else {
 					$this->fileValidator->serialize();
-
+				}
+				
 				$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 			}
 		} else {
@@ -105,11 +125,11 @@ class Controller_results
 								$text = sprintf(__('Validation score : %s%%'),intval($themeInfo->score));
 								if ($themeInfo->score<100.0)
 								{
-									if ($themeInfo->failuresCount > 0)
+									if ($themeInfo->criticalCount > 0)
 									{
 										$img = 'shieldred240.png';
 										$color = 'ff1418';
-										$text = sprintf(__('Validation score : %s%% (%s checks failed)'),intval($themeInfo->score),$themeInfo->failuresCount);
+										$text = sprintf(__('Validation score : %s%% (%s critical alerts)'),intval($themeInfo->score),$themeInfo->criticalCount);
 									} else {
 										$img = 'shieldorange240.png';
 										$color = 'd96f11';
@@ -124,7 +144,7 @@ class Controller_results
 								</div>
 								<?php
 								echo '<p "color:#'.$color.'">'.__("validation score").' : '.intval($themeInfo->score).' %</p>';
-								echo '<p>'.sprintf(__("%s checks failed. %s warnings."),$themeInfo->failuresCount, $themeInfo->warningsCount).'</p>';
+								echo '<p>'.sprintf(__("%s critical alerts. %s warnings."),$themeInfo->criticalCount, $themeInfo->warningsCount).'</p>';
 								?>
 								<br/><br/>
 								<?php echo __("Share this page with the following link :");?>
@@ -175,9 +195,10 @@ class Controller_results
 							if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), htmlspecialchars($themeInfo->authorUri));
 							if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
 							if (!empty($themeInfo->copyright))$characteristics[] = array(__("Copyright"), htmlspecialchars($themeInfo->copyright));
-							if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), htmlspecialchars($themeInfo->creationDate));
-							if (!empty($themeInfo->modificationDate))$characteristics[] = array(__("Last update"), htmlspecialchars($themeInfo->modificationDate));
-
+							if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), date("Y-m-d", $themeInfo->creationDate));
+							if (!empty($themeInfo->modificationDate))$characteristics[] = array(__("Last file update"), date("Y-m-d", $themeInfo->modificationDate));
+							if (!empty($themeInfo->validationDate))$characteristics[] = array(__("Last validation"), date("Y-m-d H:i", $themeInfo->validationDate));
+							
 							foreach ($characteristics as $c)
 							{
 								echo '<p style="text-transform:uppercase;margin:0;margin-top:10px;">'.$c[0].'</p><span style="color:#CCC">'.$c[1].'</span>';
@@ -190,18 +211,18 @@ class Controller_results
 							<?php
 							echo '<div class="row"><div class="col-md-12">';
 							
-							if (count($this->validationResults->check_fails) > 0)
+							if (count($this->validationResults->check_critical) > 0)
 							{
-								echo '<div style="padding:20px;margin-top:20px;"><h2 style="line-height:100px;color:#D00;">'.__("Failed checks").'</h2>';
+								echo '<h2 style="line-height:100px;color:#D00;">'.__("Critical alerts").'</h2>';
 								echo '<ol>';
-								foreach ($this->validationResults->check_fails as $check)
+								foreach ($this->validationResults->check_critical as $check)
 								{
 									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 									if (!empty($check->messages)) {
 										echo '<p style="color:#c94b4b;">'.implode('<br/>',$check->messages).'</p>';
 									}
 								}
-								echo '</ol></div>';
+								echo '</ol>';
 							}
 
 							if (count($this->validationResults->check_warnings) > 0)
@@ -218,7 +239,7 @@ class Controller_results
 								echo '</ol>';
 							}
 
-							echo '</div></div>';
+							echo '</div>';
 
 		} else if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0) {
 		?>
@@ -242,7 +263,7 @@ class Controller_results
 								<?php
 								echo '<p "color:#'.$color.'">'.__("Validation score : 0 %").'</p>';
 								$userMessage = UserMessage::getInstance();
-								echo '<div style="margin:5% 10%">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
+								echo '<div style="margin:5% 10%">'.__("Fatal error").'<br>'.UserMessage::getInstance()->getMessagesHtml().'</div>';
 								?>
 								<p><?php echo '<a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Go to home page to submit a new version").'</a>'; ?></p>
 								<br/>

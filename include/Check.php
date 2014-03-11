@@ -3,7 +3,7 @@ namespace ThemeCheck;
 require_once TC_INCDIR.'/Bootstrap.php';
 require_once TC_INCDIR.'/tc_helpers.php';
 define ("ERRORLEVEL_UNDEFINED", 0);
-define ("TT_UNDEFINED", 1);
+define ("TT_UNDEFINED", 0);
 define ("TT_WORDPRESS", 1);
 define ("TT_JOOMLA", 2);
 define ("TT_COMMON", TT_WORDPRESS | TT_JOOMLA );
@@ -12,7 +12,7 @@ define ("TT_COMMON", TT_WORDPRESS | TT_JOOMLA );
 abstract class CheckPart
 {
 		public $duration;		// duration in seconds (float)
-		public $threatLevel; // ERRORLEVEL_ERROR, ERRORLEVEL_WARNING or ERRORLEVEL_SUCCESS
+		public $threatLevel; // ERRORLEVEL_CRITICAL, ERRORLEVEL_WARNING or ERRORLEVEL_SUCCESS
 		public $code;				// code to be tested
 		public $messages = array();		// array of messages, variable depending on errors detected while checking
 		public $hint = array();				// hint/explanation

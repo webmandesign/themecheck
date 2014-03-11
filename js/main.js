@@ -1,2 +1,1 @@
-//$(":file").filestyle({classButton: "btn"});
-//$(":file").filestyle();
+$('#forgetresultsmoreinfo').popover({ html: true });

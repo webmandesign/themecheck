@@ -8,33 +8,33 @@ function getShield($themeInfo, $lang, $size, $href , $rootdir)
 	if (!empty($themeInfo))
 	{
 		$score = 0;
-		$failuresCount = 0;
+		$criticalCount = 0;
 		$warningsCount = 0;
 		if (is_array($themeInfo))
 		{
 			$score = $themeInfo["score"];
-			$failuresCount = $themeInfo["failuresCount"];
+			$criticalCount = $themeInfo["criticalCount"];
 			$warningsCount = $themeInfo["warningsCount"];
 		} else {
 			$score = $themeInfo->score;
-			$failuresCount = $themeInfo->failuresCount;
+			$criticalCount = $themeInfo->criticalCount;
 			$warningsCount = $themeInfo->warningsCount;
 		}
 		
 		$img = "pictogreen$size.png";
 		$color = 'cbd715';
-		$text = __("Themecheck.org validation score : 100%", $lang);
+		$text = sprintf(__("Themecheck.org validation score : 100%%, %s.", $lang), date("Y-m-d", $themeInfo->validationDate));
 		if ($score<100.0)
 		{
-			if ($failuresCount > 0)
+			if ($criticalCount > 0)
 			{
 				$img = "pictored$size.png";
 				$color = 'ff1427';
-				$text = sprintf(__("Themecheck.org validation score : %s%% (%s severe failures, %s warnings)", $lang), intval($score), $failuresCount, $warningsCount);
+				$text = sprintf(__("Themecheck.org validation score : %s%% (%s severe failures, %s warnings, %s).", $lang), intval($score), $criticalCount, $warningsCount, date("Y-m-d", $themeInfo->validationDate));
 			} else {
 				$img = "pictoorange$size.png";
 				$color = 'ff8214';
-				$text = sprintf(__("Themecheck.org validation score : %s%% (%s warnings)", $lang), intval($score), $warningsCount);
+				$text = sprintf(__("Themecheck.org validation score : %s%% (%s warnings, %s).", $lang), intval($score), $warningsCount, date("Y-m-d", $themeInfo->validationDate));
 			}
 		}
 		

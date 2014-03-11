@@ -140,8 +140,8 @@ class Controller_massimport
 				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=importnext';?>",
 				data : {path : zips[zip_index][0], timestamp : zips[zip_index][1]}
 			}).done(function( obj ) {
+				obj.index = zip_index++;
 				console.log(obj);
-				zip_index++;
 				importNext();
 			}).fail(function() {
 				console.log("ajax error");
@@ -207,7 +207,7 @@ class Controller_massimport
 									{
 										$response["error"] .= "\n".$m;
 									}
-									foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+									foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
 									{
 										$response["error"] .= "\n".$m;
 									}
@@ -218,9 +218,9 @@ class Controller_massimport
 								}
 							} else {
 								// at least one error occured while serializing (no thumbnail...)
-								if (UserMessage::getCount(ERRORLEVEL_ERROR) > 0)
+								if (UserMessage::getCount(ERRORLEVEL_CRITICAL) > 0)
 								$response["error"] = "could not serialize validation results";
-								foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+								foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
 								{
 									$response["error"] .= "\n".$m;
 								}
@@ -235,7 +235,7 @@ class Controller_massimport
 							{
 								$response["error"] .= "\n".$m;
 							}
-							foreach(UserMessage::getMessages(ERRORLEVEL_ERROR) as $m)
+							foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
 							{
 								$response["error"] .= "\n".$m;
 							}

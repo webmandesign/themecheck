@@ -50,7 +50,7 @@ class UserMessage {
 		{
 			$alert_class = 'alert-success';
 			if ($errorlevel === ERRORLEVEL_WARNING) $alert_class = 'alert-warning';
-			else if ($errorlevel === ERRORLEVEL_ERROR) $alert_class = 'alert-danger';
+			else if ($errorlevel === ERRORLEVEL_CRITICAL) $alert_class = 'alert-danger';
 			else if ($errorlevel === ERRORLEVEL_FATAL) $alert_class = 'alert-danger';
 			else if ($errorlevel === ERRORLEVEL_INFO) $alert_class = 'alert-info';
 			
