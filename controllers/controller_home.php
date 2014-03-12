@@ -38,7 +38,7 @@ class Controller_home
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
 		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
 		$html .= '<div style="width:33px;height:40px;float:right;">';
-		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, '');
+		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
 		$html .= '</div>';
 		$html .= htmlspecialchars($themeInfo['name']).'<br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
 		$html .= '</div>';
@@ -58,7 +58,7 @@ class Controller_home
 						<h1><?php echo __("Validate your web theme or template"); ?></h1>
 						<h2><?php echo __("And make it trustable"); ?></h2>
 						<p><?php echo __("Themecheck.org is a quick service that lets you validate web themes or templates for security and code quality. This service is free and compatible with Wordpress themes and Joomla templates."); ?></p>
-						<p><?php echo __("Share validation score on your site with ThemeCheck.org widget :"); ?>&nbsp;<img src="img/pictosuccess40.png"></p>
+						<p><?php echo __("Share validation score on your site with ThemeCheck.org widget :"); ?>&nbsp;<img src="<?php echo TC_HTTPDOMAIN;?>/img/pictosuccess40.png"></p>
 					</div>
 				</div>
 

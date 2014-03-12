@@ -125,7 +125,7 @@ class Controller_massimport
 		$a = array_keys($fileszip);
 		for ($i = 0; $i< count($a); $i++)
 		{
-			$unixStylePath = str_replace('\\','/',$a[$i]);
+			$unixStylePath = str_replace('\\','/',realpath($a[$i]));
 			$index = $a[$i];
 			$timestamp = $fileszip[$index];
 			echo 'zips['.$i.'] = new Array("'.$unixStylePath.'","'.$timestamp.'");'."\n";
@@ -139,6 +139,7 @@ class Controller_massimport
 				type: "POST",
 				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=importnext';?>",
 				data : {path : zips[zip_index][0], timestamp : zips[zip_index][1]}
+				//data : {timestamp : zips[zip_index][1]}
 			}).done(function( obj ) {
 				obj.index = zip_index++;
 				console.log(obj);
@@ -162,7 +163,6 @@ class Controller_massimport
 		
 		if (file_exists($_POST["path"]))
 		{
-
 			$response["file"] = $_POST["path"];
 			if (USE_DB)
 			{
@@ -180,8 +180,7 @@ class Controller_massimport
 				{
 					$path_parts = pathinfo($f);
 					$path_item = $path_parts['dirname'];
-					$filename = $path_parts['filename'].'.'.$path_parts['extension'];
-				
+					$filename = $path_parts['filename'].'.'.$path_parts['extension'];			
 					$themeInfo = FileValidator::prepareThemeInfo($path_item.'/'.$filename, $filename, 'application/zip', false);
 
 					if (!empty($themeInfo))

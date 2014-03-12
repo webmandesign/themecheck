@@ -370,8 +370,7 @@ class FileValidator
 			}
 		}
 		date_default_timezone_set('UTC');
-		$this->themeInfo->validation_datetime = date("U"); // Unix timestamp
-		
+		$this->themeInfo->validationDate = time();
 		$check_critical = array();
 		$check_warnings = array();
 		$check_successes = array();

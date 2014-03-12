@@ -100,9 +100,12 @@ class ThemeInfo
 												'doc'=>false,
 												'docx'=>false,
 												'rtf'=>false);
-		
-		$files = listdir( $unzippath );
-		
+		try {
+			$files = listdir( $unzippath );
+		} catch (Exception $e) {
+			UserMessage::enqueue(__("Cannot list files in archive."), ERRORLEVEL_FATAL);
+			return false;
+		}
 		if ( empty($files) ) {
 			UserMessage::enqueue(__("Cannot list files in archive."), ERRORLEVEL_FATAL);
 			return false;
@@ -137,6 +140,10 @@ class ThemeInfo
 			}
 			$newpath = $curpath.'_tc_parentzip';
 			if(!file_exists($newpath)) rename($curpath, $newpath);
+			if (!file_exists($newpath)) {
+				UserMessage::enqueue(__("Nested zip archives are not supported."), ERRORLEVEL_FATAL);
+				return false;
+			}
 			try {
 				$zipfilepath = str_replace($curpath, $newpath, $nestedzipfiles[0]);
 				$zip = new \ZipArchive();

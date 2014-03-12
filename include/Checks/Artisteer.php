@@ -9,7 +9,8 @@ class Artisteer_Checker extends CheckPart
         // combine all the php files into one string to make it easier to search
         $php = implode( ' ', $php_files );
         
-				foreach ( $this->code as $key ) {
+				foreach ( $this->code as $key )
+				{
 					if (strpos( $php, $key ) !== false)
 					{
 						$this->messages[] = __all('Typical Artisteer code was found.', $key);

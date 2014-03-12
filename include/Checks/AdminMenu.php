@@ -7,7 +7,8 @@ class AdminMenu_Checker extends CheckPart
     {		
         $this->errorLevel = ERRORLEVEL_SUCCESS;
                
-        foreach ( $php_files as $php_key => $phpfile ) {
+        foreach ( $php_files as $php_key => $phpfile ) 
+				{
             if ( preg_match( $this->code, $phpfile, $matches ) ) {
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );

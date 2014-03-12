@@ -26,7 +26,7 @@ class Controller_results
 		{
 			$hash = $routeParts["hash"];
 			$this->fileValidator = FileValidator::unserialize($hash);
-			$validationAge = time() - $this->fileValidator->themeInfo->validationDate;
+		//	$validationAge = time() - $this->fileValidator->themeInfo->validationDate;
 
 			$checkfiles = scandir(TC_INCDIR.'/Checks');
 			$youngestCheckTimestamp = 0;
@@ -36,7 +36,7 @@ class Controller_results
 				$m = filemtime(TC_INCDIR.'/Checks/'.$f);
 				if($youngestCheckTimestamp < $m) $youngestCheckTimestamp = $m;
 			}
-			if ($validationAge < $youngestCheckTimestamp) // if checks changed, revalidate
+			if ($this->fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
 			{
 				$this->fileValidator->validate();	
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
@@ -145,29 +145,35 @@ class Controller_results
 								<?php
 								echo '<p "color:#'.$color.'">'.__("validation score").' : '.intval($themeInfo->score).' %</p>';
 								echo '<p>'.sprintf(__("%s critical alerts. %s warnings."),$themeInfo->criticalCount, $themeInfo->warningsCount).'</p>';
-								?>
-								<br/><br/>
-								<?php echo __("Share this page with the following link :");?>
-								<p>
-								<?php 
-									echo '<a href="'.$this->samepage_i18n[I18N::getCurLang()].'">'.$this->samepage_i18n[I18N::getCurLang()].'</a>';
-								?>
-								</p>
-								<?php echo __("Display this score on your website with the following HTML code that links to this page :");?>
-								<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?lang='.I18N::getCurLang().'&id='.$themeInfo->hash.'&size=big" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:240px; width:200px;" allowTransparency="true"></iframe>');?></pre>		
 								
-								<button class="btn" data-toggle="collapse" data-target="#moreembedoptions" style="height:20px;padding:1px;font-size:12px">more options</button>
-								<div id="moreembedoptions" class="collapse">
-								<?php displayShield($themeInfo, I18N::getCurLang(), 80, '#', TC_HTTPDOMAIN.'/'); ?>
-								<?php echo __("Medium size icon (default) :");?>
-								<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:67px;" allowTransparency="true"></iframe>');?></pre>	
-								<?php displayShield($themeInfo, I18N::getCurLang(), 40, '#', TC_HTTPDOMAIN.'/'); ?>
-								<?php echo __("Small size icon :");?>
-								<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:40px;" allowTransparency="true"></iframe>');?></pre>	
-								<?php echo htmlspecialchars(__("You can switch language with <strong>lang</strong> parameter in iframe's url. So far <strong>fr</strong> and <strong>en</strong> are supported. Default value is <strong>en</strong>."));?>
-								<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?lang='.I18N::getCurLang().'&id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:67px;" allowTransparency="true"></iframe>');?></pre>	
-								</div>
-								<br/>
+								if (!isset($_POST["donotstore"]) && UserMessage::getCount(ERRORLEVEL_FATAL) == 0) {
+									?>
+									<br/><br/>
+									<?php echo __("Share this page with the following link :");?>
+									<p>
+									<?php 
+										echo '<a href="'.$this->samepage_i18n[I18N::getCurLang()].'">'.$this->samepage_i18n[I18N::getCurLang()].'</a>';
+									?>
+									</p>
+									<?php echo __("Display this score on your website with the following HTML code that links to this page :");?>
+									<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?lang='.I18N::getCurLang().'&id='.$themeInfo->hash.'&size=big" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:240px; width:200px;" allowTransparency="true"></iframe>');?></pre>		
+									
+									<button class="btn" data-toggle="collapse" data-target="#moreembedoptions" style="height:20px;padding:1px;font-size:12px">more options</button>
+									<div id="moreembedoptions" class="collapse">
+									<?php displayShield($themeInfo, I18N::getCurLang(), 80, '#', TC_HTTPDOMAIN.'/'); ?>
+									<?php echo __("Medium size icon (default) :");?>
+									<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:67px;" allowTransparency="true"></iframe>');?></pre>	
+									<?php displayShield($themeInfo, I18N::getCurLang(), 40, '#', TC_HTTPDOMAIN.'/'); ?>
+									<?php echo __("Small size icon :");?>
+									<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:40px;" allowTransparency="true"></iframe>');?></pre>	
+									<?php echo htmlspecialchars(__("You can switch language with <strong>lang</strong> parameter in iframe's url. So far <strong>fr</strong> and <strong>en</strong> are supported. Default value is <strong>en</strong>."));?>
+									<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?lang='.I18N::getCurLang().'&id='.$themeInfo->hash.'" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px; width:67px;" allowTransparency="true"></iframe>');?></pre>	
+									</div>
+									<br/>
+								<?php } else 
+								{
+									echo '<br>'.__("These results were not saved on themecheck.org servers and will be lost when you quit this page.");
+								}?>
 						</div>
 						<div class="col-md-4" style="border-radius: 3px;background:#444; overflow:hidden; font-size:12px">
 							<?php 
@@ -238,6 +244,59 @@ class Controller_results
 								}
 								echo '</ol>';
 							}
+?>
+    <div id="disqus_thread" style="margin-top:60px"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'themecheck'; // required: replace example with your forum shortname
+				var disqus_url = '<?php echo $this->samepage_i18n[I18N::getCurLang()];?>';
+				
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+<?php
+if (USE_DB)
+{
+	echo '<hr>';
+	echo '<h2 style="line-height:100px;color:#888">'.__("Other files checked around the same date").'</h2>';
+	$history = new History();
+	$id = intval($history->getIdFromHash($themeInfo->hash));
+	for ($i = 1; $i > -4; $i--)
+	{
+		if ($i == 0) $i--; // not the current one
+		$r = $history->getFewInfo($id + $i);
+		if ($r !== false)
+		{
+			$html = '';
+			$namesanitized = $r['namesanitized'];
+			$themetype = $r['themetype'];
+			$score = $r['score'];
+			$themetype_text = sprintf(__("Wordpress %s theme"),$r['cmsVersion']);
+			if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $r['cmsVersion']);
+			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+			$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
+			$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$r['hash'].'/thumbnail.png"></a>';
+			$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
+			$html .= '<div style="width:33px;height:40px;float:right;">';
+			$html .= getShield($r, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
+			$html .= '</div>';
+			$html .= htmlspecialchars($r['name']).'<br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+			$html .= '</div>';
+			$html .= '</div>';
+			
+			echo $html;
+		}
+	}
+	//	$themetype = $r['themetype'];
+	//	$score = $r['score'];
+}
 
 							echo '</div>';
 
