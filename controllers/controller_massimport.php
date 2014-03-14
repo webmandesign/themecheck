@@ -185,7 +185,6 @@ class Controller_massimport
 
 					if (!empty($themeInfo))
 					{
-					
 						$this->fileValidator = new FileValidator($themeInfo);
 						$this->fileValidator->validate();	
 						if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
@@ -196,6 +195,7 @@ class Controller_massimport
 								$response["error"] .= "\n".$m;
 							}
 						} else {
+						
 							if ($this->fileValidator->serialize())
 							{
 								if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)

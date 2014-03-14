@@ -150,7 +150,8 @@ class Route {
 			{
 				$nameSanitized = null;
 				$themetypes = array (TT_WORDPRESS => 'wordpress_theme',
-														 TT_JOOMLA => 'joomla_template');
+														 TT_JOOMLA => 'joomla_template',
+														 TT_WORDPRESS_CHILD => 'wordpress_theme');
 				foreach ($themetypes as $themetype => $prefix)
 				{
 					$prefixi18n = trim($i18n->url($route["lang"], $prefix));
@@ -215,13 +216,15 @@ class Route {
 				$data["name"] = $themeInfo->namesanitized;
 				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress_theme';
 				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
+				if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress_theme';
 				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($data["name"]).'.html';
 			}	else if (isset($route["namesanitized"]) && isset($route["themetype"])) 
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 
-				if ($route["themetype"] == 1) 	$data["themetype"] = 'wordpress_theme';
-				if ($route["themetype"] == 2) 	$data["themetype"] = 'joomla_template';
+				if ($route["themetype"] == TT_WORDPRESS) 	$data["themetype"] = 'wordpress_theme';
+				if ($route["themetype"] == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
+				if ($route["themetype"] == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress_theme';
 				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($route["namesanitized"]).'.html';
 			} else {
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');

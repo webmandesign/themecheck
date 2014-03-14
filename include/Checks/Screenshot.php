@@ -39,8 +39,8 @@ class Screenshot_Checker extends CheckPart
                 $this->errorLevel = ERRORLEVEL_SUCCESS;
                 // we have or screenshot!
                 $image = getimagesize( $other_key );
-                if ( $image[0] > 640 || $image[1] > 480 ) {
-                    $this->messages[] = __all('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Maximum allowed size is 640x480px.', $image[0], $image[1]);
+                if ( $image[0] > 880 || $image[1] > 660 ) {
+                    $this->messages[] = __all('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Recommended size is 880x660px.', $image[0], $image[1]);
                     $this->errorLevel = $this->threatLevel;
                 }
                 if ( $image[1] / $image[0] != 0.75 ) {
@@ -50,8 +50,8 @@ class Screenshot_Checker extends CheckPart
                     $this->messages[] = __all('Wrong screenshot dimensions. Detected: <strong>%1$sx%2$spx (%3$s:%4$s)</strong>. Ratio of width to height should be 4:3.', $image[0], $image[1], $width, $height);
                     $this->errorLevel = $this->threatLevel;
                 }
-                if ( $image[0] != 600 || $image[1] != 450 ) {
-                    $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Although any 4:3 image size is acceptable, size should be 600x450 to account for HiDPI displays.',$image[0], $image[1]);
+                if ( $image[0] < 600 || $image[1] < 450 ) {
+                    $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Although any 4:3 image size is acceptable, size should be at least 600x450 to account for HiDPI displays.',$image[0], $image[1]);
                     $this->errorLevel = ERRORLEVEL_WARNING;
                 }
                 break;
@@ -72,7 +72,7 @@ class Screenshot extends Check
     {
 			$this->title = __all("Screenshot");
 			$this->checks = array(
-						new Screenshot_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
+						new Screenshot_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
 			);
     }
 }

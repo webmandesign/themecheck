@@ -24,19 +24,28 @@ function getShield($themeInfo, $lang, $size, $href , $rootdir)
 			$validationDate = $themeInfo->validationDate;
 		}
 		
-		$img = "pictogreen$size.png";
+		$img = "pictoperfect$size.png";
 		$color = 'cbd715';
 		$text = sprintf(__("Themecheck.org validation score : 100%%, %s.", $lang), date("Y-m-d", $validationDate));
 		if ($score<100.0)
 		{
-			if ($criticalCount > 0)
+			if ($score > 95)
 			{
-				$img = "pictored$size.png";
-				$color = 'ff1427';
-				$text = sprintf(__("Themecheck.org validation score : %s%% (%s severe failures, %s warnings, %s).", $lang), intval($score), $criticalCount, $warningsCount, date("Y-m-d", $validationDate));
-			} else {
+				$img = "pictogreen$size.png";
+				$color = 'cbd715';
+			} else if ($score > 80)
+			{
 				$img = "pictoorange$size.png";
 				$color = 'ff8214';
+			} else {
+				$img = "pictored$size.png";
+				$color = 'ff1427';
+			}
+			
+			if ($criticalCount > 0)
+			{
+				$text = sprintf(__("Themecheck.org validation score : %s%% (%s severe failures, %s warnings, %s).", $lang), intval($score), $criticalCount, $warningsCount, date("Y-m-d", $validationDate));
+			} else {
 				$text = sprintf(__("Themecheck.org validation score : %s%% (%s warnings, %s).", $lang), intval($score), $warningsCount, date("Y-m-d", $validationDate));
 			}
 		}

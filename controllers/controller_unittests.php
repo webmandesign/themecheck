@@ -171,6 +171,9 @@ class Controller_unittests
 							if ($themeInfo->themetype == TT_WORDPRESS) 	
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress theme"));
 								else $characteristics[] = array(__("Theme type"), __("Wordpress theme").' '.$themeInfo->cmsVersion);
+							else if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	
+								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress child theme"));
+								else $characteristics[] = array(__("Theme type"), __("Wordpress child theme").' '.$themeInfo->cmsVersion);
 							else if ($themeInfo->themetype == TT_JOOMLA)
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));
 								else $characteristics[] = array(__("Theme type"), __("Joomla template").' '.$themeInfo->cmsVersion);		

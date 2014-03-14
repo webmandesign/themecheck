@@ -6,7 +6,8 @@ define ("ERRORLEVEL_UNDEFINED", 0);
 define ("TT_UNDEFINED", 0);
 define ("TT_WORDPRESS", 1);
 define ("TT_JOOMLA", 2);
-define ("TT_COMMON", TT_WORDPRESS | TT_JOOMLA );
+define ("TT_WORDPRESS_CHILD", 4);
+define ("TT_COMMON", TT_WORDPRESS | TT_JOOMLA | TT_WORDPRESS_CHILD );
 
 // Simple unit of check
 abstract class CheckPart
@@ -17,7 +18,7 @@ abstract class CheckPart
 		public $messages = array();		// array of messages, variable depending on errors detected while checking
 		public $hint = array();				// hint/explanation
 		public $unittest;		// zip file of unit tests
-		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA
+		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA...
 		public $errorLevel; // errorlelvel of tested check
 		
 		protected $checks;

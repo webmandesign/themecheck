@@ -22,8 +22,8 @@ namespace ThemeCheck;
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/main.css">
 		<link href='http://fonts.googleapis.com/css?family=Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<link rel="icon" href="favicon.ico" />
-		<link rel="icon" type="image/png" href="favicon.png" />
+		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/favicon.ico" />
+		<link rel="icon" type="image/png" href="<?php echo TC_HTTPDOMAIN;?>/favicon.png" />
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	</head>

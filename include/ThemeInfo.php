@@ -62,13 +62,16 @@ class ThemeInfo
 	public $modulePositions;
 	public $templateParameters;
 	public $imagePath;//path of the snaphsot
-
+	public $parentName;
+	public $parentId;
 	public $validation_timestamp; // Unix timestamp
 	
 	public function __construct($hash)
 	{
 		$this->hash = $hash;
 		$this->serializable = true;
+		$this->parentName = null;
+		$this->parentId = null;
 	}
 			
 	/** 
@@ -171,7 +174,7 @@ class ThemeInfo
 			return false;
 		}
 		
-		if ($this->themetype == TT_WORDPRESS)
+		if ($this->themetype == TT_WORDPRESS || $this->themetype == TT_WORDPRESS_CHILD)
 		{
 			foreach( $files as $key => $filename ) {
 				$path_parts = pathinfo($filename);
@@ -193,7 +196,7 @@ class ThemeInfo
 					if ( preg_match('/[ \t\/*#]*License:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $rawlicense = trim($match[1]);
 					if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) $this->tags = trim($match[1]);
-					
+					if ($this->themetype == TT_WORDPRESS_CHILD && preg_match('/[ \t\/*#]*Template:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->parentName = trim($match[1]);
 					// creation date can come from an external source. Happens with massimport where creation date is in csv files.
 					global $g_creationDate;
 					$this->creationDate = $g_creationDate;
@@ -214,7 +217,6 @@ class ThemeInfo
 		
 		if ($this->themetype == TT_JOOMLA)
 		{
-		
 			foreach( $files as $key => $filename ) {
 				$path_parts = pathinfo($filename);
 				$basename = $path_parts['basename'];
@@ -328,7 +330,9 @@ class ThemeInfo
 		$score_wordpress = 0;
 		$score_joomla = 0;
 		
+		$hasparenttemplate = false;
 		$stylecss = false;
+		$indexphp = false;
 		$templateDetails = false;
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
@@ -342,6 +346,10 @@ class ThemeInfo
 					{
 						$score_wordpress ++;
 					}
+					if ( preg_match('/[ \t\/*#]*Template/i', $file_content) )
+					{
+						$hasparenttemplate = true;
+					}
 					$stylecss = true;
 				}
 				if ($basename == 'screenshot.png') $score_wordpress ++;
@@ -354,12 +362,16 @@ class ThemeInfo
 					$file_content = file_get_contents($filename);
 					if ( preg_match('/get_header\s?\(\s?\)/', $file_content) && preg_match('/get_footer\s?\(\s?\)/', $file_content) ) $score_wordpress ++;
 					if ( strpos($file_content, "'_JEXEC'") !== false) $score_joomla ++;
+					$indexphp = true;
 				}
 			}
 		}
 
 		if ($score_joomla > $score_wordpress && $templateDetails) return TT_JOOMLA;
-		if ($score_joomla < $score_wordpress && $stylecss) return TT_WORDPRESS;
+		if ($score_joomla < $score_wordpress && $stylecss) {
+			if (!$indexphp && $hasparenttemplate) return TT_WORDPRESS_CHILD;
+			return TT_WORDPRESS;
+		}
 		return TT_UNDEFINED;
 	}
 	

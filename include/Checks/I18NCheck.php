@@ -71,16 +71,16 @@ class I18NCheck extends Check
     {
 			$this->title = __all("I18N implementation");
 			$this->checks = array(
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _e(') , '_e', "ut_i18n__e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of ___all(') , '__', "ut_i18n___.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _x(') , '_x', "ut_i18n__x.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of _ex(') , '_ex', "ut_i18n__ex.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr___all(') , 'esc_attr__', "ut_i18n_esc_attr__.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_e(') , 'esc_attr_e', "ut_i18n_esc_attr_e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_x(') , 'esc_attr_x', "ut_i18n_esc_attr_x.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html___all(') , 'esc_html__', "ut_i18n_esc_html__.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html_e(') , 'esc_html_e', "ut_i18n_esc_html_e.zip"),
-						new I18NCheck_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Proper use of esc_html_x(') , 'esc_html_x', "ut_i18n_esc_html_x.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of _e(') , '_e', "ut_i18n__e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of ___all(') , '__', "ut_i18n___.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of _x(') , '_x', "ut_i18n__x.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of _ex(') , '_ex', "ut_i18n__ex.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_attr___all(') , 'esc_attr__', "ut_i18n_esc_attr__.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_e(') , 'esc_attr_e', "ut_i18n_esc_attr_e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_attr_x(') , 'esc_attr_x', "ut_i18n_esc_attr_x.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html___all(') , 'esc_html__', "ut_i18n_esc_html__.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html_e(') , 'esc_html_e', "ut_i18n_esc_html_e.zip"),
+						new I18NCheck_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html_x(') , 'esc_html_x', "ut_i18n_esc_html_x.zip"),
 						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of __all(') , '_', "ut_i18n__.zip"),
 						new I18NCheck_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of gettext(') , 'gettext', "ut_i18n_gettext.zip"),
 			);

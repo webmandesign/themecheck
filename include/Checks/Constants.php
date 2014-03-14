@@ -26,10 +26,10 @@ class Constants extends Check
     {
 			$this->title = __all("Inapropriate constants");
 			$this->checks = array(
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of STYLESHEETPATH') , array('STYLESHEETPATH', 'get_stylesheet_directory()'), 'ut_constants_get_stylesheet_directory.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of TEMPLATEPATH') , array('TEMPLATEPATH', 'get_template_directory()'), 'ut_constants_get_template_directory.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of PLUGINDIR') , array('PLUGINDIR','WP_PLUGIN_DIR'), 'ut_constants_wp_plugin_dir.zip'),
-						new Constants_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Use of MUPLUGINDIR') , array('MUPLUGINDIR','WPMU_PLUGIN_DIR'), 'ut_constants_wpmu_plugin_dir.zip'),
+						new Constants_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of STYLESHEETPATH') , array('STYLESHEETPATH', 'get_stylesheet_directory()'), 'ut_constants_get_stylesheet_directory.zip'),
+						new Constants_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of TEMPLATEPATH') , array('TEMPLATEPATH', 'get_template_directory()'), 'ut_constants_get_template_directory.zip'),
+						new Constants_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of PLUGINDIR') , array('PLUGINDIR','WP_PLUGIN_DIR'), 'ut_constants_wp_plugin_dir.zip'),
+						new Constants_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of MUPLUGINDIR') , array('MUPLUGINDIR','WPMU_PLUGIN_DIR'), 'ut_constants_wpmu_plugin_dir.zip'),
 			);
     }
 }

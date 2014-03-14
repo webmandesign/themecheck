@@ -107,19 +107,21 @@ class FileValidator
 		
 		// save thumbnail
 		$imgfile = '';
+
 		foreach ($this->otherfiles as $fullpath=>$content)
 		{
 			$path_parts = pathinfo($fullpath);
 			$basename = $path_parts['basename'];
 			
-			if ($this->themeInfo->themetype == TT_WORDPRESS && $basename == "screenshot.png") $imgfile = $fullpath;
+			if (($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) && $basename == "screenshot.png") $imgfile = $fullpath;
 			if ($this->themeInfo->themetype == TT_JOOMLA && $basename == "template_thumbnail.png") $imgfile = $fullpath;
 		}
-
+			
 		if (empty( $imgfile ))
 		{
-			if ($this->themeInfo->themetype == TT_WORDPRESS) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);
+			if ($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);
 			if ($this->themeInfo->themetype == TT_JOOMLA) UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_CRITICAL);
+
 			return false;
 		}
 
@@ -310,6 +312,13 @@ class FileValidator
 		$themeInfo->hash_md5 = $hash_md5;
 		$themeInfo->hash_sha1 = $sha1_file;
 		$r = $themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
+		if (!empty($themeInfo->parentName))
+		{
+			$history = new History();
+			$fewInfo = $history->getFewInfoFromName($themeInfo->parentName);
+			if (!empty($fewInfo["id"]))
+			$themeInfo->parentId = intval($fewInfo["id"]);
+		}
 		if (!$r) return null;
 		return $themeInfo;	
 	}
@@ -369,7 +378,7 @@ class FileValidator
 				}
 			}
 		}
-		date_default_timezone_set('UTC');
+		
 		$this->themeInfo->validationDate = time();
 		$check_critical = array();
 		$check_warnings = array();
@@ -401,7 +410,10 @@ class FileValidator
 		$this->themeInfo->check_countOK = count($check_successes);
 		$this->themeInfo->criticalCount = count($check_critical);
 		$this->themeInfo->warningsCount = count($check_warnings);
-		if ($check_count > 0) $this->themeInfo->score = (100 * $this->themeInfo->check_countOK) / $this->themeInfo->check_count;
+		if ($check_count > 0) {
+			$this->themeInfo->score = 100 - $this->themeInfo->warningsCount - 20 * $this->themeInfo->criticalCount;
+			if ($this->themeInfo->score < 0) $this->themeInfo->score = 0;
+		}
 		else $this->themeInfo->score = 0.0;
 		
 		// generate validationResults, one for each existing language. Checks are monolingual : no more multilingual arrays.

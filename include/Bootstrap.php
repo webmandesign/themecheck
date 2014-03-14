@@ -65,6 +65,7 @@ define("ERRORLEVEL_WARNING", 3);
 define("ERRORLEVEL_SUCCESS", 4);
 define("ERRORLEVEL_INFO", 5);
 
+date_default_timezone_set('UTC');
 global $g_creationDate;
 $g_creationDate = time();
 

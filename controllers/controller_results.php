@@ -26,7 +26,6 @@ class Controller_results
 		{
 			$hash = $routeParts["hash"];
 			$this->fileValidator = FileValidator::unserialize($hash);
-		//	$validationAge = time() - $this->fileValidator->themeInfo->validationDate;
 
 			$checkfiles = scandir(TC_INCDIR.'/Checks');
 			$youngestCheckTimestamp = 0;
@@ -120,19 +119,28 @@ class Controller_results
 								$userMessage = UserMessage::getInstance();
 								echo UserMessage::getInstance()->getMessagesHtml();
 				
-								$img = 'shieldgreen240.png';
+								$img = 'shieldperfect240.png';
 								$color = 'a6af11';
 								$text = sprintf(__('Validation score : %s%%'),intval($themeInfo->score));
 								if ($themeInfo->score<100.0)
 								{
+									if ($themeInfo->score > 95)
+									{
+										$img = "shieldgreen240.png";
+										$color = 'cbd715';
+									} else if ($themeInfo->score > 80)
+									{
+										$img = "shieldorange240.png";
+										$color = 'ff8214';
+									} else {
+										$img = "shieldred240.png";
+										$color = 'ff1427';
+									}
+			
 									if ($themeInfo->criticalCount > 0)
 									{
-										$img = 'shieldred240.png';
-										$color = 'ff1418';
 										$text = sprintf(__('Validation score : %s%% (%s critical alerts)'),intval($themeInfo->score),$themeInfo->criticalCount);
 									} else {
-										$img = 'shieldorange240.png';
-										$color = 'd96f11';
 										$text = sprintf(__('Validation score : %s%%'),intval($themeInfo->score));
 									}
 								}
@@ -182,6 +190,11 @@ class Controller_results
 							if ($themeInfo->themetype == TT_WORDPRESS) 	
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress theme"));
 								else $characteristics[] = array(__("Theme type"), __("Wordpress theme").' '.$themeInfo->cmsVersion);
+							else if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	{
+								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress child theme"));
+								else $characteristics[] = array(__("Theme type"), __("Wordpress child theme").' '.$themeInfo->cmsVersion);
+								if (!empty($themeInfo->parentName))$characteristics[] = array(__("Parent theme name"), htmlspecialchars($themeInfo->parentName));
+							}
 							else if ($themeInfo->themetype == TT_JOOMLA)
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));
 								else $characteristics[] = array(__("Theme type"), __("Joomla template").' '.$themeInfo->cmsVersion);		
