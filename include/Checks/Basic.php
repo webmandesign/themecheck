@@ -33,11 +33,11 @@ class Basic extends Check
     {
 			$this->title = __all("Fundamental theme elements");
 			$this->checks = array(
-						new Basic_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of DOCTYPE'), 'DOCTYPE', 'ut_basic_doctype.zip'),
-						new Basic_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/wp_footer">wp_footer()</a>'), 'wp_footer\(', 'ut_basic_wp_footer.zip'),
-						new Basic_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/wp_head">wp_head()</a>'), 'wp_head\(', 'ut_basic_wp_head.zip'),
-						new Basic_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/language_attributes">language_attributes()</a>'), 'language_attributes', 'ut_basic_language_attributes.zip'),
-						new Basic_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Definition of a charset'), 'charset', 'ut_basic_charset.zip'),
+						new Basic_Checker(TT_WORDPRESS | TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('Presence of DOCTYPE'), 'DOCTYPE', 'ut_basic_doctype.zip'),
+						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/wp_footer">wp_footer()</a>'), 'wp_footer\(', 'ut_basic_wp_footer.zip'),
+						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/wp_head">wp_head()</a>'), 'wp_head\(', 'ut_basic_wp_head.zip'),
+						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/language_attributes">language_attributes()</a>'), 'language_attributes', 'ut_basic_language_attributes.zip'),
+						new Basic_Checker(TT_WORDPRESS | TT_JOOMLA, ERRORLEVEL_WARNING, __all('Definition of a charset'), 'charset', 'ut_basic_charset.zip'),
 						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/add_theme_support">add_theme_support()</a>'), 'add_theme_support\(\s?("|\')automatic-feed-links("|\')\s?\)', 'ut_basic_add_theme_support.zip'),
 						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/register_sidebar">register_sidebar()</a>'), 'register_sidebar[s]?\(', 'ut_basic_register_sidebar.zip'),
 						new Basic_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="http://codex.wordpress.org/Function_Reference/dynamic_sidebar">dynamic_sidebar()</a>'), 'dynamic_sidebar\(', 'ut_basic_dynamic_sidebar.zip'),

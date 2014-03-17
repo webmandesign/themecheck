@@ -119,10 +119,13 @@ class FileValidator
 			
 		if (empty( $imgfile ))
 		{
-			if ($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);
-			if ($this->themeInfo->themetype == TT_JOOMLA) UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_CRITICAL);
-
-			return false;
+			if ($this->themeInfo->themetype == TT_WORDPRESS ) { UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);return false;}
+			if ($this->themeInfo->themetype == TT_JOOMLA) {UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_CRITICAL);return false;}
+			if ($this->themeInfo->themetype == TT_WORDPRESS_CHILD)
+			{
+				// thumbnail isn't mandatory in child theme, get the generic one
+				$imgfile = TC_ROOTDIR.'/img/default_wordpress.png';
+			}
 		}
 
 		list($width_src, $height_src) = getimagesize($imgfile);
@@ -142,7 +145,7 @@ class FileValidator
 			if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
 			imagepng($image_p, $savedirectory_img.'/thumbnail.png');
 		}
-		
+
 		// if theme is not serializable (duplicate theme name from different users, etc.)
 		if (!$this->themeInfo->serializable) return false;
 		
@@ -158,6 +161,8 @@ class FileValidator
 		{
 			$_validationResults->serialize($this->themeInfo->hash);
 		}
+		
+		return true;
 	}
 	
 	/** 
@@ -267,11 +272,11 @@ class FileValidator
 	{
 		$src_size = filesize($src_path);
 
-		if (!($src_size > 1000 || strpos ($src_path, '/unittests/') !== false ))
+		if (!($src_size > 100 || strpos ($src_path, '/unittests/') !== false ))
 		{
 
 			$userMessage = UserMessage::getInstance();
-			$userMessage->enqueueMessage(__('Files under 1 KB are not accepted. Operation canceled.'), ERRORLEVEL_CRITICAL);
+			$userMessage->enqueueMessage(__('Files under 100 bytes are not accepted. Operation canceled.'), ERRORLEVEL_CRITICAL);
 			return null;
 		}
 		

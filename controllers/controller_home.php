@@ -31,9 +31,27 @@ class Controller_home
 		$namesanitized = $themeInfo['namesanitized'];
 		$themetype = $themeInfo['themetype'];
 		$score = $themeInfo['score'];
-		$themetype_text = sprintf(__("Wordpress %s theme"),$themeInfo['cmsVersion']);
-		if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $themeInfo['cmsVersion']);
+		$cmsVersion = $themeInfo['cmsVersion'];
+		$themetype_text = '';
+		//sprintf(__("Wordpress %s theme"),$themeInfo['cmsVersion']);
+	//	if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $themeInfo['cmsVersion']);
+		
+		if ($themetype == TT_WORDPRESS) 	
+			if (empty($cmsVersion)) $themetype_text = __("Wordpress theme");
+			else $themetype_text = sprintf(__("Wordpress %s theme"), $cmsVersion);
+		else if ($themetype == TT_WORDPRESS_CHILD)
+			if (empty($cmsVersion)) $themetype_text = __("Wordpress child theme");
+			else $themetype_text = sprintf(__("Wordpress %s child theme"), $cmsVersion);
+		else if ($themetype == TT_JOOMLA)
+			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
+			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
+		
+		
+		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+		
+		
+		
 		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
 		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';

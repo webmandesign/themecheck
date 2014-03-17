@@ -23,8 +23,12 @@ class Controller_massimport
 	public function render()
 	{
 		?>
-		<div style="text-align:center;"><button type="button" id="import-btn" class="btn">
-				<?php echo __("Import a new file");?>
+		<div style="text-align:center;">
+			<button type="button" id="import-btn" class="btn">
+				<?php echo "Import new zip files";?>
+			</button>
+			<button type="button" id="update-btn" class="btn">
+				<?php echo "Update DB files";?>
 			</button>
 		</div>
 		<?php
@@ -121,6 +125,7 @@ class Controller_massimport
 		<script>
 		var zips = new Array();
 		var zip_index = 0;
+		var theme_id = 1;
 		<?php 
 		$a = array_keys($fileszip);
 		for ($i = 0; $i< count($a); $i++)
@@ -134,12 +139,10 @@ class Controller_massimport
 		
 		function importNext()
 		{
-	//		var myVar=setInterval(function(){myTimer()},500);
 			$.ajax({
 				type: "POST",
 				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=importnext';?>",
 				data : {path : zips[zip_index][0], timestamp : zips[zip_index][1]}
-				//data : {timestamp : zips[zip_index][1]}
 			}).done(function( obj ) {
 				obj.index = zip_index++;
 				console.log(obj);
@@ -150,7 +153,26 @@ class Controller_massimport
 		}
 				
 		$('#import-btn').click(importNext);
-
+		
+		function updateNext()
+		{
+			$.ajax({
+				type: "POST",
+				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=updatenext';?>",
+				data : {id : theme_id, timestamp : zips[zip_index][1]}
+			}).done(function( obj ) {
+				if (obj.nextId == null) {
+					alert("update done");
+				} else {
+					theme_id = obj.nextId;
+					console.log(obj);
+					updateNext();
+				}
+			}).fail(function() {
+				console.log("ajax error");
+			})
+		}
+		$('#update-btn').click(updateNext);
 		</script>
 		<?php
 	}
@@ -244,6 +266,97 @@ class Controller_massimport
 					}
 				}
 			}			
+		}
+		
+		$time_end = microtime(true);
+		$time = $time_end - $time_start;
+		$response["duration"] = $time;
+		//ob_clean();
+		header('Content-Type: application/json');
+		echo json_encode($response);
+	}
+	
+	public function ajax_updatenext()
+	{
+		$time_start = microtime(true);
+		$response["error"] = "none";
+		$response["file"] = "none";
+		$response["nextId"] = null;
+		if (!empty($_POST["id"]))
+		{
+			$id = intval($_POST["id"]);
+			if ($id < 1) $i = 1;
+			
+			$history = new History();
+			$themeInfo = $history->getFewInfo($id);
+			if (!empty($themeInfo))
+			{	
+				$unzippath = TC_VAULTDIR.'/unzip/'.$themeInfo["hash"]."/";
+				if (file_exists($unzippath)){
+					$nextId = $history->getNextId($themeInfo["id"]);
+					$response["nextId"] = $nextId;
+					
+					$themeInfo = $history->loadThemeFromHash($themeInfo["hash"]);// need an objet and not an array
+					$this->fileValidator = new FileValidator($themeInfo);
+					$this->fileValidator->validate();	
+					if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+					{
+						$response["error"] = "fatal error:\n";
+						foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+						{
+							$response["error"] .= "\n".$m;
+						}
+					} else {
+						
+						if ($this->fileValidator->serialize())
+						{
+							if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+							{
+								// at least one error occured while serializing (no thumbnail...)
+								$response["error"] = "fatal error, could not serialize validation results:\n";
+								foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+								{
+									$response["error"] .= "\n".$m;
+								}
+								foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
+								{
+									$response["error"] .= "\n".$m;
+								}
+							} else {
+								$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+								$themeInfo = $this->fileValidator->themeInfo;
+								$response["name"] = $themeInfo->name;
+							}
+						} else {
+							// at least one error occured while serializing (no thumbnail...)
+							if (UserMessage::getCount(ERRORLEVEL_CRITICAL) > 0)
+							$response["error"] = "could not serialize validation results";
+							foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
+							{
+								$response["error"] .= "\n".$m;
+							}
+						}
+					}
+				} else {
+					$response["error"] .= "No zip file ".$unzippath;
+				}
+			} else {
+				if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+				{
+					// at least one error occured while serializing (no thumbnail...)
+					$response["error"] = "could not execute validation:\n";
+					foreach(UserMessage::getMessages(ERRORLEVEL_FATAL) as $m)
+					{
+						$response["error"] .= "\n".$m;
+					}
+					foreach(UserMessage::getMessages(ERRORLEVEL_CRITICAL) as $m)
+					{
+						$response["error"] .= "\n".$m;
+					}
+				} else {
+					$response["error"] = "could not execute validation (unknown error).";
+				}
+			}
 		}
 		
 		$time_end = microtime(true);

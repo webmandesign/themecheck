@@ -72,7 +72,7 @@ class Screenshot extends Check
     {
 			$this->title = __all("Screenshot");
 			$this->checks = array(
-						new Screenshot_Checker(TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
+						new Screenshot_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Screenshot file'), null, 'ut_screenshot_wordpress.zip'),
 			);
     }
 }

@@ -132,7 +132,7 @@ class ThemeInfo
 				}
 			}
 		}
-
+		
 		if (count($nestedzipfiles)>0 && $indexphp_count==0)
 		{		
 			$curpath = trim($unzippath,"\\/");
