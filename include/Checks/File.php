@@ -21,8 +21,11 @@ class File_Checker extends CheckPart
         if ( $filename = preg_grep( '/' . $this->code . '/', $filenames ) )
         {
             $error = implode( array_unique( $filename ), ' ' );
+						
             $this->messages[] = __all('<strong>%1$s</strong> was found.', $error) ;
             $this->errorLevel = $this->threatLevel;
+						
+						if ($error == '.gitignore') $this->errorLevel = ERRORLEVEL_WARNING;
         }
     }
 }

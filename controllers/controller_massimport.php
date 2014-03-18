@@ -125,7 +125,8 @@ class Controller_massimport
 		<script>
 		var zips = new Array();
 		var zip_index = 0;
-		var theme_id = 1;
+		var theme_id_sart = 101;
+		var theme_id = theme_id_sart;
 		<?php 
 		$a = array_keys($fileszip);
 		for ($i = 0; $i< count($a); $i++)
@@ -161,11 +162,12 @@ class Controller_massimport
 				url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=massimport&action=updatenext';?>",
 				data : {id : theme_id, timestamp : zips[zip_index][1]}
 			}).done(function( obj ) {
+				console.log(obj);
 				if (obj.nextId == null) {
-					alert("update done");
+					console.log("update done");
+					theme_id = theme_id_sart;
 				} else {
 					theme_id = obj.nextId;
-					console.log(obj);
 					updateNext();
 				}
 			}).fail(function() {
@@ -307,8 +309,7 @@ class Controller_massimport
 							$response["error"] .= "\n".$m;
 						}
 					} else {
-						
-						if ($this->fileValidator->serialize())
+						if ($this->fileValidator->serialize(true))
 						{
 							if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
 							{

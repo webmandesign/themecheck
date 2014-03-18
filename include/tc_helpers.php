@@ -47,6 +47,19 @@ function tc_preg( $preg, $file )
     return str_replace( $error, '<span>' . $error . '</span>', $bad_lines );
 }
 
+function tc_preg_lines( $preg, $file )
+{
+    $lines = file( $file, FILE_IGNORE_NEW_LINES ); // Read the theme file into an array
+    $bad_lines = array();
+    foreach( $lines as $this_line ) {
+        if ( preg_match( $preg, $this_line, $matches ) ) {
+            $this_line = str_replace( '"', "'", $this_line );
+						$bad_lines[] = trim($this_line);
+        }
+    }
+    return $bad_lines;
+}
+
 function listdir( $dir ) {
 	$files = array();
 	$dir_iterator = new \RecursiveDirectoryIterator( $dir );

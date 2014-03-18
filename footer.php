@@ -10,9 +10,9 @@ namespace ThemeCheck;
 					</div>
 					<div class="col-xs-4" style="text-align:center;">
 						<a href="https://github.com/themecheck/themecheck"><img src="<?php echo TC_HTTPDOMAIN;?>/img/github48.png" alt="themecheck on github"><br/>Github</a>
-						<br><br><a href="http://www.joomla.org">joomla.org</a>
-						<br><a href="http://wordpress.org">wordpress.org</a>
-						<br><a href="http://owasp.org">owasp.org</a>
+						<br><br><a href="http://www.joomla.org" rel="nofollow">joomla.org</a>
+						<br><a href="http://wordpress.org" rel="nofollow">wordpress.org</a>
+						<br><a href="http://owasp.org" rel="nofollow">owasp.org</a>
 					</div>
 					<div class="col-xs-4" style="text-align:right;line-height:52px">
 						<?php 

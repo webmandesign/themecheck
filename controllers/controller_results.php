@@ -207,7 +207,7 @@ class Controller_results
 								else $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license));
 							else 
 								if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
-								else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
+								else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
 							$characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
 							if (!empty($themeInfo->themeUri)) $characteristics[] = array(__("Theme URI"), '<a href="'.htmlspecialchars($themeInfo->themeUri).'" rel="nofollow">'.htmlspecialchars($themeInfo->themeUri).'</a>');
 							if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
@@ -271,8 +271,8 @@ class Controller_results
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>
     
 <?php
 if (USE_DB)
