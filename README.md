@@ -19,17 +19,17 @@ MIT
  * unzip in a folder called `themecheck` or clone the repository `git clone git@github.com:themecheck/themecheck.git`
  * create a sibbling folder (located in the same parent directory) called `themecheck_vault`
  * in `themecheck_vault` create three subfolders:
-
+```
     themecheck_vault/reports
     themecheck_vault/unzip
     themecheck_vault/upload
-
+```
  * in folder themecheck, create a subfolder called `dyn`
 
  * make sure all there directories have at least `770` rights
 
  * the final structure should be:
-
+```
     /*parent*
     /themecheck
         /dyn
@@ -37,3 +37,4 @@ MIT
         /reports
         /unzip
         /upload
+```
