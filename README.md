@@ -26,15 +26,16 @@ themecheck_vault/reports
 themecheck_vault/unzip
 themecheck_vault/upload
 
-in folder themecheck, create a subfolder calld "dyn"
+in folder themecheck, create a subfolder called `dyn`
 
-make sure all there directories have at least 660 rights
+make sure all there directories have at least `770` rights
 
-the final structure should be :
-/*parent*
-	/themecheck
-		/dyn
-	/themecheck_vault
-		/reports
-		/unzip
-		/upload
+the final structure should be:
+
+    /*parent*
+    /themecheck
+        /dyn
+    /themecheck_vault
+        /reports
+        /unzip
+        /upload
