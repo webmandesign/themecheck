@@ -36,7 +36,7 @@ class ValidationResults
 					
 		if (!file_exists($fullfilename )) return null;
 		$json = file_get_contents($fullfilename);
-		$obj = json_decode($json);
+		$obj = json_decode( utf8_encode( $json ), TRUE );
 		
 		$validationResults = new ValidationResults($lang);
 		
