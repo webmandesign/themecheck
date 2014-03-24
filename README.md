@@ -9,12 +9,12 @@ It is as a fork of the theme-check plugin for wordpress (http://wordpress.org/pl
 
 Please add your contribution to improve the checks !
 
-### License 
+## License 
 
 MIT
 
 
-### Installation 
+## Installation 
 
  * unzip in a folder called `themecheck` or clone the repository `git clone git@github.com:themecheck/themecheck.git`
  * create a sibbling folder (located in the same parent directory) called `themecheck_vault`
