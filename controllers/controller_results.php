@@ -42,7 +42,7 @@ class Controller_results
 		{
 			$hash = $routeParts["hash"];
 			$this->fileValidator = FileValidator::unserialize($hash);
-
+			$themeInfo = $this->fileValidator->themeInfo;
 			$checkfiles = scandir(TC_INCDIR.'/Checks');
 			$youngestCheckTimestamp = 0;
 			foreach($checkfiles as $f)
@@ -81,10 +81,10 @@ class Controller_results
 			$this->meta["description"] = __("No file uploaded");
 			return ;
 		}
-		
-		if (!empty($themeinfo))
+
+		if (!empty($themeInfo))
 		{
-			if ($themeinfo->themetype == TT_JOOMLA)
+			if ($themeInfo->themetype == TT_JOOMLA)
 			{
 				$this->meta["title"] = sprintf(__("Validation results for Joomla template %s"), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality validation score of Joomla template %s."), htmlspecialchars($themeInfo->name));
