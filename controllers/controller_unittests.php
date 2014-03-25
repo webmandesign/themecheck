@@ -69,6 +69,7 @@ class Controller_unittests
 		?>
 		<div class="container">
 		<?php
+		$checkids = array();
 		foreach($this->checklist as $check)
 		{
 			echo '<div>';
@@ -76,6 +77,11 @@ class Controller_unittests
 			
 			foreach($check->checks as $checkpart)
 			{
+				// check for non unique checks ids
+				if (in_array($checkpart->id, $checkids)) {echo $checkpart->id.' already exists';die;}
+				$checkids[] = $checkpart->id;
+				
+				echo $checkpart->id.' : ';
 				echo $checkpart->hint["en"].' : '.$checkpart->unittest;
 				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results", "ut"=>$checkpart->unittest));
 				echo '<a href="'.$url.'">'.$url.'</a>';

@@ -45,13 +45,13 @@ class JManifest extends Check
     {
 			$this->title = __all("Manifest and Metadata");
 			$this->checks = array(
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of name'), 'name', 'ut_jmanifestjoomla_manifest_name.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of creationDate'), 'creationDate', 'ut_jmanifestjoomla_manifest_creationDate.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of author'), 'author', 'ut_jmanifestjoomla_manifest_author.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of copyright'), 'copyright', 'ut_jmanifestjoomla_manifest_copyright.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of authorUrl'), 'authorUrl', 'ut_jmanifestjoomla_manifest_authorUrl.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of version'), 'version', 'ut_jmanifestjoomla_manifest_version.zip'),
-						new JManifest_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of description'), 'description', 'ut_jmanifestjoomla_manifest_description.zip'),
+						new JManifest_Checker('JMANIFEST_NAME', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of name'), 'name', 'ut_jmanifestjoomla_manifest_name.zip'),
+						new JManifest_Checker('JMANIFEST_CREATIONDATE', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of creationDate'), 'creationDate', 'ut_jmanifestjoomla_manifest_creationDate.zip'),
+						new JManifest_Checker('JMANIFEST_AUTHOR', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of author'), 'author', 'ut_jmanifestjoomla_manifest_author.zip'),
+						new JManifest_Checker('JMANIFEST_COPYRIGHT', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of copyright'), 'copyright', 'ut_jmanifestjoomla_manifest_copyright.zip'),
+						new JManifest_Checker('JMANIFEST_AUTHORURL', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of authorUrl'), 'authorUrl', 'ut_jmanifestjoomla_manifest_authorUrl.zip'),
+						new JManifest_Checker('JMANIFEST_VERSION', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of version'), 'version', 'ut_jmanifestjoomla_manifest_version.zip'),
+						new JManifest_Checker('JMANIFEST_DESCRIPTION', TT_JOOMLA, ERRORLEVEL_WARNING, __all('Presence of description'), 'description', 'ut_jmanifestjoomla_manifest_description.zip'),
 			);
     }
 }

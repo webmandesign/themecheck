@@ -23,7 +23,7 @@ class NavMenu extends Check
     {
 			$this->title = __all("Nav menu");
 			$this->checks = array(
-						new NavMenu_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Correct integration"), 'nav_menu' , 'ut_navmenu.zip'),
+						new NavMenu_Checker('NAVMENU', TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Correct integration"), 'nav_menu' , 'ut_navmenu.zip'),
 			);
     }
 }

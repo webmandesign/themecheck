@@ -31,7 +31,7 @@ class LineEndings extends Check
 		
 			$this->title = __all("Line endings consistency");
 			$this->checks = array(
-						new LineEndings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
+						new LineEndings_Checker('LINEENDINGS', TT_COMMON, ERRORLEVEL_WARNING, __all('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
 			);
     }
 }

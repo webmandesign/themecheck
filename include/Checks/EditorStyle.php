@@ -23,7 +23,7 @@ class EditorStyle extends Check
     {
 			$this->title = __all("Editor style");
 			$this->checks = array(
-						new EditorStyle_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of editor style"), 'add_editor_style', 'ut_editorstyle.zip'),
+						new EditorStyle_Checker('EDITORSTYLE', TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Presence of editor style"), 'add_editor_style', 'ut_editorstyle.zip'),
 			);
     }
 }

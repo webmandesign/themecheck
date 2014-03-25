@@ -30,7 +30,7 @@ class NonPrintable extends Check
     {
 			$this->title = __all("Non-printable characters");
 			$this->checks = array(
-						new NonPrintable_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of non-printable characters in PHP files')	, '/[\x00-\x08\x0B-\x0C\x0E-\x1F\x80-\xFF]/', 'ut_nonprintable.zip')
+						new NonPrintable_Checker('NONPRINTABLE', TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of non-printable characters in PHP files')	, '/[\x00-\x08\x0B-\x0C\x0E-\x1F\x80-\xFF]/', 'ut_nonprintable.zip')
 			);
     }
 }

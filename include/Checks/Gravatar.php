@@ -23,7 +23,7 @@ class Gravatar extends Check
     {
 			$this->title = __all("Avatar");
 			$this->checks = array(
-						new Gravatar_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Support of standard avatar functions"), array('get_avatar','World') , 'ut_gravatar.zip'),
+						new Gravatar_Checker('GRAVATAR', TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Support of standard avatar functions"), array('get_avatar','World') , 'ut_gravatar.zip'),
 			);
     }
 }

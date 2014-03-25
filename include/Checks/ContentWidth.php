@@ -23,7 +23,7 @@ class ContentWidth extends Check
     {
 			$this->title = __all("Content width");
 			$this->checks = array(
-						new ContentWidth_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Proper definition of content_width') , '$content_width', 'ut_badthings_eval.zip')
+						new ContentWidth_Checker('CONTENT_WIDTH', TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Proper definition of content_width') , '$content_width', 'ut_badthings_eval.zip')
 			);
     }
 }

@@ -20,6 +20,7 @@ abstract class CheckPart
 		public $unittest;		// zip file of unit tests
 		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA...
 		public $errorLevel; // errorlelvel of tested check
+		public $id; // unique id of the check
 		
 		protected $checks;
 		protected $unittests;
@@ -34,7 +35,7 @@ abstract class CheckPart
 			return null;
 		}
 	
-    public function __construct($themetype, $threatLevel, $badPraticeDescription, $code, $unittest = null)
+    public function __construct($id, $themetype, $threatLevel, $badPraticeDescription, $code, $unittest = null)
     {
 			$this->themetype = $themetype;
 			$this->duration = 0;
@@ -43,7 +44,8 @@ abstract class CheckPart
 			$this->hint = $badPraticeDescription; // multilingual array of hints
 			$this->unittest = $unittest;
 			$this->messages = array(); // array of multilingual messages (array of array)
-			$this->errorLevel = ERRORLEVEL_UNDEFINED;			
+			$this->errorLevel = ERRORLEVEL_UNDEFINED;	
+			$this->id = $id;
     }
 		
 		public function doCheck($php_files, $css_files, $other_files)

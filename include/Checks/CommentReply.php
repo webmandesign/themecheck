@@ -30,7 +30,7 @@ class CommentReply extends Check
     {
 			$this->title = __all("Comment reply");
 			$this->checks = array(
-						new CommentReply_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Declaration of comment reply"), array('/wp_enqueue_script\(\s?("|\')comment-reply("|\')/i','/comment-reply/'), 'ut_commentreply_enqueue_script.zip')
+						new CommentReply_Checker('COMMENT_REPLY', TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Declaration of comment reply"), array('/wp_enqueue_script\(\s?("|\')comment-reply("|\')/i','/comment-reply/'), 'ut_commentreply_enqueue_script.zip')
 			);
     }
 }

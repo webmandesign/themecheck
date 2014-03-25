@@ -36,10 +36,10 @@ class Directories extends Check
     {
 			$this->title = __all("Unwanted directories");
 			$this->checks = array(
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('GIT revision control directory'), '.git', 'ut_directories_git.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('SVN revision control directory'), '.svn', 'ut_directories_svn.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Mercurial revision control directory'), '.hg', 'ut_directories_hg.zip'),
-						new Directories_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('OSX system directory'), '__macosx', 'ut_directories___MACOSX.zip')
+						new Directories_Checker('DIRECTORIES_GIT', TT_COMMON, ERRORLEVEL_WARNING, __all('GIT revision control directory'), '.git', 'ut_directories_git.zip'),
+						new Directories_Checker('DIRECTORIES_SVN', TT_COMMON, ERRORLEVEL_WARNING, __all('SVN revision control directory'), '.svn', 'ut_directories_svn.zip'),
+						new Directories_Checker('DIRECTORIES_HG', TT_COMMON, ERRORLEVEL_WARNING, __all('Mercurial revision control directory'), '.hg', 'ut_directories_hg.zip'),
+						new Directories_Checker('DIRECTORIES_MACOSX', TT_COMMON, ERRORLEVEL_WARNING, __all('OSX system directory'), '__macosx', 'ut_directories___MACOSX.zip')
 			);
     }
 }
