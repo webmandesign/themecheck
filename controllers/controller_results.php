@@ -86,15 +86,15 @@ class Controller_results
 		{
 			if ($themeInfo->themetype == TT_JOOMLA)
 			{
-				$this->meta["title"] = sprintf(__("Validation results for Joomla template %s"), htmlspecialchars($themeInfo->name));
-				$this->meta["description"] = sprintf(__("Security and code quality validation score of Joomla template %s."), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("Joomla template %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
 			} else {
-				$this->meta["title"] = sprintf(__("Validation results for Wordpress theme %s"), htmlspecialchars($themeInfo->name));
-				$this->meta["description"] = sprintf(__("Security and code quality validation score of Wordpress theme %s."), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("Wordpress theme %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["description"] = sprintf(__("Security and code quality score of Wordpress theme %s."), htmlspecialchars($themeInfo->name));
 			}
 		} else {
-			$this->meta["title"] = __("Validation results");
-			$this->meta["description"] = __("Validation results");
+			$this->meta["title"] = __("Check results");
+			$this->meta["description"] = __("Security and code quality score");
 		}
 		
 		global $ExistingLangs;

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-03-25 19:23+0100\n"
-"PO-Revision-Date: 2014-03-25 19:26+0100\n"
+"POT-Creation-Date: 2014-03-25 19:48+0100\n"
+"PO-Revision-Date: 2014-03-25 19:49+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2237,32 +2237,31 @@ msgstr "Aucun fichier n&#39;a été téléchargé"
 
 #: controllers/controller_results.php:89
 #, php-format
-msgid "Validation results for Joomla template %s"
-msgstr "Résultats de validation pour le template joomla %s"
+msgid "Joomla template %s"
+msgstr "Template Joomla %s"
 
 #: controllers/controller_results.php:90
 #, php-format
-msgid "Security and code quality validation score of Joomla template %s."
-msgstr ""
-"Validation de la sécurité et de la qualité de code pour le template Joomla "
-"%s."
+msgid "Security and code quality score of Joomla template %s."
+msgstr "Score de sécurité et de qualité de code pour le template Joomla %s."
 
 #: controllers/controller_results.php:92
 #, php-format
-msgid "Validation results for Wordpress theme %s"
-msgstr "Résultats de validation pour le thème Wordpress %s"
+msgid "Wordpress theme %s"
+msgstr "Theme Wordpress %s"
 
 #: controllers/controller_results.php:93
 #, php-format
-msgid "Security and code quality validation score of Wordpress theme %s."
-msgstr ""
-"Validation de la sécurité et de la qualité de code pour le thème Wordpress "
-"%s."
+msgid "Security and code quality score of Wordpress theme %s."
+msgstr "Score de sécurité et de qualité de code pour le thème Wordpress %s."
 
-#: controllers/controller_results.php:96 controllers/controller_results.php:97
-#: controllers/controller_results.php:337
-msgid "Validation results"
-msgstr "Résultats de validation"
+#: controllers/controller_results.php:96
+msgid "Check results"
+msgstr "Résultats de vérification"
+
+#: controllers/controller_results.php:97
+msgid "Security and code quality score"
+msgstr "Score de sécurité de qualité de code"
 
 #: controllers/controller_results.php:129
 #, php-format
@@ -2414,6 +2413,10 @@ msgstr "Alertes"
 msgid "Other files checked around the same date"
 msgstr "Autres fichiers validées durant la même période"
 
+#: controllers/controller_results.php:337
+msgid "Validation results"
+msgstr "Résultats de validation"
+
 #: controllers/controller_results.php:345
 #: controllers/controller_results.php:352
 msgid "Validation score : 0 %"
@@ -2463,6 +2466,12 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 msgid "The name \""
 msgstr "Le nom \""
 
+#~ msgid "Validation results for Joomla template %s"
+#~ msgstr "Résultats de validation pour le template joomla %s"
+
+#~ msgid "Validation results for Wordpress theme %s"
+#~ msgstr "Résultats de validation pour le thème Wordpress %s"
+
 #~ msgid ""
 #~ "The theme doesn't have comment pagination code in it. Use "
 #~ "<strong>paginate_comments_links()</strong> to add comment pagination."
@@ -2501,9 +2510,6 @@ msgstr "Le nom \""
 
 #~ msgid "Validate your web themes and templates"
 #~ msgstr "Validez gratuitement vos themes wordpress et joomla"
-
-#~ msgid "Results"
-#~ msgstr "Résultats"
 
 #~ msgid "wordpress_theme"
 #~ msgstr "theme_wordpress"
