@@ -13,7 +13,7 @@ class CommentPagination_Checker extends CheckPart
 				
         if ($fail)
         {
-            $this->messages[] = __all('The theme doesn\'t have comment pagination code in it. Use <strong>paginate_comments_links()</strong> to add comment pagination.');
+            $this->messages[] = __all('The theme doesn\'t have comment pagination code in it. Use <strong>paginate_comments_links()</strong> to add comment pagination, or older <strong>previous_comments_link()</strong> and <strong>next_comments_link()</strong> functions.');
             $this->errorLevel = $this->threatLevel;
         }
     }
@@ -25,7 +25,7 @@ class CommentPagination extends Check
     {
 			$this->title = __all("Comment pagination");
 			$this->checks = array(
-						new CommentPagination_Checker(TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
+						new CommentPagination_Checker(TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
 			);
     }
 }
