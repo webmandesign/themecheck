@@ -41,7 +41,7 @@ class FileValidator
 	public $validationResults = array();// associative array of $lang => ValidationResult
 	private $history = null; 
 
-	private $checklistCommon = array (
+	private static $checklistCommon = array (
             "Badthings",
             "Directories",
             "File",
@@ -291,7 +291,7 @@ class FileValidator
 			move_uploaded_file($src_path, $zipfilepath); // move file to final place (overwrites if already existing)
 		else
 			copy($src_path, $zipfilepath); // copy the file (overwrites if already existing)
-		
+	
 		try {
 			$zip = new \ZipArchive();
 			$path = TC_ROOTDIR.'/../themecheck_vault/unzip';
@@ -311,12 +311,13 @@ class FileValidator
 		} catch (Exception $e) {
 			UserMessage::enqueue(__("Archive extraction failed. The following exception occured : ").$e->getMessage(), ERRORLEVEL_FATAL);
 		}
-		
+			
 		// create a theme info
 		$themeInfo = new ThemeInfo($hash_alpha);
 		$themeInfo->hash_md5 = $hash_md5;
 		$themeInfo->hash_sha1 = $sha1_file;
 		$r = $themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
+
 		if (!empty($themeInfo->parentName))
 		{
 			$history = new History();
@@ -353,6 +354,19 @@ class FileValidator
 			}
 		}
 	}*/
+	
+	public static function getCheckList()
+	{
+		$checklist = array();
+		// prepare checks
+		foreach (self::$checklistCommon as $check)
+		{
+			require_once(TC_INCDIR."/Checks/$check.php");
+			$c = __NAMESPACE__.'\\'.$check;
+			$checklist[] = new $c();
+		}
+		return $checklist;
+	}
 			
 	/** 
 	*		Execute all checks 
@@ -360,13 +374,15 @@ class FileValidator
 	public function validate()
 	{
 		// prepare checks
-		foreach ($this->checklistCommon as $check)
+		foreach (self::$checklistCommon as $check)
 		{
 			require_once(TC_INCDIR."/Checks/$check.php");
 			$c = __NAMESPACE__.'\\'.$check;
 			$this->checklist[] = new $c();
 		}
 		//prepare files
+		if (!isset($this->themeInfo)) {trigger_error('themeInfo not set in FileValidator::validate', E_USER_ERROR); die;}
+		if (empty($this->themeInfo->hash)) {trigger_error('themeInfo->hash empty in FileValidator::validate', E_USER_ERROR);die;}
 		$files = listdir( TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash );
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {

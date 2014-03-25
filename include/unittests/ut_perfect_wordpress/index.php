@@ -1,0 +1,3 @@
+<?php
+// perfect wordpress theme
+?> 

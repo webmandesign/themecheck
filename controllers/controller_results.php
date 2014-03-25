@@ -22,7 +22,23 @@ class Controller_results
 		// There are 2 types of results to display
 		// 1 - Display an already evaluated file which results were stored on the server. Just need the id. e.g : results?id=162804c3c358267d3a16855686ab1887
 		// 2 - Unknown file. Need $_FILES and $_POST["filetype"]
-		if (isset($routeParts["hash"])) // already uploaded file
+		if (isset($routeParts["ut"])) // unit tests
+		{
+			$path_item = TC_ROOTDIR.'/include/unittests/';
+			$filename = urldecode($routeParts["ut"]);
+			if (!(substr($filename, -4) == ".zip" && file_exists($path_item.$filename)))
+			{
+				echo $path_item.$filename.' does not exist. Cannot continue';die;
+			}
+
+			$themeInfo = FileValidator::prepareThemeInfo($path_item.$filename, $filename, 'application/zip', false);
+
+			$this->fileValidator = new FileValidator($themeInfo);
+			$this->fileValidator->validate();	
+
+			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+		
+		} else	if (isset($routeParts["hash"])) // already uploaded file
 		{
 			$hash = $routeParts["hash"];
 			$this->fileValidator = FileValidator::unserialize($hash);

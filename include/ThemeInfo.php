@@ -113,6 +113,7 @@ class ThemeInfo
 			UserMessage::enqueue(__("Cannot list files in archive."), ERRORLEVEL_FATAL);
 			return false;
 		}
+
 		// test for nested zips
 		$nestedzipfiles = array();
 		$indexphp_count = 0;
@@ -166,14 +167,14 @@ class ThemeInfo
 		}
 
 		$this->themetype = $this->detectThemetype($unzippath);
-		
+
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
 		{
 			UserMessage::enqueue(__("Archive is not a valid theme file."), ERRORLEVEL_FATAL);
 			return false;
 		}
-		
+
 		if ($this->themetype == TT_WORDPRESS || $this->themetype == TT_WORDPRESS_CHILD)
 		{
 			foreach( $files as $key => $filename ) {
