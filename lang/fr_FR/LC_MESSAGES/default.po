@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-03-18 19:13+0100\n"
-"PO-Revision-Date: 2014-03-24 17:02+0100\n"
+"POT-Creation-Date: 2014-03-25 19:23+0100\n"
+"PO-Revision-Date: 2014-03-25 19:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -74,11 +74,11 @@ msgstr ""
 "Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
 "Apération annulée."
 
-#: include/FileValidator.php:309 include/ThemeInfo.php:160
+#: include/FileValidator.php:309 include/ThemeInfo.php:161
 msgid "File could not be unzipped."
 msgstr "Fichier n&#39;a pas pu être décompressé."
 
-#: include/FileValidator.php:312 include/ThemeInfo.php:163
+#: include/FileValidator.php:312 include/ThemeInfo.php:164
 msgid "Archive extraction failed. The following exception occured : "
 msgstr ""
 "L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
@@ -114,54 +114,54 @@ msgstr "<pre>Ligne"
 msgid "Cannot list files in archive."
 msgstr "Impossible de lister les fichiers de l'archive."
 
-#: include/ThemeInfo.php:141
+#: include/ThemeInfo.php:142
 msgid "Multiple level nested zip archives are not supported."
 msgstr "Les archives imbriquées sur plusieurs niveaux ne sont pas valides."
 
-#: include/ThemeInfo.php:147
+#: include/ThemeInfo.php:148
 msgid "Nested zip archives are not supported."
 msgstr "Les archives zip imbriquées ne sont pas supportées."
 
-#: include/ThemeInfo.php:173
+#: include/ThemeInfo.php:174
 msgid "Archive is not a valid theme file."
 msgstr "L'archive n'est pas un fichier de theme valide."
 
-#: include/ThemeInfo.php:188
+#: include/ThemeInfo.php:189
 msgid "style.css does not contain Theme name. Theme name is mandatory."
 msgstr ""
 "Le fichier style.css ne contient pas le nom du thème. Le nom du thème est "
 "obligatoire."
 
-#: include/ThemeInfo.php:212
+#: include/ThemeInfo.php:213
 msgid "style.css is missing or misspelled."
 msgstr "Le fichier style.ss est manquant ou mal orthographié."
 
-#: include/ThemeInfo.php:230
+#: include/ThemeInfo.php:231
 msgid ""
 "Malformed xml file templateDetails.xml. Cannot continue. Error details : "
 msgstr ""
 "Erreur dans la structure xml du fichier templateDetails.xml. Opération "
 "annulée. Détails :"
 
-#: include/ThemeInfo.php:239
+#: include/ThemeInfo.php:240
 msgid "templateDetails.xml is empty or contains malformed xml"
 msgstr ""
 "Le fichier templateDetails.xml est vide ou sa structure xml est incorrecte."
 
-#: include/ThemeInfo.php:247
+#: include/ThemeInfo.php:248
 msgid "templateDetails.xml does not have a name tag. name is mandatory."
 msgstr ""
 "Le fichier templateDetails.xml ne contient pas de tag de nom. Le tag de nom "
 "est obligatoire."
 
-#: include/ThemeInfo.php:278
+#: include/ThemeInfo.php:279
 msgid ""
 "templateDetails.xml does not have a mosinstall, extension or install or node"
 msgstr ""
 "Le fichier templateDetails.xml ne contient de noeud mosinstall, extension ou "
 "install."
 
-#: include/ThemeInfo.php:357
+#: include/ThemeInfo.php:358
 msgid ""
 "Invalid joomla template. templatedetails.xml found. Please rename it "
 "templateDetails.xml (capital D)"
@@ -169,83 +169,83 @@ msgstr ""
 "Template joomla invalide. Le fichier templatedetails.xml a été trouvé. "
 "Renommez le templateDetails.xml (D majuscule)"
 
-#: include/ThemeInfo.php:556
+#: include/ThemeInfo.php:557
 msgid "None"
 msgstr "Aucun"
 
-#: include/ThemeInfo.php:557
+#: include/ThemeInfo.php:558
 msgid "Custom"
 msgstr "Propriétaire"
 
-#: include/ThemeInfo.php:558
+#: include/ThemeInfo.php:559
 msgid "Creative Commons"
 msgstr "Creative Commons"
 
-#: include/ThemeInfo.php:559
+#: include/ThemeInfo.php:560
 msgid "Creative Commons BY"
 msgstr "Creative Commons BY"
 
-#: include/ThemeInfo.php:560
+#: include/ThemeInfo.php:561
 msgid "Creative Commons BY SA"
 msgstr "Creative Commons BY SA"
 
-#: include/ThemeInfo.php:561
+#: include/ThemeInfo.php:562
 msgid "Creative Commons BY ND"
 msgstr "Creative Commons BY ND"
 
-#: include/ThemeInfo.php:562
+#: include/ThemeInfo.php:563
 msgid "Creative Commons BY NC"
 msgstr "Creative Commons BY NC"
 
-#: include/ThemeInfo.php:563
+#: include/ThemeInfo.php:564
 msgid "Creative Commons BY NC SA"
 msgstr "Creative Commons BY NC SA"
 
-#: include/ThemeInfo.php:564
+#: include/ThemeInfo.php:565
 msgid "Creative Commons BY NC ND"
 msgstr "Creative Commons BY NC ND"
 
-#: include/ThemeInfo.php:565
+#: include/ThemeInfo.php:566
 msgid "MIT X11"
 msgstr "MIT X11"
 
-#: include/ThemeInfo.php:566
+#: include/ThemeInfo.php:567
 msgid "BSD"
 msgstr "BSD"
 
-#: include/ThemeInfo.php:567
+#: include/ThemeInfo.php:568
 msgid "New BSD"
 msgstr "New BSD"
 
-#: include/ThemeInfo.php:568
+#: include/ThemeInfo.php:569
 msgid "Free BSD"
 msgstr "Free BSD"
 
-#: include/ThemeInfo.php:569
+#: include/ThemeInfo.php:570
 msgid "GNU LGPL 2"
 msgstr "GNU LGPL 2"
 
-#: include/ThemeInfo.php:570
+#: include/ThemeInfo.php:571
 msgid "GNU LGPL 3"
 msgstr "GNU LGPL 3"
 
-#: include/ThemeInfo.php:571
+#: include/ThemeInfo.php:572
 msgid "GNU GPL 2"
 msgstr "GNU GPL 2"
 
-#: include/ThemeInfo.php:572
+#: include/ThemeInfo.php:573
 msgid "GNU GPL 3"
 msgstr "GNU GPL 3"
 
-#: include/ThemeInfo.php:573
+#: include/ThemeInfo.php:574
 msgid "Apache"
 msgstr "Apache"
 
-#: include/ThemeInfo.php:574
+#: include/ThemeInfo.php:575
 msgid "CDDL"
 msgstr "CDDL"
 
-#: include/ThemeInfo.php:575
+#: include/ThemeInfo.php:576
 msgid "Eclipse"
 msgstr "Eclipse"
 
@@ -337,6 +337,10 @@ msgstr "Présnece de code Google Search"
 #: include/Checks/Badthings.php:81
 msgid "Presence of Google advertising code"
 msgstr "Présence de code Google adsense"
+
+#: include/Checks/Badthings.php:82
+msgid "Use of variable functions"
+msgstr "Utilisation de fonctions variables"
 
 #: include/Checks/Basic.php:24
 #, php-format
@@ -454,11 +458,13 @@ msgstr ""
 #: include/Checks/CommentPagination.php:16
 msgid ""
 "The theme doesn't have comment pagination code in it. Use "
-"<strong>paginate_comments_links()</strong> to add comment pagination."
+"<strong>paginate_comments_links()</strong> to add comment pagination, or "
+"older <strong>previous_comments_link()</strong> and "
+"<strong>next_comments_link()</strong> functions."
 msgstr ""
-"Le thème ne contient pas de pagination de commentaire. Utilisez "
-"<strong>paginate_comments_links()</strong> pour ajouter une pagination de "
-"commentaire."
+"Le thème ne prend pas en charge la pagination de commentaire. La fonction "
+"<strong>paginate_comments_links()</strong> permet d&#39;ajouter une "
+"pagination de commentaire."
 
 #: include/Checks/CommentPagination.php:26
 msgid "Comment pagination"
@@ -1953,8 +1959,7 @@ msgstr "<strong>Author URI</strong> introuvable."
 msgid "This theme doesn't seem to display tags."
 msgstr "Ce theme ne semble pas afficher les tags."
 
-#: include/Checks/Tags.php:25 controllers/controller_results.php:215
-#: controllers/controller_unittests.php:194
+#: include/Checks/Tags.php:25 controllers/controller_results.php:231
 msgid "Tags"
 msgstr "Tags"
 
@@ -2083,6 +2088,11 @@ msgstr ""
 msgid "Malicious footer code injection detected!"
 msgstr "Injection de code malveillant détecté de bas de page!"
 
+#: include/unittests/ut_perfect_wordpress/footer.php:16
+#, php-format
+msgid "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
+msgstr "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
+
 #: error404.php:13
 msgid "Themecheck.org - The page does not exist."
 msgstr "Themecheck.org - La page n&#39;existe pas."
@@ -2123,22 +2133,18 @@ msgstr ""
 "Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
 "de sites web."
 
-#: controllers/controller_home.php:40 controllers/controller_results.php:191
-#: controllers/controller_results.php:192
-#: controllers/controller_unittests.php:172
-#: controllers/controller_unittests.php:173
+#: controllers/controller_home.php:40 controllers/controller_results.php:207
+#: controllers/controller_results.php:208
 msgid "Wordpress theme"
 msgstr "Theme Wordpress"
 
-#: controllers/controller_home.php:41 controllers/controller_results.php:294
+#: controllers/controller_home.php:41 controllers/controller_results.php:310
 #, php-format
 msgid "Wordpress %s theme"
 msgstr "Theme Wordpress %s"
 
-#: controllers/controller_home.php:43 controllers/controller_results.php:194
-#: controllers/controller_results.php:195
-#: controllers/controller_unittests.php:175
-#: controllers/controller_unittests.php:176
+#: controllers/controller_home.php:43 controllers/controller_results.php:210
+#: controllers/controller_results.php:211
 msgid "Wordpress child theme"
 msgstr "Theme Wordpress Enfant"
 
@@ -2147,14 +2153,12 @@ msgstr "Theme Wordpress Enfant"
 msgid "Wordpress %s child theme"
 msgstr "Theme Wordpress Enfant %s"
 
-#: controllers/controller_home.php:46 controllers/controller_results.php:199
-#: controllers/controller_results.php:200
-#: controllers/controller_unittests.php:178
-#: controllers/controller_unittests.php:179
+#: controllers/controller_home.php:46 controllers/controller_results.php:215
+#: controllers/controller_results.php:216
 msgid "Joomla template"
 msgstr "Template Joomla"
 
-#: controllers/controller_home.php:47 controllers/controller_results.php:295
+#: controllers/controller_home.php:47 controllers/controller_results.php:311
 #, php-format
 msgid "Joomla %s template"
 msgstr "Template Joomla %s"
@@ -2223,88 +2227,87 @@ msgstr "Voir plus"
 msgid "Mass import"
 msgstr "Import de masse"
 
-#: controllers/controller_results.php:63
+#: controllers/controller_results.php:79
 msgid "No file uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: controllers/controller_results.php:64 controllers/controller_results.php:65
+#: controllers/controller_results.php:80 controllers/controller_results.php:81
 msgid "No file uploaded"
 msgstr "Aucun fichier n&#39;a été téléchargé"
 
-#: controllers/controller_results.php:73
+#: controllers/controller_results.php:89
 #, php-format
 msgid "Validation results for Joomla template %s"
 msgstr "Résultats de validation pour le template joomla %s"
 
-#: controllers/controller_results.php:74
+#: controllers/controller_results.php:90
 #, php-format
 msgid "Security and code quality validation score of Joomla template %s."
 msgstr ""
 "Validation de la sécurité et de la qualité de code pour le template Joomla "
 "%s."
 
-#: controllers/controller_results.php:76
+#: controllers/controller_results.php:92
 #, php-format
 msgid "Validation results for Wordpress theme %s"
 msgstr "Résultats de validation pour le thème Wordpress %s"
 
-#: controllers/controller_results.php:77
+#: controllers/controller_results.php:93
 #, php-format
 msgid "Security and code quality validation score of Wordpress theme %s."
 msgstr ""
 "Validation de la sécurité et de la qualité de code pour le thème Wordpress "
 "%s."
 
-#: controllers/controller_results.php:80 controllers/controller_results.php:81
-#: controllers/controller_results.php:321
+#: controllers/controller_results.php:96 controllers/controller_results.php:97
+#: controllers/controller_results.php:337
 msgid "Validation results"
 msgstr "Résultats de validation"
 
-#: controllers/controller_results.php:113
-#: controllers/controller_unittests.php:109
+#: controllers/controller_results.php:129
 #, php-format
 msgid "Validation results for <strong>%s</strong>"
 msgstr "Résultats de validation pour <strong>%s</strong>"
 
-#: controllers/controller_results.php:124
-#: controllers/controller_results.php:144
+#: controllers/controller_results.php:140
+#: controllers/controller_results.php:160
 #, php-format
 msgid "Validation score : %s%%"
 msgstr "Score de validation  : %s%%"
 
-#: controllers/controller_results.php:142
+#: controllers/controller_results.php:158
 #, php-format
 msgid "Validation score : %s%% (%s critical alerts)"
 msgstr "Score de validation : %s%% (%s alertes critiques)"
 
-#: controllers/controller_results.php:154
+#: controllers/controller_results.php:170
 msgid "validation score"
 msgstr "Score de validation"
 
-#: controllers/controller_results.php:155
+#: controllers/controller_results.php:171
 #, php-format
 msgid "%s critical alerts. %s warnings."
 msgstr "%s alertes critiques. %s alertes simples."
 
-#: controllers/controller_results.php:160
+#: controllers/controller_results.php:176
 msgid "Share this page with the following link :"
 msgstr "Partagez cette page avec le lien suivant :"
 
-#: controllers/controller_results.php:166
+#: controllers/controller_results.php:182
 msgid ""
 "Display this score on your website with the following HTML code that links "
 "to this page :"
 msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
 
-#: controllers/controller_results.php:172
+#: controllers/controller_results.php:188
 msgid "Medium size icon (default) :"
 msgstr "Icône moyenne (défaut) : "
 
-#: controllers/controller_results.php:175
+#: controllers/controller_results.php:191
 msgid "Small size icon :"
 msgstr "Petite icône :"
 
-#: controllers/controller_results.php:177
+#: controllers/controller_results.php:193
 msgid ""
 "You can switch language with <strong>lang</strong> parameter in iframe's "
 "url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
@@ -2315,7 +2318,7 @@ msgstr ""
 "<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
 "strong>."
 
-#: controllers/controller_results.php:183
+#: controllers/controller_results.php:199
 msgid ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
@@ -2323,164 +2326,119 @@ msgstr ""
 "Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
 "et seront perdu quand vous quitterez cette page."
 
-#: controllers/controller_results.php:189
-#: controllers/controller_unittests.php:170
+#: controllers/controller_results.php:205
 msgid "Theme name"
 msgstr "Nom du thème"
 
-#: controllers/controller_results.php:191
-#: controllers/controller_results.php:192
-#: controllers/controller_results.php:194
-#: controllers/controller_results.php:195
-#: controllers/controller_results.php:199
-#: controllers/controller_results.php:200
-#: controllers/controller_unittests.php:172
-#: controllers/controller_unittests.php:173
-#: controllers/controller_unittests.php:175
-#: controllers/controller_unittests.php:176
-#: controllers/controller_unittests.php:178
-#: controllers/controller_unittests.php:179
+#: controllers/controller_results.php:207
+#: controllers/controller_results.php:208
+#: controllers/controller_results.php:210
+#: controllers/controller_results.php:211
+#: controllers/controller_results.php:215
+#: controllers/controller_results.php:216
 msgid "Theme type"
 msgstr "Type de thème"
 
-#: controllers/controller_results.php:196
+#: controllers/controller_results.php:212
 msgid "Parent theme name"
 msgstr "Nom du thème parent"
 
-#: controllers/controller_results.php:201
-#: controllers/controller_unittests.php:180
+#: controllers/controller_results.php:217
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: controllers/controller_results.php:202
-#: controllers/controller_unittests.php:181
+#: controllers/controller_results.php:218
 msgid "File size"
 msgstr "Taille du fichier"
 
-#: controllers/controller_results.php:202
-#: controllers/controller_unittests.php:181
+#: controllers/controller_results.php:218
 msgid "bytes"
 msgstr "octets"
 
-#: controllers/controller_results.php:203
-#: controllers/controller_unittests.php:182
+#: controllers/controller_results.php:219
 msgid "MD5"
 msgstr "MD5"
 
-#: controllers/controller_results.php:204
-#: controllers/controller_unittests.php:183
+#: controllers/controller_results.php:220
 msgid "SHA1"
 msgstr "SHA1"
 
-#: controllers/controller_results.php:206
-#: controllers/controller_results.php:207
-#: controllers/controller_results.php:209
-#: controllers/controller_results.php:210
-#: controllers/controller_unittests.php:185
-#: controllers/controller_unittests.php:186
-#: controllers/controller_unittests.php:188
-#: controllers/controller_unittests.php:189
+#: controllers/controller_results.php:222
+#: controllers/controller_results.php:223
+#: controllers/controller_results.php:225
+#: controllers/controller_results.php:226
 msgid "License"
 msgstr "Licence"
 
-#: controllers/controller_results.php:211
-#: controllers/controller_unittests.php:190
+#: controllers/controller_results.php:227
 msgid "Files included"
 msgstr "Fichiers inclus"
 
-#: controllers/controller_results.php:212
-#: controllers/controller_unittests.php:191
+#: controllers/controller_results.php:228
 msgid "Theme URI"
 msgstr "URI du thème URI"
 
-#: controllers/controller_results.php:213
-#: controllers/controller_unittests.php:192
+#: controllers/controller_results.php:229
 msgid "Version"
 msgstr "Version"
 
-#: controllers/controller_results.php:214
-#: controllers/controller_unittests.php:193
+#: controllers/controller_results.php:230
 msgid "Author URI"
 msgstr "URI de l'auteur"
 
-#: controllers/controller_results.php:216
-#: controllers/controller_unittests.php:195
+#: controllers/controller_results.php:232
 msgid "Copyright"
 msgstr "Copyright"
 
-#: controllers/controller_results.php:217
-#: controllers/controller_unittests.php:196
+#: controllers/controller_results.php:233
 msgid "Creation date"
 msgstr "Date de création"
 
-#: controllers/controller_results.php:218
+#: controllers/controller_results.php:234
 msgid "Last file update"
 msgstr "Dernière mise à jour du fichier"
 
-#: controllers/controller_results.php:219
+#: controllers/controller_results.php:235
 msgid "Last validation"
 msgstr "Dernière validation"
 
-#: controllers/controller_results.php:235
+#: controllers/controller_results.php:251
 msgid "Critical alerts"
 msgstr "Alertes critiques"
 
-#: controllers/controller_results.php:249
-#: controllers/controller_unittests.php:228
+#: controllers/controller_results.php:265
 msgid "Warnings"
 msgstr "Alertes"
 
-#: controllers/controller_results.php:281
+#: controllers/controller_results.php:297
 msgid "Other files checked around the same date"
 msgstr "Autres fichiers validées durant la même période"
 
-#: controllers/controller_results.php:329
-#: controllers/controller_results.php:336
+#: controllers/controller_results.php:345
+#: controllers/controller_results.php:352
 msgid "Validation score : 0 %"
 msgstr "Score de validation : 0 %"
 
-#: controllers/controller_results.php:338
+#: controllers/controller_results.php:354
 msgid "Fatal error"
 msgstr "Erreur fatale"
 
-#: controllers/controller_results.php:340
+#: controllers/controller_results.php:356
 msgid "Go to home page to submit a new version"
 msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
 
-#: controllers/controller_results.php:351
+#: controllers/controller_results.php:367
 msgid "Please send us a theme to check."
 msgstr "SVP, uploadez un thème à vérifier."
 
-#: controllers/controller_results.php:352
+#: controllers/controller_results.php:368
 msgid "Go to home page"
 msgstr "Aller à la page d'accueil."
 
-#: controllers/controller_unittests.php:41
-msgid "Results unit tests"
-msgstr "Résultats des tests unitaires"
-
-#: controllers/controller_unittests.php:42
-msgid "Validation results unit tests"
-msgstr "Résultats de validation des tests unitaires"
-
-#: controllers/controller_unittests.php:120
-#: controllers/controller_unittests.php:131
-#, php-format
-msgid "Themecheck.org validation score : %s%%"
-msgstr "Score de validation ThemeCheck.org : %s%%"
-
-#: controllers/controller_unittests.php:127
-#, php-format
-msgid "Themecheck.org validation score : %s%% (%s critical alerts)"
-msgstr "Score de validation ThemeCheck.org : %s%% (%s alertes critiques)"
-
-#: controllers/controller_unittests.php:197
-msgid "Last update"
-msgstr "Dernière mise à jour"
-
-#: controllers/controller_unittests.php:214
-msgid "Failed checks"
-msgstr "Tests échoués"
+#: controllers/controller_unittests.php:23
+#: controllers/controller_unittests.php:24
+msgid "Unit tests"
+msgstr "Tests unitaires"
 
 #: DB/History.php:61
 #, php-format
@@ -2504,6 +2462,29 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 #: DB/History.php:218
 msgid "The name \""
 msgstr "Le nom \""
+
+#~ msgid ""
+#~ "The theme doesn't have comment pagination code in it. Use "
+#~ "<strong>paginate_comments_links()</strong> to add comment pagination."
+#~ msgstr ""
+#~ "Le thème ne contient pas de pagination de commentaire. Utilisez "
+#~ "<strong>paginate_comments_links()</strong> pour ajouter une pagination de "
+#~ "commentaire."
+
+#~ msgid "Validation results unit tests"
+#~ msgstr "Résultats de validation des tests unitaires"
+
+#~ msgid "Themecheck.org validation score : %s%%"
+#~ msgstr "Score de validation ThemeCheck.org : %s%%"
+
+#~ msgid "Themecheck.org validation score : %s%% (%s critical alerts)"
+#~ msgstr "Score de validation ThemeCheck.org : %s%% (%s alertes critiques)"
+
+#~ msgid "Last update"
+#~ msgstr "Dernière mise à jour"
+
+#~ msgid "Failed checks"
+#~ msgstr "Tests échoués"
 
 #, fuzzy
 #~ msgid "<pre> "
