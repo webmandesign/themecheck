@@ -78,7 +78,8 @@ class Badthings extends Check
 						new Badthings_Checker(TT_COMMON, ERRORLEVEL_CRITICAL, __all('Use of uudecode()')											, '/uudecode/ims'									, 'ut_badthings_uudecode.zip'),
 						new Badthings_Checker(TT_COMMON, ERRORLEVEL_CRITICAL, __all('Use of str_rot13()')										, '/str_rot13/ims'								, 'ut_badthings_str_rot13.zip'),
 						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google search code')			, '/cx=[0-9]{21}:/'								, 'ut_badthings_googlesearch.zip'),
-						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google advertising code')	, '/pub-[0-9]{16}/i'							, 'ut_badthings_googleadvertising.zip')
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google advertising code')	, '/pub-[0-9]{16}/i'							, 'ut_badthings_googleadvertising.zip'),
+						new Badthings_Checker(TT_COMMON, ERRORLEVEL_CRITICAL, __all('Use of variable functions')						, '/\$[_0-9a-zA-Z]+ *\(/', 'ut_badthings_variablefunctions.zip'),
 			);
     }
 }
