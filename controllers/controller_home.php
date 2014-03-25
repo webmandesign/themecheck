@@ -89,7 +89,7 @@ class Controller_home
 						<?php echo __("Maximum file size")." : $max_size_MB MB";?> 
 						<br/><br/>
 						
-						<input type="checkbox" name="donotstore" value="donotstore">&nbsp;<?php echo __('Forget uploaded data after results').'&nbsp;<a id="forgetresultsmoreinfo" data-container="body" data-toggle="popover" data-placement="right" data-content="'.__("<ul><li>No data will be kept on themecheck.org servers (or any other)<li>Validation won't be visible to the public<li>If you want to see the results in the future, you'll have to re-submit your file</ul>").'" href="#">( ? )</a>';?><br>
+						<input type="checkbox" name="donotstore" value="donotstore">&nbsp;<?php echo __('Forget uploaded data after results').'&nbsp;<a id="forgetresultsmoreinfo" data-container="body" data-toggle="popover" data-placement="right" data-content="'.__("<ul><li>No data will be kept on themecheck.org servers (or any other)<li>Validation won't be visible to the public<li>If you want to see the results in the future, you'll have to re-submit your file</ul>").'" href="#!">( ? )</a>';?><br>
 
 						<br/>
 						<button type="submit" class="btn btn-primary btn-lg" ><?php echo __("Submit"); ?></button>

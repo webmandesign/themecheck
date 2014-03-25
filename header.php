@@ -25,7 +25,6 @@ namespace ThemeCheck;
 		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/favicon.ico" />
 		<link rel="icon" type="image/png" href="<?php echo TC_HTTPDOMAIN;?>/favicon.png" />
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 	</head>
 	<body>
 <?php include_once("analyticstracking.php") ?>
