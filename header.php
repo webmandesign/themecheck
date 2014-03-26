@@ -11,6 +11,16 @@ namespace ThemeCheck;
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><?php echo $controller->meta["title"]; ?></title>
 		<meta name="description" content="<?php echo $controller->meta["description"]; ?>">
+		<?php 
+		// scripts than need to be declared in header
+		if (isset($controller->scripts))
+		{
+			foreach ($controller->scripts as $script_src)
+			{
+				echo '<script src="'.$script_src.'"></script>'."\n";
+			}
+		}
+		?>
 		<meta name="viewport" content="width=device-width">
 
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap.min.css">

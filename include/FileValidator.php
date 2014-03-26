@@ -371,7 +371,7 @@ class FileValidator
 	/** 
 	*		Execute all checks 
 	**/
-	public function validate()
+	public function validate($checkId = 'ALL')
 	{
 		// prepare checks
 		foreach (self::$checklistCommon as $check)
@@ -411,19 +411,23 @@ class FileValidator
 		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
 		foreach ($this->checklist as $check)
 		{
+			
 			$check->doCheck($this->phpfiles, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{
-				//echo (get_class($check)).'<br>';
-				if ($this->themeInfo->themetype & $checkpart->themetype) 
+				if ($checkId === 'ALL' || $checkpart->id === $checkId) 
 				{
-					$checkpart->title = $check->title; // a bit dirty...
-					if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
-					else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
-					else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
-					else $check_undefined[] = $checkpart;
-					
-					$check_count++;
+					//echo (get_class($check)).'<br>';
+					if ($this->themeInfo->themetype & $checkpart->themetype) 
+					{
+						$checkpart->title = $check->title; // a bit dirty...
+						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
+						else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
+						else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
+						else $check_undefined[] = $checkpart;
+						
+						$check_count++;
+					}
 				}
 			}
 		}
