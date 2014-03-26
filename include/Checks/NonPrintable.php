@@ -16,7 +16,7 @@ class NonPrintable_Checker extends CheckPart
             if ( preg_match($this->code, $content, $matches ) )
             {
                 $filename = tc_filename( $name );
-                $non_print = tc_preg( $this->code , $name );
+                $non_print = utf8_encode(tc_preg( $this->code , $name ));
                 $this->messages[] = __all('Non-printable characters were found in file <strong>%1$s</strong>. This is an indicator of potential errors in PHP code.%2$s', $filename, $non_print);
                 $this->errorLevel = $this->threatLevel;
             }
