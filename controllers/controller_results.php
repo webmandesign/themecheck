@@ -59,7 +59,7 @@ class Controller_results
 			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
-		{
+		{			
 			$themeInfo = FileValidator::upload();
 			if ($themeInfo)
 			{
@@ -74,6 +74,11 @@ class Controller_results
 				}
 				
 				$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+				
+				if (isset($_POST["donotstore"]))
+					$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'not stored');";
+				else 
+					$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);

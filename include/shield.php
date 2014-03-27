@@ -50,7 +50,7 @@ function getShield($themeInfo, $lang, $size, $href , $rootdir)
 			}
 		}
 		
-		$html .= '<a href="'.$href.'" style="background-image:url('.$rootdir.'img/'.$img.');" title="'.$text.'">';
+		$html .= '<a href="'.$href.'" style="background-image:url('.$rootdir.'img/'.$img.');" target="_parent" title="'.$text.'">';
 		$html .= '<div class="div'.$size.'" style="color:#'.$color.';">';			
 		if ($score<100.0) $html .= intval($score);
 		$html .= '</div></a>';

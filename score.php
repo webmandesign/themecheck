@@ -72,6 +72,14 @@ a .div240{
 		</style>
 	</head>
 	<body style="font-family: 'Helvetica Neue', Helvetica, Arial, 'lucida grande', tahoma, verdana, arial, sans-serif;">
+	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-47860956-1', 'themecheck.org');
+</script>
 <?php
 include_once 'include/FileValidator.php';
 include_once 'include/shield.php';
@@ -85,14 +93,32 @@ $hash = $_GET['id'];
 if (preg_match("/^[a-zA-Z0-9]{25}$/", $hash)){
 	$history = new History();
 	$themeInfo = $history->loadThemeFromHash($hash);
+	
 	if (!empty($themeInfo))
 	{
+		?>
+		<script>
+		var location = window.location.protocol + '//' + window.location.hostname + window.location.pathname + window.location.search;
+		ga('send', 'pageview', location, '<?php if ($themeInfo->themetype == 1 ) echo '[WP] '; if ($themeInfo->themetype == 2 ) echo '[Joomla] ';if ($themeInfo->themetype == 4 ) echo '[WP child] '; echo $themeInfo->namesanitized; ?>');
+		</script>
+		<?php
+	
 		$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$lang, "phpfile"=>"results", "hash"=>$hash));
 		
 		displayShield($themeInfo, $lang, $size, $href, '');
 		
-	} else echo __("Error : non existant id.", $lang);
-} else echo __("Error : invalid id.", $lang);
+	} else {
+		?><script>
+			ga('send', 'pageview');
+		</script><?php
+		echo __("Error : non existant id.", $lang);
+	}
+} else {
+?><script>
+			ga('send', 'pageview');
+		</script><?php
+echo __("Error : invalid id.", $lang);
+}
 ?>
 	</body>
 </html>

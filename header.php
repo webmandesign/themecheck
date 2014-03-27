@@ -37,7 +37,18 @@ namespace ThemeCheck;
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 	</head>
 	<body>
-<?php include_once("analyticstracking.php") ?>
+<?php include_once("analyticstracking.php");
+if (isset($controller->inlinescripts))
+{
+	foreach ($controller->inlinescripts as $script)
+	{
+		echo '<script>'."\n";
+		echo $script."\n";
+		echo '</script>'."\n";
+	}
+	
+}
+ ?>
     <div class="navbar navbar-inverse">
 		<!--<div class="navbar navbar-inverse">-->
       <div class="container">
