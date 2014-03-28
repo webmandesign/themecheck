@@ -48,7 +48,7 @@ abstract class CheckPart
 			$this->id = $id;
     }
 		
-		public function doCheck($php_files, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 		{
 		}
 		
@@ -95,13 +95,13 @@ abstract class Check
 		
 		abstract protected function createChecks();
 		
-		public function doCheck($php_files, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 		{
 			$start_time_checker = microtime(true);
 			foreach ($this->checks as &$check)
 			{
 				$start_time = microtime(true);
-				$check->doCheck($php_files, $css_files, $other_files);
+				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
 				$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 			}	
 			$this->duration = microtime(true) - $start_time_checker;

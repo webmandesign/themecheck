@@ -26,7 +26,7 @@ class Screenshot_Checker extends CheckPart
 			}
 		}
 		
-		public function doCheck($php_files, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $found = false;
         $this->errorLevel = ERRORLEVEL_WARNING;

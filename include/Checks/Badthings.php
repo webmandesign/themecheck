@@ -2,38 +2,25 @@
 namespace ThemeCheck;
 class Badthings_Checker extends CheckPart
 {
-    public function doCheck($php_files, $css_files, $other_files)
+    public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {		
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         $grep = '';
 				
-				if ($this->threatLevel == ERRORLEVEL_CRITICAL) $files = $php_files;
-				else $files = array_merge($php_files, $other_files);
+				if ($this->id == 'BADTHINGS_GOOGLE_CX' || $this->id == 'BADTHINGS_GOOGLE_PUB')
+				{
+					if ($this->threatLevel == ERRORLEVEL_CRITICAL) $files = $php_files;
+					else $files = array_merge($php_files, $other_files);
+				} else {
+					$files = $php_files_filtered;
+				}
 				
         foreach ( $files as $php_key => $phpfile ) {
             if ( preg_match( $this->code, $phpfile, $matches ) ) {
 							$filename = tc_filename( $php_key );
 							$error = ltrim( trim( $matches[0], '(' ) );
-							if ($this->code == '/`/') // backticks : only forbidden when used outside regex
-							{
-								$bad_lines = tc_preg_lines($this->code, $php_key);
-								$grep = '';
-								foreach ($bad_lines as $bad_line)
-								{
-									if (!preg_match( '/(preg_filter|preg_grep|preg_match|preg_match_all|preg_replace|preg_replace_callback|preg_split).*`.*`/', $bad_line )) 
-									{
-										if ( preg_match($this->code, $bad_line, $matches2 ) ) {
-												$error = $matches2[0];
-												$this_line = str_replace( '"', "'", $bad_line );
-												$error = ltrim( $error );
-												$pre = ( FALSE !== ( $pos = strpos( $this_line, $error ) ) ? substr( $this_line, 0, $pos ) : FALSE );
-												$pre = ltrim( htmlspecialchars( $pre ) );
-												$grep .= "<pre> ".$pre. htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
-										}
-									}
-								}
-								if (empty($grep)) continue;
-							} else if ($this->code == '/base64_encode/') {
+							
+							if ($this->id == 'BADTHINGS_BASE64ENC_WP' || $this->id == 'BADTHINGS_BASE64ENC_JO') {
 								$bad_lines = tc_preg_lines($this->code, $php_key);
 								$grep = '';
 								foreach ($bad_lines as $bad_line)

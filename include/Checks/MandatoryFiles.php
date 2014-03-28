@@ -3,13 +3,13 @@ namespace ThemeCheck;
 
 class MandatoryFiles_Checker extends CheckPart
 {	
-		public function doCheck($php_files, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         $mandatoryfile = $this->code;
         $missing = true;
 				
-				$files = array_merge($php_files, $css_files, $other_files);
+				$files = array_merge($php_files, $php_files_filtered, $css_files, $other_files);
         foreach (array_keys($files) as $filepath)
         {
             if (basename($filepath) == $mandatoryfile) {$missing = false; break;}

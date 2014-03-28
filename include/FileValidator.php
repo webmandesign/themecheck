@@ -35,6 +35,7 @@ class FileValidator
 	public $themeInfo; // type ThemeInfo
 	public $checklist = array();
 	public $phpfiles = array();
+	public $phpfiles_filtered = array();
 	public $cssfiles = array();
 	public $otherfiles = array();
 					
@@ -387,7 +388,8 @@ class FileValidator
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
 				if ( substr( $filename, -4 ) == '.php' ) {
-					$this->phpfiles[$filename] = php_strip_whitespace( $filename );
+					$this->phpfiles[$filename] = file_get_contents( $filename );
+					$this->phpfiles_filtered[$filename] = Helpers::filterPhp( $this->phpfiles[$filename] );
 				}
 				else if ( substr( $filename, -4 ) == '.css' ) {
 					$this->cssfiles[$filename] = file_get_contents( $filename );
@@ -412,7 +414,7 @@ class FileValidator
 		foreach ($this->checklist as $check)
 		{
 			
-			$check->doCheck($this->phpfiles, $this->cssfiles, $this->otherfiles);
+			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{
 				if ($checkId === 'ALL' || $checkpart->id === $checkId) 
