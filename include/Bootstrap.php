@@ -65,6 +65,9 @@ define("ERRORLEVEL_WARNING", 3);
 define("ERRORLEVEL_SUCCESS", 4);
 define("ERRORLEVEL_INFO", 5);
 
+define("TC_CONTACT_MAIL", "g.baudhuin@peoleo.fr");
+define("TC_CONTACT_NAME", "Guillaume Baudhuin");
+
 date_default_timezone_set('UTC');
 global $g_creationDate;
 $g_creationDate = time();

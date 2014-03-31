@@ -3,3 +3,4 @@ score=score
 wordpress_theme=theme_wordpress
 joomla_template=template_joomla
 unittests=tests_unitaires
+contact=contact
