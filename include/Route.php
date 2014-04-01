@@ -135,6 +135,9 @@ class Route {
 			} else if ($p0 == $i18n->url($route["lang"], "unittests")) 
 			{
 				$route["phpfile"] = "unittests";
+			} else if ($p0 == $i18n->url($route["lang"], "contact")) 
+			{
+				$route["phpfile"] = "contact";
 			} else if ($p0 == "massimport") 
 			{
 				$route["phpfile"] = "massimport";
