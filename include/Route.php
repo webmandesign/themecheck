@@ -247,6 +247,9 @@ class Route {
 		} else if ($route["phpfile"] == "massimport")
 		{
 			$url = "massimport";
+		}	else if ($route["phpfile"] == "contact")
+		{
+			$url = trim($url.$i18n->url($route["lang"], 'contact'), '/ ');
 		} else if ($route["phpfile"] == "error404.php")
 		{
 			$url = trim($url.$i18n->url($route["lang"], $route["phpfile"]), '/ ');

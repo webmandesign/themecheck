@@ -53,9 +53,12 @@ if (isset($controller->inlinescripts))
 		<!--<div class="navbar navbar-inverse">-->
       <div class="container">
         <div class="navbar-header">
-        
-          <a class="navbar-brand" href="<?php echo TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(),"phpfile"=>"index.php")); ?>"><img src="<?php echo TC_HTTPDOMAIN;?>/img/headerlogo.png"></a>
+					<a class="navbar-brand" href="<?php echo TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(),"phpfile"=>"index.php")); ?>"><img src="<?php echo TC_HTTPDOMAIN;?>/img/headerlogo.png"></a>
         </div>
-        
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul	class="nav navbar-nav navbar-right">
+						<li><a href="<?php echo TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"contact"));?>"><?php echo __("Contact us");?></a></li>
+					</ul>
+				</div>	
       </div>
     </div>
