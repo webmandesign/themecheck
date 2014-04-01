@@ -213,7 +213,9 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_WP_GET_SINGLE_POST', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_get_single_post'), array('wp_get_single_post', 'get_post()', '3.5' ),'ut_deprecatedrecommendedwordpress_wp_get_single_post.zip'),
 					new Deprecated_Checker('DEPRECATED_USER_PASS_OK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('user_pass_ok'), array('user_pass_ok', 'wp_authenticate()', '3.5' ),'ut_deprecatedrecommendedwordpress_user_pass_ok.zip'),
 					new Deprecated_Checker('DEPRECATED_SAVE_POST_HOOK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_save_post_hook'), array('_save_post_hook', 'none', '3.5' ),'ut_deprecatedrecommendedwordpress__save_post_hook.zip'),
-					new Deprecated_Checker('DEPRECATED_GD_EDIT_IMAGE_SUPPORT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('gd_edit_image_support'), array('gd_edit_image_support', 'wp_image_editor_supports', '3.5' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_GD_EDIT_IMAGE_SUPPORT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('gd_edit_image_support'), array('gd_edit_image_support', 'wp_image_editor_supports()', '3.5' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_CONVERT_BYTES_TO_HR', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_convert_bytes_to_hr'), array('wp_convert_bytes_to_hr', 'size_format()', '3.6' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_SEARCH_TERMS_TIDY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_search_terms_tidy'), array('_search_terms_tidy', 'none', '3.7' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
 
 					// wp-admin recently deprecated warning
 					new Deprecated_Checker('DEPRECATED_GET_ALLOWED_THEMES', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_allowed_themes'), array('get_allowed_themes', 'wp_get_themes( array( &#39;allowed&#39; => true ) )', '3.4' ),'ut_deprecatedrecommendedwordpress_get_allowed_themes.zip'),
@@ -223,7 +225,24 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_MEDIA_BUTTON', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_media_button'), array('_media_button', 'none', '3.5' ),'ut_deprecatedrecommendedwordpress__media_button.zip'),
 					new Deprecated_Checker('DEPRECATED_GET_POST_TO_EDIT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_post_to_edit'), array('get_post_to_edit', 'get_post()', '3.5' ),'ut_deprecatedrecommendedwordpress_get_post_to_edit.zip'),
 					new Deprecated_Checker('DEPRECATED_GET_DEFAULT_PAGE_TO_EDIT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_default_page_to_edit'), array('get_default_page_to_edit', 'get_default_post_to_edit()', '3.5' ),'ut_deprecatedrecommendedwordpress_get_default_page_to_edit.zip'),
-					new Deprecated_Checker('DEPRECATED_WP_CREATE_THUMBNAIL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_create_thumbnail'), array('wp_create_thumbnail', 'image_resize()', '3.5' ),'ut_deprecatedrecommendedwordpress_wp_create_thumbnail.zip')		
+					new Deprecated_Checker('DEPRECATED_WP_CREATE_THUMBNAIL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_create_thumbnail'), array('wp_create_thumbnail', 'image_resize()', '3.5' ),'ut_deprecatedrecommendedwordpress_wp_create_thumbnail.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_NAV_MENU_LOCATIONS_META_BOX', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_nav_menu_locations_meta_box'), array('wp_nav_menu_locations_meta_box', 'Manage Locations tab', '3.6' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_UPDATE_CORE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_update_core'), array('wp_update_core', 'Core_Upgrader::upgrade()', '3.7' ),'tobedefined.zip'),		
+					new Deprecated_Checker('DEPRECATED_WP_UPDATE_PLUGIN', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_update_plugin'), array('wp_update_plugin', 'Plugin_Upgrader::upgrade()', '3.7' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_UPDATE_THEME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_update_theme'), array('wp_update_theme', 'Theme_Upgrader::upgrade()', '3.7' ),'tobedefined.zip'),	
+					new Deprecated_Checker('DEPRECATED_THE_ATTACHMENT_LINKS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('the_attachment_links'), array('the_attachment_links', 'none', '3.7' ),'tobedefined.zip'),	
+					new Deprecated_Checker('DEPRECATED_SCREEN_ICON', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('screen_icon'), array('screen_icon', 'none', '3.8' ),'tobedefined.zip'),	
+					new Deprecated_Checker('DEPRECATED_GET_SCREEN_ICON', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_screen_icon'), array('get_screen_icon', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_INCOMING_LINKS_OUTPUT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_incoming_links_output'), array('wp_dashboard_incoming_links_output', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY_OUTPUT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary_output'), array('wp_dashboard_secondary_output', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_INCOMING_LINKS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_incoming_links'), array('wp_dashboard_incoming_links', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_INCOMING_LINKS_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_incoming_links_control'), array('wp_dashboard_incoming_links_control', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_PLUGINS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_plugins'), array('wp_dashboard_plugins', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_PRIMARY_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_primary_control'), array('wp_dashboard_primary_control', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_RECENT_COMMENTS_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_recent_comments_control'), array('wp_dashboard_recent_comments_control', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary'), array('wp_dashboard_secondary', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary_control'), array('wp_dashboard_secondary_control', 'none', '3.8' ),'tobedefined.zip'),
+					
 					);
     }
 }
