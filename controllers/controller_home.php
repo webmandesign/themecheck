@@ -70,6 +70,10 @@ class Controller_home
 		$max_size = Helpers::returnBytes(ini_get('upload_max_filesize'));
 		if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
 		$max_size_MB = $max_size / (1024*1024);
+		
+		$token = uniqid(true);
+		$_SESSION['token_'.$token] = time();
+		
 		?> 
 				<div class="jumbotron">
 					<div class="container">
@@ -93,6 +97,7 @@ class Controller_home
 
 						<br/>
 						<button type="submit" class="btn btn-primary btn-lg" ><?php echo __("Submit"); ?></button>
+						<input type="hidden" name="token" value="<?php echo $token;?>"/>
 					</form>
 		<?php
 		

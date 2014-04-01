@@ -59,26 +59,32 @@ class Controller_results
 			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
-		{			
-			$themeInfo = FileValidator::upload();
-			if ($themeInfo)
+		{
+			if(isset($_SESSION['token_'.$_POST['token']]))
 			{
-				$this->fileValidator = new FileValidator($themeInfo);
-				$this->fileValidator->validate();	
-				
-				if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+				unset($_SESSION['token_'.$_POST['token']]);
+				$themeInfo = FileValidator::upload();
+				if ($themeInfo)
 				{
-					$this->fileValidator->clean();
-				} else {
-					$this->fileValidator->serialize();
+					$this->fileValidator = new FileValidator($themeInfo);
+					$this->fileValidator->validate();	
+					
+					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
+					{
+						$this->fileValidator->clean();
+					} else {
+						$this->fileValidator->serialize();
+					}
+					
+					$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
+					
+					if (isset($_POST["donotstore"]))
+						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'not stored');";
+					else 
+						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 				}
-				
-				$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
-				
-				if (isset($_POST["donotstore"]))
-					$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'not stored');";
-				else 
-					$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
+			} else {
+				UserMessage::enqueue(__("Unvalid form"), ERRORLEVEL_FATAL);
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
