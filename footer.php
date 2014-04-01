@@ -24,6 +24,11 @@ namespace ThemeCheck;
 							}
 							echo trim($langs,' |');
 						}?>
+						<div>
+							<a href="<?php echo TC_HTTPDOMAIN;?>/contact">
+								<?php echo __("Contact us");?>
+							</a>
+						</div>
 					</div>
 				</div>
 				<p>
