@@ -177,12 +177,33 @@ class ThemeInfo
 
 		if ($this->themetype == TT_WORDPRESS || $this->themetype == TT_WORDPRESS_CHILD)
 		{
+			//$checksum = trim($unzippath, "\\/ \t\n\r\0\x0B");
+			//$checksum = substr(strrchr($checksum, "/"), 1);
+			$style_css = null;
+			// loop through files to find style.css (at root level since there can be other style.css files in subdirs)
 			foreach( $files as $key => $filename ) {
+				//$subpath = substr(strstr($filename, $checksum), strlen($checksum)+1);
+				//echo $subpath;
 				$path_parts = pathinfo($filename);
+			//	var_dump($path_parts);
 				$basename = $path_parts['basename'];
 				if ($basename == 'style.css')
 				{
-					$file_content = file_get_contents($filename);
+					if (empty($style_css)) $style_css = $filename;
+					else if (strlen($filename) < strlen($style_css)) $style_css = $filename;					
+				}
+				
+				if (isset($path_parts['extension'])) {
+					$ext = strtolower(trim($path_parts['extension']));
+					if (isset($filetypes[$ext])) $filetypes[$ext] = true;
+				}
+			}
+			if (empty($style_css))
+			{
+				UserMessage::enqueue(__("style.css is missing or misspelled."), ERRORLEVEL_FATAL);
+				return false;
+			} else {
+				$file_content = file_get_contents($filename);
 					
 					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
 					else {
@@ -201,19 +222,8 @@ class ThemeInfo
 					// creation date can come from an external source. Happens with massimport where creation date is in csv files.
 					global $g_creationDate;
 					$this->creationDate = $g_creationDate;
-				}
-				
-				if (isset($path_parts['extension'])) {
-					$ext = strtolower(trim($path_parts['extension']));
-					if (isset($filetypes[$ext])) $filetypes[$ext] = true;
-				}
 			}
-			if (empty($this->name))
-			{
-				UserMessage::enqueue(__("style.css is missing or misspelled."), ERRORLEVEL_FATAL);
-				return false;
-			}
-			$this->cmsVersion = "3.4+";
+			$this->cmsVersion = "3.8";
 		}
 		
 		if ($this->themetype == TT_JOOMLA)
