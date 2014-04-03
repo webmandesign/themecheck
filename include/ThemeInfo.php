@@ -177,15 +177,10 @@ class ThemeInfo
 
 		if ($this->themetype == TT_WORDPRESS || $this->themetype == TT_WORDPRESS_CHILD)
 		{
-			//$checksum = trim($unzippath, "\\/ \t\n\r\0\x0B");
-			//$checksum = substr(strrchr($checksum, "/"), 1);
 			$style_css = null;
 			// loop through files to find style.css (at root level since there can be other style.css files in subdirs)
 			foreach( $files as $key => $filename ) {
-				//$subpath = substr(strstr($filename, $checksum), strlen($checksum)+1);
-				//echo $subpath;
 				$path_parts = pathinfo($filename);
-			//	var_dump($path_parts);
 				$basename = $path_parts['basename'];
 				if ($basename == 'style.css')
 				{
@@ -203,7 +198,8 @@ class ThemeInfo
 				UserMessage::enqueue(__("style.css is missing or misspelled."), ERRORLEVEL_FATAL);
 				return false;
 			} else {
-				$file_content = file_get_contents($filename);
+			var_dump($style_css);
+				$file_content = file_get_contents($style_css);
 					
 					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
 					else {
