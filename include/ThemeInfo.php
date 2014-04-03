@@ -198,7 +198,6 @@ class ThemeInfo
 				UserMessage::enqueue(__("style.css is missing or misspelled."), ERRORLEVEL_FATAL);
 				return false;
 			} else {
-			var_dump($style_css);
 				$file_content = file_get_contents($style_css);
 					
 					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
