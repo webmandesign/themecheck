@@ -18,7 +18,6 @@ class Controller_massimport
 	{
 		$this->meta["title"] = __("Mass import");
 		$this->meta["description"] = __("Mass import");
-		$this->scripts[] = '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js';
 	}
 	
 	public function render()

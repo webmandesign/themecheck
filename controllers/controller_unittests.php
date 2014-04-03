@@ -22,7 +22,6 @@ class Controller_unittests
 	{
 		$this->meta["title"] = __("Unit tests");
 		$this->meta["description"] = __("Unit tests");
-		$this->scripts[] = '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js';
 		$this->checklist = FileValidator::getCheckList();
 		
 	/*	$path_item = TC_ROOTDIR.'/include/unittests/';

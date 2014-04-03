@@ -1,5 +1,4 @@
 <?php
-
 namespace ThemeCheck;
 
 class Deprecated_Checker extends CheckPart
@@ -10,8 +9,9 @@ class Deprecated_Checker extends CheckPart
         
 				$key = $this->code[0];
 				$key_instead = $this->code[1];
-				$key_version = $this->code[2];
-						
+				$deprecatedSinceVersion = $this->code[2];
+		
+			
         foreach ( $php_files as $php_key => $phpfile )
         {
             if ( preg_match( '/[\s?]' . $key . '\(/', $phpfile, $matches ) )
@@ -19,7 +19,7 @@ class Deprecated_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $key_version, $key_instead, $grep );
+                $this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $deprecatedSinceVersion, $key_instead, $grep );
                 $this->errorLevel = $this->threatLevel;
             }
         }

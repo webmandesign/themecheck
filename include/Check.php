@@ -84,6 +84,8 @@ abstract class Check
 		public $checkCount; // total number of checks the class is supposed to make
 		public $title;			// title (multilingual array)
 		public $checks = array(); // checklist
+		public $currentThemetype;
+		public $currentCmsVersion;
 		
     public function __construct()
     {
@@ -91,18 +93,33 @@ abstract class Check
 			$this->createChecks();
 			$this->duration = 0;
 			$this->checkCount = count($this->checks);
+			$this->currentThemetype = TT_UNDEFINED;
+			$this->currentCmsVersion = '0';
     }
 		
 		abstract protected function createChecks();
+		
+		public function setCurrentThemetype($themetype)
+		{
+			$this->currentThemetype = $themetype;
+		}
+		
+		public function setCurrentCmsVersion($cmsVersion)
+		{
+			$this->currentCmsVersion = $cmsVersion;
+		}
 		
 		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 		{
 			$start_time_checker = microtime(true);
 			foreach ($this->checks as &$check)
 			{
-				$start_time = microtime(true);
-				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
-				$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+				if ($this->currentThemetype & $check->themetype)
+				{
+					$start_time = microtime(true);
+					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+				}
 			}	
 			$this->duration = microtime(true) - $start_time_checker;
 		}

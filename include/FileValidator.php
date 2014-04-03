@@ -379,7 +379,8 @@ class FileValidator
 		{
 			require_once(TC_INCDIR."/Checks/$check.php");
 			$c = __NAMESPACE__.'\\'.$check;
-			$this->checklist[] = new $c();
+			$newCheck = new $c();
+			$this->checklist[] = $newCheck;
 		}
 		//prepare files
 		if (!isset($this->themeInfo)) {trigger_error('themeInfo not set in FileValidator::validate', E_USER_ERROR); die;}
@@ -413,14 +414,14 @@ class FileValidator
 		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
 		foreach ($this->checklist as $check)
 		{
-			
+			$check->setCurrentThemetype($this->themeInfo->themetype);
+			$check->setCurrentCmsVersion($this->themeInfo->cmsVersion);
 			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{
 				if ($checkId === 'ALL' || $checkpart->id === $checkId) 
 				{
-					//echo (get_class($check)).'<br>';
-					if ($this->themeInfo->themetype & $checkpart->themetype) 
+					if ($this->themeInfo->themetype & $checkpart->themetype) // non matching checks were not passed in $check->doCheck
 					{
 						$checkpart->title = $check->title; // a bit dirty...
 						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
