@@ -8,7 +8,7 @@ class NonPrintable_Checker extends CheckPart
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
                 
-        foreach ( $php_files as $name => $content )
+        foreach ( $php_files_filtered as $name => $content ) // use $php_files_filtered because special chars are authorized in comments : non latin languages...
         {
             // 09 = tab
             // 0A = line feed
