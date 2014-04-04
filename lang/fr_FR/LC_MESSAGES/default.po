@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-04-01 15:29+0100\n"
-"PO-Revision-Date: 2014-04-01 15:31+0100\n"
+"POT-Creation-Date: 2014-04-04 17:44+0100\n"
+"PO-Revision-Date: 2014-04-04 17:52+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -126,42 +126,42 @@ msgstr "Les archives zip imbriquées ne sont pas supportées."
 msgid "Archive is not a valid theme file."
 msgstr "L'archive n'est pas un fichier de theme valide."
 
-#: include/ThemeInfo.php:189
+#: include/ThemeInfo.php:198
+msgid "style.css is missing or misspelled."
+msgstr "Le fichier style.ss est manquant ou mal orthographié."
+
+#: include/ThemeInfo.php:205
 msgid "style.css does not contain Theme name. Theme name is mandatory."
 msgstr ""
 "Le fichier style.css ne contient pas le nom du thème. Le nom du thème est "
 "obligatoire."
 
-#: include/ThemeInfo.php:213
-msgid "style.css is missing or misspelled."
-msgstr "Le fichier style.ss est manquant ou mal orthographié."
-
-#: include/ThemeInfo.php:231
+#: include/ThemeInfo.php:236
 msgid ""
 "Malformed xml file templateDetails.xml. Cannot continue. Error details : "
 msgstr ""
 "Erreur dans la structure xml du fichier templateDetails.xml. Opération "
 "annulée. Détails :"
 
-#: include/ThemeInfo.php:240
+#: include/ThemeInfo.php:245
 msgid "templateDetails.xml is empty or contains malformed xml"
 msgstr ""
 "Le fichier templateDetails.xml est vide ou sa structure xml est incorrecte."
 
-#: include/ThemeInfo.php:248
+#: include/ThemeInfo.php:253
 msgid "templateDetails.xml does not have a name tag. name is mandatory."
 msgstr ""
 "Le fichier templateDetails.xml ne contient pas de tag de nom. Le tag de nom "
 "est obligatoire."
 
-#: include/ThemeInfo.php:279
+#: include/ThemeInfo.php:284
 msgid ""
 "templateDetails.xml does not have a mosinstall, extension or install or node"
 msgstr ""
 "Le fichier templateDetails.xml ne contient de noeud mosinstall, extension ou "
 "install."
 
-#: include/ThemeInfo.php:358
+#: include/ThemeInfo.php:363
 msgid ""
 "Invalid joomla template. templatedetails.xml found. Please rename it "
 "templateDetails.xml (capital D)"
@@ -169,83 +169,83 @@ msgstr ""
 "Template joomla invalide. Le fichier templatedetails.xml a été trouvé. "
 "Renommez le templateDetails.xml (D majuscule)"
 
-#: include/ThemeInfo.php:557
+#: include/ThemeInfo.php:562
 msgid "None"
 msgstr "Aucun"
 
-#: include/ThemeInfo.php:558
+#: include/ThemeInfo.php:563
 msgid "Custom"
 msgstr "Propriétaire"
 
-#: include/ThemeInfo.php:559
+#: include/ThemeInfo.php:564
 msgid "Creative Commons"
 msgstr "Creative Commons"
 
-#: include/ThemeInfo.php:560
+#: include/ThemeInfo.php:565
 msgid "Creative Commons BY"
 msgstr "Creative Commons BY"
 
-#: include/ThemeInfo.php:561
+#: include/ThemeInfo.php:566
 msgid "Creative Commons BY SA"
 msgstr "Creative Commons BY SA"
 
-#: include/ThemeInfo.php:562
+#: include/ThemeInfo.php:567
 msgid "Creative Commons BY ND"
 msgstr "Creative Commons BY ND"
 
-#: include/ThemeInfo.php:563
+#: include/ThemeInfo.php:568
 msgid "Creative Commons BY NC"
 msgstr "Creative Commons BY NC"
 
-#: include/ThemeInfo.php:564
+#: include/ThemeInfo.php:569
 msgid "Creative Commons BY NC SA"
 msgstr "Creative Commons BY NC SA"
 
-#: include/ThemeInfo.php:565
+#: include/ThemeInfo.php:570
 msgid "Creative Commons BY NC ND"
 msgstr "Creative Commons BY NC ND"
 
-#: include/ThemeInfo.php:566
+#: include/ThemeInfo.php:571
 msgid "MIT X11"
 msgstr "MIT X11"
 
-#: include/ThemeInfo.php:567
+#: include/ThemeInfo.php:572
 msgid "BSD"
 msgstr "BSD"
 
-#: include/ThemeInfo.php:568
+#: include/ThemeInfo.php:573
 msgid "New BSD"
 msgstr "New BSD"
 
-#: include/ThemeInfo.php:569
+#: include/ThemeInfo.php:574
 msgid "Free BSD"
 msgstr "Free BSD"
 
-#: include/ThemeInfo.php:570
+#: include/ThemeInfo.php:575
 msgid "GNU LGPL 2"
 msgstr "GNU LGPL 2"
 
-#: include/ThemeInfo.php:571
+#: include/ThemeInfo.php:576
 msgid "GNU LGPL 3"
 msgstr "GNU LGPL 3"
 
-#: include/ThemeInfo.php:572
+#: include/ThemeInfo.php:577
 msgid "GNU GPL 2"
 msgstr "GNU GPL 2"
 
-#: include/ThemeInfo.php:573
+#: include/ThemeInfo.php:578
 msgid "GNU GPL 3"
 msgstr "GNU GPL 3"
 
-#: include/ThemeInfo.php:574
+#: include/ThemeInfo.php:579
 msgid "Apache"
 msgstr "Apache"
 
-#: include/ThemeInfo.php:575
+#: include/ThemeInfo.php:580
 msgid "CDDL"
 msgstr "CDDL"
 
-#: include/ThemeInfo.php:576
+#: include/ThemeInfo.php:581
 msgid "Eclipse"
 msgstr "Eclipse"
 
@@ -570,757 +570,1037 @@ msgstr ""
 "Obsolète depuis la version de la <strong>%3$s</strong>. Il est prérable "
 "d&#39;utiliser <strong>%4$s</strong> à la place. %5$s"
 
-#: include/Checks/Deprecated.php:33 include/Checks/MoreDeprecated.php:33
+#: include/Checks/Deprecated.php:34 include/Checks/MoreDeprecated.php:33
 msgid "Deprecated functions"
 msgstr "Fonctions obsolètes"
 
-#: include/Checks/Deprecated.php:35
+#: include/Checks/Deprecated.php:36
 msgid "get_post_data"
 msgstr "get_post_data"
 
-#: include/Checks/Deprecated.php:36
+#: include/Checks/Deprecated.php:37
 msgid "start_wp"
 msgstr "start_wp"
 
-#: include/Checks/Deprecated.php:37
+#: include/Checks/Deprecated.php:38
 msgid "the_category_id"
 msgstr "the_category_id"
 
-#: include/Checks/Deprecated.php:38
+#: include/Checks/Deprecated.php:39
 msgid "the_category_head"
 msgstr "the_category_head"
 
-#: include/Checks/Deprecated.php:39
+#: include/Checks/Deprecated.php:40
 msgid "previous_post"
 msgstr "previous_post"
 
-#: include/Checks/Deprecated.php:40
+#: include/Checks/Deprecated.php:41
 msgid "next_post"
 msgstr "next_post"
 
-#: include/Checks/Deprecated.php:41
+#: include/Checks/Deprecated.php:42
 msgid "user_can_create_post"
 msgstr "user_can_create_post"
 
-#: include/Checks/Deprecated.php:42
+#: include/Checks/Deprecated.php:43
 msgid "user_can_create_draft"
 msgstr "user_can_create_draft"
 
-#: include/Checks/Deprecated.php:43
+#: include/Checks/Deprecated.php:44
 msgid "user_can_edit_post"
 msgstr "user_can_edit_post"
 
-#: include/Checks/Deprecated.php:44
+#: include/Checks/Deprecated.php:45
 msgid "user_can_delete_post"
 msgstr "user_can_delete_post"
 
-#: include/Checks/Deprecated.php:45
+#: include/Checks/Deprecated.php:46
 msgid "user_can_set_post_date"
 msgstr "user_can_set_post_date"
 
-#: include/Checks/Deprecated.php:46
+#: include/Checks/Deprecated.php:47
 msgid "user_can_edit_post_comments"
 msgstr "user_can_edit_post_comments"
 
-#: include/Checks/Deprecated.php:47
+#: include/Checks/Deprecated.php:48
 msgid "user_can_delete_post_comments"
 msgstr "user_can_delete_post_comments"
 
-#: include/Checks/Deprecated.php:48
+#: include/Checks/Deprecated.php:49
 msgid "user_can_edit_user"
 msgstr "user_can_edit_user"
 
-#: include/Checks/Deprecated.php:49
+#: include/Checks/Deprecated.php:50
 msgid "get_linksbyname"
 msgstr "get_linksbyname"
 
-#: include/Checks/Deprecated.php:50
+#: include/Checks/Deprecated.php:51
 msgid "wp_get_linksbyname"
 msgstr "wp_get_linksbyname"
 
-#: include/Checks/Deprecated.php:51
+#: include/Checks/Deprecated.php:52
 msgid "get_linkobjectsbyname"
 msgstr "get_linkobjectsbyname"
 
-#: include/Checks/Deprecated.php:52
+#: include/Checks/Deprecated.php:53
 msgid "get_linkobjects"
 msgstr "get_linkobjects"
 
-#: include/Checks/Deprecated.php:53
+#: include/Checks/Deprecated.php:54
 msgid "get_linksbyname_withrating"
 msgstr "get_linksbyname_withrating"
 
-#: include/Checks/Deprecated.php:54
+#: include/Checks/Deprecated.php:55
 msgid "get_links_withrating"
 msgstr "get_links_withrating"
 
-#: include/Checks/Deprecated.php:55
+#: include/Checks/Deprecated.php:56
 msgid "get_autotoggle"
 msgstr "get_autotoggle"
 
-#: include/Checks/Deprecated.php:56
+#: include/Checks/Deprecated.php:57
 msgid "list_cats"
 msgstr "list_cats"
 
-#: include/Checks/Deprecated.php:57
+#: include/Checks/Deprecated.php:58
 msgid "wp_list_cats"
 msgstr "wp_list_cats"
 
-#: include/Checks/Deprecated.php:58
+#: include/Checks/Deprecated.php:59
 msgid "dropdown_cats"
 msgstr "dropdown_cats"
 
-#: include/Checks/Deprecated.php:59
+#: include/Checks/Deprecated.php:60
 msgid "list_authors"
 msgstr "list_authors"
 
-#: include/Checks/Deprecated.php:60
+#: include/Checks/Deprecated.php:61
 msgid "wp_get_post_cats"
 msgstr "wp_get_post_cats"
 
-#: include/Checks/Deprecated.php:61
+#: include/Checks/Deprecated.php:62
 msgid "wp_set_post_cats"
 msgstr "wp_set_post_cats"
 
-#: include/Checks/Deprecated.php:62
+#: include/Checks/Deprecated.php:63
 msgid "get_archives"
 msgstr "get_archives"
 
-#: include/Checks/Deprecated.php:63
+#: include/Checks/Deprecated.php:64
 msgid "get_author_link"
 msgstr "get_author_link"
 
-#: include/Checks/Deprecated.php:64
+#: include/Checks/Deprecated.php:65
 msgid "link_pages"
 msgstr "link_pages"
 
-#: include/Checks/Deprecated.php:65
+#: include/Checks/Deprecated.php:66
 msgid "get_settings"
 msgstr "get_settings"
 
-#: include/Checks/Deprecated.php:66
+#: include/Checks/Deprecated.php:67
 msgid "permalink_link"
 msgstr "permalink_link"
 
-#: include/Checks/Deprecated.php:67
+#: include/Checks/Deprecated.php:68
 msgid "permalink_single_rss"
 msgstr "permalink_single_rss"
 
-#: include/Checks/Deprecated.php:68
+#: include/Checks/Deprecated.php:69
 msgid "wp_get_links"
 msgstr "wp_get_links"
 
-#: include/Checks/Deprecated.php:69
+#: include/Checks/Deprecated.php:70
 msgid "get_links"
 msgstr "get_links"
 
-#: include/Checks/Deprecated.php:70
+#: include/Checks/Deprecated.php:71
 msgid "get_links_list"
 msgstr "get_links_list"
 
-#: include/Checks/Deprecated.php:71
+#: include/Checks/Deprecated.php:72
 msgid "links_popup_script"
 msgstr "links_popup_script"
 
-#: include/Checks/Deprecated.php:72
+#: include/Checks/Deprecated.php:73
 msgid "get_linkrating"
 msgstr "get_linkrating"
 
-#: include/Checks/Deprecated.php:73
+#: include/Checks/Deprecated.php:74
 msgid "get_linkcatname"
 msgstr "get_linkcatname"
 
-#: include/Checks/Deprecated.php:74
+#: include/Checks/Deprecated.php:75
 msgid "comments_rss_link"
 msgstr "comments_rss_link"
 
-#: include/Checks/Deprecated.php:75
+#: include/Checks/Deprecated.php:76
 msgid "get_category_rss_link"
 msgstr "get_category_rss_link"
 
-#: include/Checks/Deprecated.php:76
+#: include/Checks/Deprecated.php:77
 msgid "get_author_rss_link"
 msgstr "get_author_rss_link"
 
-#: include/Checks/Deprecated.php:77
+#: include/Checks/Deprecated.php:78
 msgid "comments_rss"
 msgstr "comments_rss"
 
-#: include/Checks/Deprecated.php:78
+#: include/Checks/Deprecated.php:79
 msgid "create_user"
 msgstr "create_user"
 
-#: include/Checks/Deprecated.php:79
+#: include/Checks/Deprecated.php:80
 msgid "gzip_compression"
 msgstr "gzip_compression"
 
-#: include/Checks/Deprecated.php:80
+#: include/Checks/Deprecated.php:81
 msgid "get_commentdata"
 msgstr "get_commentdata"
 
-#: include/Checks/Deprecated.php:81
+#: include/Checks/Deprecated.php:82
 msgid "get_catname"
 msgstr "get_catname"
 
-#: include/Checks/Deprecated.php:82
+#: include/Checks/Deprecated.php:83
 msgid "get_category_children"
 msgstr "get_category_children"
 
-#: include/Checks/Deprecated.php:83
+#: include/Checks/Deprecated.php:84
 msgid "get_the_author_description"
 msgstr "get_the_author_description"
 
-#: include/Checks/Deprecated.php:84
+#: include/Checks/Deprecated.php:85
 msgid "the_author_description"
 msgstr "the_author_description"
 
-#: include/Checks/Deprecated.php:85
+#: include/Checks/Deprecated.php:86
 msgid "get_the_author_login"
 msgstr "get_the_author_login"
 
-#: include/Checks/Deprecated.php:86
+#: include/Checks/Deprecated.php:87
 msgid "get_the_author_firstname"
 msgstr "get_the_author_firstname"
 
-#: include/Checks/Deprecated.php:87
+#: include/Checks/Deprecated.php:88
 msgid "the_author_firstname"
 msgstr "the_author_firstname"
 
-#: include/Checks/Deprecated.php:88
+#: include/Checks/Deprecated.php:89
 msgid "get_the_author_lastname"
 msgstr "get_the_author_lastname"
 
-#: include/Checks/Deprecated.php:89
+#: include/Checks/Deprecated.php:90
 msgid "the_author_lastname"
 msgstr "the_author_lastname"
 
-#: include/Checks/Deprecated.php:90
+#: include/Checks/Deprecated.php:91
 msgid "get_the_author_nickname"
 msgstr "get_the_author_nickname"
 
-#: include/Checks/Deprecated.php:91
+#: include/Checks/Deprecated.php:92
 msgid "the_author_nickname"
 msgstr "the_author_nickname"
 
-#: include/Checks/Deprecated.php:92
+#: include/Checks/Deprecated.php:93
 msgid "get_the_author_email"
 msgstr "get_the_author_email"
 
-#: include/Checks/Deprecated.php:93
+#: include/Checks/Deprecated.php:94
 msgid "the_author_email"
 msgstr "the_author_email"
 
-#: include/Checks/Deprecated.php:94
+#: include/Checks/Deprecated.php:95
 msgid "get_the_author_icq"
 msgstr "get_the_author_icq"
 
-#: include/Checks/Deprecated.php:95
+#: include/Checks/Deprecated.php:96
 msgid "the_author_icq"
 msgstr "the_author_icq"
 
-#: include/Checks/Deprecated.php:96
+#: include/Checks/Deprecated.php:97
 msgid "get_the_author_yim"
 msgstr "get_the_author_yim"
 
-#: include/Checks/Deprecated.php:97
+#: include/Checks/Deprecated.php:98
 msgid "the_author_yim"
 msgstr "the_author_yim"
 
-#: include/Checks/Deprecated.php:98
+#: include/Checks/Deprecated.php:99
 msgid "get_the_author_msn"
 msgstr "get_the_author_msn"
 
-#: include/Checks/Deprecated.php:99
+#: include/Checks/Deprecated.php:100
 msgid "the_author_msn"
 msgstr "the_author_msn"
 
-#: include/Checks/Deprecated.php:100
+#: include/Checks/Deprecated.php:101
 msgid "get_the_author_aim"
 msgstr "get_the_author_aim"
 
-#: include/Checks/Deprecated.php:101
+#: include/Checks/Deprecated.php:102
 msgid "the_author_aim"
 msgstr "the_author_aim"
 
-#: include/Checks/Deprecated.php:102
+#: include/Checks/Deprecated.php:103
 msgid "get_author_name"
 msgstr "get_author_name"
 
-#: include/Checks/Deprecated.php:103
+#: include/Checks/Deprecated.php:104
 msgid "get_the_author_url"
 msgstr "get_the_author_url"
 
-#: include/Checks/Deprecated.php:104
+#: include/Checks/Deprecated.php:105
 msgid "the_author_url"
 msgstr "the_author_url"
 
-#: include/Checks/Deprecated.php:105
+#: include/Checks/Deprecated.php:106
 msgid "get_the_author_ID"
 msgstr "get_the_author_ID"
 
-#: include/Checks/Deprecated.php:106
+#: include/Checks/Deprecated.php:107
 msgid "the_author_ID"
 msgstr "the_author_ID"
 
-#: include/Checks/Deprecated.php:107
+#: include/Checks/Deprecated.php:108
 msgid "the_content_rss"
 msgstr "the_content_rss"
 
-#: include/Checks/Deprecated.php:108
+#: include/Checks/Deprecated.php:109
 msgid "make_url_footnote"
 msgstr "make_url_footnote"
 
-#: include/Checks/Deprecated.php:109
+#: include/Checks/Deprecated.php:110
 msgid "_c"
 msgstr "_c"
 
-#: include/Checks/Deprecated.php:110
+#: include/Checks/Deprecated.php:111
 msgid "translate_with_context"
 msgstr "translate_with_context"
 
-#: include/Checks/Deprecated.php:111
+#: include/Checks/Deprecated.php:112
 msgid "nc"
 msgstr "nc"
 
-#: include/Checks/Deprecated.php:112
+#: include/Checks/Deprecated.php:113
 msgid "__ngettext"
 msgstr "__ngettext"
 
-#: include/Checks/Deprecated.php:113
+#: include/Checks/Deprecated.php:114
 msgid "__ngettext_noop"
 msgstr "__ngettext_noop"
 
-#: include/Checks/Deprecated.php:114
+#: include/Checks/Deprecated.php:115
 msgid "get_alloptions"
 msgstr "get_alloptions"
 
-#: include/Checks/Deprecated.php:115
+#: include/Checks/Deprecated.php:116
 msgid "get_the_attachment_link"
 msgstr "get_the_attachment_link"
 
-#: include/Checks/Deprecated.php:116
+#: include/Checks/Deprecated.php:117
 msgid "get_attachment_icon_src"
 msgstr "get_attachment_icon_src"
 
-#: include/Checks/Deprecated.php:117
+#: include/Checks/Deprecated.php:118
 msgid "get_attachment_icon"
 msgstr "get_attachment_icon"
 
-#: include/Checks/Deprecated.php:118
+#: include/Checks/Deprecated.php:119
 msgid "get_attachment_innerhtml"
 msgstr "get_attachment_innerhtml"
 
-#: include/Checks/Deprecated.php:119
+#: include/Checks/Deprecated.php:120
 msgid "get_link"
 msgstr "get_link"
 
-#: include/Checks/Deprecated.php:120
+#: include/Checks/Deprecated.php:121
 msgid "sanitize_url"
 msgstr "sanitize_url"
 
-#: include/Checks/Deprecated.php:121
+#: include/Checks/Deprecated.php:122
 msgid "clean_url"
 msgstr "clean_url"
 
-#: include/Checks/Deprecated.php:122
+#: include/Checks/Deprecated.php:123
 msgid "js_escape"
 msgstr "js_escape"
 
-#: include/Checks/Deprecated.php:123
+#: include/Checks/Deprecated.php:124
 msgid "wp_specialchars"
 msgstr "wp_specialchars"
 
-#: include/Checks/Deprecated.php:124
+#: include/Checks/Deprecated.php:125
 msgid "attribute_escape"
 msgstr "attribute_escape"
 
-#: include/Checks/Deprecated.php:125
+#: include/Checks/Deprecated.php:126
 msgid "register_sidebar_widget"
 msgstr "register_sidebar_widget"
 
-#: include/Checks/Deprecated.php:126
+#: include/Checks/Deprecated.php:127
 msgid "unregister_sidebar_widget"
 msgstr "unregister_sidebar_widget"
 
-#: include/Checks/Deprecated.php:127
+#: include/Checks/Deprecated.php:128
 msgid "register_widget_control"
 msgstr "register_widget_control"
 
-#: include/Checks/Deprecated.php:128
+#: include/Checks/Deprecated.php:129
 msgid "unregister_widget_control"
 msgstr "unregister_widget_control"
 
-#: include/Checks/Deprecated.php:129
+#: include/Checks/Deprecated.php:130
 msgid "delete_usermeta"
 msgstr "delete_usermeta"
 
-#: include/Checks/Deprecated.php:130
+#: include/Checks/Deprecated.php:131
 msgid "get_usermeta"
 msgstr "get_usermeta"
 
-#: include/Checks/Deprecated.php:131
+#: include/Checks/Deprecated.php:132
 msgid "update_usermeta"
 msgstr "update_usermeta"
 
-#: include/Checks/Deprecated.php:132
+#: include/Checks/Deprecated.php:133
 msgid "automatic_feed_links"
 msgstr "automatic_feed_links"
 
-#: include/Checks/Deprecated.php:133
+#: include/Checks/Deprecated.php:134
 msgid "get_profile"
 msgstr "get_profile"
 
-#: include/Checks/Deprecated.php:134
+#: include/Checks/Deprecated.php:135
 msgid "get_usernumposts"
 msgstr "get_usernumposts"
 
-#: include/Checks/Deprecated.php:135
+#: include/Checks/Deprecated.php:136
 msgid "funky_javascript_callback"
 msgstr "funky_javascript_callback"
 
-#: include/Checks/Deprecated.php:136
+#: include/Checks/Deprecated.php:137
 msgid "funky_javascript_fix"
 msgstr "funky_javascript_fix"
 
-#: include/Checks/Deprecated.php:137
+#: include/Checks/Deprecated.php:138
 msgid "is_taxonomy"
 msgstr "is_taxonomy"
 
-#: include/Checks/Deprecated.php:138
+#: include/Checks/Deprecated.php:139
 msgid "is_term"
 msgstr "is_term"
 
-#: include/Checks/Deprecated.php:139
+#: include/Checks/Deprecated.php:140
 msgid "is_plugin_page"
 msgstr "is_plugin_page"
 
-#: include/Checks/Deprecated.php:140
+#: include/Checks/Deprecated.php:141
 msgid "update_category_cache"
 msgstr "update_category_cache"
 
-#: include/Checks/Deprecated.php:141
+#: include/Checks/Deprecated.php:142
 msgid "get_users_of_blog"
 msgstr "get_users_of_blog"
 
-#: include/Checks/Deprecated.php:142
+#: include/Checks/Deprecated.php:143
 msgid "wp_timezone_supported"
 msgstr "wp_timezone_supported"
 
-#: include/Checks/Deprecated.php:143
+#: include/Checks/Deprecated.php:144
 msgid "the_editor"
 msgstr "the_editor"
 
-#: include/Checks/Deprecated.php:144
+#: include/Checks/Deprecated.php:145
 msgid "get_user_metavalues"
 msgstr "get_user_metavalues"
 
-#: include/Checks/Deprecated.php:145
+#: include/Checks/Deprecated.php:146
 msgid "sanitize_user_object"
 msgstr "sanitize_user_object"
 
-#: include/Checks/Deprecated.php:146
+#: include/Checks/Deprecated.php:147
 msgid "get_boundary_post_rel_link"
 msgstr "get_boundary_post_rel_link"
 
-#: include/Checks/Deprecated.php:147
+#: include/Checks/Deprecated.php:148
 msgid "start_post_rel_link"
 msgstr "start_post_rel_link"
 
-#: include/Checks/Deprecated.php:148
+#: include/Checks/Deprecated.php:149
 msgid "get_index_rel_link"
 msgstr "get_index_rel_link"
 
-#: include/Checks/Deprecated.php:149
+#: include/Checks/Deprecated.php:150
 msgid "index_rel_link"
 msgstr "index_rel_link"
 
-#: include/Checks/Deprecated.php:150
+#: include/Checks/Deprecated.php:151
 msgid "get_parent_post_rel_link"
 msgstr "get_parent_post_rel_link"
 
-#: include/Checks/Deprecated.php:151
+#: include/Checks/Deprecated.php:152
 msgid "parent_post_rel_link"
 msgstr "parent_post_rel_link"
 
-#: include/Checks/Deprecated.php:152
+#: include/Checks/Deprecated.php:153
 msgid "wp_admin_bar_dashboard_view_site_menu"
 msgstr "wp_admin_bar_dashboard_view_site_menu"
 
-#: include/Checks/Deprecated.php:153
+#: include/Checks/Deprecated.php:154
 msgid "is_blog_user"
 msgstr "is_blog_user"
 
-#: include/Checks/Deprecated.php:154
+#: include/Checks/Deprecated.php:155
 msgid "debug_fopen"
 msgstr "debug_fopen"
 
-#: include/Checks/Deprecated.php:155
+#: include/Checks/Deprecated.php:156
 msgid "debug_fwrite"
 msgstr "debug_fwrite"
 
-#: include/Checks/Deprecated.php:156
+#: include/Checks/Deprecated.php:157
 msgid "debug_fclose"
 msgstr "debug_fclose"
 
-#: include/Checks/Deprecated.php:158
+#: include/Checks/Deprecated.php:159
 msgid "tinymce_include"
 msgstr "tinymce_include"
 
-#: include/Checks/Deprecated.php:159
+#: include/Checks/Deprecated.php:160
 msgid "documentation_link"
 msgstr "documentation_link"
 
-#: include/Checks/Deprecated.php:160
+#: include/Checks/Deprecated.php:161
 msgid "wp_shrink_dimensions"
 msgstr "wp_shrink_dimensions"
 
-#: include/Checks/Deprecated.php:161
+#: include/Checks/Deprecated.php:162
 msgid "dropdown_categories"
 msgstr "dropdown_categories"
 
-#: include/Checks/Deprecated.php:162
+#: include/Checks/Deprecated.php:163
 msgid "dropdown_link_categories"
 msgstr "dropdown_link_categories"
 
-#: include/Checks/Deprecated.php:163
+#: include/Checks/Deprecated.php:164
 msgid "wp_dropdown_cats"
 msgstr "wp_dropdown_cats"
 
-#: include/Checks/Deprecated.php:164
+#: include/Checks/Deprecated.php:165
 msgid "add_option_update_handler"
 msgstr "add_option_update_handler"
 
-#: include/Checks/Deprecated.php:165
+#: include/Checks/Deprecated.php:166
 msgid "remove_option_update_handler"
 msgstr "remove_option_update_handler"
 
-#: include/Checks/Deprecated.php:166
+#: include/Checks/Deprecated.php:167
 msgid "codepress_get_lang"
 msgstr "codepress_get_lang"
 
-#: include/Checks/Deprecated.php:167
+#: include/Checks/Deprecated.php:168
 msgid "codepress_footer_js"
 msgstr "codepress_footer_js"
 
-#: include/Checks/Deprecated.php:168
+#: include/Checks/Deprecated.php:169
 msgid "use_codepress"
 msgstr "use_codepress"
 
-#: include/Checks/Deprecated.php:169
+#: include/Checks/Deprecated.php:170
 msgid "get_author_user_ids"
 msgstr "get_author_user_ids"
 
-#: include/Checks/Deprecated.php:170
+#: include/Checks/Deprecated.php:171
 msgid "get_editable_authors"
 msgstr "get_editable_authors"
 
-#: include/Checks/Deprecated.php:171
+#: include/Checks/Deprecated.php:172
 msgid "get_editable_user_ids"
 msgstr "get_editable_user_ids"
 
-#: include/Checks/Deprecated.php:172
+#: include/Checks/Deprecated.php:173
 msgid "get_nonauthor_user_ids"
 msgstr "get_nonauthor_user_ids"
 
-#: include/Checks/Deprecated.php:173
+#: include/Checks/Deprecated.php:174
 msgid "WP_User_Search"
 msgstr "WP_User_Search"
 
-#: include/Checks/Deprecated.php:174
+#: include/Checks/Deprecated.php:175
 msgid "get_others_unpublished_posts"
 msgstr "get_others_unpublished_posts"
 
-#: include/Checks/Deprecated.php:175
+#: include/Checks/Deprecated.php:176
 msgid "get_others_drafts"
 msgstr "get_others_drafts"
 
-#: include/Checks/Deprecated.php:176
+#: include/Checks/Deprecated.php:177
 msgid "get_others_pending"
 msgstr "get_others_pending"
 
-#: include/Checks/Deprecated.php:177
+#: include/Checks/Deprecated.php:178
 msgid "wp_dashboard_quick_press"
 msgstr "wp_dashboard_quick_press"
 
-#: include/Checks/Deprecated.php:178
+#: include/Checks/Deprecated.php:179
 msgid "wp_tiny_mce"
 msgstr "wp_tiny_mce"
 
-#: include/Checks/Deprecated.php:179
+#: include/Checks/Deprecated.php:180
 msgid "wp_preload_dialogs"
 msgstr "wp_preload_dialogs"
 
-#: include/Checks/Deprecated.php:180
+#: include/Checks/Deprecated.php:181
 msgid "wp_print_editor_js"
 msgstr "wp_print_editor_js"
 
-#: include/Checks/Deprecated.php:181
+#: include/Checks/Deprecated.php:182
 msgid "wp_quicktags"
 msgstr "wp_quicktags"
 
-#: include/Checks/Deprecated.php:182
+#: include/Checks/Deprecated.php:183
 msgid "favorite_actions"
 msgstr "favorite_actions"
 
-#: include/Checks/Deprecated.php:183
+#: include/Checks/Deprecated.php:184
 msgid "screen_layout"
 msgstr "screen_layout"
 
-#: include/Checks/Deprecated.php:184
+#: include/Checks/Deprecated.php:185
 msgid "screen_options"
 msgstr "screen_options"
 
-#: include/Checks/Deprecated.php:185
+#: include/Checks/Deprecated.php:186
 msgid "screen_meta"
 msgstr "screen_meta"
 
-#: include/Checks/Deprecated.php:186
+#: include/Checks/Deprecated.php:187
 msgid "media_upload_image"
 msgstr "media_upload_image"
 
-#: include/Checks/Deprecated.php:187
+#: include/Checks/Deprecated.php:188
 msgid "media_upload_audio"
 msgstr "media_upload_audio"
 
-#: include/Checks/Deprecated.php:188
+#: include/Checks/Deprecated.php:189
 msgid "media_upload_video"
 msgstr "media_upload_video"
 
-#: include/Checks/Deprecated.php:189
+#: include/Checks/Deprecated.php:190
 msgid "media_upload_file"
 msgstr "media_upload_file"
 
-#: include/Checks/Deprecated.php:190
+#: include/Checks/Deprecated.php:191
 msgid "type_url_form_image"
 msgstr "type_url_form_image"
 
-#: include/Checks/Deprecated.php:191
+#: include/Checks/Deprecated.php:192
 msgid "type_url_form_audio"
 msgstr "type_url_form_audio"
 
-#: include/Checks/Deprecated.php:192
+#: include/Checks/Deprecated.php:193
 msgid "type_url_form_video"
 msgstr "type_url_form_video"
 
-#: include/Checks/Deprecated.php:193
+#: include/Checks/Deprecated.php:194
 msgid "type_url_form_file"
 msgstr "type_url_form_file"
 
-#: include/Checks/Deprecated.php:194
+#: include/Checks/Deprecated.php:195
 msgid "add_contextual_help"
 msgstr "add_contextual_help"
 
-#: include/Checks/Deprecated.php:197
+#: include/Checks/Deprecated.php:198
 msgid "get_themes"
 msgstr "get_themes"
 
-#: include/Checks/Deprecated.php:198
+#: include/Checks/Deprecated.php:199
 msgid "get_theme"
 msgstr "get_theme"
 
-#: include/Checks/Deprecated.php:199
+#: include/Checks/Deprecated.php:200
 msgid "get_current_theme"
 msgstr "get_current_theme"
 
-#: include/Checks/Deprecated.php:200
+#: include/Checks/Deprecated.php:201
 msgid "clean_pre"
 msgstr "clean_pre"
 
-#: include/Checks/Deprecated.php:201
+#: include/Checks/Deprecated.php:202
 msgid "add_custom_image_header"
 msgstr "add_custom_image_header"
 
-#: include/Checks/Deprecated.php:202
+#: include/Checks/Deprecated.php:203
 msgid "remove_custom_image_header"
 msgstr "remove_custom_image_header"
 
-#: include/Checks/Deprecated.php:203
+#: include/Checks/Deprecated.php:204
 msgid "add_custom_background"
 msgstr "add_custom_background"
 
-#: include/Checks/Deprecated.php:204
+#: include/Checks/Deprecated.php:205
 msgid "remove_custom_background"
 msgstr "remove_custom_background"
 
-#: include/Checks/Deprecated.php:205
+#: include/Checks/Deprecated.php:206
 msgid "get_theme_data"
 msgstr "get_theme_data"
 
-#: include/Checks/Deprecated.php:206
+#: include/Checks/Deprecated.php:207
 msgid "update_page_cache"
 msgstr "update_page_cache"
 
-#: include/Checks/Deprecated.php:207
+#: include/Checks/Deprecated.php:208
 msgid "clean_page_cache"
 msgstr "clean_page_cache"
 
-#: include/Checks/Deprecated.php:208
+#: include/Checks/Deprecated.php:209
 msgid "wp_explain_nonce"
 msgstr "wp_explain_nonce"
 
-#: include/Checks/Deprecated.php:209
+#: include/Checks/Deprecated.php:210
 msgid "sticky_class"
 msgstr "sticky_class"
 
-#: include/Checks/Deprecated.php:210
+#: include/Checks/Deprecated.php:211
 msgid "_get_post_ancestors"
 msgstr "_get_post_ancestors"
 
-#: include/Checks/Deprecated.php:211
+#: include/Checks/Deprecated.php:212
 msgid "wp_load_image"
 msgstr "wp_load_image"
 
-#: include/Checks/Deprecated.php:212
+#: include/Checks/Deprecated.php:213
 msgid "image_resize"
 msgstr "image_resize"
 
-#: include/Checks/Deprecated.php:213
+#: include/Checks/Deprecated.php:214
 msgid "wp_get_single_post"
 msgstr "wp_get_single_post"
 
-#: include/Checks/Deprecated.php:214
+#: include/Checks/Deprecated.php:215
 msgid "user_pass_ok"
 msgstr "user_pass_ok"
 
-#: include/Checks/Deprecated.php:215
+#: include/Checks/Deprecated.php:216
 msgid "_save_post_hook"
 msgstr "_save_post_hook"
 
-#: include/Checks/Deprecated.php:216
+#: include/Checks/Deprecated.php:217
 msgid "gd_edit_image_support"
 msgstr "gd_edit_image_support"
 
+#: include/Checks/Deprecated.php:218
+msgid "wp_convert_bytes_to_hr"
+msgstr "wp_convert_bytes_to_hr"
+
 #: include/Checks/Deprecated.php:219
+msgid "_search_terms_tidy"
+msgstr "_search_terms_tidy"
+
+#: include/Checks/Deprecated.php:222
 msgid "get_allowed_themes"
 msgstr "get_allowed_themes"
 
-#: include/Checks/Deprecated.php:220
+#: include/Checks/Deprecated.php:223
 msgid "get_broken_themes"
 msgstr "get_broken_themes"
 
-#: include/Checks/Deprecated.php:221
+#: include/Checks/Deprecated.php:224
 msgid "current_theme_info"
 msgstr "current_theme_info"
 
-#: include/Checks/Deprecated.php:222
+#: include/Checks/Deprecated.php:225
 msgid "_insert_into_post_button"
 msgstr "_insert_into_post_button"
 
-#: include/Checks/Deprecated.php:223
+#: include/Checks/Deprecated.php:226
 msgid "_media_button"
 msgstr "_media_button"
 
-#: include/Checks/Deprecated.php:224
+#: include/Checks/Deprecated.php:227
 msgid "get_post_to_edit"
 msgstr "get_post_to_edit"
 
-#: include/Checks/Deprecated.php:225
+#: include/Checks/Deprecated.php:228
 msgid "get_default_page_to_edit"
 msgstr "get_default_page_to_edit"
 
-#: include/Checks/Deprecated.php:226
+#: include/Checks/Deprecated.php:229
 msgid "wp_create_thumbnail"
 msgstr "wp_create_thumbnail"
+
+#: include/Checks/Deprecated.php:230
+msgid "wp_nav_menu_locations_meta_box"
+msgstr "wp_nav_menu_locations_meta_box"
+
+#: include/Checks/Deprecated.php:231
+msgid "wp_update_core"
+msgstr "wp_update_core"
+
+#: include/Checks/Deprecated.php:232
+msgid "wp_update_plugin"
+msgstr "wp_update_plugin"
+
+#: include/Checks/Deprecated.php:233
+msgid "wp_update_theme"
+msgstr "wp_update_theme"
+
+#: include/Checks/Deprecated.php:234
+msgid "the_attachment_links"
+msgstr "the_attachment_links"
+
+#: include/Checks/Deprecated.php:235
+msgid "screen_icon"
+msgstr "screen_icon"
+
+#: include/Checks/Deprecated.php:236
+msgid "get_screen_icon"
+msgstr "get_screen_icon"
+
+#: include/Checks/Deprecated.php:237
+msgid "wp_dashboard_incoming_links_output"
+msgstr "wp_dashboard_incoming_links_output"
+
+#: include/Checks/Deprecated.php:238
+msgid "wp_dashboard_secondary_output"
+msgstr "wp_dashboard_secondary_output"
+
+#: include/Checks/Deprecated.php:239
+msgid "wp_dashboard_incoming_links"
+msgstr "wp_dashboard_incoming_links"
+
+#: include/Checks/Deprecated.php:240
+msgid "wp_dashboard_incoming_links_control"
+msgstr "wp_dashboard_incoming_links_control"
+
+#: include/Checks/Deprecated.php:241
+msgid "wp_dashboard_plugins"
+msgstr "wp_dashboard_plugins"
+
+#: include/Checks/Deprecated.php:242
+msgid "wp_dashboard_primary_control"
+msgstr "wp_dashboard_primary_control"
+
+#: include/Checks/Deprecated.php:243
+msgid "wp_dashboard_recent_comments_control"
+msgstr "wp_dashboard_recent_comments_control"
+
+#: include/Checks/Deprecated.php:244
+msgid "wp_dashboard_secondary"
+msgstr "wp_dashboard_secondary"
+
+#: include/Checks/Deprecated.php:245
+msgid "wp_dashboard_secondary_control"
+msgstr "wp_dashboard_secondary_control"
+
+#: include/Checks/Deprecated.php:248
+msgid "ampReplace"
+msgstr "ampReplace"
+
+#: include/Checks/Deprecated.php:249
+msgid "deldir"
+msgstr "deldir"
+
+#: include/Checks/Deprecated.php:250
+msgid "doGzip"
+msgstr "doGzip"
+
+#: include/Checks/Deprecated.php:251
+msgid "editorArea"
+msgstr "editorArea"
+
+#: include/Checks/Deprecated.php:252
+msgid "getEditorContents"
+msgstr "getEditorContents"
+
+#: include/Checks/Deprecated.php:253
+msgid "initEditor"
+msgstr "initEditor"
+
+#: include/Checks/Deprecated.php:254
+msgid "initGzip"
+msgstr "initGzip"
+
+#: include/Checks/Deprecated.php:255
+msgid "josGetArrayInts"
+msgstr "josGetArrayInts"
+
+#: include/Checks/Deprecated.php:256
+msgid "josSpoofCheck"
+msgstr "josSpoofCheck"
+
+#: include/Checks/Deprecated.php:257
+msgid "josSpoofValue"
+msgstr "josSpoofValue"
+
+#: include/Checks/Deprecated.php:258
+msgid "loadOverlib"
+msgstr "loadOverlib"
+
+#: include/Checks/Deprecated.php:259
+msgid "mosArrayToInts"
+msgstr "mosArrayToInts"
+
+#: include/Checks/Deprecated.php:260
+msgid "mosBackTrace"
+msgstr "mosBackTrace"
+
+#: include/Checks/Deprecated.php:261
+msgid "mosBindArrayToObject"
+msgstr "mosBindArrayToObject"
+
+#: include/Checks/Deprecated.php:262
+msgid "mosChmod"
+msgstr "mosChmod"
+
+#: include/Checks/Deprecated.php:263
+msgid "mosChmodRecursive"
+msgstr "mosChmodRecursive"
+
+#: include/Checks/Deprecated.php:264
+msgid "mosCountAdminModules"
+msgstr "mosCountAdminModules"
+
+#: include/Checks/Deprecated.php:265
+msgid "mosCountModules"
+msgstr "mosCountModules"
+
+#: include/Checks/Deprecated.php:266
+msgid "mosCreateMail"
+msgstr "mosCreateMail"
+
+#: include/Checks/Deprecated.php:267
+msgid "mosCurrentDate"
+msgstr "mosCurrentDate"
+
+#: include/Checks/Deprecated.php:268
+msgid "mosErrorAlert"
+msgstr "mosErrorAlert"
+
+#: include/Checks/Deprecated.php:269
+msgid "mosFormatDate"
+msgstr "mosFormatDate"
+
+#: include/Checks/Deprecated.php:270
+msgid "mosGetBrowser"
+msgstr "mosGetBrowser"
+
+#: include/Checks/Deprecated.php:271
+msgid "mosGetOrderingList"
+msgstr "mosGetOrderingList"
+
+#: include/Checks/Deprecated.php:272
+msgid "mosGetOS"
+msgstr "mosGetOS"
+
+#: include/Checks/Deprecated.php:273
+msgid "mosGetParam"
+msgstr "mosGetParam"
+
+#: include/Checks/Deprecated.php:274
+msgid "mosHash"
+msgstr "mosHash"
+
+#: include/Checks/Deprecated.php:275
+msgid "mosIsChmodable"
+msgstr "mosIsChmodable"
+
+#: include/Checks/Deprecated.php:276
+msgid "mosLoadAdminModule"
+msgstr "mosLoadAdminModule"
+
+#: include/Checks/Deprecated.php:277
+msgid "mosLoadComponent"
+msgstr "mosLoadComponent"
+
+#: include/Checks/Deprecated.php:278
+msgid "mosLoadModule"
+msgstr "mosLoadModule"
+
+#: include/Checks/Deprecated.php:279
+msgid "mosMail"
+msgstr "mosMail"
+
+#: include/Checks/Deprecated.php:280
+msgid "mosMainBody"
+msgstr "mosMainBody"
+
+#: include/Checks/Deprecated.php:281
+msgid "mosMakeHtmlSafe"
+msgstr "mosMakeHtmlSafe"
+
+#: include/Checks/Deprecated.php:282
+msgid "mosMakePassword"
+msgstr "mosMakePassword"
+
+#: include/Checks/Deprecated.php:283
+msgid "mosMakePath"
+msgstr "mosMakePath"
+
+#: include/Checks/Deprecated.php:284
+msgid "mosMenuCheck"
+msgstr "mosMenuCheck"
+
+#: include/Checks/Deprecated.php:285
+msgid "mosNotAuth"
+msgstr "mosNotAuth"
+
+#: include/Checks/Deprecated.php:286
+msgid "mosObjectToArray"
+msgstr "mosObjectToArray"
+
+#: include/Checks/Deprecated.php:287
+msgid "mosPathName"
+msgstr "mosPathName"
+
+#: include/Checks/Deprecated.php:288
+msgid "mosPathWay"
+msgstr "mosPathWay"
+
+#: include/Checks/Deprecated.php:289
+msgid "mosReadDirectory"
+msgstr "mosReadDirectory"
+
+#: include/Checks/Deprecated.php:290
+msgid "mosRedirect"
+msgstr "mosRedirect"
+
+#: include/Checks/Deprecated.php:291
+msgid "mosSendAdminMail"
+msgstr "mosSendAdminMail"
+
+#: include/Checks/Deprecated.php:292
+msgid "mosShowHead"
+msgstr "mosShowHead"
+
+#: include/Checks/Deprecated.php:293
+msgid "mosShowSource"
+msgstr "mosShowSource"
+
+#: include/Checks/Deprecated.php:294
+msgid "mosStripslashes"
+msgstr "mosStripslashes"
+
+#: include/Checks/Deprecated.php:295
+msgid "mosToolTip"
+msgstr "mosToolTip"
+
+#: include/Checks/Deprecated.php:296
+msgid "mosTreeRecurse"
+msgstr "mosTreeRecurse"
+
+#: include/Checks/Deprecated.php:297
+msgid "mosWarning"
+msgstr "mosWarning"
+
+#: include/Checks/Deprecated.php:298
+msgid "sefRelToAbs"
+msgstr "sefRelToAbs"
+
+#: include/Checks/Deprecated.php:299
+msgid "SortArrayObjects"
+msgstr "SortArrayObjects"
 
 #: include/Checks/Directories.php:27 include/Checks/File.php:25
 #, php-format
@@ -1959,7 +2239,7 @@ msgstr "<strong>Author URI</strong> introuvable."
 msgid "This theme doesn't seem to display tags."
 msgstr "Ce theme ne semble pas afficher les tags."
 
-#: include/Checks/Tags.php:25 controllers/controller_results.php:236
+#: include/Checks/Tags.php:25 controllers/controller_results.php:242
 msgid "Tags"
 msgstr "Tags"
 
@@ -2109,7 +2389,7 @@ msgstr "Erreur 404."
 msgid "Sorry, the page you requested doesn't exist."
 msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
 
-#: header.php:60 controllers/controller_contact.php:15
+#: header.php:53 controllers/controller_contact.php:15
 #: controllers/controller_contact.php:16 controllers/controller_contact.php:90
 msgid "Contact us"
 msgstr "Contact"
@@ -2139,6 +2419,10 @@ msgstr "Adresse email invalide"
 msgid "Message sent. We&#39;ll contact you soon."
 msgstr "Message envoyé. Nous vous recontacterons bientôt."
 
+#: controllers/controller_contact.php:74
+msgid "Back to home page"
+msgstr "Retour à la page d'accueil"
+
 #: controllers/controller_contact.php:79
 msgid "Invalid form"
 msgstr "Formulaire invalide"
@@ -2159,13 +2443,13 @@ msgstr "Site web"
 msgid "Message (required)"
 msgstr "Message (requis)"
 
-#: controllers/controller_contact.php:123 controllers/controller_home.php:95
+#: controllers/controller_contact.php:123 controllers/controller_home.php:117
 msgid "Submit"
 msgstr "Soumettre"
 
 #: controllers/controller_home.php:19
-msgid "The Web Template Validation Service"
-msgstr "Le Service de Validation de Modèles Web"
+msgid "The Web Template Verification Service"
+msgstr "Le Service de Vérification de Modèles Web"
 
 #: controllers/controller_home.php:20
 msgid ""
@@ -2175,18 +2459,18 @@ msgstr ""
 "Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
 "de sites web."
 
-#: controllers/controller_home.php:40 controllers/controller_results.php:212
-#: controllers/controller_results.php:213
+#: controllers/controller_home.php:40 controllers/controller_results.php:218
+#: controllers/controller_results.php:219
 msgid "Wordpress theme"
 msgstr "Theme Wordpress"
 
-#: controllers/controller_home.php:41 controllers/controller_results.php:315
+#: controllers/controller_home.php:41 controllers/controller_results.php:321
 #, php-format
 msgid "Wordpress %s theme"
 msgstr "Theme Wordpress %s"
 
-#: controllers/controller_home.php:43 controllers/controller_results.php:215
-#: controllers/controller_results.php:216
+#: controllers/controller_home.php:43 controllers/controller_results.php:221
+#: controllers/controller_results.php:222
 msgid "Wordpress child theme"
 msgstr "Theme Wordpress Enfant"
 
@@ -2195,53 +2479,88 @@ msgstr "Theme Wordpress Enfant"
 msgid "Wordpress %s child theme"
 msgstr "Theme Wordpress Enfant %s"
 
-#: controllers/controller_home.php:46 controllers/controller_results.php:220
-#: controllers/controller_results.php:221
+#: controllers/controller_home.php:46 controllers/controller_results.php:226
+#: controllers/controller_results.php:227
 msgid "Joomla template"
 msgstr "Template Joomla"
 
-#: controllers/controller_home.php:47 controllers/controller_results.php:316
+#: controllers/controller_home.php:47 controllers/controller_results.php:322
 #, php-format
 msgid "Joomla %s template"
 msgstr "Template Joomla %s"
 
-#: controllers/controller_home.php:76
-msgid "Validate your web theme or template"
-msgstr "Validez gratuitement votre theme wordpress ou joomla"
+#: controllers/controller_home.php:80
+msgid "Verify web themes and templates"
+msgstr "Vérifiez vos themes wordpress et joomla"
 
-#: controllers/controller_home.php:77
-msgid "And make it trustable"
-msgstr "Et donnez lui un label de qualité"
-
-#: controllers/controller_home.php:78
+#: controllers/controller_home.php:81
 msgid ""
-"Themecheck.org is a quick service that lets you validate web themes or "
+"Themecheck.org is a quick service that lets you verify web themes or "
 "templates for security and code quality. This service is free and compatible "
 "with Wordpress themes and Joomla templates."
 msgstr ""
-"Themecheck.org est un service gratuit et rapide de validation de templates "
+"Themecheck.org est un service gratuit et rapide de vérification de templates "
 "web. Ce service est compatible avec les themes Wordpress et les templates "
 "Joomla."
 
-#: controllers/controller_home.php:79
-msgid "Share validation score on your site with ThemeCheck.org widget :"
+#: controllers/controller_home.php:84
+msgid "Website owners"
+msgstr "Webmasters"
+
+#: controllers/controller_home.php:85
+msgid ""
+"Check themes or templates you download before installing them on your site"
 msgstr ""
-"Partagez le score de validation sur votre site avec le widget ThemeCheck."
-"org :"
+"Vérifiez les thèmes et les templates que vous téléchargez avant de les "
+"déployer sur votre site"
 
 #: controllers/controller_home.php:87
+msgid "Check code quality"
+msgstr "Vérification de qualité de code"
+
+#: controllers/controller_home.php:88
+msgid "Check presence of malware"
+msgstr "Vérification de présence de code malicieux"
+
+#: controllers/controller_home.php:92
+msgid "Developers"
+msgstr "Développeurs"
+
+#: controllers/controller_home.php:93
+msgid "Your create or distribute themes ?"
+msgstr "Vous créez ou distribuez des thèmes ?"
+
+#: controllers/controller_home.php:95
+msgid ""
+"Themecheck.org helps you verify they satisfy CMS standards and common users "
+"needs."
+msgstr ""
+"Themecheck.org vous aide à vérifier qu'ils vérifient les standards des CMS "
+"et les attentes de la majorité des utilisateurs."
+
+#: controllers/controller_home.php:96
+msgid "Share verification score on your site with ThemeCheck.org widget  "
+msgstr ""
+"Partagez le score de vérification sur votre site avec le widget ThemeCheck."
+"org  "
+
+#: controllers/controller_home.php:105
+msgid "Upload a zip file and get its verification score :"
+msgstr "Chargez un fichier zip pour obtenir son score :"
+
+#: controllers/controller_home.php:109
 msgid "Select file"
 msgstr "Choisissez un fichier"
 
-#: controllers/controller_home.php:89
+#: controllers/controller_home.php:111
 msgid "Maximum file size"
 msgstr "Taille maximum du fichier"
 
-#: controllers/controller_home.php:92
+#: controllers/controller_home.php:114
 msgid "Forget uploaded data after results"
 msgstr "Oublier les données uploadées après la validation"
 
-#: controllers/controller_home.php:92
+#: controllers/controller_home.php:114
 msgid ""
 "<ul><li>No data will be kept on themecheck.org servers (or any other)"
 "<li>Validation won't be visible to the public<li>If you want to see the "
@@ -2252,11 +2571,11 @@ msgstr ""
 "personne d'autre<li>Si vous voulez consulter les résultats de validation "
 "dans le futur, il faudra soumettre à nouveau votre fichier</ul>"
 
-#: controllers/controller_home.php:106
+#: controllers/controller_home.php:129
 msgid "Themes recently checked"
 msgstr "Thèmes validés récemment"
 
-#: controllers/controller_home.php:119
+#: controllers/controller_home.php:142
 msgid "See more"
 msgstr "Voir plus"
 
@@ -2265,86 +2584,90 @@ msgstr "Voir plus"
 msgid "Mass import"
 msgstr "Import de masse"
 
-#: controllers/controller_results.php:84
+#: controllers/controller_results.php:87
+msgid "Unvalid form"
+msgstr "Formulaire invalide"
+
+#: controllers/controller_results.php:90
 msgid "No file uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: controllers/controller_results.php:85 controllers/controller_results.php:86
+#: controllers/controller_results.php:91 controllers/controller_results.php:92
 msgid "No file uploaded"
 msgstr "Aucun fichier n&#39;a été téléchargé"
 
-#: controllers/controller_results.php:94
+#: controllers/controller_results.php:100
 #, php-format
 msgid "Joomla template %s"
 msgstr "Template Joomla %s"
 
-#: controllers/controller_results.php:95
+#: controllers/controller_results.php:101
 #, php-format
 msgid "Security and code quality score of Joomla template %s."
 msgstr "Score de sécurité et de qualité de code pour le template Joomla %s."
 
-#: controllers/controller_results.php:97
+#: controllers/controller_results.php:103
 #, php-format
 msgid "Wordpress theme %s"
 msgstr "Theme Wordpress %s"
 
-#: controllers/controller_results.php:98
+#: controllers/controller_results.php:104
 #, php-format
 msgid "Security and code quality score of Wordpress theme %s."
 msgstr "Score de sécurité et de qualité de code pour le thème Wordpress %s."
 
-#: controllers/controller_results.php:101
+#: controllers/controller_results.php:107
 msgid "Check results"
 msgstr "Résultats de vérification"
 
-#: controllers/controller_results.php:102
+#: controllers/controller_results.php:108
 msgid "Security and code quality score"
 msgstr "Score de sécurité de qualité de code"
 
-#: controllers/controller_results.php:134
+#: controllers/controller_results.php:140
 #, php-format
 msgid "Validation results for <strong>%s</strong>"
 msgstr "Résultats de validation pour <strong>%s</strong>"
 
-#: controllers/controller_results.php:145
-#: controllers/controller_results.php:165
+#: controllers/controller_results.php:151
+#: controllers/controller_results.php:171
 #, php-format
 msgid "Validation score : %s%%"
 msgstr "Score de validation  : %s%%"
 
-#: controllers/controller_results.php:163
+#: controllers/controller_results.php:169
 #, php-format
 msgid "Validation score : %s%% (%s critical alerts)"
 msgstr "Score de validation : %s%% (%s alertes critiques)"
 
-#: controllers/controller_results.php:175
+#: controllers/controller_results.php:181
 msgid "validation score"
 msgstr "Score de validation"
 
-#: controllers/controller_results.php:176
+#: controllers/controller_results.php:182
 #, php-format
 msgid "%s critical alerts. %s warnings."
 msgstr "%s alertes critiques. %s alertes simples."
 
-#: controllers/controller_results.php:181
+#: controllers/controller_results.php:187
 msgid "Share this page with the following link :"
 msgstr "Partagez cette page avec le lien suivant :"
 
-#: controllers/controller_results.php:187
+#: controllers/controller_results.php:193
 msgid ""
 "Display this score on your website with the following HTML code that links "
 "to this page :"
 msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
 
-#: controllers/controller_results.php:193
+#: controllers/controller_results.php:199
 msgid "Medium size icon (default) :"
 msgstr "Icône moyenne (défaut) : "
 
-#: controllers/controller_results.php:196
+#: controllers/controller_results.php:202
 msgid "Small size icon :"
 msgstr "Petite icône :"
 
-#: controllers/controller_results.php:198
+#: controllers/controller_results.php:204
 msgid ""
 "You can switch language with <strong>lang</strong> parameter in iframe's "
 "url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
@@ -2355,7 +2678,7 @@ msgstr ""
 "<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
 "strong>."
 
-#: controllers/controller_results.php:204
+#: controllers/controller_results.php:210
 msgid ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
@@ -2363,116 +2686,116 @@ msgstr ""
 "Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
 "et seront perdu quand vous quitterez cette page."
 
-#: controllers/controller_results.php:210
+#: controllers/controller_results.php:216
 msgid "Theme name"
 msgstr "Nom du thème"
 
-#: controllers/controller_results.php:212
-#: controllers/controller_results.php:213
-#: controllers/controller_results.php:215
-#: controllers/controller_results.php:216
-#: controllers/controller_results.php:220
+#: controllers/controller_results.php:218
+#: controllers/controller_results.php:219
 #: controllers/controller_results.php:221
+#: controllers/controller_results.php:222
+#: controllers/controller_results.php:226
+#: controllers/controller_results.php:227
 msgid "Theme type"
 msgstr "Type de thème"
 
-#: controllers/controller_results.php:217
+#: controllers/controller_results.php:223
 msgid "Parent theme name"
 msgstr "Nom du thème parent"
 
-#: controllers/controller_results.php:222
+#: controllers/controller_results.php:228
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: controllers/controller_results.php:223
+#: controllers/controller_results.php:229
 msgid "File size"
 msgstr "Taille du fichier"
 
-#: controllers/controller_results.php:223
+#: controllers/controller_results.php:229
 msgid "bytes"
 msgstr "octets"
 
-#: controllers/controller_results.php:224
+#: controllers/controller_results.php:230
 msgid "MD5"
 msgstr "MD5"
 
-#: controllers/controller_results.php:225
+#: controllers/controller_results.php:231
 msgid "SHA1"
 msgstr "SHA1"
 
-#: controllers/controller_results.php:227
-#: controllers/controller_results.php:228
-#: controllers/controller_results.php:230
-#: controllers/controller_results.php:231
+#: controllers/controller_results.php:233
+#: controllers/controller_results.php:234
+#: controllers/controller_results.php:236
+#: controllers/controller_results.php:237
 msgid "License"
 msgstr "Licence"
 
-#: controllers/controller_results.php:232
+#: controllers/controller_results.php:238
 msgid "Files included"
 msgstr "Fichiers inclus"
 
-#: controllers/controller_results.php:233
+#: controllers/controller_results.php:239
 msgid "Theme URI"
 msgstr "URI du thème URI"
 
-#: controllers/controller_results.php:234
+#: controllers/controller_results.php:240
 msgid "Version"
 msgstr "Version"
 
-#: controllers/controller_results.php:235
+#: controllers/controller_results.php:241
 msgid "Author URI"
 msgstr "URI de l'auteur"
 
-#: controllers/controller_results.php:237
+#: controllers/controller_results.php:243
 msgid "Copyright"
 msgstr "Copyright"
 
-#: controllers/controller_results.php:238
+#: controllers/controller_results.php:244
 msgid "Creation date"
 msgstr "Date de création"
 
-#: controllers/controller_results.php:239
+#: controllers/controller_results.php:245
 msgid "Last file update"
 msgstr "Dernière mise à jour du fichier"
 
-#: controllers/controller_results.php:240
+#: controllers/controller_results.php:246
 msgid "Last validation"
 msgstr "Dernière validation"
 
-#: controllers/controller_results.php:256
+#: controllers/controller_results.php:262
 msgid "Critical alerts"
 msgstr "Alertes critiques"
 
-#: controllers/controller_results.php:270
+#: controllers/controller_results.php:276
 msgid "Warnings"
 msgstr "Alertes"
 
-#: controllers/controller_results.php:302
+#: controllers/controller_results.php:308
 msgid "Other files checked around the same date"
 msgstr "Autres fichiers validées durant la même période"
 
-#: controllers/controller_results.php:342
+#: controllers/controller_results.php:348
 msgid "Validation results"
 msgstr "Résultats de validation"
 
-#: controllers/controller_results.php:350
-#: controllers/controller_results.php:357
+#: controllers/controller_results.php:356
+#: controllers/controller_results.php:363
 msgid "Validation score : 0 %"
 msgstr "Score de validation : 0 %"
 
-#: controllers/controller_results.php:359
+#: controllers/controller_results.php:365
 msgid "Fatal error"
 msgstr "Erreur fatale"
 
-#: controllers/controller_results.php:361
+#: controllers/controller_results.php:367
 msgid "Go to home page to submit a new version"
 msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
 
-#: controllers/controller_results.php:372
+#: controllers/controller_results.php:378
 msgid "Please send us a theme to check."
 msgstr "SVP, uploadez un thème à vérifier."
 
-#: controllers/controller_results.php:373
+#: controllers/controller_results.php:379
 msgid "Go to home page"
 msgstr "Aller à la page d'accueil."
 
@@ -2503,6 +2826,12 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 #: DB/History.php:218
 msgid "The name \""
 msgstr "Le nom \""
+
+#~ msgid "Validate your web theme or template"
+#~ msgstr "Validez gratuitement votre theme wordpress ou joomla"
+
+#~ msgid "And make it trustable"
+#~ msgstr "Et donnez lui un label de qualité"
 
 #~ msgid "Validation results for Joomla template %s"
 #~ msgstr "Résultats de validation pour le template joomla %s"
@@ -2545,9 +2874,6 @@ msgstr "Le nom \""
 
 #~ msgid "index.php must be in root directory."
 #~ msgstr "Le fichier index.php doit être dans le répertoire racine."
-
-#~ msgid "Validate your web themes and templates"
-#~ msgstr "Validez gratuitement vos themes wordpress et joomla"
 
 #~ msgid "wordpress_theme"
 #~ msgstr "theme_wordpress"

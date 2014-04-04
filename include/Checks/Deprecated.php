@@ -298,6 +298,11 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_SEFRELTOABS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('sefRelToAbs'), array('sefRelToAbs', 'none', '1.5' ),'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_SORTARRAYOBJECTS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('SortArrayObjects'), array('SortArrayObjects', 'JArrayHelper::sortObjects()', '1.5' ),'tobedefined.zip'),
 					);
+					
+					// http://api.joomla.fr/joomla25/da/d58/deprecated.html
+					// 1.6 -> 2.5 : http://docs.joomla.org/J2.5:What's_new_in_Joomla_2.5
+					// http://docs.joomla.org/Category:Migration
+					// http://docs.joomla.org/Category:Compatibility
     }
 		
 		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
