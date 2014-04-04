@@ -88,9 +88,4 @@ class Helpers
 			
 		return $r;
 	}
-	
-	public static function versionCmp($v1, $v2, $themetype)
-	{
-	
-	}
 }

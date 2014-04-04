@@ -60,7 +60,7 @@ class Controller_results
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
 		{
-			if(isset($_SESSION['token_'.$_POST['token']]))
+			if(TC_ENVIRONMENT == "dev" || isset($_SESSION['token_'.$_POST['token']]))
 			{
 				unset($_SESSION['token_'.$_POST['token']]);
 				$themeInfo = FileValidator::upload();

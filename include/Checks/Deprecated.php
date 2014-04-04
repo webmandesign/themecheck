@@ -19,7 +19,8 @@ class Deprecated_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $deprecatedSinceVersion, $key_instead, $grep );
+                $this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $deprecatedSinceVersion, htmlspecialchars($key_instead), $grep );
+								
                 $this->errorLevel = $this->threatLevel;
             }
         }
@@ -243,6 +244,79 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary'), array('wp_dashboard_secondary', 'none', '3.8' ),'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary_control'), array('wp_dashboard_secondary_control', 'none', '3.8' ),'tobedefined.zip'),
 					
+					// joomla 1.5
+					new Deprecated_Checker('DEPRECATED_AMPREPLACE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('ampReplace'), array('ampReplace', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_DELDIR', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('deldir'), array('deldir', 'JFolder::delete()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_DOGZIP', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('doGzip'), array('doGzip', 'JDocument Zlib outputfilter', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_EDITORAREA', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('editorArea'), array('editorArea', 'JEditor::display()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_GETEDITORCONTENTS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('getEditorContents'), array('getEditorContents', 'JEditor::save() or JEditor::getContent()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_INITEDITOR', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('initEditor'), array('initEditor', 'JEditor::init()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_INITGZIP', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('initGzip'), array('initGzip', 'JDocument Zlib outputfilter', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_JOSGETARRAYINTS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('josGetArrayInts'), array('josGetArrayInts', 'JRequest::getVar()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_JOSSPOOFCHECK', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('josSpoofCheck'), array('josSpoofCheck', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_JOSSPOOFVALUE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('josSpoofValue'), array('josSpoofValue', 'JUtility::getToken()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_LOADOVERLIB', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('loadOverlib'), array('loadOverlib', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSARRAYTOINTS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosArrayToInts'), array('mosArrayToInts', 'JArrayHelper::toInteger()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSBACKTRACE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosBackTrace'), array('mosBackTrace', 'JException->getTrace()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSBINDARRAYTOOBJECT', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosBindArrayToObject'), array('mosBindArrayToObject', 'JArrayHelper->toObject()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCHMOD', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosChmod'), array('mosChmod', 'JPath::setPermissions()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCHMODRECURSIVE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosChmodRecursive'), array('mosChmodRecursive', 'JPath::setPermissions()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCOUNTADMINMODULES', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosCountAdminModules'), array('mosCountAdminModules', '<jdoc:exists>', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCOUNTMODULES', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosCountModules'), array('mosCountModules', '<jdoc:exists type="modules" condition="{POSITION}" />', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCREATEMAIL', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosCreateMail'), array('mosCreateMail', 'JFactory::getMailer()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSCURRENTDATE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosCurrentDate'), array('mosCurrentDate', "JHTML::_('date', )", '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSERRORALERT', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosErrorAlert'), array('mosErrorAlert', 'JError', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSFORMATDATE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosFormatDate'), array('mosFormatDate', "JHTML::_('date', )", '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSGETBROWSER', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosGetBrowser'), array('mosGetBrowser', ' JBrowser::getInstance()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSGETORDERINGLIST', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosGetOrderingList'), array('mosGetOrderingList', " JHTML::_('list.genericordering', )", '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSGETOS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosGetOS'), array('mosGetOS', 'JApplication::getBrowser()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSGETPARAM', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosGetParam'), array('mosGetParam', 'JArrayHelper::getValue()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSHASH', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosHash'), array('mosHash', 'JUtility::getHash()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSISCHMODABLE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosIsChmodable'), array('mosIsChmodable', 'JPath::canChmod()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSLOADADMINMODULE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosLoadAdminModule'), array('mosLoadAdminModule', '<jdoc:include type="module" />', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSLOADCOMPONENT', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosLoadComponent'), array('mosLoadComponent', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSLOADMODULE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosLoadModule'), array('mosLoadModule', '<jdoc:include type="module" />', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMAIL', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMail'), array('mosMail', 'JUtility::sendMail()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMAINBODY', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMainBody'), array('mosMainBody', '<jdoc:include type="component" />', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMAKEHTMLSAFE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMakeHtmlSafe'), array('mosMakeHtmlSafe', 'JFilterOutput::objectHTMLSafe()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMAKEPASSWORD', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMakePassword'), array('mosMakePassword', 'JUserHelper::genRandomPassword()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMAKEPATH', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMakePath'), array('mosMakePath', 'JFolder::create()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSMENUCHECK', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosMenuCheck'), array('mosMenuCheck', 'JMenu::authorize()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSNOTAUTH', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosNotAuth'), array('mosNotAuth', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSOBJECTTOARRAY', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosObjectToArray'), array('mosObjectToArray', 'JArrayHelper::fromObject()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSPATHNAME', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosPathName'), array('mosPathName', 'JPath::clean()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSPATHWAY', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosPathWay'), array('mosPathWay', "mosLoadModule( 'breadcrumb', -1 )", '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSREADDIRECTORY', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosReadDirectory'), array('mosReadDirectory', 'JFolder::files() or JFolder::folders()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSREDIRECT', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosRedirect'), array('mosRedirect', 'JApplication->redirect()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSSENDADMINMAIL', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosSendAdminMail'), array('mosSendAdminMail', 'JUtility::sendAdminMail()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSSHOWHEAD', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosShowHead'), array('mosShowHead', '<jdoc:include type="head" />', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSSHOWSOURCE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosShowSource'), array('mosShowSource', 'geshi', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSSTRIPSLASHES', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosStripslashes'), array('mosStripslashes', 'JRequest::getVar()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSTOOLTIP', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosToolTip'), array('mosToolTip', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSTREERECURSE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosTreeRecurse'), array('mosTreeRecurse', 'JApplication->redirect()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_MOSWARNING', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('mosWarning'), array('mosWarning', 'JHTML::tooltip()', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_SEFRELTOABS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('sefRelToAbs'), array('sefRelToAbs', 'none', '1.5' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_SORTARRAYOBJECTS', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('SortArrayObjects'), array('SortArrayObjects', 'JArrayHelper::sortObjects()', '1.5' ),'tobedefined.zip'),
 					);
     }
+		
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+		{
+			$start_time_checker = microtime(true);
+			foreach ($this->checks as &$check)
+			{
+				$deprecatedSinceVersion = $check->code[2];
+				if ($this->currentThemetype & $check->themetype)
+				$cmp = null;
+				$cmp = Check::versionCmp($this->currentCmsVersion, $deprecatedSinceVersion, $check->themetype);
+
+				if ($cmp === false || $cmp >= 0)
+				{
+					$start_time = microtime(true);
+					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+				}
+			}	
+			$this->duration = microtime(true) - $start_time_checker;
+		}
 }

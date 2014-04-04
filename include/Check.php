@@ -21,6 +21,7 @@ abstract class CheckPart
 		public $themetype;  // TT_UNDEFINED, TT_COMMON, TT_WORDPRESS, TT_JOOMLA...
 		public $errorLevel; // errorlelvel of tested check
 		public $id; // unique id of the check
+		public $checked;
 		
 		protected $checks;
 		protected $unittests;
@@ -122,5 +123,16 @@ abstract class Check
 				}
 			}	
 			$this->duration = microtime(true) - $start_time_checker;
+		}
+		
+		public static function versionCmp($v1, $v2, $themetype)
+		{
+			$v1_int = intval(str_pad(str_replace(".", "", $v1), 5, "0"));
+			$v2_int = intval(str_pad(str_replace(".", "", $v2), 5, "0"));
+			if ($v1_int == 0 || $v2_int == 0) return false; // one of the version does not match N.N... pattern
+			if ($v1_int < $v2_int) return -1;
+			if ($v1_int > $v2_int) return 1;
+			
+			return 0;
 		}
 }

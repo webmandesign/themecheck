@@ -421,7 +421,7 @@ class FileValidator
 			{
 				if ($checkId === 'ALL' || $checkpart->id === $checkId) 
 				{
-					if ($this->themeInfo->themetype & $checkpart->themetype) // non matching checks were not passed in $check->doCheck
+					if ($checkpart->errorLevel !== ERRORLEVEL_UNDEFINED) // avoid checkparts that were not passed in $check->doCheck
 					{
 						$checkpart->title = $check->title; // a bit dirty...
 						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
