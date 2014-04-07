@@ -46,11 +46,7 @@ class Controller_home
 			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
 			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
 		
-		
-		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-		
-		
 		
 		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
@@ -78,26 +74,33 @@ class Controller_home
 				<div class="jumbotron">
 					<div class="container">
 						<h1><?php echo __("Verify web themes and templates"); ?></h1>
-						<p><?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality. This service is free and compatible with Wordpress themes and Joomla templates."); ?></p>
+						<p><?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality. This service is free and compatible with Wordpress themes and Joomla templates."); ?>
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><?php echo __("More..."); ?></a>
+						</p>
 						<div class="row">
-							<div class="col-lg-6">
-								<h2><?php echo __("Website owners"); ?></h2>
-								<p><?php echo __("Check themes or templates you download before installing them on your site"); ?></p>
-								<ul>
-								<li><?php echo __("Check code quality"); ?></li>
-								<li><?php echo __("Check presence of malware"); ?></li>
-								</ul>
+							
+							<div id="collapseOne" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="col-lg-6">
+										<h2><?php echo __("Website owners"); ?></h2>
+										<p><?php echo __("Check themes or templates you download before installing them on your site"); ?></p>
+										<ul>
+										<li><?php echo __("Check code quality"); ?></li>
+										<li><?php echo __("Check presence of malware"); ?></li>
+										</ul>
+									</div>
+									<div class="col-lg-6">
+										<h2><?php echo __("Developers"); ?></h2>
+										<p><?php echo __("Your create or distribute themes ?"); ?></p>
+										<ul>
+										<li><?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?></li>
+										<li><?php echo __("Share verification score on your site with ThemeCheck.org widget  "); ?>&nbsp;<img src="<?php echo TC_HTTPDOMAIN;?>/img/pictosuccess40.png"></li>
+										</ul>
+									</div>
+								</div>
 							</div>
-							<div class="col-lg-6">
-								<h2><?php echo __("Developers"); ?></h2>
-								<p><?php echo __("Your create or distribute themes ?"); ?></p>
-								<ul>
-								<li><?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?></li>
-								<li><?php echo __("Share verification score on your site with ThemeCheck.org widget  "); ?>&nbsp;<img src="<?php echo TC_HTTPDOMAIN;?>/img/pictosuccess40.png"></li>
-								</ul>
-							</div>
+							
 						</div>
-						
 					</div>
 				</div>
 
