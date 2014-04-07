@@ -181,7 +181,11 @@ class Controller_unittests
 
 			$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
 			
-			if (count($validationResults->check_critical) > 0 || count($validationResults->check_warnings) > 0) $html = '<h2 style="color:#D00;">'.$themInfo["name"].'</h2>';
+			if (count($validationResults->check_critical) > 0 || count($validationResults->check_warnings) > 0 || count($validationResults->check_info) > 0) 
+			{
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results", "hash"=>$hash));
+				$html = '<h2 style="color:#D00;">'.$themInfo["name"].'<a href="'.$url.'" target="_blank" style="font-size:14px;margin-left:6px"><span class="glyphicon glyphicon-new-window"></span></a>'.'</h2>';
+			}
 			if (count($validationResults->check_critical) > 0)
 			{
 				//$html .= '<h2 style="line-height:100px;color:#D00;">'.__("Critical alerts").'</h2>';
@@ -205,6 +209,20 @@ class Controller_unittests
 					$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 					if (!empty($check->messages)) {
 						$html .= '<p style="color:#eea43a;">'.implode('<br/>',$check->messages).'</p>';
+					}
+				}
+				$html .= '</ol>';
+			}
+			
+			if (count($validationResults->check_info) > 0)
+			{
+				//$html .= '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
+				$html .= '<ol>';
+				foreach ($validationResults->check_info as $check)
+				{
+					$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
+					if (!empty($check->messages)) {
+						$html .= '<p style="color:#00b6e3;">'.implode('<br/>',$check->messages).'</p>';
 					}
 				}
 				$html .= '</ol>';

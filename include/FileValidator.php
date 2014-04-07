@@ -407,6 +407,7 @@ class FileValidator
 		$check_critical = array();
 		$check_warnings = array();
 		$check_successes = array();
+		$check_info = array();	
 		$check_undefined = array();
 		$check_count = 0;
 		$score = 0;
@@ -427,6 +428,7 @@ class FileValidator
 						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
+						else if ($checkpart->errorLevel == ERRORLEVEL_INFO) $check_info[] = $checkpart;
 						else $check_undefined[] = $checkpart;
 						
 						$check_count++;
@@ -438,6 +440,7 @@ class FileValidator
 		$this->themeInfo->check_countOK = count($check_successes);
 		$this->themeInfo->criticalCount = count($check_critical);
 		$this->themeInfo->warningsCount = count($check_warnings);
+		$this->themeInfo->infoCount = count($check_info);
 		if ($check_count > 0) {
 			$this->themeInfo->score = 100 - $this->themeInfo->warningsCount - 20 * $this->themeInfo->criticalCount;
 			if ($this->themeInfo->score < 0) $this->themeInfo->score = 0;
@@ -452,6 +455,7 @@ class FileValidator
 			foreach($check_critical as $checkpart_multi) $this->validationResults[$l]->check_critical[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_warnings as $checkpart_multi) $this->validationResults[$l]->check_warnings[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_successes as $checkpart_multi) $this->validationResults[$l]->check_successes[] = $checkpart_multi->getMonolingual($l);
+			foreach($check_info as $checkpart_multi) $this->validationResults[$l]->check_info[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
 		}
 	}

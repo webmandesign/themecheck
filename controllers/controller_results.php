@@ -284,6 +284,20 @@ class Controller_results
 								}
 								echo '</ol>';
 							}
+							
+							if (count($this->validationResults->check_info) > 0)
+							{
+								echo '<h2 style="line-height:100px;color:#00b6e3;">'.__("Info").'</h2>';
+								echo '<ol>';
+								foreach ($this->validationResults->check_info as $check)
+								{
+									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
+									if (!empty($check->messages)) {
+										echo '<p style="color:#00b6e3;">'.implode('<br/>',$check->messages).'</p>';
+									}
+								}
+								echo '</ol>';
+							}
 ?>
     <div id="disqus_thread" style="margin-top:60px"></div>
     <script type="text/javascript">

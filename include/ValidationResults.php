@@ -12,6 +12,7 @@ class ValidationResults
 	public $check_warnings = array();
 	public $check_successes = array();
 	public $check_undefined = array();
+	public $check_info = array();
 	public $check_count = 0;
 	public $check_countOK = 0; // warnings + successes
 	public $score = 0; // %warnings + %successes
@@ -45,8 +46,9 @@ class ValidationResults
 		$validationResults->check_warnings = $obj->check_warnings;
 		$validationResults->check_successes = $obj->check_successes;
 		$validationResults->check_undefined = $obj->check_undefined;
-		$validationResults->check_count = count($validationResults->check_critical) + count($validationResults->check_warnings) + count($validationResults->check_successes) + count($validationResults->check_undefined);
-		$validationResults->check_countOK = count($validationResults->check_warnings) + count($validationResults->check_successes);
+		if (isset($obj->check_info)) $validationResults->check_info = $obj->check_info;
+		$validationResults->check_count = count($validationResults->check_critical) + count($validationResults->check_warnings) + count($validationResults->check_successes) + count($validationResults->check_undefined) + count($validationResults->check_info);
+		$validationResults->check_countOK = count($validationResults->check_warnings) + count($validationResults->check_successes) + count($validationResults->check_info);
 		$validationResults->score = $obj->score;	
 
 		return $validationResults;
