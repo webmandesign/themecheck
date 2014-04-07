@@ -382,10 +382,16 @@ class FileValidator
 			$newCheck = new $c();
 			$this->checklist[] = $newCheck;
 		}
+		
 		//prepare files
 		if (!isset($this->themeInfo)) {trigger_error('themeInfo not set in FileValidator::validate', E_USER_ERROR); die;}
 		if (empty($this->themeInfo->hash)) {trigger_error('themeInfo->hash empty in FileValidator::validate', E_USER_ERROR);die;}
-		$files = listdir( TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash );
+		
+		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;
+
+		$r = $this->themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize);
+		
+		$files = listdir( $unzippath );
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
 				if ( substr( $filename, -4 ) == '.php' ) {
