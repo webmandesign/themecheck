@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-04-04 17:44+0100\n"
-"PO-Revision-Date: 2014-04-04 17:52+0100\n"
+"POT-Creation-Date: 2014-04-07 19:55+0100\n"
+"PO-Revision-Date: 2014-04-07 19:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1789,7 +1789,7 @@ msgstr ""
 "Les iframes sont parfois utilisées pour charger du contenu non désirés ou du "
 "code malicieux sur des sites tiers"
 
-#: include/Checks/Includes.php:18
+#: include/Checks/Includes.php:19
 #, php-format
 msgid ""
 "The theme appears to use include or require : <strong>%1$s</strong> %2$s If "
@@ -1802,11 +1802,11 @@ msgstr ""
 "modèle à partir de fichiers indépendants, alors <strong>get_template_part ()"
 "</strong> doit être utilisé à la place."
 
-#: include/Checks/Includes.php:30
+#: include/Checks/Includes.php:31
 msgid "Use of includes"
 msgstr "Utilisation d&#39;includes"
 
-#: include/Checks/Includes.php:32
+#: include/Checks/Includes.php:33
 msgid "Use of include or require"
 msgstr "Utilisation de include ou de de require"
 
@@ -2443,7 +2443,7 @@ msgstr "Site web"
 msgid "Message (required)"
 msgstr "Message (requis)"
 
-#: controllers/controller_contact.php:123 controllers/controller_home.php:117
+#: controllers/controller_contact.php:123 controllers/controller_home.php:120
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -2464,7 +2464,7 @@ msgstr ""
 msgid "Wordpress theme"
 msgstr "Theme Wordpress"
 
-#: controllers/controller_home.php:41 controllers/controller_results.php:321
+#: controllers/controller_home.php:41 controllers/controller_results.php:335
 #, php-format
 msgid "Wordpress %s theme"
 msgstr "Theme Wordpress %s"
@@ -2484,16 +2484,16 @@ msgstr "Theme Wordpress Enfant %s"
 msgid "Joomla template"
 msgstr "Template Joomla"
 
-#: controllers/controller_home.php:47 controllers/controller_results.php:322
+#: controllers/controller_home.php:47 controllers/controller_results.php:336
 #, php-format
 msgid "Joomla %s template"
 msgstr "Template Joomla %s"
 
-#: controllers/controller_home.php:80
+#: controllers/controller_home.php:76
 msgid "Verify web themes and templates"
 msgstr "Vérifiez vos themes wordpress et joomla"
 
-#: controllers/controller_home.php:81
+#: controllers/controller_home.php:77
 msgid ""
 "Themecheck.org is a quick service that lets you verify web themes or "
 "templates for security and code quality. This service is free and compatible "
@@ -2503,34 +2503,38 @@ msgstr ""
 "web. Ce service est compatible avec les themes Wordpress et les templates "
 "Joomla."
 
-#: controllers/controller_home.php:84
+#: controllers/controller_home.php:78
+msgid "More..."
+msgstr "Plus ..."
+
+#: controllers/controller_home.php:85
 msgid "Website owners"
 msgstr "Webmasters"
 
-#: controllers/controller_home.php:85
+#: controllers/controller_home.php:86
 msgid ""
 "Check themes or templates you download before installing them on your site"
 msgstr ""
 "Vérifiez les thèmes et les templates que vous téléchargez avant de les "
 "déployer sur votre site"
 
-#: controllers/controller_home.php:87
+#: controllers/controller_home.php:88
 msgid "Check code quality"
 msgstr "Vérification de qualité de code"
 
-#: controllers/controller_home.php:88
+#: controllers/controller_home.php:89
 msgid "Check presence of malware"
 msgstr "Vérification de présence de code malicieux"
 
-#: controllers/controller_home.php:92
+#: controllers/controller_home.php:93
 msgid "Developers"
 msgstr "Développeurs"
 
-#: controllers/controller_home.php:93
+#: controllers/controller_home.php:94
 msgid "Your create or distribute themes ?"
 msgstr "Vous créez ou distribuez des thèmes ?"
 
-#: controllers/controller_home.php:95
+#: controllers/controller_home.php:96
 msgid ""
 "Themecheck.org helps you verify they satisfy CMS standards and common users "
 "needs."
@@ -2538,29 +2542,29 @@ msgstr ""
 "Themecheck.org vous aide à vérifier qu'ils vérifient les standards des CMS "
 "et les attentes de la majorité des utilisateurs."
 
-#: controllers/controller_home.php:96
+#: controllers/controller_home.php:97
 msgid "Share verification score on your site with ThemeCheck.org widget  "
 msgstr ""
 "Partagez le score de vérification sur votre site avec le widget ThemeCheck."
 "org  "
 
-#: controllers/controller_home.php:105
+#: controllers/controller_home.php:108
 msgid "Upload a zip file and get its verification score :"
 msgstr "Chargez un fichier zip pour obtenir son score :"
 
-#: controllers/controller_home.php:109
+#: controllers/controller_home.php:112
 msgid "Select file"
 msgstr "Choisissez un fichier"
 
-#: controllers/controller_home.php:111
+#: controllers/controller_home.php:114
 msgid "Maximum file size"
 msgstr "Taille maximum du fichier"
 
-#: controllers/controller_home.php:114
+#: controllers/controller_home.php:117
 msgid "Forget uploaded data after results"
 msgstr "Oublier les données uploadées après la validation"
 
-#: controllers/controller_home.php:114
+#: controllers/controller_home.php:117
 msgid ""
 "<ul><li>No data will be kept on themecheck.org servers (or any other)"
 "<li>Validation won't be visible to the public<li>If you want to see the "
@@ -2571,11 +2575,11 @@ msgstr ""
 "personne d'autre<li>Si vous voulez consulter les résultats de validation "
 "dans le futur, il faudra soumettre à nouveau votre fichier</ul>"
 
-#: controllers/controller_home.php:129
+#: controllers/controller_home.php:132
 msgid "Themes recently checked"
 msgstr "Thèmes validés récemment"
 
-#: controllers/controller_home.php:142
+#: controllers/controller_home.php:145
 msgid "See more"
 msgstr "Voir plus"
 
@@ -2770,32 +2774,36 @@ msgstr "Alertes critiques"
 msgid "Warnings"
 msgstr "Alertes"
 
-#: controllers/controller_results.php:308
+#: controllers/controller_results.php:290
+msgid "Info"
+msgstr "Info"
+
+#: controllers/controller_results.php:322
 msgid "Other files checked around the same date"
 msgstr "Autres fichiers validées durant la même période"
 
-#: controllers/controller_results.php:348
+#: controllers/controller_results.php:362
 msgid "Validation results"
 msgstr "Résultats de validation"
 
-#: controllers/controller_results.php:356
-#: controllers/controller_results.php:363
+#: controllers/controller_results.php:370
+#: controllers/controller_results.php:377
 msgid "Validation score : 0 %"
 msgstr "Score de validation : 0 %"
 
-#: controllers/controller_results.php:365
+#: controllers/controller_results.php:379
 msgid "Fatal error"
 msgstr "Erreur fatale"
 
-#: controllers/controller_results.php:367
+#: controllers/controller_results.php:381
 msgid "Go to home page to submit a new version"
 msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
 
-#: controllers/controller_results.php:378
+#: controllers/controller_results.php:392
 msgid "Please send us a theme to check."
 msgstr "SVP, uploadez un thème à vérifier."
 
-#: controllers/controller_results.php:379
+#: controllers/controller_results.php:393
 msgid "Go to home page"
 msgstr "Aller à la page d'accueil."
 
@@ -2809,21 +2817,21 @@ msgstr "Tests unitaires"
 msgid "DB Connexion error : %s"
 msgstr "Erreur de connexion à la BDD : %s"
 
-#: DB/History.php:121 DB/History.php:213 DB/History.php:261 DB/History.php:272
-#: DB/History.php:320
+#: DB/History.php:123 DB/History.php:217 DB/History.php:266 DB/History.php:277
+#: DB/History.php:326
 #, php-format
 msgid "DB error : %s"
 msgstr "Erreur BDD : %s"
 
-#: DB/History.php:125 DB/History.php:140
+#: DB/History.php:127 DB/History.php:142
 msgid "This theme has already been submitted."
 msgstr "Ce thème a déjà été soumis."
 
-#: DB/History.php:144
+#: DB/History.php:146
 msgid "It seems this archive is a new version of the theme \""
 msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 
-#: DB/History.php:218
+#: DB/History.php:222
 msgid "The name \""
 msgstr "Le nom \""
 
