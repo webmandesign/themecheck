@@ -403,7 +403,7 @@ class FileValidator
 				}
 				else {
 					// get all other files : txt, xml, jpg, png
-					$sizelimit = 50000;
+					$sizelimit = 10000;
 					$this->otherfiles[$filename] = ( ! is_dir($filename) ) ? file_get_contents( $filename, false, NULL, -1,  $sizelimit) : '';
 				}
 			}

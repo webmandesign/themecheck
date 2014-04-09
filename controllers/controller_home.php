@@ -129,7 +129,7 @@ class Controller_home
 
 		?>
 					<hr>
-					<h2><?php echo __("Themes recently checked"); ?></h2>
+					<h2><?php echo __("Recently checked themes"); ?></h2>
 					<div id="alreadyvalidated">
 					<?php 
 					$pagination = $history->getRecent();

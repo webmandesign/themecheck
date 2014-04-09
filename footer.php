@@ -24,6 +24,8 @@ namespace ThemeCheck;
 							}
 							echo trim($langs,' |');
 						}?>
+						<br/>
+						<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fthemecheck.org&amp;width=65&amp;layout=box_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=65&amp;appId=244478959009718" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; float:right;" allowTransparency="true"></iframe>
 					</div>
 				</div>
 				<p>

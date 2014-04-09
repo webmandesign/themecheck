@@ -67,6 +67,10 @@ class Badthings extends Check
 						new Badthings_Checker('BADTHINGS_GOOGLE_CX', TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google search code')			, '/cx=[0-9]{21}:/'								, 'ut_badthings_googlesearch.zip'),
 						new Badthings_Checker('BADTHINGS_GOOGLE_PUB', TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of Google advertising code')	, '/pub-[0-9]{16}/i'							, 'ut_badthings_googleadvertising.zip'),
 						new Badthings_Checker('BADTHINGS_VARIABLEFUNC', TT_COMMON, ERRORLEVEL_CRITICAL, __all('Use of variable functions')						, '/\$[_0-9a-zA-Z]+ *\(/', 'ut_badthings_variablefunctions.zip'),
-			);
+// var_dump
+// print_r
+// debug functions		
+// PREG_REPLACE_EVAL
+		);
     }
 }
