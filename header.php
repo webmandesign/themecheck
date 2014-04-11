@@ -14,6 +14,8 @@ namespace ThemeCheck;
 		
 		<meta name="viewport" content="width=device-width">
 
+		<meta property="og:image" content="<?php echo TC_HTTPDOMAIN;?>/img/logo.jpg" />
+		
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap.min.css">
 		<style>
 				body {
