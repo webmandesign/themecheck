@@ -48,7 +48,7 @@ class Controller_home
 		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
 		
-		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
+		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px" class="validated-theme" data-id="'.$themeInfo['id'].'">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
 		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
 		$html .= '<div style="width:33px;height:40px;float:right;">';
@@ -130,14 +130,32 @@ class Controller_home
 		?>
 					<hr>
 					<h2><?php echo __("Recently checked themes"); ?></h2>
+					<form id="sorting-form">
+						<div>
+							trier par:
+							<select name='sort' class='sorting'>
+								<option value='creationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>>nouveaux</option>
+								<option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>>score</option>
+							</select>
+						</div>
+						<div>
+							wordpress: <input type='checkbox' name='theme[]' value='wordpress' <?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
+							- joomla: <input type='checkbox' name='theme[]' value='joomla' <?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
+						</div>
+					</form>
 					<div id="alreadyvalidated">
 					<?php 
-					$pagination = $history->getRecent();
-					$smallestid = 0;
+					if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
+					{
+						$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
+					}
+					else
+					{
+						$pagination = $history->getRecent();
+					}
 					foreach($pagination as $t)
 					{
 						echo $this->getThumb($t);
-						if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
 					}
 					?>
 					</div>
@@ -148,22 +166,31 @@ class Controller_home
 		<?php } ?>		
 				</div> <!-- /container --> 
 				<script>
-				var smallestid = <?php echo $smallestid;?>;
-  $('#seemore-btn').click(function () {
-		$.ajax({
-			type: "POST",
-			url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=seemore';?>",
-			data: { olderthan: smallestid, lang: "<?php echo I18N::getCurLang();?>" }
-		}).done(function( obj ) {
-			$("#alreadyvalidated").append(obj.html);
-			if (obj.nomore) $("#seemore-btn").hide();
-			smallestid = obj.smallestid; 
-		}).fail(function() {
-			console.log("ajax error");
-		})
+				  $('#seemore-btn').click(function () {
+						$.ajax({
+							type: "POST",
+							url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=seemore';?>",
+							data: { olderthan: $("#alreadyvalidated div.validated-theme").last().data("id"), lang: "<?php echo I18N::getCurLang();?>" }
+						}).done(function( obj ) {
+							$("#alreadyvalidated").append(obj.html);
+							if (obj.nomore) $("#seemore-btn").hide();
+							smallestid = obj.smallestid; 
+						}).fail(function() {
+							console.log("ajax error");
+						})
 
-  });
-</script>
+				  });
+				  
+				$('.sorting').on("change", function(){
+					$.ajax({
+						type: "POST",
+						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
+						data: $("#sorting-form").serialize()
+					}).done(function(obj){
+						$("#alreadyvalidated").html(obj.html);
+					});
+				})
+				</script>
 				<?php
 	}
 		
@@ -172,10 +199,18 @@ class Controller_home
 		$lang = $_POST["lastid"];
 		$olderthan = intval($_POST["olderthan"]);
 		$response = null;
+		
 		if (USE_DB)
 		{
 			$history = new History();
-			$pagination = $history->getRecent($olderthan);
+			if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
+			{
+				$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme'], $olderthan);
+			}
+			else
+			{
+				$pagination = $history->getRecent($olderthan);
+			}
 			
 			$smallestid = 0;
 			$html = '';
@@ -193,5 +228,34 @@ class Controller_home
 		ob_clean();
 		header('Content-Type: application/json');
 		echo json_encode($response);
+	}
+	
+	public function ajax_sort()
+	{
+		$data = array();
+		$data['success'] = false;
+		
+		if(!empty($_POST['sort']) && !empty($_POST['theme']))
+		{
+			$_SESSION['sort'] = $_POST['sort'];
+			$_SESSION['theme'] = $_POST['theme'];
+		
+			$history = new History();
+			
+			$pagination = $history->getSorted($_POST['sort'], $_POST['theme']);
+			$smallestid = 0;
+			$html = '';
+			foreach($pagination as $t)
+			{
+				$html .= $this->getThumb($t);
+				if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
+			}
+			
+			$data['success'] = true;
+		}
+		$data['html'] = $html;
+
+		header('Content-Type: application/json');
+		echo json_encode($data);
 	}
 }
