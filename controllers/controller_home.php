@@ -139,7 +139,6 @@ class Controller_home
 							</select>
 						</div>
 						<div>
-							<?php if(isset($_SESSION['theme'])){if(in_array("",$_SESSION['theme'])){}} else {echo 'checked="checked"';};?>
 							wordpress: <input type='checkbox' name='theme[]' value='wordpress' <?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
 							- joomla: <input type='checkbox' name='theme[]' value='joomla' <?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
 						</div>
