@@ -138,7 +138,7 @@ class Controller_home
 							</div>
 							<div class="col-sm-3 col-sm-offset-1 col-xs-12">
 								<select name='sort' class='sortdropdown form-control' style="width:180px;margin:auto">
-									<option value='creationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?></option>
+									<option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?></option>
 									<option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?></option>
 								</select>
 							</div>
