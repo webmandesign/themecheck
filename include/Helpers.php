@@ -29,63 +29,26 @@ class Helpers
 	*/
 	public static function filterPhp($raw)
 	{
-		$r = '';
-		$len = strlen($raw);
-		// 0 : not in an escaped part, 1 : 1 line comment, 2 : multiple lines comment, 3 : double quotes string, 4 : simple quotes string
-		$current_mode = 0;
-		$php = false;
-		$last_c = '';
-		for($i = 0; $i < $len; $i++)
-		{
-			$c = $raw[$i];
-										
-			if (!$php && strtolower(substr($raw, $i, 5)) == '<?php') $php = true;
-			if ($php && $last_c == '>' && $raw[$i-2] == "?") $php = false;
-			
-			// mode start
-			if ($php)
-			{
-				if ($current_mode == 0)
-				{			
-					if ($c == '/' && $last_c == '/') $current_mode = 1;
-					else if ($c == '*' && $last_c == '/') $current_mode = 2;
-					else if ($c == '"') $current_mode = 3;
-					else if ($c == "'") $current_mode = 4;
-					$r .= $c;
-				} else {
-					// mode end
-					if ($current_mode == 1 && $c == "\n")
-					{
-						$current_mode = 0;
-					}
-					if ($current_mode == 2 && ($c == '/' && $last_c == '*'))
-					{
-						$r[strlen($r) - 1] = $last_c;
-						$current_mode = 0;
-					}
-					if ($current_mode == 3 && ($c == '"' && $last_c != "\\"))
-					{
-						$current_mode = 0;
-					}
-					if ($current_mode == 4 && ($c == "'" && $last_c != "\\"))
-					{
-						$current_mode = 0;
-					}		
-					
-					if ($current_mode == 0 || $c == "\n" || $c == "\t" || $c == "\r" || $c == "\f" || $c == " ")
-						$r .= $c;
-					else 
-						$r .= '-';
-				}
-			} else {
-				if ($c == "\n" || $c == "\t" || $c == "\r" || $c == "\f" || $c == " ")
-					$r .= $c;
-				else 
-					$r .= '-';
-			}
-			$last_c = $c;
+		$tokens = token_get_all($raw);
+
+		$result = '';
+		foreach ($tokens as $token) {
+			if (!isset($token[1]))
+				$result .= $token;
+			elseif (
+				$token[0] == T_COMMENT
+				|| $token[0] == T_INLINE_HTML
+				|| $token[0] == T_CONSTANT_ENCAPSED_STRING
+				|| $token[0] == T_START_HEREDOC
+				|| $token[0] == T_END_HEREDOC
+				|| $token[0] == T_ENCAPSED_AND_WHITESPACE
+				|| $token[0] == T_DOC_COMMENT
+			)
+				$result .= preg_replace('#.#', '-', $token[1]); // permet de récupérer la newline d'origine
+			else 
+				$result .= $token[1];
 		}
 			
-		return $r;
+		return $result;
 	}
 }
