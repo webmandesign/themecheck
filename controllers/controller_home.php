@@ -130,19 +130,20 @@ class Controller_home
 		?>
 					<hr>
 					<h2><?php echo __("Recently checked themes"); ?></h2>
-					<form id="sorting-form">
-						<div>
-							trier par:
-							<select name='sort' class='sorting'>
-								<option value='creationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>>nouveaux</option>
-								<option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>>score</option>
-							</select>
-						</div>
-						<div>
-							wordpress: <input type='checkbox' name='theme[]' value='wordpress' <?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
-							- joomla: <input type='checkbox' name='theme[]' value='joomla' <?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sorting'/>
-						</div>
-					</form>
+					<div class="row">
+						<form id="sortform">
+							<div style="font-size:20px;" class="col-sm-4 col-sm-offset-4">
+								wordpress <input type='checkbox' name='theme[]' value='wordpress' <?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sortdropdown'/>
+								&nbsp;&nbsp;&nbsp;joomla <input type='checkbox' name='theme[]' value='joomla' <?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sortdropdown'/>
+							</div>
+							<div class="col-sm-3 col-sm-offset-1 col-xs-12">
+								<select name='sort' class='sortdropdown form-control' style="width:180px;margin:auto">
+									<option value='creationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?></option>
+									<option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?></option>
+								</select>
+							</div>
+						</form>
+					</div>
 					<div id="alreadyvalidated">
 					<?php 
 					if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
@@ -181,11 +182,11 @@ class Controller_home
 
 				  });
 				  
-				$('.sorting').on("change", function(){
+				$('.sortdropdown').on("change", function(){
 					$.ajax({
 						type: "POST",
 						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
-						data: $("#sorting-form").serialize()
+						data: $("#sortform").serialize()
 					}).done(function(obj){
 						$("#alreadyvalidated").html(obj.html);
 					});
