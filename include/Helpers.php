@@ -25,7 +25,6 @@ class Helpers
 	
 	/*
 	* replace non php code, string contents and comments with '-'. This function keeps the structure (lines, spaces, etc.) of the string to allow comparison with the orginal.
-	TODO : detect <? ?>, <% %> and <script language="php"> </script> as PHP parts
 	*/
 	public static function filterPhp($raw)
 	{
@@ -44,11 +43,11 @@ class Helpers
 				|| $token[0] == T_ENCAPSED_AND_WHITESPACE
 				|| $token[0] == T_DOC_COMMENT
 			)
-				$result .= preg_replace('#.#', '-', $token[1]); // permet de récupérer la newline d'origine
+				$result .= preg_replace('#[^\R]#', '-', $token[1]); // permet de récupérer la newline d'origine
 			else 
 				$result .= $token[1];
 		}
-			
+
 		return $result;
 	}
 }
