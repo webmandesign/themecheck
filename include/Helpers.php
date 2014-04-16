@@ -43,7 +43,7 @@ class Helpers
 				|| $token[0] == T_ENCAPSED_AND_WHITESPACE
 				|| $token[0] == T_DOC_COMMENT
 			)
-				$result .= preg_replace('#[^\R]#', '-', $token[1]); // permet de récupérer la newline d'origine
+				$result .= preg_replace('#[^\R]#', '-', $token[1]); // replace non-lineending characters by "-"
 			else 
 				$result .= $token[1];
 		}

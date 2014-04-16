@@ -212,20 +212,22 @@ class FileValidator
 			UserMessage::enqueue(sprintf(__("Could not upload file. File is empty or bigger than maximum upload file size (%s MB)."), $max_size_MB), ERRORLEVEL_FATAL);
 			return 0;
 		}
+
+		
+		
 		
 		$accepted_exts = array("zip");
 		$accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed', 'application/octet-stream');
-		$filetype = strtolower($_FILES["file"]["type"]);
+		$filetype = self::fileMimeType($_FILES["file"]["tmp_name"], false);
 		$extension = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
 
 		// check file type
 		$filetype_ok = false;
-		foreach($accepted_types as $mime_type) {
-			if($mime_type == $filetype) {
-				$filetype_ok = true;
-				break;
-			} 
+		if(in_array($filetype, $accepted_types))
+		{
+			$filetype_ok = true;
 		}
+		
 		if (!$filetype_ok)
 		{
 			if (empty($filetype)) $filetype = '_';
@@ -264,6 +266,53 @@ class FileValidator
 		
 		$themeInfo = self::prepareThemeInfo($src_path, $src_name, $src_type, true);
 		return $themeInfo;
+	}
+	
+	/**
+	* Check a file mime-type
+	* to safely check a mime-type, it's recommended to activate fileinfo extension
+	* http://www.php.net/manual/en/book.fileinfo.php
+	*
+	**/
+	
+	static function fileMimeType($file, $encoding=true) {
+		$mime=false;
+
+		// With fileinfo extension
+		if(extension_loaded('fileinfo'))
+		{
+			$finfo = new \finfo(FILEINFO_MIME);
+			$mime = $finfo->file($file);
+		}
+		else if (function_exists('finfo_file')) {
+			$finfo = finfo_open(FILEINFO_MIME);
+			$mime = finfo_file($finfo, $file);
+			finfo_close($finfo);
+		}
+		// without fileinfo extension
+		else if (substr(PHP_OS, 0, 3) == 'WIN') { 
+			$mime = mime_content_type($file); // deprecated/not safe: user input based
+		}
+		else {
+			$file = escapeshellarg($file);
+			$cmd = "file -iL $file";
+
+			exec($cmd, $output, $r);
+
+			if ($r == 0) {
+				$mime = substr($output[0], strpos($output[0], ': ')+2);
+			}
+		}
+
+		if (!$mime) {
+			return false;
+		}
+
+		if ($encoding) {
+			return $mime;
+		}
+
+		return substr($mime, 0, strpos($mime, '; '));
 	}
 	
 	/** 
