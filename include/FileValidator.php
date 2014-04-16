@@ -212,13 +212,10 @@ class FileValidator
 			UserMessage::enqueue(sprintf(__("Could not upload file. File is empty or bigger than maximum upload file size (%s MB)."), $max_size_MB), ERRORLEVEL_FATAL);
 			return 0;
 		}
-
-		
-		
 		
 		$accepted_exts = array("zip");
 		$accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed', 'application/octet-stream');
-		$filetype = self::fileMimeType($_FILES["file"]["tmp_name"], false);
+		$filetype = self::fileMimeType($_FILES["file"]["tmp_name"], $_FILES["file"]["name"], false);
 		$extension = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
 
 		// check file type
@@ -275,23 +272,95 @@ class FileValidator
 	*
 	**/
 	
-	static function fileMimeType($file, $encoding=true) {
+	static function fileMimeType($file, $filename=false, $encoding=true) {
 		$mime=false;
 
-		// With fileinfo extension
-		if(extension_loaded('fileinfo'))
+		// With fileinfo extension, PHP >= 5.3
+		if(extension_loaded('fileinfo') && class_exists('\\finfo'))
 		{
 			$finfo = new \finfo(FILEINFO_MIME);
 			$mime = $finfo->file($file);
 		}
-		else if (function_exists('finfo_file')) {
+		// With fileinfo extension, PHP >= 4
+		elseif (function_exists('finfo_open'))
+		{
 			$finfo = finfo_open(FILEINFO_MIME);
 			$mime = finfo_file($finfo, $file);
 			finfo_close($finfo);
 		}
-		// without fileinfo extension
-		else if (substr(PHP_OS, 0, 3) == 'WIN') { 
-			$mime = mime_content_type($file); // deprecated/not safe: user input based
+		
+		// without fileinfo extension: deprecated/not safe, user input based
+		else if(function_exists('mime_content_type'))
+		{
+			$mime = mime_content_type($pFilePath); 
+		}
+		
+		else if (substr(PHP_OS, 0, 3) == 'WIN') {
+			$mime_types = array(
+
+				'txt' => 'text/plain',
+				'htm' => 'text/html',
+				'html' => 'text/html',
+				'php' => 'text/html',
+				'css' => 'text/css',
+				'js' => 'application/javascript',
+				'json' => 'application/json',
+				'xml' => 'application/xml',
+				'swf' => 'application/x-shockwave-flash',
+				'flv' => 'video/x-flv',
+
+				// images
+				'png' => 'image/png',
+				'jpe' => 'image/jpeg',
+				'jpeg' => 'image/jpeg',
+				'jpg' => 'image/jpeg',
+				'gif' => 'image/gif',
+				'bmp' => 'image/bmp',
+				'ico' => 'image/vnd.microsoft.icon',
+				'tiff' => 'image/tiff',
+				'tif' => 'image/tiff',
+				'svg' => 'image/svg+xml',
+				'svgz' => 'image/svg+xml',
+
+				// archives
+				'zip' => 'application/zip',
+				'rar' => 'application/x-rar-compressed',
+				'exe' => 'application/x-msdownload',
+				'msi' => 'application/x-msdownload',
+				'cab' => 'application/vnd.ms-cab-compressed',
+
+				// audio/video
+				'mp3' => 'audio/mpeg',
+				'qt' => 'video/quicktime',
+				'mov' => 'video/quicktime',
+
+				// adobe
+				'pdf' => 'application/pdf',
+				'psd' => 'image/vnd.adobe.photoshop',
+				'ai' => 'application/postscript',
+				'eps' => 'application/postscript',
+				'ps' => 'application/postscript',
+
+				// ms office
+				'doc' => 'application/msword',
+				'rtf' => 'application/rtf',
+				'xls' => 'application/vnd.ms-excel',
+				'ppt' => 'application/vnd.ms-powerpoint',
+
+				// open office
+				'odt' => 'application/vnd.oasis.opendocument.text',
+				'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
+			);
+
+			$filepart = explode('.',$filename);
+			$ext = strtolower(array_pop($filepart));
+			if (array_key_exists($ext, $mime_types)) {
+				$mime = $mime_types[$ext]."; ";
+			}
+			
+			else {
+				$mime = 'application/octet-stream; ';
+			}
 		}
 		else {
 			$file = escapeshellarg($file);
