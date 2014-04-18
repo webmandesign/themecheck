@@ -12,9 +12,9 @@ class Deprecated_Checker extends CheckPart
 				$deprecatedSinceVersion = $this->code[2];
 		
 			
-        foreach ( $php_files as $php_key => $phpfile )
+        foreach ( $php_files_filtered as $php_key => $phpfile )
         {
-            if ( preg_match( '/[\s?]' . $key . '\(/', $phpfile, $matches ) )
+            if ( preg_match( '/[\s]+' . $key . '[\s]*\(/', $phpfile, $matches ) )
             {
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
@@ -312,15 +312,17 @@ class Deprecated extends Check
 			{
 				$deprecatedSinceVersion = $check->code[2];
 				if ($this->currentThemetype & $check->themetype)
-				$cmp = null;
-				$cmp = Check::versionCmp($this->currentCmsVersion, $deprecatedSinceVersion, $check->themetype);
-
-				if ($cmp === false || $cmp >= 0)
 				{
-					$start_time = microtime(true);
-					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
-					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+					$cmp = Check::versionCmp($this->currentCmsVersion, $deprecatedSinceVersion, $check->themetype);
+
+					if ($cmp === false || $cmp >= 0)
+					{
+						$start_time = microtime(true);
+						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+					}
 				}
+				
 			}	
 			$this->duration = microtime(true) - $start_time_checker;
 		}
