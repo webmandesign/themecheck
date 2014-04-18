@@ -14,7 +14,7 @@ class Deprecated_Checker extends CheckPart
 			
         foreach ( $php_files_filtered as $php_key => $phpfile )
         {
-            if ( preg_match( '/[\s]+' . $key . '[\s]*\(/', $phpfile, $matches ) )
+            if ( preg_match( '/[\s]+' . $key . '[\s-]*\(/', $phpfile, $matches ) )
             {
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
