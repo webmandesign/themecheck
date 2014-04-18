@@ -97,12 +97,27 @@ class Controller_results
 		{
 			if ($themeInfo->themetype == TT_JOOMLA)
 			{
-				$this->meta["title"] = sprintf(__("Joomla template %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("%s%% : Joomla template %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
 			} else {
-				$this->meta["title"] = sprintf(__("Wordpress theme %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("%s%% : Wordpress theme %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Wordpress theme %s."), htmlspecialchars($themeInfo->name));
 			}
+			
+			if ($themeInfo->score<100.0)
+			{
+				if ($themeInfo->score > 95)
+				{
+					$this->meta["favicon"] = "favicon100";
+				} else if ($themeInfo->score > 80)
+				{
+					$this->meta["favicon"] = "favicon95";
+				} else {
+					$this->meta["favicon"] = "favicon80";
+				}
+			}
+			
+			
 		} else {
 			$this->meta["title"] = __("Check results");
 			$this->meta["description"] = __("Security and code quality score");
@@ -220,7 +235,10 @@ class Controller_results
 							else if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	{
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress child theme"));
 								else $characteristics[] = array(__("Theme type"), __("Wordpress child theme").' '.$themeInfo->cmsVersion);
-								if (!empty($themeInfo->parentName))$characteristics[] = array(__("Parent theme name"), htmlspecialchars($themeInfo->parentName));
+								if (!empty($themeInfo->parentName)){
+									$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNameSanitized , "themetype"=>$themeInfo->parentThemeType ));
+									$characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
+								}
 							}
 							else if ($themeInfo->themetype == TT_JOOMLA)
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));
