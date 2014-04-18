@@ -235,7 +235,10 @@ class Controller_results
 							else if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	{
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Wordpress child theme"));
 								else $characteristics[] = array(__("Theme type"), __("Wordpress child theme").' '.$themeInfo->cmsVersion);
-								if (!empty($themeInfo->parentName))$characteristics[] = array(__("Parent theme name"), htmlspecialchars($themeInfo->parentName));
+								if (!empty($themeInfo->parentName)){
+									$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNameSanitized , "themetype"=>$themeInfo->parentThemeType ));
+									$characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
+								}
 							}
 							else if ($themeInfo->themetype == TT_JOOMLA)
 								if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));

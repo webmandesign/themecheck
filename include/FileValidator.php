@@ -443,6 +443,8 @@ class FileValidator
 			$fewInfo = $history->getFewInfoFromName($themeInfo->parentName);
 			if (!empty($fewInfo["id"]))
 			$themeInfo->parentId = intval($fewInfo["id"]);
+			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentThemeType = $fewInfo["themetype"];
 		}
 		if (!$r) return null;
 		return $themeInfo;	
