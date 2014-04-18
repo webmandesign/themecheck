@@ -97,10 +97,10 @@ class Controller_results
 		{
 			if ($themeInfo->themetype == TT_JOOMLA)
 			{
-				$this->meta["title"] = sprintf(__("Joomla template %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("%s%% : Joomla template %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
 			} else {
-				$this->meta["title"] = sprintf(__("Wordpress theme %s"), htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = sprintf(__("%s%% : Wordpress theme %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Wordpress theme %s."), htmlspecialchars($themeInfo->name));
 			}
 		} else {
