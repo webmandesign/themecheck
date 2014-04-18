@@ -25,8 +25,8 @@ namespace ThemeCheck;
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/css/main.css">
 		<link href='http://fonts.googleapis.com/css?family=Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/favicon.ico" />
-		<link rel="icon" type="image/png" href="<?php echo TC_HTTPDOMAIN;?>/favicon.png" />
+		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/<?php if(isset($controller->meta["favicon"])){echo $controller->meta["favicon"];} else { echo "favicon"; };?>.ico" />
+		<link rel="icon" type="image/png" href="<?php echo TC_HTTPDOMAIN;?>/<?php if(isset($controller->meta["favicon"])){echo $controller->meta["favicon"];} else { echo "favicon"; };?>.png" />
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script>window.jQuery || document.write('<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>

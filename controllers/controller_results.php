@@ -103,6 +103,21 @@ class Controller_results
 				$this->meta["title"] = sprintf(__("%s%% : Wordpress theme %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Wordpress theme %s."), htmlspecialchars($themeInfo->name));
 			}
+			
+			if ($themeInfo->score<100.0)
+			{
+				if ($themeInfo->score > 95)
+				{
+					$this->meta["favicon"] = "favicon100";
+				} else if ($themeInfo->score > 80)
+				{
+					$this->meta["favicon"] = "favicon95";
+				} else {
+					$this->meta["favicon"] = "favicon80";
+				}
+			}
+			
+			
 		} else {
 			$this->meta["title"] = __("Check results");
 			$this->meta["description"] = __("Security and code quality score");
