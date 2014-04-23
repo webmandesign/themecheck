@@ -11,10 +11,10 @@ class Deprecated_Checker extends CheckPart
 				$key_instead = $this->code[1];
 				$deprecatedSinceVersion = $this->code[2];
 		
-			
         foreach ( $php_files_filtered as $php_key => $phpfile )
         {
-						if (strpos($phpfile, $key) !== false) {
+						if (strpos($phpfile, $key) !== false)// optimization : strpos is faster than preg_match, and since the condition is rarely true, it is globally faster to use strpos as a filter before preg_match
+						{ 
 								if ( preg_match( '/[\s]+' . $key . '[\s-]*\(/', $phpfile, $matches ) )
 								{
 										$filename = tc_filename( $php_key );
