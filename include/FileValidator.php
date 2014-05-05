@@ -164,6 +164,8 @@ class FileValidator
 			$_validationResults->serialize($this->themeInfo->hash);
 		}
 		
+		// we don't serialize themeforest report. They'll be regenerated at unserialization.
+		
 		return true;
 	}
 	
@@ -190,6 +192,8 @@ class FileValidator
 			if (empty($_validationResults)) continue;
 			$fileValidator->validationResults[$l] = $_validationResults;
 		}
+			
+		if ($themeInfo->isThemeForest) $fileValidator->generateThemeForestReport();
 			
 		return $fileValidator;
 	}
@@ -512,8 +516,9 @@ class FileValidator
 		
 		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;
 
-		$r = $this->themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize);
-		
+		// update themeInfo data that is discovefred in initFromUnzippedArchivee
+	  $r = $this->themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize);
+
 		$files = listdir( $unzippath );
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
@@ -541,6 +546,8 @@ class FileValidator
 		$check_count = 0;
 		$score = 0;
 		
+		$isThemeforest = true;
+		
 		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
 		foreach ($this->checklist as $check)
 		{
@@ -553,18 +560,20 @@ class FileValidator
 				{
 					if ($checkpart->errorLevel !== ERRORLEVEL_UNDEFINED) // avoid checkparts that were not passed in $check->doCheck
 					{
-						$checkpart->title = $check->title; // a bit dirty...
+						$checkpart->title = $check->title; // a bit dirty
+						
 						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_INFO) $check_info[] = $checkpart;
 						else $check_undefined[] = $checkpart;
-						
 						$check_count++;
 					}
 				}
 			}
 		}
+		
+		// score calculation
 		$this->themeInfo->check_count = $check_count;
 		$this->themeInfo->check_countOK = count($check_successes);
 		$this->themeInfo->criticalCount = count($check_critical);
@@ -575,7 +584,7 @@ class FileValidator
 			if ($this->themeInfo->score < 0) $this->themeInfo->score = 0;
 		}
 		else $this->themeInfo->score = 0.0;
-		
+				
 		// generate validationResults, one for each existing language. Checks are monolingual : no more multilingual arrays.
 		global $ExistingLangs;
 		foreach($ExistingLangs as $l)
@@ -587,6 +596,10 @@ class FileValidator
 			foreach($check_info as $checkpart_multi) $this->validationResults[$l]->check_info[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
 		}
+		
+		// generate themeforest themes auxiliary report
+		if ($isThemeforest) $this->generateThemeForestReport();
+		
 		$this->duration = microtime(true) - $start_time_checker;
 	}
 	
@@ -615,6 +628,63 @@ class FileValidator
 		if (file_exists($zipfilepath)) unlink($zipfilepath);
 		if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath);
 		if (file_exists($unzippath_parent)) ListDirectoryFiles::recursiveRemoveDir($unzippath_parent);
+	}
+	
+	/**
+	* Generate an auxiiary report for themeforest themes. Generated from standard report. Rules taken from themeforest themecheck wordpress plugin.
+	*/
+	public function generateThemeForestReport()
+	{
+		global $ExistingLangs;
+		$avoidchecks = array( 'INCLUDES',
+													'I18N_E',
+													'I18N_ALL',
+													'I18N_X',
+													'I18N_EX',
+													'I18N_ESC_ATTR___ALL',
+													'I18N_ESC_ATTR_E',
+													'I18N_ESC_ATTR_X',
+													'I18N_ESC_HTML___ALL',
+													'I18N_ESC_HTML_E',
+													'I18N_ESC_HTML_X',
+													'I18N_UNDERSCORE',
+													'I18N_GETTEXT',
+													'ADMIN_ADMINPAGES',
+													'BADTHINGS_BASE64DEC',
+													'BADTHINGS_BASE64ENC_WP',
+													'BADTHINGS_BASE64ENC_JO',
+													'MALWARE1',
+													'EDITORSTYLE',
+													'IFRAMES');
+		
+		foreach($ExistingLangs as $l)
+		{
+			$this->validationResults_themeforest[$l] = new ValidationResults($l);
+			foreach($this->validationResults[$l]->check_critical as $check) if (!in_array($check->id, $avoidchecks)) $this->validationResults_themeforest[$l]->check_critical[] = $check;
+			foreach($this->validationResults[$l]->check_warnings as $check) if (!in_array($check->id, $avoidchecks)) $this->validationResults_themeforest[$l]->check_warnings[] = $check;
+			foreach($this->validationResults[$l]->check_successes as $check) if (!in_array($check->id, $avoidchecks)) $this->validationResults_themeforest[$l]->check_successes[] = $check;
+			foreach($this->validationResults[$l]->check_info as $check) {
+				if ($check->id == 'MANDATORYFILES_COMMENTSPHP') $this->validationResults_themeforest[$l]->check_critical[] = $check; // escalate MANDATORYFILES_COMMENTSPHP to critical if themeforest
+				else $this->validationResults_themeforest[$l]->check_info[] = $check;
+			}
+			foreach($this->validationResults[$l]->check_undefined as $check) if ($check->id != 'MALWARE1') $this->validationResults_themeforest[$l]->check_undefined[] = $check;
+		}
+		
+		$this->themeInfo_themeforest = clone $this->themeInfo;
+		// score calculation
+		$this->themeInfo_themeforest->check_countOK_themeforest = count($this->validationResults_themeforest['en']->check_successes);
+		$this->themeInfo_themeforest->criticalCount_themeforest = count($this->validationResults_themeforest['en']->check_critical);
+		$this->themeInfo_themeforest->warningsCount_themeforest = count($this->validationResults_themeforest['en']->check_warnings);
+		$this->themeInfo_themeforest->infoCount_themeforest = count($this->validationResults_themeforest['en']->check_info);
+		$this->themeInfo_themeforest->check_count_themeforest = $this->themeInfo_themeforest->check_countOK_themeforest + 
+																														$this->themeInfo_themeforest->criticalCount_themeforest + 
+																														$this->themeInfo_themeforest->warningsCount_themeforest + 
+																														$this->themeInfo_themeforest->infoCount_themeforest;
+		if ($this->themeInfo_themeforest->check_count_themeforest > 0) {
+			$this->themeInfo_themeforest->score_themeforest = 100 - $this->themeInfo_themeforest->warningsCount_themeforest - 20 * $this->themeInfo_themeforest->criticalCount_themeforest;
+			if ($this->themeInfo_themeforest->score_themeforest < 0) $this->themeInfo_themeforest->score_themeforest = 0;
+		}
+		else $this->themeInfo_themeforest->score_themeforest = 0.0;
 	}
 }
 ?>

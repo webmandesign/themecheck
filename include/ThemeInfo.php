@@ -66,6 +66,9 @@ class ThemeInfo
 	public $parentId;
 	public $validation_timestamp; // Unix timestamp
 	
+	public $isTemplateMonster;
+	public $isThemeForest;
+	
 	public function __construct($hash)
 	{
 		$this->hash = $hash;
@@ -167,6 +170,10 @@ class ThemeInfo
 		}
 
 		$this->themetype = $this->detectThemetype($unzippath);
+		
+		$merchant = $this->getMerchant($unzippath, $zipfilename);
+		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
+		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
 
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
@@ -379,6 +386,36 @@ class ThemeInfo
 			return TT_WORDPRESS;
 		}
 		return TT_UNDEFINED;
+	}
+	
+	/** 
+	*		Is theme from a market place such as themeforest or template monster ?
+	**/
+	static public function getMerchant($unzippath, $zipname)
+	{
+		$is_themeforest = false;
+		$is_templatemonster = false;
+
+		if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
+		else if (strpos($themeInfo->themeUri,'themeforest') !== false || strpos($themeInfo->authorUri,'themeforest') !== false) $is_themeforest = true;
+		else if (strpos($zipname,'templatemonster')!== false || strpos($zipname,'template_monster')!== false || strpos($zipname,'template monster')!== false) $is_templatemonster = true;
+		else 
+		{
+			$files = listdir( $unzippath );
+			if ( $files ) {
+				foreach( $files as $key => $filename ) {
+					if ( substr( $filename, -4 ) == '.php' || substr( $filename, -4 ) == '.css' || substr( $filename, -4 ) == '.txt' ){
+						$s = file_get_contents( $filename );
+						if (strpos($s,'envato') !== false || strpos($s,'themeforest') !== false || strpos($s,'theme forest') !== false) $is_themeforest = true;
+						else if (strpos($s,'templatemonster')!== false || strpos($s,'template_monster')!== false || strpos($s,'template monster')!== false) $is_templatemonster = true;
+					}
+				}
+			}
+		}
+		
+		if ($is_themeforest) return 'themeforest';
+		else if ($is_templatemonster) return 'templatemonster';
+		else return null;
 	}
 	
 	/** 

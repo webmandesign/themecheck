@@ -59,6 +59,7 @@ define("TC_DEFAULT_LANG", "en");
 define("TC_SITE_NAME", "themecheck.org");
 define("TC_HTTPDOMAIN", 'http://'.TC_DOMAIN);
 define("TC_SALT", '348daf28b36268cf504b066'); // random salt to code file names
+define("ERRORLEVEL_NONE", 0);
 define("ERRORLEVEL_FATAL", 1); // errors that prevent from running the tests
 define("ERRORLEVEL_CRITICAL", 2); // security threats or inacceptable errors
 define("ERRORLEVEL_WARNING", 3);
