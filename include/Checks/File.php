@@ -25,7 +25,7 @@ class File_Checker extends CheckPart
             $this->messages[] = __all('<strong>%1$s</strong> was found.', $error) ;
             $this->errorLevel = $this->threatLevel;
 
-						if ($error == '.gitignore' || $error == '.ds_store') $this->errorLevel = ERRORLEVEL_WARNING;
+						if ($error == '.gitignore' || $error == '.ds_store' || $error == '.tm_properties') $this->errorLevel = ERRORLEVEL_WARNING;
         }
     }
 }
