@@ -54,8 +54,10 @@ class Controller_results
 			if ($this->fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
 			{
 				$this->fileValidator->validate();	
+				
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
 				$this->fileValidator->serialize(true);
+				
 			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
@@ -67,13 +69,12 @@ class Controller_results
 				if ($themeInfo)
 				{
 					$this->fileValidator = new FileValidator($themeInfo);
-					$this->fileValidator->validate();	
-					
+					$this->fileValidator->validate();
 					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
 					{
 						$this->fileValidator->clean();
 					} else {
-						$this->fileValidator->serialize();
+						$this->fileValidator->serialize(true);
 					}
 					
 					$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
@@ -117,7 +118,6 @@ class Controller_results
 				}
 			}
 			
-			
 		} else {
 			$this->meta["title"] = __("Check results");
 			$this->meta["description"] = __("Security and code quality score");
@@ -145,8 +145,9 @@ class Controller_results
 		if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0 && $this->fileValidator)
 		{
 		?>
-				<div class="container">
+			<div class="container">
 				<br/>
+				
 				<?php
 				$themeInfo = $this->fileValidator->themeInfo;
 				?>
@@ -154,7 +155,127 @@ class Controller_results
 						<div><img style="box-shadow: 0 0 20px #DDD;" src="<?php echo TC_HTTPDOMAIN.'/'.$themeInfo->hash.'/thumbnail.png';?>"></div>
 							<h1><?php printf(__("Validation results for <strong>%s</strong>"), htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));?></h1>
 					</div>
-					<div class="row" style="color:#888;font-weight:normal;margin:30px 0 0 0;background:#F8F8F8;border-radius: 3px;">
+					<?php	if ($this->fileValidator->themeInfo->isThemeForest)	{ ?>
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#standard" data-toggle="tab">Wordpress standard : <?php echo intval($this->fileValidator->themeInfo->score); ?> %</a></li>
+						<li><a href="#themeforest" data-toggle="tab">Themeforest standard : <?php echo intval($this->fileValidator->themeInfo_themeforest->score); ?> %</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="standard"><?php $this->renderRulesSet($this->fileValidator->themeInfo, $this->validationResults);?></div>
+						<div class="tab-pane" id="themeforest"><?php $this->renderRulesSet($this->fileValidator->themeInfo_themeforest,$this->fileValidator->getValidationResultsThemeForest(I18N::getCurLang()));?></div>
+					</div>
+					<?php } else {$this->renderRulesSet($this->fileValidator->themeInfo, $this->validationResults); }?>
+				</div>
+		<div class="container">
+    <div id="disqus_thread" style="margin-top:60px"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'themecheck'; // required: replace example with your forum shortname
+				var disqus_url = '<?php echo $this->samepage_i18n[I18N::getCurLang()];?>';
+				
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+<?php
+if (USE_DB)
+{
+	echo '<hr>';
+	echo '<h2 style="line-height:100px;color:#888">'.__("Other files checked around the same date").'</h2>';
+	$history = new History();
+	$id = intval($history->getIdFromHash($themeInfo->hash));
+	for ($i = 1; $i > -4; $i--)
+	{
+		if ($i == 0) $i--; // not the current one
+		$r = $history->getFewInfo($id + $i);
+		if ($r !== false)
+		{
+			$html = '';
+			$namesanitized = $r['namesanitized'];
+			$themetype = $r['themetype'];
+			$score = $r['score'];
+			$themetype_text = sprintf(__("Wordpress %s theme"),$r['cmsVersion']);
+			if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $r['cmsVersion']);
+			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+			$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
+			$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$r['hash'].'/thumbnail.png"></a>';
+			$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
+			$html .= '<div style="width:33px;height:40px;float:right;">';
+			$html .= getShield($r, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
+			$html .= '</div>';
+			$html .= htmlspecialchars($r['name']).'<br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+			$html .= '</div>';
+			$html .= '</div>';
+			
+			echo $html;
+		}
+	}
+	//	$themetype = $r['themetype'];
+	//	$score = $r['score'];
+}
+
+		} else if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0) {
+		?>
+			<div class="container">
+				<br/>
+					<div class="row text-center">
+							<h1><?php printf(__("Validation results"));?></h1>
+					</div>
+					<div class="row text-center" style="color:#888;font-weight:normal;margin:30px 0 0 0;background:#F8F8F8;border-radius: 3px;">
+
+						<br/>
+						<?php
+								$img = 'shieldred240.png';
+								$color = 'ff1418';
+								$text = __("Validation score : 0 %");
+								
+								?>
+								<div class="shield1" style="width:201px;height:240px;background-image:url(<?php echo TC_HTTPDOMAIN;?>/img/<?php echo $img;?>);" title="<?php echo $text;?>">
+										<div class="shield2" style="color:#<?php echo $color;?>;">0</div>	
+								</div>
+								<?php
+								echo '<p "color:#'.$color.'">'.__("Validation score : 0 %").'</p>';
+								$userMessage = UserMessage::getInstance();
+								echo '<div style="margin:5% 10%">'.__("Fatal error").'<br>'.UserMessage::getInstance()->getMessagesHtml().'</div>';
+								?>
+								<p><?php echo '<a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Go to home page to submit a new version").'</a>'; ?></p>
+								<br/>
+					</div>
+<?php
+		} else {
+			
+			$userMessage = UserMessage::getInstance();
+			echo '<div class="container">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
+			?>
+					<div class="jumbotron">
+						<div class="container">
+							<h1><?php echo __('Please send us a theme to check.'); ?></h1>
+							<p><?php echo '<a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Go to home page").'</a>&nbsp;' ?></p>
+						</div>
+					</div>
+
+					<div class="container">
+				<br/>
+				<?php
+				
+		}
+		 
+
+		?>
+		</div> <!-- /container --> 
+		<?php
+	}
+	
+	private function renderRulesSet($themeInfo, $validationResults)
+	{
+	?>
+						<div class="row" style="color:#888;font-weight:normal;margin:30px 0 0 0;background:#F8F8F8;border-radius: 3px;">
 						<div class="col-md-8 text-center" style="">
 						<br/>
 						<?php
@@ -195,7 +316,7 @@ class Controller_results
 								<?php
 								echo '<p "color:#'.$color.'">'.__("validation score").' : '.intval($themeInfo->score).' %</p>';
 								echo '<p>'.sprintf(__("%s critical alerts. %s warnings."),$themeInfo->criticalCount, $themeInfo->warningsCount).'</p>';
-								
+
 								if (!isset($_POST["donotstore"]) && UserMessage::getCount(ERRORLEVEL_FATAL) == 0) {
 									?>
 									<br/><br/>
@@ -254,9 +375,9 @@ class Controller_results
 								if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
 								else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
 							$characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
-							if (!empty($themeInfo->themeUri)) $characteristics[] = array(__("Theme URI"), '<a href="'.htmlspecialchars($themeInfo->themeUri).'" rel="nofollow">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+							if (!empty($themeInfo->themeUri)) $characteristics[] = array(__("Theme URI"), '<a href="'.htmlspecialchars($themeInfo->themeUri).'&ref=peol">'.htmlspecialchars($themeInfo->themeUri).'</a>');
 							if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
-							if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), htmlspecialchars($themeInfo->authorUri));
+							if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
 							if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
 							if (!empty($themeInfo->copyright))$characteristics[] = array(__("Copyright"), htmlspecialchars($themeInfo->copyright));
 							if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), date("Y-m-d", $themeInfo->creationDate));
@@ -275,11 +396,11 @@ class Controller_results
 							<?php
 							echo '<div class="row"><div class="col-md-12">';
 							
-							if (count($this->validationResults->check_critical) > 0)
+							if (count($validationResults->check_critical) > 0)
 							{
 								echo '<h2 style="line-height:100px;color:#D00;">'.__("Critical alerts").'</h2>';
 								echo '<ol>';
-								foreach ($this->validationResults->check_critical as $check)
+								foreach ($validationResults->check_critical as $check)
 								{
 									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 									if (!empty($check->messages)) {
@@ -289,11 +410,11 @@ class Controller_results
 								echo '</ol>';
 							}
 
-							if (count($this->validationResults->check_warnings) > 0)
+							if (count($validationResults->check_warnings) > 0)
 							{
 								echo '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
 								echo '<ol>';
-								foreach ($this->validationResults->check_warnings as $check)
+								foreach ($validationResults->check_warnings as $check)
 								{
 									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 									if (!empty($check->messages)) {
@@ -303,11 +424,11 @@ class Controller_results
 								echo '</ol>';
 							}
 							
-							if (count($this->validationResults->check_info) > 0)
+							if (count($validationResults->check_info) > 0)
 							{
 								echo '<h2 style="line-height:100px;color:#00b6e3;">'.__("Info").'</h2>';
 								echo '<ol>';
-								foreach ($this->validationResults->check_info as $check)
+								foreach ($validationResults->check_info as $check)
 								{
 									echo '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
 									if (!empty($check->messages)) {
@@ -316,112 +437,8 @@ class Controller_results
 								}
 								echo '</ol>';
 							}
-?>
-    <div id="disqus_thread" style="margin-top:60px"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'themecheck'; // required: replace example with your forum shortname
-				var disqus_url = '<?php echo $this->samepage_i18n[I18N::getCurLang()];?>';
-				
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>
-    
-<?php
-if (USE_DB)
-{
-	echo '<hr>';
-	echo '<h2 style="line-height:100px;color:#888">'.__("Other files checked around the same date").'</h2>';
-	$history = new History();
-	$id = intval($history->getIdFromHash($themeInfo->hash));
-	for ($i = 1; $i > -4; $i--)
-	{
-		if ($i == 0) $i--; // not the current one
-		$r = $history->getFewInfo($id + $i);
-		if ($r !== false)
-		{
-			$html = '';
-			$namesanitized = $r['namesanitized'];
-			$themetype = $r['themetype'];
-			$score = $r['score'];
-			$themetype_text = sprintf(__("Wordpress %s theme"),$r['cmsVersion']);
-			if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $r['cmsVersion']);
-			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-			$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px">';
-			$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$r['hash'].'/thumbnail.png"></a>';
-			$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
-			$html .= '<div style="width:33px;height:40px;float:right;">';
-			$html .= getShield($r, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
-			$html .= '</div>';
-			$html .= htmlspecialchars($r['name']).'<br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
-			$html .= '</div>';
-			$html .= '</div>';
-			
-			echo $html;
-		}
-	}
-	//	$themetype = $r['themetype'];
-	//	$score = $r['score'];
-}
+							echo '</div></div>';
 
-							echo '</div>';
-
-		} else if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0) {
-		?>
-			<div class="container">
-				<br/>
-					<div class="row text-center">
-							<h1><?php printf(__("Validation results"));?></h1>
-					</div>
-					<div class="row text-center" style="color:#888;font-weight:normal;margin:30px 0 0 0;background:#F8F8F8;border-radius: 3px;">
-
-						<br/>
-						<?php
-								$img = 'shieldred240.png';
-								$color = 'ff1418';
-								$text = __("Validation score : 0 %");
-								
-								?>
-								<div class="shield1" style="width:201px;height:240px;background-image:url(<?php echo TC_HTTPDOMAIN;?>/img/<?php echo $img;?>);" title="<?php echo $text;?>">
-										<div class="shield2" style="color:#<?php echo $color;?>;">0</div>	
-								</div>
-								<?php
-								echo '<p "color:#'.$color.'">'.__("Validation score : 0 %").'</p>';
-								$userMessage = UserMessage::getInstance();
-								echo '<div style="margin:5% 10%">'.__("Fatal error").'<br>'.UserMessage::getInstance()->getMessagesHtml().'</div>';
-								?>
-								<p><?php echo '<a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Go to home page to submit a new version").'</a>'; ?></p>
-								<br/>
-					</div>
-<?php
-		} else {
-			
-			$userMessage = UserMessage::getInstance();
-			echo '<div class="container">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
-			?>
-					<div class="jumbotron">
-						<div class="container">
-							<h1><?php echo __('Please send us a theme to check.'); ?></h1>
-							<p><?php echo '<a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Go to home page").'</a>&nbsp;' ?></p>
-						</div>
-					</div>
-
-					<div class="container">
-				<br/>
-				<?php
-				
-		}
-		 
-
-		?>
-		</div> <!-- /container --> 
-		<?php
 	}
 }
 

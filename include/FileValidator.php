@@ -192,8 +192,17 @@ class FileValidator
 			if (empty($_validationResults)) continue;
 			$fileValidator->validationResults[$l] = $_validationResults;
 		}
+
+		if (!empty($themeInfo->parentId))
+		{
+			$fewInfo = $history->getFewInfo($themeInfo->parentId);
+			if (!empty($fewInfo["id"]))
+			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentThemeType = $fewInfo["themetype"];
+		}
 			
 		if ($themeInfo->isThemeForest) $fileValidator->generateThemeForestReport();
+			
 			
 		return $fileValidator;
 	}
@@ -441,9 +450,10 @@ class FileValidator
 		$themeInfo->hash_md5 = $hash_md5;
 		$themeInfo->hash_sha1 = $sha1_file;
 		$r = $themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
-
+		
 		if (!empty($themeInfo->parentName))
 		{
+		
 			$history = new History();
 			$fewInfo = $history->getFewInfoFromName($themeInfo->parentName);
 			if (!empty($fewInfo["id"]))
@@ -608,6 +618,11 @@ class FileValidator
 		if (isset($this->validationResults[$lang])) return $this->validationResults[$lang];
 		return $this->validationResults['en'];
 	}
+	public function getValidationResultsThemeForest($lang)
+	{
+		if (isset($this->validationResults_themeforest[$lang])) return $this->validationResults_themeforest[$lang];
+		return $this->validationResults_themeforest['en'];
+	}
 	
 	public function clean()
 	{
@@ -631,7 +646,7 @@ class FileValidator
 	}
 	
 	/**
-	* Generate an auxiiary report for themeforest themes. Generated from standard report. Rules taken from themeforest themecheck wordpress plugin.
+	* Generate an auxiliary report for themeforest themes. Generated from standard report. Rules taken from themeforest themecheck wordpress plugin.
 	*/
 	public function generateThemeForestReport()
 	{
@@ -653,6 +668,7 @@ class FileValidator
 													'BADTHINGS_BASE64DEC',
 													'BADTHINGS_BASE64ENC_WP',
 													'BADTHINGS_BASE64ENC_JO',
+													'BADTHINGS_VARIABLEFUNC',
 													'MALWARE1',
 													'EDITORSTYLE',
 													'IFRAMES');
@@ -672,19 +688,19 @@ class FileValidator
 		
 		$this->themeInfo_themeforest = clone $this->themeInfo;
 		// score calculation
-		$this->themeInfo_themeforest->check_countOK_themeforest = count($this->validationResults_themeforest['en']->check_successes);
-		$this->themeInfo_themeforest->criticalCount_themeforest = count($this->validationResults_themeforest['en']->check_critical);
-		$this->themeInfo_themeforest->warningsCount_themeforest = count($this->validationResults_themeforest['en']->check_warnings);
-		$this->themeInfo_themeforest->infoCount_themeforest = count($this->validationResults_themeforest['en']->check_info);
-		$this->themeInfo_themeforest->check_count_themeforest = $this->themeInfo_themeforest->check_countOK_themeforest + 
-																														$this->themeInfo_themeforest->criticalCount_themeforest + 
-																														$this->themeInfo_themeforest->warningsCount_themeforest + 
-																														$this->themeInfo_themeforest->infoCount_themeforest;
-		if ($this->themeInfo_themeforest->check_count_themeforest > 0) {
-			$this->themeInfo_themeforest->score_themeforest = 100 - $this->themeInfo_themeforest->warningsCount_themeforest - 20 * $this->themeInfo_themeforest->criticalCount_themeforest;
-			if ($this->themeInfo_themeforest->score_themeforest < 0) $this->themeInfo_themeforest->score_themeforest = 0;
+		$this->themeInfo_themeforest->check_countOK = count($this->validationResults_themeforest['en']->check_successes);
+		$this->themeInfo_themeforest->criticalCount = count($this->validationResults_themeforest['en']->check_critical);
+		$this->themeInfo_themeforest->warningsCount = count($this->validationResults_themeforest['en']->check_warnings);
+		$this->themeInfo_themeforest->infoCount = count($this->validationResults_themeforest['en']->check_info);
+		$this->themeInfo_themeforest->check_count = $this->themeInfo_themeforest->check_countOK + 
+																								$this->themeInfo_themeforest->criticalCount + 
+																								$this->themeInfo_themeforest->warningsCount + 
+																								$this->themeInfo_themeforest->infoCount;
+		if ($this->themeInfo_themeforest->check_count > 0) {
+			$this->themeInfo_themeforest->score = 100 - $this->themeInfo_themeforest->warningsCount - 20 * $this->themeInfo_themeforest->criticalCount;
+			if ($this->themeInfo_themeforest->score < 0) $this->themeInfo_themeforest->score = 0;
 		}
-		else $this->themeInfo_themeforest->score_themeforest = 0.0;
+		else $this->themeInfo_themeforest->score = 0.0;
 	}
 }
 ?>
