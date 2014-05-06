@@ -157,12 +157,24 @@ class Controller_results
 					</div>
 					<?php	if ($this->fileValidator->themeInfo->isThemeForest)	{ ?>
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="#standard" data-toggle="tab">Wordpress standard : <?php echo intval($this->fileValidator->themeInfo->score); ?> %</a></li>
-						<li><a href="#themeforest" data-toggle="tab">Themeforest standard : <?php echo intval($this->fileValidator->themeInfo_themeforest->score); ?> %</a></li>
+						<li class="active"><a href="#standard" data-toggle="tab"><?php echo __("Themecheck rules")." : ";
+							$score = $this->fileValidator->themeInfo->score;
+							$color = 'ff1427';
+							if ($score > 95) $color = 'cbd715';
+							else if ($score > 80) $color = 'ff8214';
+							echo '<span style="color:#'.$color.'">'.intval($score).' %</span>';?></a></li>
+						<li><a href="#themeforest" data-toggle="tab"><?php echo __("Themeforest rules")." : ";
+							$score = $this->fileValidator->themeInfo_themeforest->score;
+							$color = 'ff1427';
+							if ($score > 95) $color = 'cbd715';
+							else if ($score > 80) $color = 'ff8214';
+							echo '<span style="color:#'.$color.'">'.intval($score).' %</span>';?></a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="standard"><?php $this->renderRulesSet($this->fileValidator->themeInfo, $this->validationResults);?></div>
-						<div class="tab-pane" id="themeforest"><?php $this->renderRulesSet($this->fileValidator->themeInfo_themeforest,$this->fileValidator->getValidationResultsThemeForest(I18N::getCurLang()));?></div>
+						<div class="tab-pane" id="themeforest"><br/><?php 
+						echo __('This is a ThemeForest theme. Since Themeforest items are all checked by a human before they appear on their website, ThemeForest verification rules are more permissive than themecheck&#39;s and can give a better verification score ( <a href="http://support.envato.com/index.php?/Knowledgebase/Article/View/472/85/wordpress-theme-submission-requirements" rel="nofollow">Themeforest requirements</a> ).');
+						$this->renderRulesSet($this->fileValidator->themeInfo_themeforest,$this->fileValidator->getValidationResultsThemeForest(I18N::getCurLang()));?></div>
 					</div>
 					<?php } else {$this->renderRulesSet($this->fileValidator->themeInfo, $this->validationResults); }?>
 				</div>
@@ -375,7 +387,12 @@ if (USE_DB)
 								if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
 								else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
 							$characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
-							if (!empty($themeInfo->themeUri)) $characteristics[] = array(__("Theme URI"), '<a href="'.htmlspecialchars($themeInfo->themeUri).'&ref=peol">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+							if (!empty($themeInfo->themeUri)) {
+								if (strpos($themeInfo->themeUri,'themeforest.net')!==false)
+									$characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'?ref=peol">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+								else 
+									$characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+							}
 							if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
 							if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
 							if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));

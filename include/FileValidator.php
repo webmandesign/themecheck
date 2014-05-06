@@ -671,7 +671,9 @@ class FileValidator
 													'BADTHINGS_VARIABLEFUNC',
 													'MALWARE1',
 													'EDITORSTYLE',
-													'IFRAMES');
+													'IFRAMES',
+													'CUSTOM_HEADER',
+													'CUSTOM_BACKGROUND');
 		
 		foreach($ExistingLangs as $l)
 		{

@@ -328,9 +328,12 @@ class ThemeInfo
 		$this->filesIncluded = trim($this->filesIncluded, " ,");
 		
 		// get themeforest url
+		
 		if ($this->isThemeForest)
 		{
-			$url = 'http://marketplace.envato.com/api/edge/search:themeforest,wordpress,'.urlencode($this->name).'.json';
+			preg_match('/[ 0-9a-zA-Z_-]+/', $this->name, $matches, PREG_OFFSET_CAPTURE);
+			$search = trim($matches[0][0]);
+			$url = 'http://marketplace.envato.com/api/edge/search:themeforest,wordpress,'.$search.'.json';
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
