@@ -171,7 +171,7 @@ class ThemeInfo
 
 		$this->themetype = $this->detectThemetype($unzippath);
 		
-		$merchant = $this->getMerchant($unzippath, $zipfilename);
+		$merchant = self::getMerchant($unzippath, $this);
 		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
 		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
 
@@ -326,6 +326,23 @@ class ThemeInfo
 		if ($filetypes['rtf']) $this->filesIncluded .= 'RTF, ';
 
 		$this->filesIncluded = trim($this->filesIncluded, " ,");
+		
+		// get themeforest url
+		if ($this->isThemeForest)
+		{
+			$url = 'http://marketplace.envato.com/api/edge/search:themeforest,wordpress,'.urlencode($this->name).'.json';
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+			$result = json_decode($result);
+			if (!empty($result) && !empty($result->search))
+			{
+				$this->themeUri = $result->search[0]->url;
+			}
+		}
+		
 	//	public $filesIncluded;
 	//	public $modulePositions;
 	//	public $templateParameters;
@@ -391,11 +408,11 @@ class ThemeInfo
 	/** 
 	*		Is theme from a market place such as themeforest or template monster ?
 	**/
-	static public function getMerchant($unzippath, $zipname)
+	static public function getMerchant($unzippath, $themeInfo)
 	{
 		$is_themeforest = false;
 		$is_templatemonster = false;
-
+		$zipname = $themeInfo->zipfilename;
 		if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
 		else if (strpos($themeInfo->themeUri,'themeforest') !== false || strpos($themeInfo->authorUri,'themeforest') !== false) $is_themeforest = true;
 		else if (strpos($zipname,'templatemonster')!== false || strpos($zipname,'template_monster')!== false || strpos($zipname,'template monster')!== false) $is_templatemonster = true;
