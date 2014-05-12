@@ -52,8 +52,7 @@ class Controller_home
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
 		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
 		if ($themeInfo["isThemeForest"]){
-			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
-			
+			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px;float:left;" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
 		}
 		$html .= '<div style="width:33px;height:40px;float:right;">';
 		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
