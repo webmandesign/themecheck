@@ -54,10 +54,14 @@ class Controller_home
 		if ($themeInfo["isThemeForest"]){
 			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px;float:left;" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
 		}
-		$html .= '<div style="">';
+		$html .= '<div class="dshield">';
 		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
 		$html .= '</div>';
-		$html .= '<span style="width:150px;overflow:hidden;display:inline-block">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+		if ($themeInfo["isThemeForest"]){
+			$html .= '<span class="stext">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+		} else {
+			$html .= '<span class="stext" style="width:170px;">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+		}
 		$html .= '</div>';
 		$html .= '</div>';
 		
