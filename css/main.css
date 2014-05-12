@@ -103,5 +103,17 @@ a .div240{
 
 .btn-primary:hover {border-color : #8c980e;}
 
+div.validated-theme{
+	width:220px;
+	height:220px;
+	display:inline-block;
+	text-align:center;
+	margin:10px 32px;
+}
 
+div.validated-theme div div{
+	width:33px;
+	height:40px;
+	float:right;
+}
 

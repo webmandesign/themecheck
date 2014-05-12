@@ -48,16 +48,16 @@ class Controller_home
 		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
 		
-		$html .= '<div style="width:220px;height:220px;display:inline-block;text-align:center;margin:10px 32px" class="validated-theme" data-id="'.$themeInfo['id'].'">';
+		$html .= '<div style="" class="validated-theme" data-id="'.$themeInfo['id'].'">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
 		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
 		if ($themeInfo["isThemeForest"]){
 			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px;float:left;" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
 		}
-		$html .= '<div style="width:33px;height:40px;float:right;">';
+		$html .= '<div style="">';
 		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
 		$html .= '</div>';
-		$html .= htmlspecialchars($themeInfo['name']).'<br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
+		$html .= '<span style="width:150px;overflow:hidden;display:inline-block">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
 		$html .= '</div>';
 		$html .= '</div>';
 		
