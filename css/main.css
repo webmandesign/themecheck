@@ -111,6 +111,18 @@ div.validated-theme{
 	margin:10px 32px;
 }
 
+div.vts{
+	width:220px;
+	height:40px;
+	margin:3px 0 0 0;
+	text-align:left;
+	line-height:18px;
+	padding:0 7px;
+	overflow:hidden;
+	white-space:nowrap;
+	font-size : 12px;
+}
+ 
 span.stext{
 	width:150px;
 	overflow:hidden;

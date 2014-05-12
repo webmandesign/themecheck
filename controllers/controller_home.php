@@ -48,9 +48,9 @@ class Controller_home
 		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
 		
-		$html .= '<div style="" class="validated-theme" data-id="'.$themeInfo['id'].'">';
+		$html .= '<div class="validated-theme" data-id="'.$themeInfo['id'].'">';
 		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
-		$html .= '<div style="width:220px;height:40px;margin:3px 0 0 0;text-align:left;line-height:18px;padding:0 7px;overflow:hidden;white-space:nowrap;font-size : 12px;">';
+		$html .= '<div class="vts">';
 		if ($themeInfo["isThemeForest"]){
 			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px;float:left;" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
 		}
