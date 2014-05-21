@@ -24,7 +24,7 @@ class Tags extends Check
     {
 			$this->title = __all("Tags");
 			$this->checks = array(
-						new Tags_Checker('TAGS', TT_WORDPRESS, ERRORLEVEL_CRITICAL, __all('Tags display'), null, 'ut_tags.zip'),
+						new Tags_Checker('TAGS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Tags display'), null, 'ut_tags.zip'),
 			);
     }
 }

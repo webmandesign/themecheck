@@ -52,6 +52,7 @@ class FileValidator
             "PHPShort",
             "Worms",
 						"MandatoryFiles",
+						"OptionalFiles",
 						"LineEndings",
 						"AdminMenu",
 						"Artisteer",
@@ -494,6 +495,8 @@ class FileValidator
 	**/
 	public function validate($checkId = 'ALL')
 	{
+		$start_time_checker = microtime(true);
+		
 		// prepare checks
 		foreach (self::$checklistCommon as $check)
 		{
@@ -584,6 +587,7 @@ class FileValidator
 			foreach($check_info as $checkpart_multi) $this->validationResults[$l]->check_info[] = $checkpart_multi->getMonolingual($l);
 			foreach($check_undefined as $checkpart_multi) $this->validationResults[$l]->check_undefined[] = $checkpart_multi->getMonolingual($l);
 		}
+		$this->duration = microtime(true) - $start_time_checker;
 	}
 	
 	public function getValidationResults($lang)

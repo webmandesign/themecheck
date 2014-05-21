@@ -12,12 +12,12 @@ class CommentReply_Checker extends CheckPart
         
         if ( ! preg_match( $this->code[0], $php ) ) {
             if ( ! preg_match( $this->code[1], $php ) ) {
-                $this->messages[] = __all('Could not find the <strong>comment-reply</strong> script enqueued.');
+                $this->messages[] = __all('Could not find the <strong>comment-reply</strong> js script enqueued.');
                 $this->errorLevel = $this->threatLevel;
             }
             else
             {
-                $this->messages[] = __all('Could not find the <strong>comment-reply</strong> script enqueued, however a reference to \'comment-reply\' was found. Make sure that the comment-reply script is being enqueued properly on singular pages.');
+                $this->messages[] = __all('Could not find the <strong>comment-reply</strong> script enqueued, however a reference to \'comment-reply\' was found. Make sure that the comment-reply js script is being enqueued properly on singular pages.');
 								$this->errorLevel = ERRORLEVEL_WARNING;
 						}
         }
