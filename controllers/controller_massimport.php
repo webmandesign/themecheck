@@ -125,7 +125,7 @@ class Controller_massimport
 		<script>
 		var zips = new Array();
 		var zip_index = 0;
-		var theme_id_sart = 3000;
+		var theme_id_sart = 2500;
 		var theme_id = theme_id_sart;
 		<?php 
 		$a = array_keys($fileszip);

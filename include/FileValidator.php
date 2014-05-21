@@ -108,50 +108,63 @@ class FileValidator
 		if($this->themeInfo == null) return false;	
 		
 		// save thumbnail
-		$imgfile = '';
-
+		$thumbfile = '';
+		$all_images = array();
+		
 		foreach ($this->otherfiles as $fullpath=>$content)
 		{
 			$path_parts = pathinfo($fullpath);
 			$basename = $path_parts['basename'];
 			
-			if (($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) && $basename == "screenshot.png") $imgfile = $fullpath;
-			if ($this->themeInfo->themetype == TT_JOOMLA && $basename == "template_thumbnail.png") $imgfile = $fullpath;
+			if (($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) && $basename == "screenshot.png") {$thumbfile = $fullpath; $all_images[] = $fullpath;}
+			if ($this->themeInfo->themetype == TT_JOOMLA)
+			{
+				if ($basename == "template_thumbnail.png") {$thumbfile = $fullpath; $all_images[] = $fullpath;}
+				else if (preg_match("/^template_preview[_0-9a-zA-z\.\-]*\.(gif|jpg|png|jpeg)$/", $basename)) $all_images[] = $fullpath;
+			}
 		}
 			
-		if (empty( $imgfile ))
+		if (empty( $thumbfile ))
 		{
 			if ($this->themeInfo->themetype == TT_WORDPRESS ) { UserMessage::enqueue(__("Mandatory thumbnail file screenshot.png is missing"), ERRORLEVEL_CRITICAL);return false;}
 			if ($this->themeInfo->themetype == TT_JOOMLA) {UserMessage::enqueue(__("Mandatory thumbnail file template_thumbnail.png is missing"), ERRORLEVEL_CRITICAL);return false;}
 			if ($this->themeInfo->themetype == TT_WORDPRESS_CHILD)
 			{
 				// thumbnail isn't mandatory in child theme, get the generic one
-				$imgfile = TC_ROOTDIR.'/img/default_wordpress.png';
+				$thumbfile = TC_ROOTDIR.'/img/default_wordpress.png';
 			}
 		}
 
-		list($width_src, $height_src) = getimagesize($imgfile);
+		// save thumbnail for front-end display (even if not serializable since we want to display a thumbnail on the results page)
+		list($width_src, $height_src) = getimagesize($thumbfile);
 		$width = 206;
 		$height = intval(($height_src * $width) / $width_src);
-		$image_p = imagecreatetruecolor($width,$height);
-		$image_src = imagecreatefrompng($imgfile);
+		$image_p = imagecreatetruecolor($width, $height);
+		
+		$image_src = imagecreatefrompng($thumbfile);
 		imagecopyresampled($image_p, $image_src, 0, 0, 0, 0, $width, $height, $width_src, $height_src); // resample and copy image. Since the image is shown on page results, resample even if same size, to avoid potential hacks.
+		
 		// 1 : save for front-end display (even if not serializable since we want to display a thumbnail on the results page)
 		$savedirectory_img = ThemeInfo::getPublicDirectory($this->themeInfo->hash);
 		if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
 		imagepng($image_p, $savedirectory_img.'/thumbnail.png');
-		// 2 : save the same pic in the vault
-		if ($this->themeInfo->serializable)
-		{
-			$savedirectory_img = ThemeInfo::getReportDirectory($this->themeInfo->hash);
-			if (!file_exists($savedirectory_img)) mkdir($savedirectory_img, 0774, true);
-			imagepng($image_p, $savedirectory_img.'/thumbnail.png');
-		}
-
+		
 		// if theme is not serializable (duplicate theme name from different users, etc.)
 		if (!$this->themeInfo->serializable) return false;
 		
-		$this->themeInfo->imagePath = realpath($savedirectory_img.'/thumbnail.png');
+		// 2 : save all images in the vault
+		$this->themeInfo->images = array();
+		foreach($all_images as $img)
+		{
+			$imginfo = getimagesize($img);
+			$path_parts = pathinfo($img);
+			if ($imginfo !== false && $imginfo[0] >= 64 && $imginfo[1] >= 64) // check we havee an actual image and it is big enough
+			{
+				$img_dst = realpath($savedirectory_img).'/'.$path_parts['basename'];
+				copy($img, $img_dst);
+				$this->themeInfo->images[] = $img_dst;
+			}
+		}
 
 		// save meta data
 		if (USE_DB) {

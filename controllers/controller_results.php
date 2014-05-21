@@ -396,6 +396,11 @@ if (USE_DB)
 							if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
 							if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
 							if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
+							if (!empty($themeInfo->layout)) {
+								if ($themeInfo->layout == 1) $characteristics[] = array(__("Layout"), __("Fixed"));
+								else if ($themeInfo->layout == 2) $characteristics[] = array(__("Layout"), __("Fluid"));
+								else if ($themeInfo->layout == 3) $characteristics[] = array(__("Layout"), __("Responsive"));
+							}
 							if (!empty($themeInfo->copyright))$characteristics[] = array(__("Copyright"), htmlspecialchars($themeInfo->copyright));
 							if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), date("Y-m-d", $themeInfo->creationDate));
 							if (!empty($themeInfo->modificationDate))$characteristics[] = array(__("Last file update"), date("Y-m-d", $themeInfo->modificationDate));

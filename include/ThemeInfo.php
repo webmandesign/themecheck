@@ -46,6 +46,7 @@ class ThemeInfo
 	public $authorUri;
 	public $authorMail;
 	public $tags;
+	public $layout; // 0 : undefined, 1 : fixed, 2 : fluid, 3 : responsive
 	
 	public $copyright;
 	public $creationDate;
@@ -87,6 +88,7 @@ class ThemeInfo
 		$this->zipfilesize = $zipfilesize;
 		$this->userIp = $_SERVER['REMOTE_ADDR'];
 		if ($this->userIp == '::1') $this->userIp = '127.0.0.1';
+		$this->layout = 0;
 		
 		$rawlicense = '';
 		
@@ -219,13 +221,22 @@ class ThemeInfo
 					if ( preg_match('/[ \t\/*#]*Version:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->version = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*License:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $rawlicense = trim($match[1]);
 					if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
-					if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) $this->tags = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Tags:(.*)$/mi', 				$file_content, $match) && !empty($match) && count($match)==2) 
+					{
+						$this->tags = trim($match[1]);
+						
+						// layout
+						if (strpos($this->tags, 'fixed-layout') !== false) $this->layout = 1;
+						if (strpos($this->tags, 'fluid-layout') !== false) $this->layout = 2;
+						if (strpos($this->tags, 'responsive-layout') !== false) $this->layout = 3;
+					}
+					
 					if ($this->themetype == TT_WORDPRESS_CHILD && preg_match('/[ \t\/*#]*Template:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->parentName = trim($match[1]);
 					// creation date can come from an external source. Happens with massimport where creation date is in csv files.
 					global $g_creationDate;
 					$this->creationDate = $g_creationDate;
 			}
-			$this->cmsVersion = "3.8";
+			$this->cmsVersion = "3.9.1";
 		}
 		
 		if ($this->themetype == TT_JOOMLA)
@@ -287,6 +298,13 @@ class ThemeInfo
 								else $this->cmsVersion = "1.5";
 							}
 							if ($xml->getName() == 'mosinstall') $this->cmsVersion = "1.0";
+							
+							// layout
+							if (!empty($this->description)) {
+								if (stripos($this->description, 'fluid') !== false) $this->layout = 2;
+								if (stripos($this->description, 'responsive') !== false) $this->layout = 3;
+							}
+						
 						}  else {
 							UserMessage::enqueue(__("templateDetails.xml does not have a mosinstall, extension or install or node"), ERRORLEVEL_FATAL);
 							return false;
