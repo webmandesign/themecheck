@@ -25,7 +25,7 @@ define("TC_LICENSE_APACHE", 					17);
 define("TC_LICENSE_CDDL",							18);
 define("TC_LICENSE_ECLIPSE", 					19);
 
-/** 
+/**
 *		Store theme info and metadata
 **/
 class ThemeInfo
@@ -40,20 +40,21 @@ class ThemeInfo
 	public $userIp;// ip of poster
 	public $name;
 	public $author;
-	public $description;
+	public $description; // HTML description
+	public $descriptionBB; // description encoded in BB-code
 	public $themeUri;
 	public $version;
 	public $authorUri;
 	public $authorMail;
 	public $tags;
 	public $layout; // 0 : undefined, 1 : fixed, 2 : fluid, 3 : responsive
-	
+
 	public $copyright;
 	public $creationDate;
 	public $modificationDate;
 	public $validationDate;
 	public $serializable;
-	
+
 	public $license;
 	public $licenseUri;
 	public $licenseText;
@@ -62,14 +63,13 @@ class ThemeInfo
 	public $filesIncluded;
 	public $modulePositions;
 	public $templateParameters;
-	public $imagePath;//path of the snaphsot
+	public $images;// thumbnails and snapshots
 	public $parentName;
 	public $parentId;
 	public $validation_timestamp; // Unix timestamp
-	
 	public $isTemplateMonster;
-	public $isThemeForest;
-	
+	public $isThemeForest;	
+
 	public function __construct($hash)
 	{
 		$this->hash = $hash;
@@ -77,8 +77,8 @@ class ThemeInfo
 		$this->parentName = null;
 		$this->parentId = null;
 	}
-			
-	/** 
+
+	/**
 	*		Analyze an unzipped theme and get metadata
 	**/
 	public function initFromUnzippedArchive($unzippath, $zipfilename, $zipmimetype, $zipfilesize)
@@ -89,9 +89,8 @@ class ThemeInfo
 		$this->userIp = $_SERVER['REMOTE_ADDR'];
 		if ($this->userIp == '::1') $this->userIp = '127.0.0.1';
 		$this->layout = 0;
-		
 		$rawlicense = '';
-		
+
 		// list of meaningful files in themes
 		// txt, csv, etc. are meaningless
 		$filetypes = array(	'css'=>false,
@@ -138,9 +137,9 @@ class ThemeInfo
 				}
 			}
 		}
-		
+
 		if (count($nestedzipfiles)>0 && $indexphp_count==0)
-		{		
+		{
 			$curpath = trim($unzippath,"\\/");
 			if (strpos($curpath, '_tc_parentzip') !== false) // prevent infinite looping
 			{
@@ -194,9 +193,9 @@ class ThemeInfo
 				if ($basename == 'style.css')
 				{
 					if (empty($style_css)) $style_css = $filename;
-					else if (strlen($filename) < strlen($style_css)) $style_css = $filename;					
+					else if (strlen($filename) < strlen($style_css)) $style_css = $filename;
 				}
-				
+
 				if (isset($path_parts['extension'])) {
 					$ext = strtolower(trim($path_parts['extension']));
 					if (isset($filetypes[$ext])) $filetypes[$ext] = true;
@@ -208,13 +207,16 @@ class ThemeInfo
 				return false;
 			} else {
 				$file_content = file_get_contents($style_css);
-					
+
 					if ( preg_match('/[ \t\/*#]*Theme Name:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->name = trim($match[1]);
 					else {
 						UserMessage::enqueue(__("style.css does not contain Theme name. Theme name is mandatory."), ERRORLEVEL_FATAL);
 						return false;
 					}
-					if ( preg_match('/[ \t\/*#]*Description:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->description = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Description:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2){
+                        $this->descriptionBB = trim(strip_tags(Helpers::encodeBB($match[1])));
+                        $this->description = Helpers::decodeBB($this->descriptionBB);
+                    }
 					if ( preg_match('/[ \t\/*#]*Author:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->author = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Theme URI:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->themeUri = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Author URI:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->authorUri = trim($match[1]);
@@ -238,14 +240,14 @@ class ThemeInfo
 			}
 			$this->cmsVersion = "3.9.1";
 		}
-		
+
 		if ($this->themetype == TT_JOOMLA)
 		{
 			foreach( $files as $key => $filename ) {
 				$path_parts = pathinfo($filename);
 				$basename = $path_parts['basename'];
 				if ($basename == 'templateDetails.xml')
-				{					
+				{
 						libxml_use_internal_errors(true);
 						$xml = simplexml_load_file($filename);
 						if (count(libxml_get_errors()) > 0 )
@@ -258,7 +260,7 @@ class ThemeInfo
 							return false;
 							libxml_clear_errors();
 						}
-						
+
 						if (empty($xml)) {
 							UserMessage::enqueue(__("templateDetails.xml is empty or contains malformed xml"), ERRORLEVEL_FATAL);
 							return false;
@@ -271,7 +273,10 @@ class ThemeInfo
 								UserMessage::enqueue(__("templateDetails.xml does not have a name tag. name is mandatory."), ERRORLEVEL_FATAL);
 								return false;
 							}
-							if(!empty($xml->description)) $this->description = (string)$xml->description;
+							if(!empty($xml->description)){
+																$this->descriptionBB = trim(strip_tags(Helpers::encodeBB((string)$xml->description)));
+																$this->description = Helpers::decodeBB($this->descriptionBB);
+                            }
 							if(!empty($xml->author)) $this->author = (string)$xml->author;
 							if(!empty($xml->authorUrl)) $this->authorUri = (string)$xml->authorUri;
 							if(!empty($xml->authorMail)) $this->authorUri = (string)$xml->authorMail;
@@ -286,7 +291,7 @@ class ThemeInfo
 							if(!empty($xml->license)) {
 								$rawlicense = (string)$xml->license;
 							}
-							
+
 							if ($xml->getName() == 'extension') {
 								$attrs = $xml->attributes();
 								if (isset($attrs["version"])) $this->cmsVersion = (string)$attrs["version"];
@@ -330,9 +335,9 @@ class ThemeInfo
 		}
 		if (empty($this->licenseUri)) $this->licenseUri = self::getLicenseUri($this->license);
 		if ($this->license == TC_LICENSE_CUSTOM) $this->licenseText = $rawlicense;
-		
+
 		$this->hasBacklinKey = false;
-		
+
 		if ($filetypes['css']) $this->filesIncluded .= 'CSS, ';
 		if ($filetypes['php']) $this->filesIncluded .= 'PHP, ';
 		if ($filetypes['html'] || $filetypes['phtml'] || $filetypes['htm']) $this->filesIncluded .= 'HTML, ';
@@ -363,15 +368,10 @@ class ThemeInfo
 				$this->themeUri = $result->search[0]->url;
 			}
 		}
-		
-	//	public $filesIncluded;
-	//	public $modulePositions;
-	//	public $templateParameters;
-	//	public $imagePath;
 		return true;
 	}
-		
-	/** 
+
+	/**
 	*		Auto detect theme type
 	**/
 	static public function detectThemetype($unzippath)
@@ -380,7 +380,7 @@ class ThemeInfo
 
 		$score_wordpress = 0;
 		$score_joomla = 0;
-		
+
 		$hasparenttemplate = false;
 		$stylecss = false;
 		$indexphp = false;
@@ -392,7 +392,7 @@ class ThemeInfo
 				if ($basename == 'style.css')
 				{
 					$file_content = file_get_contents($filename);
-					
+
 					if ( preg_match('/[ \t\/*#]*Theme Name:/i', $file_content) | preg_match('/[ \t\/*#]*Description:/i', $file_content) | preg_match('/[ \t\/*#]*Author:/i', $file_content) )
 					{
 						$score_wordpress ++;
@@ -408,7 +408,7 @@ class ThemeInfo
 				if ($basename == 'templatedetails.xml') UserMessage::enqueue(__("Invalid joomla template. templatedetails.xml found. Please rename it templateDetails.xml (capital D)"), ERRORLEVEL_FATAL);
 				if ($basename == 'template_thumbnail.png') $score_joomla ++;
 				if ($basename == 'template_preview.png') $score_joomla ++;
-				if ($basename == 'index.php') 
+				if ($basename == 'index.php')
 				{
 					$file_content = file_get_contents($filename);
 					if ( preg_match('/get_header\s?\(\s?\)/', $file_content) && preg_match('/get_footer\s?\(\s?\)/', $file_content) ) $score_wordpress ++;
@@ -455,14 +455,14 @@ class ThemeInfo
 		else if ($is_templatemonster) return 'templatemonster';
 		else return null;
 	}
-	
-	/** 
+
+	/*
 	*		Gets the report path of an item from its hash.
 	**/
 	static public function getReportDirectory($hash)
 	{
 		$path = TC_VAULTDIR.'/reports';
-		
+
 		// split directory tree to avoid huge directories that are so slow in FTP
 		$path1 = substr($hash, 0, 2);
 		$path2 = substr($hash, 2, 2);
@@ -470,15 +470,15 @@ class ThemeInfo
 		$path = $path.'/'.$path1.'/'.$path2.'/'.$path3;
 
 		return $path;
-	}	
-	
-	/** 
+	}
+
+	/**
 	*		Gets the public path of an item from its hash.
 	**/
 	static public function getPublicDirectory($hash)
 	{
 		$path = TC_ROOTDIR.'/dyn';
-		
+
 		// split directory tree to avoid huge directories that are so slow in FTP
 		$path1 = substr($hash, 0, 2);
 		$path2 = substr($hash, 2, 2);
@@ -486,9 +486,9 @@ class ThemeInfo
 		$path = $path.'/'.$path1.'/'.$path2.'/'.$path3;
 
 		return $path;
-	}	
-	
-	/** 
+	}
+
+	/**
 	*		Test license recognition width different patterns
 	**/
 	static public function testLicence()
@@ -558,7 +558,7 @@ class ThemeInfo
 							 'epl-1.0' => TC_LICENSE_ECLIPSE,
 							 'my own license' => TC_LICENSE_CUSTOM,
 							 '' => TC_LICENSE_NONE,
-							);	
+							);
 		foreach ($t as $k => $v)
 		{
 			$a = self::getLicense($k);
@@ -567,15 +567,15 @@ class ThemeInfo
 			echo '&nbsp;'.self::getLicenseName($a).' -> '.$k.'<br>';
 		}
 	}
-	
-	/** 
+
+	/**
 	*		Search a string for a regular license
 	**/
 	static public function getLicense($rawString)
 	{
 		$ret = TC_LICENSE_CUSTOM;
 		if (empty($rawString)) $ret = TC_LICENSE_NONE;
-		else if ( preg_match('/\b(CC|Creative[-_ \t]?Common[s]?).*BY[-_ \t]?NC[-_ \t]?SA\b/i', $rawString, $match)) $ret = TC_LICENSE_CC_BY_NC_SA; 
+		else if ( preg_match('/\b(CC|Creative[-_ \t]?Common[s]?).*BY[-_ \t]?NC[-_ \t]?SA\b/i', $rawString, $match)) $ret = TC_LICENSE_CC_BY_NC_SA;
 		else if ( preg_match('/\b(CC|Creative[-_ \t]?Common[s]?).*BY[-_ \t]?NC[-_ \t]?ND\b/i', $rawString, $match)) $ret = TC_LICENSE_CC_BY_NC_ND;
 		else if ( preg_match('/\b(CC|Creative[-_ \t]?Common[s]?).*BY[-_ \t]?SA\b/i', $rawString, $match)) $ret = TC_LICENSE_CC_BY_SA;
 		else if ( preg_match('/\b(CC|Creative[-_ \t]?Common[s]?).*BY[-_ \t]?NC\b/i', $rawString, $match)) $ret = TC_LICENSE_CC_BY_NC;
@@ -598,10 +598,10 @@ class ThemeInfo
 
 		return $ret;
 	}
-	
-	/** 
+
+	/**
 	*		Return URL of a license from license id
-	**/	
+	**/
 	static public function getLicenseUri($licenseId)
 	{
 		$uris = array(TC_LICENSE_NONE 						=> '',
@@ -624,14 +624,14 @@ class ThemeInfo
 									TC_LICENSE_APACHE 					=> 'http://opensource.org/licenses/Apache-2.0',
 									TC_LICENSE_CDDL 						=> 'http://opensource.org/licenses/CDDL-1.0',
 									TC_LICENSE_ECLIPSE 					=> 'http://opensource.org/licenses/EPL-1.0');
-									
+
 		if (isset($uris[$licenseId])) return $uris[$licenseId];
 		return '';
 	}
-	
-	/** 
+
+	/**
 	*		Return the name of a license from license id
-	**/	
+	**/
 	static public function getLicenseName($licenseId)
 	{
 		$names = array(TC_LICENSE_NONE 						=> __('None'),
@@ -654,7 +654,7 @@ class ThemeInfo
 									TC_LICENSE_APACHE 					=> __('Apache'),
 									TC_LICENSE_CDDL 						=> __('CDDL'),
 									TC_LICENSE_ECLIPSE 					=> __('Eclipse'));
-									
+
 		if (isset($names[$licenseId])) return $names[$licenseId];
 		return '';
 	}
