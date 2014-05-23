@@ -116,10 +116,10 @@ class FileValidator
 			$path_parts = pathinfo($fullpath);
 			$basename = $path_parts['basename'];
 			
-			if (($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) && $basename == "screenshot.png") {$thumbfile = $fullpath; $all_images[] = $fullpath;}
+			if (($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD ) && ($basename == "screenshot.png" || $basename == "screenshot.jpg")) {$thumbfile = $fullpath; $all_images[] = $fullpath;}
 			if ($this->themeInfo->themetype == TT_JOOMLA)
 			{
-				if ($basename == "template_thumbnail.png") {$thumbfile = $fullpath; $all_images[] = $fullpath;}
+				if ($basename == "template_thumbnail.png" || $basename == "template_thumbnail.jpg") {$thumbfile = $fullpath; $all_images[] = $fullpath;}
 				else if (preg_match("/^template_preview[_0-9a-zA-z\.\-]*\.(gif|jpg|png|jpeg)$/", $basename)) $all_images[] = $fullpath;
 			}
 		}
@@ -141,7 +141,8 @@ class FileValidator
 		$height = intval(($height_src * $width) / $width_src);
 		$image_p = imagecreatetruecolor($width, $height);
 		
-		$image_src = imagecreatefrompng($thumbfile);
+		if (pathinfo($thumbfile, PATHINFO_EXTENSION) == 'png') $image_src = imagecreatefrompng($thumbfile);
+		else $image_src = imagecreatefromjpeg($thumbfile);
 		imagecopyresampled($image_p, $image_src, 0, 0, 0, 0, $width, $height, $width_src, $height_src); // resample and copy image. Since the image is shown on page results, resample even if same size, to avoid potential hacks.
 		
 		// 1 : save for front-end display (even if not serializable since we want to display a thumbnail on the results page)

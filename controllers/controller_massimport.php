@@ -125,7 +125,7 @@ class Controller_massimport
 		<script>
 		var zips = new Array();
 		var zip_index = 0;
-		var theme_id_sart = 100;
+		var theme_id_sart = 145;
 		var theme_id = theme_id_sart;
 		<?php 
 		$a = array_keys($fileszip);
@@ -299,7 +299,7 @@ class Controller_massimport
 					$response["nextId"] = $nextId;
 					
 					$themeInfo = $history->loadThemeFromHash($themeInfo["hash"]);// need an objet and not an array
-					$r = $themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize); // merchant...
+					$r = $themeInfo->initFromUnzippedArchive($unzippath, $themeInfo->zipfilename, $themeInfo->zipmimetype, $themeInfo->zipfilesize); // merchant...
 					$this->fileValidator = new FileValidator($themeInfo);
 					$this->fileValidator->validate();	
 					if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)

@@ -33,7 +33,7 @@ class Screenshot_Checker extends CheckPart
 
         foreach ( $other_files as $other_key => $otherfile )
         {
-            if ( basename( $other_key ) === 'screenshot.png' || preg_match( '/.*themes\/[^\/]*\/screenshot\.png/', $other_key ))
+            if ( basename( $other_key ) === 'screenshot.png' || basename( $other_key ) === 'screenshot.jpg' || preg_match( '/.*themes\/[^\/]*\/screenshot\.(png|jpg)/', $other_key ))
             {
                 $found = true;
                 $this->errorLevel = ERRORLEVEL_SUCCESS;
