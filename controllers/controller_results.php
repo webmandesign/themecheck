@@ -339,6 +339,7 @@ if (USE_DB)
 									?>
 									</p>
 									<?php echo __("Display this score on your website with the following HTML code that links to this page :");?>
+									<p style="color:red"><i>( corrected 2014-06-09 )</i></p>
 									<pre style="font-size:11px;width:70%;margin:auto;"><?php echo htmlspecialchars('<iframe src="'.TC_HTTPDOMAIN.'/score.php?lang='.I18N::getCurLang().'&id='.$themeInfo->hash.'&size=big" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:240px; width:200px;" allowTransparency="true"></iframe>');?></pre>		
 									
 									<button class="btn" data-toggle="collapse" data-target="#moreembedoptions" style="height:20px;padding:1px;font-size:12px">more options</button>

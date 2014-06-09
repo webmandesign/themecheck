@@ -98,8 +98,8 @@ if (preg_match("/^[a-zA-Z0-9]{25}$/", $hash)){
 	{
 		?>
 		<script>
-		var location = window.location.protocol + '//' + window.location.hostname + window.location.pathname + window.location.search;
-		ga('send', 'pageview', location, '<?php if ($themeInfo->themetype == 1 ) echo '[WP] '; if ($themeInfo->themetype == 2 ) echo '[Joomla] ';if ($themeInfo->themetype == 4 ) echo '[WP child] '; echo $themeInfo->namesanitized; ?>');
+		var loc = window.location.protocol + "//" + window.location.hostname + window.location.pathname + window.location.search;
+		ga('send', 'pageview', loc, '<?php if ($themeInfo->themetype == 1 ) echo '[WP] '; if ($themeInfo->themetype == 2 ) echo '[Joomla] ';if ($themeInfo->themetype == 4 ) echo '[WP child] '; echo $themeInfo->namesanitized; ?>');
 		</script>
 		<?php
 	
