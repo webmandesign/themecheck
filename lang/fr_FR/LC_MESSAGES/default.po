@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-05-19 17:28+0100\n"
-"PO-Revision-Date: 2014-05-19 17:28+0100\n"
+"POT-Creation-Date: 2014-06-18 10:07+0100\n"
+"PO-Revision-Date: 2014-06-18 10:08+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -24,11 +24,11 @@ msgstr "Fichier screenshot.png obligatoire introuvable"
 msgid "Mandatory thumbnail file template_thumbnail.png is missing"
 msgstr "Le fichier obligatoire template_thumbnail.png est introuvable"
 
-#: include/FileValidator.php:230
+#: include/FileValidator.php:231
 msgid "No files to upload"
 msgstr "Aucun fichier à télécharger"
 
-#: include/FileValidator.php:239
+#: include/FileValidator.php:240
 #, php-format
 msgid ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
@@ -37,7 +37,7 @@ msgstr ""
 "Impossible de télécharger le fichier. Le fichier est vide ou plus gros que "
 "la taille maximum autorisée (%s Mo)."
 
-#: include/FileValidator.php:258
+#: include/FileValidator.php:259
 #, php-format
 msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
@@ -46,7 +46,7 @@ msgstr ""
 "Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
 "pour les themes web. Le fichier doit être une archive zip."
 
-#: include/FileValidator.php:265
+#: include/FileValidator.php:266
 #, php-format
 msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
@@ -55,30 +55,30 @@ msgstr ""
 "Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
 "L&#39;extension doit être \".zip\"."
 
-#: include/FileValidator.php:271
+#: include/FileValidator.php:272
 #, php-format
 msgid "The uploaded file size exceeds %s."
 msgstr "La taille du fichier téléchargé dépasse %s."
 
-#: include/FileValidator.php:277
+#: include/FileValidator.php:278
 msgid "The uploaded file was only partially uploaded."
 msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
 
-#: include/FileValidator.php:283
+#: include/FileValidator.php:284
 msgid "No file was uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: include/FileValidator.php:425
+#: include/FileValidator.php:426
 msgid "Files under 100 bytes are not accepted. Operation canceled."
 msgstr ""
 "Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
 "Apération annulée."
 
-#: include/FileValidator.php:455 include/ThemeInfo.php:166
+#: include/FileValidator.php:456 include/ThemeInfo.php:167
 msgid "File could not be unzipped."
 msgstr "Fichier n&#39;a pas pu être décompressé."
 
-#: include/FileValidator.php:458 include/ThemeInfo.php:169
+#: include/FileValidator.php:459 include/ThemeInfo.php:170
 msgid "Archive extraction failed. The following exception occured : "
 msgstr ""
 "L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
@@ -110,58 +110,58 @@ msgstr "Erreur : identificant non existant."
 msgid "<pre>Line "
 msgstr "<pre>Ligne"
 
-#: include/ThemeInfo.php:114 include/ThemeInfo.php:118
+#: include/ThemeInfo.php:115 include/ThemeInfo.php:119
 msgid "Cannot list files in archive."
 msgstr "Impossible de lister les fichiers de l'archive."
 
-#: include/ThemeInfo.php:147
+#: include/ThemeInfo.php:148
 msgid "Multiple level nested zip archives are not supported."
 msgstr "Les archives imbriquées sur plusieurs niveaux ne sont pas valides."
 
-#: include/ThemeInfo.php:153
+#: include/ThemeInfo.php:154
 msgid "Nested zip archives are not supported."
 msgstr "Les archives zip imbriquées ne sont pas supportées."
 
-#: include/ThemeInfo.php:183
+#: include/ThemeInfo.php:185
 msgid "Archive is not a valid theme file."
 msgstr "L'archive n'est pas un fichier de theme valide."
 
-#: include/ThemeInfo.php:207
+#: include/ThemeInfo.php:219
 msgid "style.css is missing or misspelled."
 msgstr "Le fichier style.ss est manquant ou mal orthographié."
 
-#: include/ThemeInfo.php:214
+#: include/ThemeInfo.php:226
 msgid "style.css does not contain Theme name. Theme name is mandatory."
 msgstr ""
 "Le fichier style.css ne contient pas le nom du thème. Le nom du thème est "
 "obligatoire."
 
-#: include/ThemeInfo.php:254
+#: include/ThemeInfo.php:269
 msgid ""
 "Malformed xml file templateDetails.xml. Cannot continue. Error details : "
 msgstr ""
 "Erreur dans la structure xml du fichier templateDetails.xml. Opération "
 "annulée. Détails :"
 
-#: include/ThemeInfo.php:263
+#: include/ThemeInfo.php:278
 msgid "templateDetails.xml is empty or contains malformed xml"
 msgstr ""
 "Le fichier templateDetails.xml est vide ou sa structure xml est incorrecte."
 
-#: include/ThemeInfo.php:271
+#: include/ThemeInfo.php:286
 msgid "templateDetails.xml does not have a name tag. name is mandatory."
 msgstr ""
 "Le fichier templateDetails.xml ne contient pas de tag de nom. Le tag de nom "
 "est obligatoire."
 
-#: include/ThemeInfo.php:309
+#: include/ThemeInfo.php:327
 msgid ""
 "templateDetails.xml does not have a mosinstall, extension or install or node"
 msgstr ""
 "Le fichier templateDetails.xml ne contient de noeud mosinstall, extension ou "
 "install."
 
-#: include/ThemeInfo.php:408
+#: include/ThemeInfo.php:429
 msgid ""
 "Invalid joomla template. templatedetails.xml found. Please rename it "
 "templateDetails.xml (capital D)"
@@ -169,83 +169,83 @@ msgstr ""
 "Template joomla invalide. Le fichier templatedetails.xml a été trouvé. "
 "Renommez le templateDetails.xml (D majuscule)"
 
-#: include/ThemeInfo.php:637
+#: include/ThemeInfo.php:658
 msgid "None"
 msgstr "Aucun"
 
-#: include/ThemeInfo.php:638
+#: include/ThemeInfo.php:659
 msgid "Custom"
 msgstr "Propriétaire"
 
-#: include/ThemeInfo.php:639
+#: include/ThemeInfo.php:660
 msgid "Creative Commons"
 msgstr "Creative Commons"
 
-#: include/ThemeInfo.php:640
+#: include/ThemeInfo.php:661
 msgid "Creative Commons BY"
 msgstr "Creative Commons BY"
 
-#: include/ThemeInfo.php:641
+#: include/ThemeInfo.php:662
 msgid "Creative Commons BY SA"
 msgstr "Creative Commons BY SA"
 
-#: include/ThemeInfo.php:642
+#: include/ThemeInfo.php:663
 msgid "Creative Commons BY ND"
 msgstr "Creative Commons BY ND"
 
-#: include/ThemeInfo.php:643
+#: include/ThemeInfo.php:664
 msgid "Creative Commons BY NC"
 msgstr "Creative Commons BY NC"
 
-#: include/ThemeInfo.php:644
+#: include/ThemeInfo.php:665
 msgid "Creative Commons BY NC SA"
 msgstr "Creative Commons BY NC SA"
 
-#: include/ThemeInfo.php:645
+#: include/ThemeInfo.php:666
 msgid "Creative Commons BY NC ND"
 msgstr "Creative Commons BY NC ND"
 
-#: include/ThemeInfo.php:646
+#: include/ThemeInfo.php:667
 msgid "MIT X11"
 msgstr "MIT X11"
 
-#: include/ThemeInfo.php:647
+#: include/ThemeInfo.php:668
 msgid "BSD"
 msgstr "BSD"
 
-#: include/ThemeInfo.php:648
+#: include/ThemeInfo.php:669
 msgid "New BSD"
 msgstr "New BSD"
 
-#: include/ThemeInfo.php:649
+#: include/ThemeInfo.php:670
 msgid "Free BSD"
 msgstr "Free BSD"
 
-#: include/ThemeInfo.php:650
+#: include/ThemeInfo.php:671
 msgid "GNU LGPL 2"
 msgstr "GNU LGPL 2"
 
-#: include/ThemeInfo.php:651
+#: include/ThemeInfo.php:672
 msgid "GNU LGPL 3"
 msgstr "GNU LGPL 3"
 
-#: include/ThemeInfo.php:652
+#: include/ThemeInfo.php:673
 msgid "GNU GPL 2"
 msgstr "GNU GPL 2"
 
-#: include/ThemeInfo.php:653
+#: include/ThemeInfo.php:674
 msgid "GNU GPL 3"
 msgstr "GNU GPL 3"
 
-#: include/ThemeInfo.php:654
+#: include/ThemeInfo.php:675
 msgid "Apache"
 msgstr "Apache"
 
-#: include/ThemeInfo.php:655
+#: include/ThemeInfo.php:676
 msgid "CDDL"
 msgstr "CDDL"
 
-#: include/ThemeInfo.php:656
+#: include/ThemeInfo.php:677
 msgid "Eclipse"
 msgstr "Eclipse"
 
@@ -1605,7 +1605,7 @@ msgstr "SortArrayObjects"
 #: include/Checks/Directories.php:27 include/Checks/File.php:25
 #, php-format
 msgid "<strong>%1$s</strong> was found."
-msgstr "<strong>%1$s</strong>a été trouvé."
+msgstr "<strong>%1$s</strong> a été trouvé."
 
 #: include/Checks/Directories.php:37
 msgid "Unwanted directories"
@@ -2322,7 +2322,7 @@ msgstr "<strong>Author URI</strong> introuvable."
 msgid "This theme doesn't seem to display tags."
 msgstr "Ce theme ne semble pas afficher les tags."
 
-#: include/Checks/Tags.php:25 controllers/controller_results.php:398
+#: include/Checks/Tags.php:25 controllers/controller_results.php:399
 msgid "Tags"
 msgstr "Tags"
 
@@ -2542,8 +2542,8 @@ msgstr ""
 "Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
 "de sites web."
 
-#: controllers/controller_home.php:40 controllers/controller_results.php:366
-#: controllers/controller_results.php:367
+#: controllers/controller_home.php:40 controllers/controller_results.php:367
+#: controllers/controller_results.php:368
 msgid "Wordpress theme"
 msgstr "Theme Wordpress"
 
@@ -2552,8 +2552,8 @@ msgstr "Theme Wordpress"
 msgid "Wordpress %s theme"
 msgstr "Theme Wordpress %s"
 
-#: controllers/controller_home.php:43 controllers/controller_results.php:369
-#: controllers/controller_results.php:370
+#: controllers/controller_home.php:43 controllers/controller_results.php:370
+#: controllers/controller_results.php:371
 msgid "Wordpress child theme"
 msgstr "Theme Wordpress Enfant"
 
@@ -2562,8 +2562,8 @@ msgstr "Theme Wordpress Enfant"
 msgid "Wordpress %s child theme"
 msgstr "Theme Wordpress Enfant %s"
 
-#: controllers/controller_home.php:46 controllers/controller_results.php:377
-#: controllers/controller_results.php:378
+#: controllers/controller_home.php:46 controllers/controller_results.php:378
+#: controllers/controller_results.php:379
 msgid "Joomla template"
 msgstr "Template Joomla"
 
@@ -2816,15 +2816,15 @@ msgid ""
 "to this page :"
 msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
 
-#: controllers/controller_results.php:347
+#: controllers/controller_results.php:348
 msgid "Medium size icon (default) :"
 msgstr "Icône moyenne (défaut) : "
 
-#: controllers/controller_results.php:350
+#: controllers/controller_results.php:351
 msgid "Small size icon :"
 msgstr "Petite icône :"
 
-#: controllers/controller_results.php:352
+#: controllers/controller_results.php:353
 msgid ""
 "You can switch language with <strong>lang</strong> parameter in iframe's "
 "url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
@@ -2835,7 +2835,7 @@ msgstr ""
 "<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
 "strong>."
 
-#: controllers/controller_results.php:358
+#: controllers/controller_results.php:359
 msgid ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
@@ -2843,110 +2843,110 @@ msgstr ""
 "Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
 "et seront perdu quand vous quitterez cette page."
 
-#: controllers/controller_results.php:364
+#: controllers/controller_results.php:365
 msgid "Theme name"
 msgstr "Nom du thème"
 
-#: controllers/controller_results.php:366
 #: controllers/controller_results.php:367
-#: controllers/controller_results.php:369
+#: controllers/controller_results.php:368
 #: controllers/controller_results.php:370
-#: controllers/controller_results.php:377
+#: controllers/controller_results.php:371
 #: controllers/controller_results.php:378
+#: controllers/controller_results.php:379
 msgid "Theme type"
 msgstr "Type de thème"
 
-#: controllers/controller_results.php:373
+#: controllers/controller_results.php:374
 msgid "Parent theme name"
 msgstr "Nom du thème parent"
 
-#: controllers/controller_results.php:379
+#: controllers/controller_results.php:380
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: controllers/controller_results.php:380
+#: controllers/controller_results.php:381
 msgid "File size"
 msgstr "Taille du fichier"
 
-#: controllers/controller_results.php:380
+#: controllers/controller_results.php:381
 msgid "bytes"
 msgstr "octets"
 
-#: controllers/controller_results.php:381
+#: controllers/controller_results.php:382
 msgid "MD5"
 msgstr "MD5"
 
-#: controllers/controller_results.php:382
+#: controllers/controller_results.php:383
 msgid "SHA1"
 msgstr "SHA1"
 
-#: controllers/controller_results.php:384
 #: controllers/controller_results.php:385
-#: controllers/controller_results.php:387
+#: controllers/controller_results.php:386
 #: controllers/controller_results.php:388
+#: controllers/controller_results.php:389
 msgid "License"
 msgstr "Licence"
 
-#: controllers/controller_results.php:389
+#: controllers/controller_results.php:390
 msgid "Files included"
 msgstr "Fichiers inclus"
 
-#: controllers/controller_results.php:392
-#: controllers/controller_results.php:394
+#: controllers/controller_results.php:393
+#: controllers/controller_results.php:395
 msgid "Theme URI"
 msgstr "URI du thème URI"
 
-#: controllers/controller_results.php:396
+#: controllers/controller_results.php:397
 msgid "Version"
 msgstr "Version"
 
-#: controllers/controller_results.php:397
+#: controllers/controller_results.php:398
 msgid "Author URI"
 msgstr "URI de l'auteur"
 
-#: controllers/controller_results.php:400
 #: controllers/controller_results.php:401
 #: controllers/controller_results.php:402
+#: controllers/controller_results.php:403
 msgid "Layout"
 msgstr "Mise en page"
 
-#: controllers/controller_results.php:400
+#: controllers/controller_results.php:401
 msgid "Fixed"
 msgstr "Fixe"
 
-#: controllers/controller_results.php:401
+#: controllers/controller_results.php:402
 msgid "Fluid"
 msgstr "Fluide"
 
-#: controllers/controller_results.php:402
+#: controllers/controller_results.php:403
 msgid "Responsive"
 msgstr "Responsive"
 
-#: controllers/controller_results.php:404
+#: controllers/controller_results.php:405
 msgid "Copyright"
 msgstr "Copyright"
 
-#: controllers/controller_results.php:405
+#: controllers/controller_results.php:406
 msgid "Creation date"
 msgstr "Date de création"
 
-#: controllers/controller_results.php:406
+#: controllers/controller_results.php:407
 msgid "Last file update"
 msgstr "Dernière mise à jour du fichier"
 
-#: controllers/controller_results.php:407
+#: controllers/controller_results.php:408
 msgid "Last validation"
 msgstr "Dernière validation"
 
-#: controllers/controller_results.php:423
+#: controllers/controller_results.php:424
 msgid "Critical alerts"
 msgstr "Alertes critiques"
 
-#: controllers/controller_results.php:437
+#: controllers/controller_results.php:438
 msgid "Warnings"
 msgstr "Alertes"
 
-#: controllers/controller_results.php:451
+#: controllers/controller_results.php:452
 msgid "Info"
 msgstr "Info"
 
@@ -2955,13 +2955,13 @@ msgstr "Info"
 msgid "Unit tests"
 msgstr "Tests unitaires"
 
-#: DB/History.php:65
+#: DB/History.php:62
 #, php-format
 msgid "DB Connexion error : %s"
 msgstr "Erreur de connexion à la BDD : %s"
 
-#: DB/History.php:135 DB/History.php:233 DB/History.php:284 DB/History.php:295
-#: DB/History.php:368
+#: DB/History.php:135 DB/History.php:237 DB/History.php:290 DB/History.php:301
+#: DB/History.php:376
 #, php-format
 msgid "DB error : %s"
 msgstr "Erreur BDD : %s"
@@ -2974,7 +2974,7 @@ msgstr "Ce thème a déjà été soumis."
 msgid "It seems this archive is a new version of the theme \""
 msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 
-#: DB/History.php:238
+#: DB/History.php:242
 msgid "The name \""
 msgstr "Le nom \""
 

@@ -28,7 +28,7 @@ class Helpers
 	*/
 	public static function filterPhp($raw)
 	{
-		$tokens = token_get_all($raw);
+		$tokens = @token_get_all($raw);
 
 		$result = '';
 		foreach ($tokens as $token) {
