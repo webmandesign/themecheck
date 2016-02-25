@@ -20,11 +20,6 @@ namespace ThemeCheck;
 		<meta property="og:description" content="<?php echo $controller->meta["description"]; ?>" />
 		
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/bootstrap.css"/>
-		<style>
-				body {
-						padding-bottom: 20px;
-				}
-		</style>
 <!--		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/main.css">-->
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/styles.css"/>
@@ -42,7 +37,18 @@ namespace ThemeCheck;
 		<script>
 			var domain_site = "<?php echo TC_HTTPDOMAIN; ?>"; 
 		</script>
-		
+		<style>
+				pre
+				{
+					background : #FFF;
+					color : #333;
+					padding : 10px;
+					border-radius: 2px;
+					border : 1px solid #ddd;
+					font-size : 11px;
+					margin-bottom : 2px;
+				}
+		</style>
 	</head>
 	<body>
             <script>

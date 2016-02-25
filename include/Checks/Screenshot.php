@@ -39,19 +39,19 @@ class Screenshot_Checker extends CheckPart
                 $this->errorLevel = ERRORLEVEL_SUCCESS;
                 // we have or screenshot!
                 $image = getimagesize( $other_key );
-                if ( $image[0] > 1920 || $image[1] > 1600 ) {
-                    $this->messages[] = __all('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Recommended size is 880x660px.', $image[0], $image[1]);
+                if ( $image[0] > 1200 || $image[1] > 900 ) {
+                    $this->messages[] = __all('Screenshot is wrong size! Detected: <strong>%1$sx%2$spx</strong>. Maximum allowed size is 1200x900px.', $image[0], $image[1]);
                     $this->errorLevel = $this->threatLevel;
                 }
                 if ( $image[1] / $image[0] != 0.75 ) {
 										$width = $image[0];
 										$height = $image[1];
 										$this->reduc($width, $height);
-                    $this->messages[] = __all('Wrong screenshot dimensions. Detected: <strong>%1$sx%2$spx (%3$s:%4$s)</strong>. Ratio of width to height should be 4:3.', $image[0], $image[1], $width, $height);
+                    $this->messages[] = __all('Screenshot dimensions are wrong! Detected: <strong>%1$sx%2$spx (%3$s:%4$s)</strong>. Ratio of width to height should be 4:3.', $image[0], $image[1], $width, $height);
                     $this->errorLevel = $this->threatLevel;
                 }
-                if ( $image[0] < 600 || $image[1] < 450 ) {
-                    $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Although any 4:3 image size is acceptable, size should be at least 600x450 to account for HiDPI displays.',$image[0], $image[1]);
+                if ( $image[0] < 1200 || $image[1] < 900 ) {
+                    $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Screenshot size should be 1200x900, to account for HiDPI displays. Any 4:3 image size is acceptable, but 1200x900 is preferred.',$image[0], $image[1]);
                     $this->errorLevel = ERRORLEVEL_WARNING;
                 }
                 break;

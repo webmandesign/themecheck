@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class I18NCheck_Checker extends CheckPart
 {
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         
@@ -12,18 +12,17 @@ class I18NCheck_Checker extends CheckPart
 
         // make sure the tokenizer is available
         if ( !function_exists( 'token_get_all' ) ) return true;
-
         foreach ( $php_files as $php_key => $phpfile )
         {
             $error = '';
-            
             $stmts = array();
             
             $search = $phpfile;
-			//while ( ( $pos = strpos($search, $this->code) ) !== false ) {
-			while ( preg_match( '/\s+' . $this->code . '\s*\(/', $search, $matches, PREG_OFFSET_CAPTURE ) ) {
+
+			while ( preg_match( '/' . $this->code . '\(/', $search, $matches, PREG_OFFSET_CAPTURE ) ) {
 				$pos = $matches[0][1];
                 $search = substr($search,$pos);
+				
                 $open=1;
                 $i=strpos($search,'(')+1;
                 while( $open>0 ) {
@@ -41,39 +40,26 @@ class I18NCheck_Checker extends CheckPart
 
             foreach ( $stmts as $match ) {
                 $tokens = @token_get_all('<?php '.$match.';');
-                if (!empty($tokens)) {
-					$before_coma = true; // true if this is the 1st argument of the function
-					
-                    foreach ($tokens as $tkey => $token) {
-						if ($before_coma == true && is_array($token) && in_array( $token[0], array( T_VARIABLE ) ) ) {
-                            $filename = tc_filename( $php_key );
-                            $grep = tc_grep( ltrim( $match ), $php_key );
-                            $error = "";
-                            if(preg_match( '/[^\s]*\s[0-9]+/', $grep, $line))
-                            {
-                                $error = ( !strpos( $error, $line[0] ) ) ? $grep : '';	
-                            }
-							
-							$var_name = $token[1];
-							if(is_array($tokens[$tkey+1]) && $tokens[$tkey+1][0]==T_OBJECT_OPERATOR){
-								$var_name .= $tokens[$tkey+1][1];
-								
-								if(is_array($tokens[$tkey+2]) && $tokens[$tkey+2][0]==T_STRING){$var_name .= $tokens[$tkey+2][1];}
-							
-								if(is_string($tokens[$tkey+3]) && $tokens[$tkey+3]=="["){
-									$var_name .= "[";
-									if(is_array($tokens[$tkey+4]) && $tokens[$tkey+4][0]==T_CONSTANT_ENCAPSED_STRING){$var_name .= $tokens[$tkey+4][1];}
-									if(is_string($tokens[$tkey+5]) && $tokens[$tkey+5]=="]"){$var_name .= "]";}
-								}
+
+				if (!empty($tokens)) {
+					foreach ($tokens as $token) {
+						if (is_array($token) && in_array( $token[0], array( T_VARIABLE ) ) ) {
+							$filename = tc_filename( $php_key );
+							$grep = tc_grep( ltrim( $match ), $php_key );
+							preg_match( '/[^\s]*\s[0-9]+/', $grep, $line);
+							$error = '';
+							if ( isset( $line[0] ) ) {
+								$error = ( !strpos( $error, $line[0] ) ) ? $grep : '';
 							}
-							
-                            $this->messages[] = __all('Possible variable <strong>%1$s</strong> found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s', $var_name, $filename, $error);
+
+							$var_name = $token[1];
+							$this->messages[] = __all('Possible variable %1$s found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s', '<strong>'.$var_name.'</strong>', $filename, $error);
                             $this->errorLevel = $this->threatLevel;
-                            break; // stop looking at the tokens on this line once a variable is found
-                        }
-						if ($token == ',') {$before_coma = false;}
-                    }
-                }
+                            
+							break; // stop looking at the tokens on this line once a variable is found
+						}
+					}
+				}
             }
         }
     }
@@ -95,8 +81,23 @@ class I18NCheck extends Check
 						new I18NCheck_Checker('I18N_ESC_HTML___ALL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html___all(') , 'esc_html__', "ut_i18n_esc_html__.zip"),
 						new I18NCheck_Checker('I18N_ESC_HTML_E', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html_e(') , 'esc_html_e', "ut_i18n_esc_html_e.zip"),
 						new I18NCheck_Checker('I18N_ESC_HTML_X', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Proper use of esc_html_x(') , 'esc_html_x', "ut_i18n_esc_html_x.zip"),
-						new I18NCheck_Checker('I18N_UNDERSCORE', TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of __all(') , '_', "ut_i18n__.zip"),
+						new I18NCheck_Checker('I18N_UNDERSCORE', TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of __all(') , '__all', "ut_i18n__.zip"),
 						new I18NCheck_Checker('I18N_GETTEXT', TT_COMMON, ERRORLEVEL_WARNING, __all('Proper use of gettext(') , 'gettext', "ut_i18n_gettext.zip"),
 			);
     }
+	
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	{
+		$start_time_checker = microtime(true);
+		foreach ($this->checks as &$check)
+		{
+			if ($this->currentThemetype & $check->themetype)
+			{
+				$start_time = microtime(true);
+				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+				$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+			}
+		}	
+		$this->duration = microtime(true) - $start_time_checker;
+	}
 }

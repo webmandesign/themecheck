@@ -66,11 +66,7 @@ class History
 			$this->query_theme_select_olderthan = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE id < :olderthan ORDER BY id DESC limit 0,100');
 			$this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
 			$this->query_theme_select_zipfilename = $this->db->prepare('SELECT id from theme WHERE zipfilename=:zipfilename');
-			/*
-			$this->query_vulndb_select_theme = $this->db->prepare('SELECT * FROM wpvulndb_themes WHERE namedemo=:namedemo AND latest_version=:latest_version');
-			$this->query_vulndb_insert_theme = $this->db->prepare('INSERT INTO wpvulndb_themes (namedemo, latest_version, last_updated, popular) VALUES (:namedemo, :latest_version, :last_updated, :popular)');
-			$this->query_vulndb_update_theme = $this->db->prepare('UPDATE wpvulndb_themes SET last_updated=:last_updated, popular=:popular WHERE namedemo=:namedemo AND latest_version=:latest_version');
-			*/
+
 			$this->query_vulndb_select_vuln = $this->db->prepare('SELECT * FROM wpvulndb_vulnerabilities WHERE id=:id');
 			$this->query_vulndb_insert_vuln = $this->db->prepare('INSERT INTO wpvulndb_vulnerabilities (id, title, created_at, updated_at, published_date, vuln_type, fixed_in, refs) VALUES (:id, :title, :created_at, :updated_at, :published_date, :vuln_type, :fixed_in, :references)');
 			$this->query_vulndb_update_vuln = $this->db->prepare('UPDATE wpvulndb_vulnerabilities SET title=:title, created_at=:created_at, updated_at=:updated_at, published_date=:published_date, published_date=:published_date, vuln_type=:vuln_type, fixed_in=:fixed_in, refs=:references WHERE id=:id');
@@ -149,7 +145,7 @@ class History
 				$this->query_theme_update_score->bindValue(':isPiqpaq', $themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':validationDate', $themeInfo->validationDate, \PDO::PARAM_INT);
-             /*  AJOUT  */      $this->query_theme_update_score->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
+				$this->query_theme_update_score->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
 				
 				$this->query_theme_update_score->bindValue(':id', $id, \PDO::PARAM_INT);
 				$r = $this->query_theme_update_score->execute();
@@ -262,7 +258,7 @@ class History
 						$this->query_theme_update_all->bindValue(':creationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':modificationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':validationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
-                          /*ajout*/             $this->query_theme_update_all->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
+                        $this->query_theme_update_all->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
 						$r = $this->query_theme_update_all->execute();
 						if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
 						{
@@ -386,23 +382,20 @@ class History
 		try {
 			$path = TC_VAULTDIR.'/upload';		
 			$fullname = $path.'/'.$hash.'.zip';
-			$dst = '';
+			$dst = TC_ROOTDIR.'/../themecheck_vault/_no_merchant_db/'.$themeInfo->zipfilename;
 			if ($themeInfo->isThemeForest) $dst = TC_ROOTDIR.'/../themecheck_vault/_e_db/'.$themeInfo->zipfilename;
 			if ($themeInfo->isTemplateMonster) $dst = TC_ROOTDIR.'/../themecheck_vault/_t_db/'.$themeInfo->zipfilename;
 			if ($themeInfo->isCreativeMarket) $dst = TC_ROOTDIR.'/../themecheck_vault/_c_db/'.$themeInfo->zipfilename;
 			if ($themeInfo->isPiqpaq) $dst = TC_ROOTDIR.'/../themecheck_vault/_p_db/'.$themeInfo->zipfilename;
 
-			if (!empty($dst))
+			$path_parts = pathinfo($dst);
+			if (file_exists($path_parts['dirname']))
 			{
-				$path_parts = pathinfo($dst);
-				if (file_exists($path_parts['dirname']))
-				{
-					if (!file_exists($dst))	copy($fullname, $dst);
-					else {
-						$hashsrc = hash_file('md5', $fullname);
-						$hashdst = hash_file('md5', $dst);
-						if ($hashsrc != $hashdst) copy($fullname, $dst);
-					}
+				if (!file_exists($dst))	copy($fullname, $dst);
+				else {
+					$hashsrc = hash_file('md5', $fullname);
+					$hashdst = hash_file('md5', $dst);
+					if ($hashsrc != $hashdst) copy($fullname, $dst);
 				}
 			}
 		}
@@ -537,55 +530,7 @@ class History
 	}
 	
 	public function getIdFromHash($hash)
-	{
-		/*try {
-			$callers = debug_backtrace();
-			if ($callers[1]['function'] == 'clean')
-			{
-				$path = TC_VAULTDIR.'/upload';		
-				$fullname = $path.'/'.$hash.'.zip';
-				$is_themeforest = false;
-				$is_templatemonster = false;
-				if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"]))
-				{
-					$zipname = $_FILES["file"]["name"];
-					if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
-					else if (strpos($zipname,'templatemonster')!== false || strpos($zipname,'template_monster')!== false || strpos($zipname,'template monster')!== false) $is_templatemonster = true;
-					else 
-					{
-						$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$hash;
-						$files = listdir( $unzippath );
-						if ( $files ) {
-							foreach( $files as $key => $filename ) {
-								if ( substr( $filename, -4 ) == '.php' || substr( $filename, -4 ) == '.css' || substr( $filename, -4 ) == '.txt' ){
-									$s = file_get_contents( $filename );
-									if (strpos($s,'envato') !== false || strpos($s,'themeforest') !== false || strpos($s,'theme forest') !== false) $is_themeforest = true;
-									else if (strpos($s,'templatemonster')!== false || strpos($s,'template_monster')!== false || strpos($s,'template monster')!== false) $is_templatemonster = true;
-								}
-							}
-						}
-					}
-				}
-
-				if ($is_themeforest)
-				{
-					if (file_exists(TC_ROOTDIR.'/../themecheck_vault/_e'))
-					{
-						copy($fullname, TC_ROOTDIR.'/../themecheck_vault/_e/'.$_FILES["file"]["name"]);
-					}
-				}
-				if ($is_templatemonster)
-				{
-					if (file_exists(TC_ROOTDIR.'/../themecheck_vault/_t'))
-					{
-						copy($fullname, TC_ROOTDIR.'/../themecheck_vault/_t/'.$_FILES["file"]["name"]);
-					}
-				}
-			}
-		}
-		catch (Exception $e) {}
-		*/
-		
+	{		
 		$query = $this->db->prepare('SELECT id from theme WHERE hash=:hash');
 		$query->bindValue(':hash', $hash, \PDO::PARAM_STR);
 		$query->execute();

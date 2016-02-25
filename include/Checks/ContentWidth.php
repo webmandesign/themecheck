@@ -10,7 +10,7 @@ class ContentWidth_Checker extends CheckPart
         
         // combine all the php files into one string to make it easier to search
         $php = implode( ' ', $php_files );
-        if ( strpos( $php, $this->code ) === false && !preg_match( '/add_filter\(\s?("|\')embed_defaults/', $php ) && !preg_match( '/add_filter\(\s?("|\')content_width/', $php ) ) {
+        if ( strpos( $php, $this->code ) === false && !preg_match( '/add_filter\(\s?("|\')embed_defaults/', $php ) && strpos( $php, '$GLOBALS' . "['content_width']" ) === false && !preg_match( '/add_filter\(\s?("|\')content_width/', $php ) ) {
             $this->messages[] =  __all('No content width has been defined. Example: <pre>if ( ! isset( $content_width ) ) $content_width = 900;</pre>');
             $this->errorLevel = $this->threatLevel;
         }

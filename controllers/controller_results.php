@@ -685,19 +685,10 @@ class Controller_results
                                 <div id="criticalAlerts"></div>
                          
 
-          <!--     LISTES ALERTES    -->                  
+                   
                             <?php
-                            
-                            if(I18N::getCurLang() == 'fr')
-                            {
-                               $patern = "/Ligne/i";
-                               $search = "Ligne";
-                            }
-                            else
-                            {
-                               $patern = "/Line/i";
-                               $search = "Line";
-                            }
+                            $search = __("Line");
+							$pattern = "/".$search."/i";
                                                            
                             if (count($validationResults->check_critical) > 0)
                             {
@@ -715,27 +706,26 @@ class Controller_results
                                 foreach ($validationResults->check_critical as $check)
                                 {     
                                 ?>
-                                                <li><span class="message_alert"><strong><?php echo $check->title; ?> : </strong><?php echo $check->hint; ?></span>
-                                        <?php
-                                                    if (!empty($check->messages)) 
-                                                    {                               
-                                                        foreach($check->messages as $checkMessage)
-                                                        {
-                                                            if(preg_match($patern, $checkMessage))
-                                                            {
-                                                               $nameFile =  substr($checkMessage, 0, strpos($checkMessage, 'php')+3); 
-                                                               $ligneFile = substr($checkMessage, strpos($checkMessage, $search));
-
-                                                               echo '<span class="file_default">'.htmlspecialchars($nameFile).' : </span><span class="line_default"><input type="text" value="'.htmlspecialchars($ligneFile).'"/></span>';
-                                                            }   
-                                                            else
-                                                            {
-                                                                echo $checkMessage;
-                                                            }
-                                                          
-                                                        }
-                                                    }
-                                                echo '<span class="ligne_warning"></span></li>';
+									<li><span class="message_alert"><strong><?php echo $check->title; ?> : </strong><?php echo $check->hint; ?></span>
+									<?php
+										if (!empty($check->messages)) 
+										{                               
+											foreach($check->messages as $checkMessage)
+											{
+												if(preg_match($pattern, $checkMessage))
+												{
+												   $nameFile = substr($checkMessage, 0, strpos($checkMessage, $search));
+												   $ligneFile = substr($checkMessage, strpos($checkMessage, $search));
+												   echo '<span class="info_alert">'.$nameFile.'</span><span class="line_default">'.$ligneFile.'</span>';
+												}    
+												else
+												{
+													echo $checkMessage;
+												}
+											  
+											}
+										}
+									echo '<span class="ligne_warning"></span></li>';
                                 }
                                 
                                          echo '</ol>';
@@ -760,27 +750,25 @@ class Controller_results
                                 foreach ($validationResults->check_warnings as $check)
                                 {    
                                 ?>
-                                                <li><span class="message_alert"><strong><?php echo $check->title.' : </strong>'.$check->hint.'</span>';
-                                                    if (!empty($check->messages)) 
-                                                    {   
-                                                        $checkMessage = "";         
-                                                        foreach($check->messages as $checkMessage)
-                                                        {
-                                                         
-                                                            if(preg_match($patern, $checkMessage))
-                                                            {
-                                                               $nameFile =  substr($checkMessage, 0, strpos($checkMessage, 'php')+3);
-                                                               $ligneFile = substr($checkMessage, strpos($checkMessage, $search));
-
-                                                               echo '<span class="info_alert">'.htmlspecialchars($nameFile).' : </span><span class="line_default"><input type="text" value="'.htmlspecialchars($ligneFile).'"/></span>';
-                                                            }   
-                                                            else
-                                                            {
-                                                               echo '<span class="info_alert">'.$checkMessage.'</span>';
-                                                            }
-                                                        }
-                                                    }
-                                                echo '<span class="ligne_warning"></span></li>';
+									<li><span class="message_alert"><strong><?php echo $check->title.' : </strong>'.$check->hint.'</span>';
+										if (!empty($check->messages)) 
+										{   
+											$checkMessage = "";         
+											foreach($check->messages as $checkMessage)
+											{
+												if(preg_match($pattern, $checkMessage))
+												{
+												   $nameFile = substr($checkMessage, 0, strpos($checkMessage, $search));
+												   $ligneFile = substr($checkMessage, strpos($checkMessage, $search));
+												   echo '<span class="info_alert">'.$nameFile.'</span><span class="line_default">'.$ligneFile.'</span>';
+												}   
+												else
+												{
+												   echo '<span class="info_alert">'.$checkMessage.'</span>';
+												}
+											}
+										}
+									echo '<span class="ligne_warning"></span></li>';
                                 }
                                 
                                         echo '</ol>';
@@ -803,25 +791,24 @@ class Controller_results
                                 foreach ($validationResults->check_info as $check)
                                 {         
                                 ?>
-                                                <li><span class="message_alert"><strong><?php echo $check->title.' : </strong>'.$check->hint.'</span>';
-                                                    if (!empty($check->messages)) 
-                                                    {                               
-                                                        foreach($check->messages as $checkMessage)
-                                                        {
-                                                            if(preg_match($patern, $checkMessage))
-                                                            {
-                                                               $nameFile =  substr($checkMessage, 0, strpos($checkMessage, 'php')+3);
-                                                               $ligneFile = substr($checkMessage, strpos($checkMessage, $search)); 
-
-                                                               echo '<span class="info_alert">'.htmlspecialchars($nameFile).' : </span><span class="line_default"><input type="text" value="'.htmlspecialchars($ligneFile).'"/></span>';
-                                                            }   
-                                                            else
-                                                            {
-                                                               echo '<span class="info_alert">'.$checkMessage.'</span>';
-                                                            }
-                                                        }
-                                                    }
-                                                echo '<span class="ligne_warning"></span></li>';
+									<li><span class="message_alert"><strong><?php echo $check->title.' : </strong>'.$check->hint.'</span>';
+										if (!empty($check->messages)) 
+										{                               
+											foreach($check->messages as $checkMessage)
+											{
+												if(preg_match($pattern, $checkMessage))
+												{
+												   $nameFile = substr($checkMessage, 0, strpos($checkMessage, $search));
+												   $ligneFile = substr($checkMessage, strpos($checkMessage, $search));
+												   echo '<span class="info_alert">'.$nameFile.'</span><span class="line_default">'.$ligneFile.'</span>';
+												}    
+												else
+												{
+												   echo '<span class="info_alert">'.$checkMessage.'</span>';
+												}
+											}
+										}
+									echo '<span class="ligne_warning"></span></li>';
                                 }
                                 
                                         echo '</ol>';
