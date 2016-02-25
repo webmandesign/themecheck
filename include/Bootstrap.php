@@ -28,14 +28,14 @@ if (strpos($url,'localhost/') !== FALSE)
 {
 	$port = '';
 	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
-	define("TC_DOMAIN", 'localhost'.$port.'/PIQPAQ/themecheck');
+	define("TC_DOMAIN", 'localhost'.$port.'/themecheck');
 	define("TC_ENVIRONMENT", 'dev'); 
 }
 else if (strpos($url,'192.168.2.89/') !== FALSE)
 {
 	$port = '';
 	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
-	define("TC_DOMAIN", '192.168.2.89'.$port.'/PIQPAQ/themecheck');
+	define("TC_DOMAIN", '192.168.2.89'.$port.'/themecheck');
 	define("TC_ENVIRONMENT", 'dev');
 } else if (strpos($url,'preprod') !== FALSE) {
 	define("TC_DOMAIN", 'preprod.themecheck.as44099.com');
