@@ -21,19 +21,21 @@ if (!isSessionStarted()) session_start();
 // ****************************************************************************
 // Domain and environnement
 // ****************************************************************************
-$url = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+$url = $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]; 
+
 
 if (strpos($url,'localhost/') !== FALSE)
 {
 	$port = '';
 	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
 	define("TC_DOMAIN", 'localhost'.$port.'/PIQPAQ/themecheck');
-	define("TC_ENVIRONMENT", 'dev');
-} else if (strpos($url,'192.168.2.83/') !== FALSE)
+	define("TC_ENVIRONMENT", 'dev'); 
+}
+else if (strpos($url,'192.168.2.89/') !== FALSE)
 {
 	$port = '';
 	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
-	define("TC_DOMAIN", '192.168.2.83'.$port.'/PIQPAQ/themecheck');
+	define("TC_DOMAIN", '192.168.2.89'.$port.'/PIQPAQ/themecheck');
 	define("TC_ENVIRONMENT", 'dev');
 } else if (strpos($url,'preprod') !== FALSE) {
 	define("TC_DOMAIN", 'preprod.themecheck.as44099.com');
@@ -65,7 +67,7 @@ define("ERRORLEVEL_CRITICAL", 2); // security threats or inacceptable errors
 define("ERRORLEVEL_WARNING", 3);
 define("ERRORLEVEL_SUCCESS", 4);
 define("ERRORLEVEL_INFO", 5);
-
+define("LAST_WP_VERSION", "4.4.2");
 define("TC_CONTACT_MAIL", "g.baudhuin@peoleo.fr");
 define("TC_CONTACT_NAME", "Guillaume Baudhuin");
 

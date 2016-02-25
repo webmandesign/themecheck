@@ -1,0 +1,75 @@
+// --- RESET ---
+// -------------
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,address,cite,code,del,dfn,em,img,ins,q,small,strong,sub,sup,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;margin:0;padding:0}
+article,aside,figure,figure img,figcaption,hgroup,footer,header,nav,section,video,object{display:block}
+a img{border:0}
+ul li{
+    list-style-type:none;
+}
+a{
+  background: transparent;
+    &:active,
+    &:hover,
+    &:focus{
+      outline: 0;
+    }
+}
+
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+// --- /RESET ---
+
+
+
+
+html, body{
+	@include font;
+	-webkit-font-smoothing: antialiased;
+  	font-smoothing: antialiased;
+  	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+}
+
+
+::-moz-selection{background: #000; color:#FFF}
+::-moz-selection{background: #000; color:#FFF}
+::-webkit-selection{background: #000; color:#FFF}
+::selection{background: #000; color:#FFF}
+
+
+
+// --- TYPOS ---
+// -------------
+	h1{
+		@include LucidaBd;
+		font-size:30px;
+		line-height:27px;
+		font-weight:normal;
+	}
+	
+	h2{
+		@include LucidaBd;
+		font-size:19px;
+		line-height:19px;
+	}
+
+	h3{
+		@include LucidaBd;
+		font-size:15px;
+		line-height:17px;
+		font-weight:normal;
+	}
+	
+	p{
+		@include LucidaBd;
+		font-size:12px;
+		line-height:12px;
+	}	
+// --- /TYPOS ---

@@ -1,0 +1,18 @@
+// GRILLE LG
+	@media screen and (min-width: $screen-lg-min) {
+	}
+
+
+// GRILLE MD
+	@media screen and (min-width: $screen-md-min) and (max-width:$screen-md-max) {
+	}
+
+
+// GRILLE SM
+	@media screen and (min-width: $screen-xs-max) and (max-width:$screen-sm-max) {
+	}
+
+
+// GRILLE XS
+	@media screen and (max-width: $screen-xs-max){
+	}

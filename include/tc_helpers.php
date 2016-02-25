@@ -18,7 +18,10 @@ function tc_grep( $error, $file ) {
 			$error = str_replace( '"', "'", $error );
 			$this_line = str_replace( '"', "'", $this_line );
 			$error = ltrim( $error );
-		$pre = ( FALSE !== ( $pos = strpos( $this_line, $error ) ) ? substr( $this_line, 0, $pos ) : FALSE );
+		$pre = '';
+		if ( !empty( $error ) ) {
+			$pre = ( FALSE !== ( $pos = strpos( $this_line, $error ) ) ? substr( $this_line, 0, $pos ) : FALSE );
+		}
 		$pre = ltrim( htmlspecialchars( $pre ) );
 			$bad_lines .= __("<pre>Line ") . ( $line_index+1 ) . ": " . $pre . htmlspecialchars( substr( stristr( $this_line, $error ), 0, 75 ) ) . "</pre>";
 		}

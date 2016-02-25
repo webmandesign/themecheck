@@ -1,253 +1,937 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2014-06-18 10:07+0100\n"
-"PO-Revision-Date: 2014-06-18 10:08+0100\n"
+"POT-Creation-Date: 2016-02-19 09:57+0100\n"
+"PO-Revision-Date: 2016-02-19 10:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.8.2\n"
 "X-Poedit-KeywordsList: all;__;__all\n"
 "X-Poedit-Basepath: ../../..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Bookmarks: -1,-1,122,-1,-1,-1,-1,-1,-1,-1\n"
 "X-Poedit-SearchPath-0: include\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: include/FileValidator.php:129
-msgid "Mandatory thumbnail file screenshot.png is missing"
-msgstr "Fichier screenshot.png obligatoire introuvable"
-
-#: include/FileValidator.php:130
-msgid "Mandatory thumbnail file template_thumbnail.png is missing"
-msgstr "Le fichier obligatoire template_thumbnail.png est introuvable"
-
-#: include/FileValidator.php:231
-msgid "No files to upload"
-msgstr "Aucun fichier à télécharger"
-
-#: include/FileValidator.php:240
+#: DB/History.php:81
 #, php-format
-msgid ""
-"Could not upload file. File is empty or bigger than maximum upload file size "
-"(%s MB)."
-msgstr ""
-"Impossible de télécharger le fichier. Le fichier est vide ou plus gros que "
-"la taille maximum autorisée (%s Mo)."
+msgid "DB Connexion error : %s"
+msgstr "Erreur de connexion à la BDD : %s"
 
-#: include/FileValidator.php:259
+#: DB/History.php:158 DB/History.php:269 DB/History.php:327 DB/History.php:338
+#: DB/History.php:422
 #, php-format
-msgid ""
-"Bad file type. Mime type %s is not a recognized format for web themes. "
-"Uploaded file must be a zip archive."
-msgstr ""
-"Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
-"pour les themes web. Le fichier doit être une archive zip."
+msgid "DB error : %s"
+msgstr "Erreur BDD : %s"
 
-#: include/FileValidator.php:266
-#, php-format
-msgid ""
-"Bad file extension. File extension %s not recognized. File extension must be "
-"\".zip\"."
-msgstr ""
-"Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
-"L&#39;extension doit être \".zip\"."
+#: DB/History.php:162 DB/History.php:178
+msgid "This theme has already been submitted."
+msgstr "Ce thème a déjà été soumis."
 
-#: include/FileValidator.php:272
-#, php-format
-msgid "The uploaded file size exceeds %s."
-msgstr "La taille du fichier téléchargé dépasse %s."
+#: DB/History.php:182
+msgid "It seems this archive is a new version of the theme \""
+msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 
-#: include/FileValidator.php:278
-msgid "The uploaded file was only partially uploaded."
-msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
+#: DB/History.php:274
+msgid "The name \""
+msgstr "Le nom \""
 
-#: include/FileValidator.php:284
-msgid "No file was uploaded."
+#: _header.php:58 controllers/_controller_contact.php:15
+#: controllers/_controller_contact.php:16
+#: controllers/_controller_contact.php:91
+#: controllers/controller_contact.php:15 controllers/controller_contact.php:16
+#: controllers/controller_contact.php:103
+msgid "Contact us"
+msgstr "Contact"
+
+#: controllers/__controller_results.php:89
+#: controllers/_controller_results.php:89
+#: controllers/controller_results.php:89
+msgid "Unvalid form"
+msgstr "Formulaire invalide"
+
+#: controllers/__controller_results.php:92
+#: controllers/_controller_results.php:92
+#: controllers/controller_results.php:92
+msgid "No file uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: include/FileValidator.php:426
-msgid "Files under 100 bytes are not accepted. Operation canceled."
-msgstr ""
-"Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
-"Apération annulée."
+#: controllers/__controller_results.php:93
+#: controllers/__controller_results.php:94
+#: controllers/_controller_results.php:93
+#: controllers/_controller_results.php:94
+#: controllers/controller_results.php:93 controllers/controller_results.php:94
+msgid "No file uploaded"
+msgstr "Aucun fichier n&#39;a été téléchargé"
 
-#: include/FileValidator.php:456 include/ThemeInfo.php:167
-msgid "File could not be unzipped."
-msgstr "Fichier n&#39;a pas pu être décompressé."
-
-#: include/FileValidator.php:459 include/ThemeInfo.php:170
-msgid "Archive extraction failed. The following exception occured : "
-msgstr ""
-"L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
-"est produite :"
-
-#: include/shield.php:29
+#: controllers/__controller_results.php:102
+#: controllers/_controller_results.php:102
+#: controllers/controller_results.php:102
 #, php-format
-msgid "Themecheck.org validation score : 100%%, %s."
-msgstr "Score de validation Themecheck.org : 100%%, %s."
+msgid "%s%% : Joomla template %s"
+msgstr "%s%% : template Joomla %s"
 
-#: include/shield.php:47
+#: controllers/__controller_results.php:103
+#: controllers/_controller_results.php:103
+#: controllers/controller_results.php:103
+#, php-format
+msgid "Security and code quality score of Joomla template %s."
+msgstr "Score de sécurité et de qualité de code pour le template Joomla %s."
+
+#: controllers/__controller_results.php:105
+#: controllers/_controller_results.php:105
+#, php-format
+msgid "%s%% : Wordpress theme %s"
+msgstr "%s%% : thème Wordpress %s"
+
+#: controllers/__controller_results.php:106
+#: controllers/_controller_results.php:106
+#, php-format
+msgid "Security and code quality score of Wordpress theme %s."
+msgstr "Score de sécurité et de qualité de code pour le thème Wordpress %s."
+
+#: controllers/__controller_results.php:123
+#: controllers/_controller_results.php:123
+#: controllers/controller_results.php:123
+msgid "Check results"
+msgstr "Résultats de vérification"
+
+#: controllers/__controller_results.php:124
+#: controllers/_controller_results.php:124
+#: controllers/controller_results.php:124
+msgid "Security and code quality score"
+msgstr "Score de sécurité de qualité de code"
+
+#: controllers/__controller_results.php:157
+#, php-format
+msgid "Validation results for Joomla template <strong>%s</strong>"
+msgstr "Résultats de validation pour le template Joomla <strong>%s</strong>"
+
+#: controllers/__controller_results.php:158
+#, php-format
+msgid "Validation results for Wordpress theme <strong>%s</strong>"
+msgstr "Résultats de validation pour le thème Wordpress <strong>%s</strong>"
+
+#: controllers/__controller_results.php:162
+#: controllers/controller_results.php:273
+msgid "Themecheck rules"
+msgstr "Règles Themecheck"
+
+#: controllers/__controller_results.php:168
+#: controllers/controller_results.php:279
+msgid "Themeforest rules"
+msgstr "Règles Themeforest"
+
+#: controllers/__controller_results.php:178
+#: controllers/controller_results.php:297
+msgid ""
+"This is a ThemeForest theme. Since Themeforest items are all checked by a "
+"human before they appear on their website, ThemeForest verification rules "
+"are more permissive than themecheck&#39;s and can give a better verification "
+"score ( <a href=\"http://support.envato.com/index.php?/Knowledgebase/Article/"
+"View/472/85/wordpress-theme-submission-requirements\" rel=\"nofollow"
+"\">Themeforest requirements</a> )."
+msgstr ""
+"Ceci est un thème distribué surThemeForest. Etant donné que  tous les thèmes "
+"de Themeforest sont validés par un humain avant d'être mis en ligne, les "
+"règles de vérification de Themeforest sont plus permissives que celles de "
+"themecheck et peuvent donner un meilleur score de vérification  ( <a href="
+"\"http://support.envato.com/index.php?/Knowledgebase/Article/View/472/85/"
+"wordpress-theme-submission-requirements\" rel=\"nofollow\">Themeforest "
+"requirements</a> )."
+
+#: controllers/__controller_results.php:204
+msgid "Other files checked around the same date"
+msgstr "Autres fichiers validées durant la même période"
+
+#: controllers/__controller_results.php:217
+#: controllers/_controller_home.php:81 controllers/_controller_results.php:654
+#, php-format
+msgid "Wordpress %s theme"
+msgstr "Theme Wordpress %s"
+
+#: controllers/__controller_results.php:218
+#: controllers/_controller_home.php:93 controllers/_controller_results.php:655
+#: controllers/controller_home.php:48 controllers/controller_results.php:385
+#, php-format
+msgid "Joomla %s template"
+msgstr "Template Joomla %s"
+
+#: controllers/__controller_results.php:242
+#: controllers/_controller_results.php:183
+#: controllers/_controller_results.php:714
+#: controllers/controller_results.php:187
+#: controllers/controller_results.php:458
+msgid "Validation results"
+msgstr "Résultats de validation"
+
+#: controllers/__controller_results.php:250
+#: controllers/__controller_results.php:257
+#: controllers/_controller_results.php:722
+#: controllers/_controller_results.php:729
+#: controllers/controller_results.php:465
+#: controllers/controller_results.php:472
+msgid "Validation score : 0 %"
+msgstr "Score de validation : 0 %"
+
+#: controllers/__controller_results.php:259
+#: controllers/_controller_results.php:731
+#: controllers/controller_results.php:474
+msgid "Fatal error"
+msgstr "Erreur fatale"
+
+#: controllers/__controller_results.php:261
+#: controllers/_controller_results.php:733
+#: controllers/controller_results.php:476
+msgid "Go to home page to submit a new version"
+msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
+
+#: controllers/__controller_results.php:272
+#: controllers/_controller_results.php:746
+#: controllers/controller_results.php:490
+msgid "Please send us a theme to check."
+msgstr "SVP, uploadez un thème à vérifier."
+
+#: controllers/__controller_results.php:273
+#: controllers/_controller_results.php:747
+#: controllers/controller_results.php:491
+msgid "Go to home page"
+msgstr "Aller à la page d'accueil."
+
+#: controllers/__controller_results.php:301
+#: controllers/__controller_results.php:321
+#, php-format
+msgid "Validation score : %s%%"
+msgstr "Score de validation  : %s%%"
+
+#: controllers/__controller_results.php:319
+#, php-format
+msgid "Validation score : %s%% (%s critical alerts)"
+msgstr "Score de validation : %s%% (%s alertes critiques)"
+
+#: controllers/__controller_results.php:331
+msgid "validation score"
+msgstr "Score de validation"
+
+#: controllers/__controller_results.php:332
+#, php-format
+msgid "%s critical alerts. %s warnings."
+msgstr "%s alertes critiques. %s alertes simples."
+
+#: controllers/__controller_results.php:337
+msgid "Share this page with the following link :"
+msgstr "Partagez cette page avec le lien suivant :"
+
+#: controllers/__controller_results.php:343
+#: controllers/_controller_results.php:301
+msgid ""
+"Display this score on your website with the following HTML code that links "
+"to this page :"
+msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
+
+#: controllers/__controller_results.php:349
+#: controllers/_controller_results.php:303
+msgid "Medium size icon (default) :"
+msgstr "Icône moyenne (défaut) : "
+
+#: controllers/__controller_results.php:352
+#: controllers/_controller_results.php:305
+msgid "Small size icon :"
+msgstr "Petite icône :"
+
+#: controllers/__controller_results.php:354
+#: controllers/_controller_results.php:307
+msgid ""
+"You can switch language with <strong>lang</strong> parameter in iframe's "
+"url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
+"Default value is <strong>en</strong>."
+msgstr ""
+"Vous pouvez changer de langues avec le paramètre <strong>lang</strong> dans "
+"l'url de l'iframe. Pour l'instant les valeurs <strong>fr</strong> et "
+"<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
+"strong>."
+
+#: controllers/__controller_results.php:360
+#: controllers/_controller_results.php:438
+#: controllers/controller_results.php:681
+msgid ""
+"These results were not saved on themecheck.org servers and will be lost when "
+"you quit this page."
+msgstr ""
+"Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
+"et seront perdu quand vous quitterez cette page."
+
+#: controllers/__controller_results.php:367
+msgid "Theme name"
+msgstr "Nom du thème"
+
+#: controllers/__controller_results.php:369
+#: controllers/__controller_results.php:370
+#: controllers/__controller_results.php:372
+#: controllers/__controller_results.php:373
+#: controllers/__controller_results.php:380
+#: controllers/__controller_results.php:381
+#: controllers/_controller_results.php:322
+#: controllers/_controller_results.php:323
+#: controllers/_controller_results.php:325
+#: controllers/_controller_results.php:326
+#: controllers/_controller_results.php:333
+#: controllers/_controller_results.php:334
+#: controllers/controller_results.php:559
+#: controllers/controller_results.php:560
+#: controllers/controller_results.php:562
+#: controllers/controller_results.php:563
+#: controllers/controller_results.php:570
+#: controllers/controller_results.php:571
+msgid "Theme type"
+msgstr "Type de thème"
+
+#: controllers/__controller_results.php:369
+#: controllers/__controller_results.php:370
+#: controllers/_controller_home.php:79 controllers/_controller_results.php:322
+#: controllers/_controller_results.php:323
+msgid "Wordpress theme"
+msgstr "Theme Wordpress"
+
+#: controllers/__controller_results.php:372
+#: controllers/__controller_results.php:373
+#: controllers/_controller_home.php:85 controllers/_controller_results.php:325
+#: controllers/_controller_results.php:326 controllers/controller_home.php:44
+msgid "Wordpress child theme"
+msgstr "Theme Wordpress Enfant"
+
+#: controllers/__controller_results.php:376
+#: controllers/_controller_results.php:329
+#: controllers/controller_results.php:566
+msgid "Parent theme name"
+msgstr "Nom du thème parent"
+
+#: controllers/__controller_results.php:380
+#: controllers/__controller_results.php:381
+#: controllers/_controller_home.php:91 controllers/_controller_results.php:333
+#: controllers/_controller_results.php:334 controllers/controller_home.php:47
+#: controllers/controller_results.php:570
+#: controllers/controller_results.php:571
+msgid "Joomla template"
+msgstr "Template Joomla"
+
+#: controllers/__controller_results.php:382
+#: controllers/_controller_results.php:335
+#: controllers/controller_results.php:572
+msgid "File name"
+msgstr "Nom du fichier"
+
+#: controllers/__controller_results.php:383
+#: controllers/_controller_results.php:336
+#: controllers/controller_results.php:573
+msgid "File size"
+msgstr "Taille du fichier"
+
+#: controllers/__controller_results.php:383
+#: controllers/_controller_results.php:336
+#: controllers/controller_results.php:573
+msgid "bytes"
+msgstr "octets"
+
+#: controllers/__controller_results.php:384
+#: controllers/_controller_results.php:337
+#: controllers/controller_results.php:574
+msgid "MD5"
+msgstr "MD5"
+
+#: controllers/__controller_results.php:385
+#: controllers/_controller_results.php:338
+#: controllers/controller_results.php:575
+msgid "SHA1"
+msgstr "SHA1"
+
+#: controllers/__controller_results.php:388
+#: controllers/__controller_results.php:389
+#: controllers/__controller_results.php:391
+#: controllers/__controller_results.php:392
+#: controllers/_controller_results.php:341
+#: controllers/_controller_results.php:342
+#: controllers/_controller_results.php:344
+#: controllers/_controller_results.php:345
+#: controllers/controller_results.php:578
+#: controllers/controller_results.php:579
+#: controllers/controller_results.php:581
+#: controllers/controller_results.php:582
+msgid "License"
+msgstr "Licence"
+
+#: controllers/__controller_results.php:393
+#: controllers/_controller_results.php:346
+#: controllers/controller_results.php:583
+msgid "Files included"
+msgstr "Fichiers inclus"
+
+#: controllers/__controller_results.php:396
+#: controllers/__controller_results.php:398
+#: controllers/_controller_results.php:349
+#: controllers/_controller_results.php:351
+#: controllers/controller_results.php:586
+#: controllers/controller_results.php:588
+msgid "Theme URI"
+msgstr "URI du thème URI"
+
+#: controllers/__controller_results.php:400
+#: controllers/_controller_results.php:353
+#: controllers/controller_results.php:590
+msgid "Version"
+msgstr "Version"
+
+#: controllers/__controller_results.php:401
+#: controllers/_controller_results.php:354
+#: controllers/controller_results.php:591
+msgid "Author URI"
+msgstr "URI de l'auteur"
+
+#: controllers/__controller_results.php:402
+#: controllers/_controller_results.php:355
+#: controllers/controller_results.php:592 include/Checks/Tags.php:25
+msgid "Tags"
+msgstr "Tags"
+
+#: controllers/__controller_results.php:404
+#: controllers/__controller_results.php:405
+#: controllers/__controller_results.php:406
+msgid "Layout"
+msgstr "Mise en page"
+
+#: controllers/__controller_results.php:404
+msgid "Fixed"
+msgstr "Fixe"
+
+#: controllers/__controller_results.php:405
+msgid "Fluid"
+msgstr "Fluide"
+
+#: controllers/__controller_results.php:406
+msgid "Responsive"
+msgstr "Responsive"
+
+#: controllers/__controller_results.php:408
+msgid "Copyright"
+msgstr "Copyright"
+
+#: controllers/__controller_results.php:409
+#: controllers/_controller_results.php:362
+#: controllers/controller_results.php:599
+msgid "Creation date"
+msgstr "Date de création"
+
+#: controllers/__controller_results.php:410
+#: controllers/_controller_results.php:363
+#: controllers/controller_results.php:600
+msgid "Last file update"
+msgstr "Dernière mise à jour du fichier"
+
+#: controllers/__controller_results.php:411
+#: controllers/_controller_results.php:364
+#: controllers/controller_results.php:601
+msgid "Last validation"
+msgstr "Dernière validation"
+
+#: controllers/__controller_results.php:415
+#: controllers/__controller_results.php:419
+#: controllers/__controller_results.php:421
+#: controllers/controller_download.php:33
+#: controllers/controller_download.php:35
+msgid "Download"
+msgstr "Telecharger"
+
+#: controllers/__controller_results.php:415
+msgid "This theme is open source.<br/>Direct download link : "
+msgstr ""
+"Ce thème est libre de distribution.<br/>Lien de téléchargement direct :"
+
+#: controllers/__controller_results.php:419
+#: controllers/_controller_results.php:424
+#: controllers/controller_results.php:667
+msgid ""
+"This theme is proprietary. Themecheck doesn't distribute commercial themes."
+msgstr ""
+"Ce thème est commercial. Themecheck ne distribue pas de themes non libres."
+
+#: controllers/__controller_results.php:421
+#: controllers/_controller_results.php:428
+#: controllers/controller_results.php:671
+msgid ""
+"This theme seems to be proprietary. Themecheck doesn't distribute commercial "
+"themes."
+msgstr ""
+"Ce thème n'est peut être pas libre. Themecheck ne distribue pas de thèmes "
+"commerciaux."
+
+#: controllers/__controller_results.php:440
+#: controllers/_controller_results.php:465
+#: controllers/controller_results.php:707
+msgid "Critical alerts"
+msgstr "Alertes critiques"
+
+#: controllers/__controller_results.php:454
+msgid "Warnings"
+msgstr "Alertes"
+
+#: controllers/__controller_results.php:468
+msgid "Info"
+msgstr "Info"
+
+#: controllers/_controller_contact.php:32
+#: controllers/_controller_contact.php:33
+#: controllers/_controller_contact.php:35
+#: controllers/controller_contact.php:35 controllers/controller_contact.php:36
+#: controllers/controller_contact.php:38
+msgid "Required field"
+msgstr "Requis"
+
+#: controllers/_controller_contact.php:34
+#: controllers/controller_contact.php:37
+msgid "invalid email address"
+msgstr "Adresse email invalide"
+
+#: controllers/_controller_contact.php:75
+#: controllers/controller_contact.php:78
+msgid "Message sent. We&#39;ll contact you soon."
+msgstr "Message envoyé. Nous vous recontacterons bientôt."
+
+#: controllers/_controller_contact.php:75
+msgid "Back to home page"
+msgstr "Retour à la page d'accueil"
+
+#: controllers/_controller_contact.php:80
+#: controllers/controller_contact.php:88
+msgid "Invalid form"
+msgstr "Formulaire invalide"
+
+#: controllers/_controller_contact.php:97
+msgid "Name (required)"
+msgstr "Nom (requis)"
+
+#: controllers/_controller_contact.php:104
+msgid "Email (required)"
+msgstr "Email (requis)"
+
+#: controllers/_controller_contact.php:111
+#: controllers/controller_contact.php:127
+msgid "Website"
+msgstr "Site web"
+
+#: controllers/_controller_contact.php:118
+msgid "Message (required)"
+msgstr "Message (requis)"
+
+#: controllers/_controller_contact.php:124
+#: controllers/_controller_home.php:297
+msgid "Submit"
+msgstr "Soumettre"
+
+#: controllers/_controller_home.php:37 controllers/controller_home.php:19
+msgid "The Web Template Verification Service"
+msgstr "Le Service de Vérification de Modèles Web"
+
+#: controllers/_controller_home.php:39 controllers/controller_home.php:20
+msgid ""
+"A free service that checks web templates and themes for security and code "
+"quality."
+msgstr ""
+"Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
+"de sites web."
+
+#: controllers/_controller_home.php:87
+#, php-format
+msgid "Wordpress %s child theme"
+msgstr "Theme Wordpress Enfant %s"
+
+#: controllers/_controller_home.php:111 controllers/controller_home.php:100
+msgid "Themeforest theme"
+msgstr "Thème Themeforest"
+
+#: controllers/_controller_home.php:111
+msgid "Themeforest icon"
+msgstr "Icône Themeforest"
+
+#: controllers/_controller_home.php:117 controllers/controller_home.php:103
+msgid "Creative Market theme"
+msgstr "Thème Creative Market"
+
+#: controllers/_controller_home.php:117
+msgid "Creative Market icon"
+msgstr "Icône Creative Market"
+
+#: controllers/_controller_home.php:123 controllers/controller_home.php:106
+msgid "Template Monster theme"
+msgstr "Thème Template Monster"
+
+#: controllers/_controller_home.php:123
+msgid "Template Monster icon"
+msgstr "Icône Template Monster"
+
+#: controllers/_controller_home.php:129 controllers/controller_home.php:109
+msgid "Piqpaq theme"
+msgstr "Thème Piqpaq"
+
+#: controllers/_controller_home.php:129 controllers/controller_home.php:109
+msgid "Piqpaq icon"
+msgstr "Icône Piqpaq"
+
+#: controllers/_controller_home.php:137 controllers/controller_home.php:86
+msgid "Quick download"
+msgstr "Téléchargement rapide"
+
+#: controllers/_controller_home.php:137
+msgid "Download theme"
+msgstr "Télécharger le thème"
+
+#: controllers/_controller_home.php:139 controllers/_controller_home.php:141
+#: controllers/_controller_results.php:169
+#: controllers/_controller_results.php:173 controllers/controller_home.php:90
+#: controllers/controller_home.php:94 controllers/controller_results.php:173
+#: controllers/controller_results.php:177
+msgid "Free"
+msgstr "Gratuit"
+
+#: controllers/_controller_home.php:203
+msgid "Verify web themes and templates"
+msgstr "Vérifiez vos themes wordpress et joomla"
+
+#: controllers/_controller_home.php:205
+msgid ""
+"Themecheck.org is a quick service that lets you verify web themes or "
+"templates for security and code quality. This service is free and compatible "
+"with Wordpress themes and Joomla templates."
+msgstr ""
+"Themecheck.org est un service gratuit et rapide de vérification de templates "
+"web. Ce service est compatible avec les themes Wordpress et les templates "
+"Joomla."
+
+#: controllers/_controller_home.php:207
+msgid "More..."
+msgstr "Plus ..."
+
+#: controllers/_controller_home.php:223 controllers/controller_home.php:215
+msgid "Website owners"
+msgstr "Webmasters"
+
+#: controllers/_controller_home.php:225 controllers/controller_home.php:220
+msgid ""
+"Check themes or templates you download before installing them on your site"
+msgstr ""
+"Vérifiez les thèmes et les templates que vous téléchargez avant de les "
+"déployer sur votre site"
+
+#: controllers/_controller_home.php:229 controllers/controller_home.php:224
+msgid "Check code quality"
+msgstr "Vérification de qualité de code"
+
+#: controllers/_controller_home.php:231 controllers/controller_home.php:225
+msgid "Check presence of malware"
+msgstr "Vérification de présence de code malicieux"
+
+#: controllers/_controller_home.php:239 controllers/controller_home.php:235
+msgid "Developers"
+msgstr "Développeurs"
+
+#: controllers/_controller_home.php:241 controllers/controller_home.php:242
+msgid "Your create or distribute themes ?"
+msgstr "Vous créez ou distribuez des thèmes ?"
+
+#: controllers/_controller_home.php:245 controllers/controller_home.php:248
+msgid ""
+"Themecheck.org helps you verify they satisfy CMS standards and common users "
+"needs."
+msgstr ""
+"Themecheck.org vous aide à vérifier qu'ils vérifient les standards des CMS "
+"et les attentes de la majorité des utilisateurs."
+
+#: controllers/_controller_home.php:247
+msgid "Share verification score on your site with ThemeCheck.org widget  "
+msgstr ""
+"Partagez le score de vérification sur votre site avec le widget ThemeCheck."
+"org  "
+
+#: controllers/_controller_home.php:261
+msgid "themes already verified"
+msgstr "thèmes déjà vérifiés"
+
+#: controllers/_controller_home.php:263
 #, php-format
 msgid ""
-"Themecheck.org validation score : %s%% (%s severe failures, %s warnings, %s)."
+"Themecheck.org is an unofficial fork of the famous %s plugin with new "
+"checks, reduced false positive rate and that is compatible with multiple "
+"CMS. It is independant of wordpress.org and joomla.org."
 msgstr ""
-"Score de validation Themecheck.org : %s%% (%s erreurs critique, %s alertes, "
-"%s)."
+"Themecheck.org est un fork du fameux plugin %s  avec des checks "
+"supplémentaires, un taux réduit de faux positifs et une compatibilité avec "
+"plusieurs CMS. Il est indépendant de wordpress.org et de joomla.org."
 
-#: include/shield.php:49
+#: controllers/_controller_home.php:273
+msgid "Upload a zip file and get its verification score :"
+msgstr "Chargez un fichier zip pour obtenir son score :"
+
+#: controllers/_controller_home.php:281 controllers/controller_home.php:159
+msgid "Select file"
+msgstr "Choisissez un fichier"
+
+#: controllers/_controller_home.php:285 controllers/controller_home.php:188
+msgid "Maximum file size"
+msgstr "Taille maximum du fichier"
+
+#: controllers/_controller_home.php:291 controllers/controller_home.php:184
+msgid "Forget uploaded data after results"
+msgstr "Oublier les données uploadées après la validation"
+
+#: controllers/_controller_home.php:291 controllers/controller_home.php:184
+msgid ""
+"<ul><li>No data will be kept on themecheck.org servers (or any "
+"other)<li>Validation won't be visible to the public<li>If you want to see "
+"the results in the future, you'll have to re-submit your file</ul>"
+msgstr ""
+"<ul><li>Aucune donnée ne sera conservée sur les serveurs themecheck.org , ni "
+"sur aucun autre<li>Les résultats de validation ne seront visibles de "
+"personne d'autre<li>Si vous voulez consulter les résultats de validation "
+"dans le futur, il faudra soumettre à nouveau votre fichier</ul>"
+
+#: controllers/_controller_home.php:321 controllers/controller_home.php:265
+msgid "Recently checked themes"
+msgstr "Thèmes vérifiés récemment"
+
+#: controllers/_controller_home.php:339 controllers/controller_home.php:294
+#: controllers/controller_home.php:298
+msgid "Newer first"
+msgstr "Nouveau en premier"
+
+#: controllers/_controller_home.php:341 controllers/controller_home.php:295
+#: controllers/controller_home.php:299
+msgid "Higher scores first"
+msgstr "Meilleurs scores en premier"
+
+#: controllers/_controller_home.php:385
+msgid "See more"
+msgstr "Voir plus"
+
+#: controllers/_controller_massimport.php:19
+#: controllers/_controller_massimport.php:20
+#: controllers/controller_massimport.php:19
+#: controllers/controller_massimport.php:20
+msgid "Mass import"
+msgstr "Import de masse"
+
+#: controllers/_controller_results.php:212
+#: controllers/controller_results.php:216
+msgid " CRITICAL ALERT"
+msgstr "ALERTE CRITIQUE"
+
+#: controllers/_controller_results.php:216
+#: controllers/controller_results.php:220
+msgid " CRITICAL ALERTS"
+msgstr "ALERTES CRITIQUES"
+
+#: controllers/_controller_results.php:235
+#: controllers/controller_results.php:239
+msgid "  WARNING"
+msgstr "ALERTE SIMPLE"
+
+#: controllers/_controller_results.php:239
+#: controllers/controller_results.php:243
+msgid "  WARNINGS"
+msgstr "ALERTES SIMPLES"
+
+#: controllers/_controller_results.php:298
+#: controllers/controller_results.php:535
+msgid "CHANGE BANNER STYLE :"
+msgstr "CHANGEMENT DU STYLE DE BANNIÈRE"
+
+#: controllers/_controller_results.php:403
+#: controllers/controller_results.php:646
+msgid "This theme is open source."
+msgstr "Ce thème est libre de distribution"
+
+#: controllers/_controller_results.php:410
+#: controllers/controller_results.php:653
+msgid "DOWNLOAD"
+msgstr "TÉLÉCHARGER"
+
+#: controllers/_controller_results.php:510
+#: controllers/controller_results.php:753 index.php:23
+msgid "Warning"
+msgstr "Attention"
+
+#: controllers/_controller_results.php:553
+msgid "Tipp-off"
+msgstr ""
+
+#: controllers/_controller_results.php:633
+#: controllers/controller_results.php:363
+msgid "Other checked themes"
+msgstr "Autre thèmes vérifiés"
+
+#: controllers/_controller_results.php:697
+#: controllers/controller_results.php:439
+msgid "VIEW ALL THEMES"
+msgstr "TOUS LES THÈMES"
+
+#: controllers/controller_contact.php:83
+msgid "Please complete the required field."
+msgstr "Compléter les champs obligatoires s'il vous plait"
+
+#: controllers/controller_contact.php:112
+msgid "Name"
+msgstr "Nom"
+
+#: controllers/controller_contact.php:113
+#: controllers/controller_contact.php:120
+#: controllers/controller_contact.php:135
+msgid "Required"
+msgstr "Champ obligatoire"
+
+#: controllers/controller_contact.php:119
+msgid "Email"
+msgstr "Email"
+
+#: controllers/controller_contact.php:134
+msgid "Message"
+msgstr "Message"
+
+#: controllers/controller_contact.php:144 controllers/controller_home.php:177
+msgid "SUBMIT"
+msgstr "SOUMETTRE"
+
+#: controllers/controller_home.php:41 controllers/controller_results.php:559
+#: controllers/controller_results.php:560
+msgid "WordPress theme"
+msgstr "Thème WordPress %s"
+
+#: controllers/controller_home.php:42 controllers/controller_results.php:384
 #, php-format
-msgid "Themecheck.org validation score : %s%% (%s warnings, %s)."
-msgstr "Score de validation Themecheck.org : %s%% (%s alertes, %s)."
+msgid "WordPress %s theme"
+msgstr "Thème WordPress %s"
 
-#: include/shield.php:58 score.php:114
-msgid "Error : non existant id."
-msgstr "Erreur : identificant non existant."
+#: controllers/controller_home.php:45
+#, php-format
+msgid "WordPress %s child theme"
+msgstr "Thème WordPress enfant %s"
 
-#: include/tc_helpers.php:23 include/tc_helpers.php:42
-msgid "<pre>Line "
-msgstr "<pre>Ligne"
+#: controllers/controller_home.php:141
+msgid "Verify WordPress themes and Joomla templates"
+msgstr "Vérifiez vos thèmes WordPress et Joomla"
 
-#: include/ThemeInfo.php:115 include/ThemeInfo.php:119
-msgid "Cannot list files in archive."
-msgstr "Impossible de lister les fichiers de l'archive."
-
-#: include/ThemeInfo.php:148
-msgid "Multiple level nested zip archives are not supported."
-msgstr "Les archives imbriquées sur plusieurs niveaux ne sont pas valides."
-
-#: include/ThemeInfo.php:154
-msgid "Nested zip archives are not supported."
-msgstr "Les archives zip imbriquées ne sont pas supportées."
-
-#: include/ThemeInfo.php:185
-msgid "Archive is not a valid theme file."
-msgstr "L'archive n'est pas un fichier de theme valide."
-
-#: include/ThemeInfo.php:219
-msgid "style.css is missing or misspelled."
-msgstr "Le fichier style.ss est manquant ou mal orthographié."
-
-#: include/ThemeInfo.php:226
-msgid "style.css does not contain Theme name. Theme name is mandatory."
-msgstr ""
-"Le fichier style.css ne contient pas le nom du thème. Le nom du thème est "
-"obligatoire."
-
-#: include/ThemeInfo.php:269
+#: controllers/controller_home.php:144
 msgid ""
-"Malformed xml file templateDetails.xml. Cannot continue. Error details : "
+"Themecheck.org is a quick service that lets you verify web themes or "
+"templates for security and code quality."
 msgstr ""
-"Erreur dans la structure xml du fichier templateDetails.xml. Opération "
-"annulée. Détails :"
+"Themecheck.org est un service rapide qui vous permet de vérifier thèmes Web "
+"ou des modèles pour la sécurité et la qualité du code ."
 
-#: include/ThemeInfo.php:278
-msgid "templateDetails.xml is empty or contains malformed xml"
-msgstr ""
-"Le fichier templateDetails.xml est vide ou sa structure xml est incorrecte."
-
-#: include/ThemeInfo.php:286
-msgid "templateDetails.xml does not have a name tag. name is mandatory."
-msgstr ""
-"Le fichier templateDetails.xml ne contient pas de tag de nom. Le tag de nom "
-"est obligatoire."
-
-#: include/ThemeInfo.php:327
+#: controllers/controller_home.php:145
 msgid ""
-"templateDetails.xml does not have a mosinstall, extension or install or node"
+"This service is free and compatible with WordPress themes and Joomla "
+"templates."
 msgstr ""
-"Le fichier templateDetails.xml ne contient de noeud mosinstall, extension ou "
-"install."
+"Ce service est gratuit et compatible avec les thèmes WordPress et les "
+"templates Joomla"
 
-#: include/ThemeInfo.php:429
+#: controllers/controller_home.php:152
+msgid "Upload a zip file and get its verification score"
+msgstr "Chargez un fichier zip pour obtenir son score"
+
+#: controllers/controller_home.php:162
+msgid "SELECT FILE.ZIP"
+msgstr "SELECTIONNER UN FICHIER .ZIP"
+
+#: controllers/controller_home.php:203
+msgid "THEMES ALREADY VERIFIED !"
+msgstr "THÈMES DÉJÀ VÉRIFIÉS !"
+
+#: controllers/controller_home.php:251
+msgid "Share verification score on your site with ThemeCheck.org widget"
+msgstr ""
+"Partagez votre résultat de vérification sur votre site avec le widget "
+"ThemeCheck.org"
+
+#: controllers/controller_home.php:273
+msgid "FILTER BY : "
+msgstr "FILTRER PAR :"
+
+#: controllers/controller_home.php:284
+msgid "All theme"
+msgstr "Tous "
+
+#: controllers/controller_home.php:340
+msgid "SEE MORE"
+msgstr "VOIR PLUS"
+
+#: controllers/controller_results.php:105
+#, php-format
+msgid "%s%% : WordPress theme %s"
+msgstr "%s%% : thème WordPress %s"
+
+#: controllers/controller_results.php:106
+#, php-format
+msgid "Security and code quality score of WordPress theme %s."
+msgstr "Score de sécurité et de qualité de code pour le thème WordPress %s."
+
+#: controllers/controller_results.php:538
+msgid "Big size icon : (height: 240px, width: 200px)"
+msgstr "Grande icône : (height: 240px, width: 200px)"
+
+#: controllers/controller_results.php:540
+msgid "Medium size icon (default) : (height: 80px, width: 67px)"
+msgstr "icône moyenne (défaut) :  (height: 80px, width: 67px)"
+
+#: controllers/controller_results.php:542
+msgid "Small size icon : (height: 40px, width: 33px)"
+msgstr "Petite icône : (height: 40px, width: 33px)"
+
+#: controllers/controller_results.php:562
+#: controllers/controller_results.php:563
+msgid "WordPress child theme"
+msgstr "Thème WordPress enfant"
+
+#: controllers/controller_results.php:796
+msgid "Tip-off"
+msgstr "Info"
+
+#: controllers/controller_unittests.php:23
+#: controllers/controller_unittests.php:24
+msgid "Unit tests"
+msgstr "Tests unitaires"
+
+#: error404.php:13
+msgid "Themecheck.org - The page does not exist."
+msgstr "Themecheck.org - La page n&#39;existe pas."
+
+#: error404.php:14
+msgid "Validate your web theme and templates"
+msgstr "Validez votre theme ou votre template"
+
+#: error404.php:45
+msgid "Error 404."
+msgstr "Erreur 404."
+
+#: error404.php:46
+msgid "Sorry, the page you requested doesn't exist."
+msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
+
+#: footer.php:14
 msgid ""
-"Invalid joomla template. templatedetails.xml found. Please rename it "
-"templateDetails.xml (capital D)"
+"Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
+"ckecks, reduced false positive rate and multiple CMS compatibility. It is "
+"independant of wordpress.org and joomla.org."
 msgstr ""
-"Template joomla invalide. Le fichier templatedetails.xml a été trouvé. "
-"Renommez le templateDetails.xml (D majuscule)"
+"Themecheck.org est un fork du fameux plugin avec des checks supplémentaires, "
+"un taux réduit de faux positifs et une compatibilité avec plusieurs CMS. Il "
+"est indépendant de wordpress.org et de joomla.org."
 
-#: include/ThemeInfo.php:658
-msgid "None"
-msgstr "Aucun"
-
-#: include/ThemeInfo.php:659
-msgid "Custom"
-msgstr "Propriétaire"
-
-#: include/ThemeInfo.php:660
-msgid "Creative Commons"
-msgstr "Creative Commons"
-
-#: include/ThemeInfo.php:661
-msgid "Creative Commons BY"
-msgstr "Creative Commons BY"
-
-#: include/ThemeInfo.php:662
-msgid "Creative Commons BY SA"
-msgstr "Creative Commons BY SA"
-
-#: include/ThemeInfo.php:663
-msgid "Creative Commons BY ND"
-msgstr "Creative Commons BY ND"
-
-#: include/ThemeInfo.php:664
-msgid "Creative Commons BY NC"
-msgstr "Creative Commons BY NC"
-
-#: include/ThemeInfo.php:665
-msgid "Creative Commons BY NC SA"
-msgstr "Creative Commons BY NC SA"
-
-#: include/ThemeInfo.php:666
-msgid "Creative Commons BY NC ND"
-msgstr "Creative Commons BY NC ND"
-
-#: include/ThemeInfo.php:667
-msgid "MIT X11"
-msgstr "MIT X11"
-
-#: include/ThemeInfo.php:668
-msgid "BSD"
-msgstr "BSD"
-
-#: include/ThemeInfo.php:669
-msgid "New BSD"
-msgstr "New BSD"
-
-#: include/ThemeInfo.php:670
-msgid "Free BSD"
-msgstr "Free BSD"
-
-#: include/ThemeInfo.php:671
-msgid "GNU LGPL 2"
-msgstr "GNU LGPL 2"
-
-#: include/ThemeInfo.php:672
-msgid "GNU LGPL 3"
-msgstr "GNU LGPL 3"
-
-#: include/ThemeInfo.php:673
-msgid "GNU GPL 2"
-msgstr "GNU GPL 2"
-
-#: include/ThemeInfo.php:674
-msgid "GNU GPL 3"
-msgstr "GNU GPL 3"
-
-#: include/ThemeInfo.php:675
-msgid "Apache"
-msgstr "Apache"
-
-#: include/ThemeInfo.php:676
-msgid "CDDL"
-msgstr "CDDL"
-
-#: include/ThemeInfo.php:677
-msgid "Eclipse"
-msgstr "Eclipse"
+#: header.php:94
+msgid "CONTACT"
+msgstr "CONTACT"
 
 #: include/Checks/AdminMenu.php:16
 #, php-format
@@ -270,11 +954,11 @@ msgstr ""
 #: include/Checks/AdminMenu.php:30 include/Checks/AdminMenu.php:31
 msgid ""
 "Detection of user levels that were deprecated in Worpress 2.0. <a href="
-"\"http://codex.wordpress.org/Roles_and_Capabilities\">Wordpress codex</a>"
+"\"https://codex.wordpress.org/Roles_and_Capabilities\">Wordpress codex</a>"
 msgstr ""
 "Détection des niveaux d&#39;utilisateurs devenus obsolètes dans Wordpress "
-"2.0. <a href=\"http://codex.wordpress.org/Roles_and_Capabilities\">Wordpress "
-"codex</a>"
+"2.0. <a href=\"https://codex.wordpress.org/Roles_and_Capabilities"
+"\">Wordpress codex</a>"
 
 #: include/Checks/Artisteer.php:16
 msgid "Typical Artisteer code was found."
@@ -342,118 +1026,135 @@ msgstr "Présence de code Google adsense"
 msgid "Use of variable functions"
 msgstr "Utilisation de fonctions variables"
 
-#: include/Checks/Basic.php:23
+#: include/Checks/Basic.php:24
 #, php-format
 msgid "Could not find <strong>%1$s</strong>"
 msgstr "<strong>%1$s</strong> introuvable"
 
-#: include/Checks/Basic.php:33
+#: include/Checks/Basic.php:34
 msgid "Fundamental theme elements"
 msgstr "Eléments fondamentaux"
 
-#: include/Checks/Basic.php:35
+#: include/Checks/Basic.php:36
 msgid "Presence of DOCTYPE"
 msgstr "Présence d&#39;un DOCTYPE"
 
-#: include/Checks/Basic.php:36
-msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/wp_footer"
-"\">wp_footer()</a>"
-msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/wp_footer"
-"\">wp_footer()</a>"
-
 #: include/Checks/Basic.php:37
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/wp_head"
-"\">wp_head()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"wp_footer\">wp_footer()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/wp_head"
-"\">wp_head()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"wp_footer\">wp_footer()</a>"
 
 #: include/Checks/Basic.php:38
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/"
-"language_attributes\">language_attributes()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/wp_head"
+"\">wp_head()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/"
-"language_attributes\">language_attributes()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/wp_head"
+"\">wp_head()</a>"
 
 #: include/Checks/Basic.php:39
+msgid ""
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"language_attributes\">language_attributes()</a>"
+msgstr ""
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"language_attributes\">language_attributes()</a>"
+
+#: include/Checks/Basic.php:40
 msgid "Definition of a charset"
 msgstr "Définition du charset"
 
-#: include/Checks/Basic.php:40
-msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/"
-"add_theme_support\">add_theme_support()</a>"
-msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/"
-"add_theme_support\">add_theme_support()</a>"
-
 #: include/Checks/Basic.php:41
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/"
-"register_sidebar\">register_sidebar()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"add_theme_support\">add_theme_support()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/"
-"register_sidebar\">register_sidebar()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"add_theme_support\">add_theme_support()</a>"
 
 #: include/Checks/Basic.php:42
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/"
-"dynamic_sidebar\">dynamic_sidebar()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"register_sidebar\">register_sidebar()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/"
-"dynamic_sidebar\">dynamic_sidebar()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"register_sidebar\">register_sidebar()</a>"
 
 #: include/Checks/Basic.php:43
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Template_Tags/"
-"comments_template\">comments_template()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"dynamic_sidebar\">dynamic_sidebar()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Template_Tags/"
-"comments_template\">comments_template()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"dynamic_sidebar\">dynamic_sidebar()</a>"
 
 #: include/Checks/Basic.php:44
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Template_Tags/"
-"wp_list_comments\">wp_list_comments()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
+"comments_template\">comments_template()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Template_Tags/"
-"wp_list_comments\">wp_list_comments()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
+"comments_template\">comments_template()</a>"
 
 #: include/Checks/Basic.php:45
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Template_Tags/comment_form"
-"\">comment_form()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
+"wp_list_comments\">wp_list_comments()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Template_Tags/comment_form"
-"\">comment_form()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
+"wp_list_comments\">wp_list_comments()</a>"
 
 #: include/Checks/Basic.php:46
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Template_Tags/body_class"
-"\">body_class()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/comment_form"
+"\">comment_form()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Template_Tags/body_class"
-"\">body_class()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/comment_form"
+"\">comment_form()</a>"
 
 #: include/Checks/Basic.php:47
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Function_Reference/"
-"wp_link_pages\">wp_link_pages()</a>"
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/body_class"
+"\">body_class()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Function_Reference/"
-"wp_link_pages\">wp_link_pages()</a>"
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/body_class"
+"\">body_class()</a>"
 
 #: include/Checks/Basic.php:48
 msgid ""
-"Presence of <a href=\"http://codex.wordpress.org/Template_Tags/post_class"
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"wp_link_pages\">wp_link_pages()</a>"
+msgstr ""
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"wp_link_pages\">wp_link_pages()</a>"
+
+#: include/Checks/Basic.php:49
+msgid ""
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/post_class"
 "\">post_class()</a>"
 msgstr ""
-"Présence de <a href=\"http://codex.wordpress.org/Template_Tags/post_class"
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/post_class"
 "\">post_class()</a>"
+
+#: include/Checks/Cdn.php:16
+#, php-format
+msgid ""
+"Found the URL of a CDN in the code: %s. You should not load CSS or "
+"Javascript resources from a CDN, please bundle them with the theme."
+msgstr ""
+"Url d'un CDN trouvée dans le code : %s. Les themes ne doivent pas utiliser "
+"de ressources CSS ou Javascript provenant d'un CDN. "
+
+#: include/Checks/Cdn.php:28
+msgid "Cdn"
+msgstr "Cdn"
+
+#: include/Checks/Cdn.php:30
+msgid "Use of CDN"
+msgstr "Utilisation d'un CDN"
 
 #: include/Checks/CommentPagination.php:16
 msgid ""
@@ -528,8 +1229,8 @@ msgstr "Utilisation de MUPLUGINDIR"
 
 #: include/Checks/ContentWidth.php:14
 msgid ""
-"No content width has been defined. Example: <pre>if ( ! isset"
-"( $content_width ) ) $content_width = 900;</pre>"
+"No content width has been defined. Example: <pre>if ( ! "
+"isset( $content_width ) ) $content_width = 900;</pre>"
 msgstr ""
 "Aucune largeur de contenu a été définie. Exemple: <pre>if ( ! isset "
 "($content_width) ) $content_width = 900;</pre>"
@@ -560,7 +1261,38 @@ msgstr "Présence d&#39;une entête custom"
 msgid "Presence of custom background"
 msgstr "Présence d&#39;un fond custom"
 
-#: include/Checks/Deprecated.php:23 include/Checks/MoreDeprecated.php:21
+#: include/Checks/Customizer.php:19
+#, php-format
+msgid ""
+"Found a Customizer setting that did not have a sanitization callback "
+"function in file <strong>%s</strong>. Every call to the "
+"<strong>add_setting()</strong> method needs to have a sanitization callback "
+"function passed."
+msgstr ""
+"Un setting Customizer a été trouvé sans callback de sanitization dans le "
+"fichier <strong>%s</strong>. Tous les appels à la méthode "
+"<strong>add_setting()</strong> doivent déclarer une fonction de filtrage."
+
+#: include/Checks/Customizer.php:25
+#, php-format
+msgid ""
+"Found a Customizer setting that had an empty value passed as sanitization "
+"callback in file <strong>%s</strong>. You need to pass a function name as "
+"sanitization callback."
+msgstr ""
+"Un setting Customizer a été trouvé avec une callback de sanitization vide "
+"dans le fichier <strong>%s</strong>. Un nom de fonction de rappel doit être "
+"passé."
+
+#: include/Checks/Customizer.php:41
+msgid "Customizer"
+msgstr "Customizer"
+
+#: include/Checks/Customizer.php:43
+msgid "Sanitization of Customizer settings"
+msgstr "Sanitization des Customizer settings"
+
+#: include/Checks/Deprecated.php:23
 #, php-format
 msgid ""
 "<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since "
@@ -575,7 +1307,7 @@ msgid "Deprecated functions"
 msgstr "Fonctions obsolètes"
 
 #: include/Checks/Deprecated.php:38
-msgid "get_post_data"
+msgid "get_postdata"
 msgstr "get_post_data"
 
 #: include/Checks/Deprecated.php:39
@@ -1291,314 +2023,346 @@ msgid "gd_edit_image_support"
 msgstr "gd_edit_image_support"
 
 #: include/Checks/Deprecated.php:220
+msgid "get_user_id_from_string"
+msgstr "get_user_id_from_string"
+
+#: include/Checks/Deprecated.php:221
 msgid "wp_convert_bytes_to_hr"
 msgstr "wp_convert_bytes_to_hr"
 
-#: include/Checks/Deprecated.php:221
+#: include/Checks/Deprecated.php:222
 msgid "_search_terms_tidy"
 msgstr "_search_terms_tidy"
 
+#: include/Checks/Deprecated.php:223
+msgid "get_blogaddress_by_domain"
+msgstr "get_blogaddress_by_domain"
+
 #: include/Checks/Deprecated.php:224
+msgid "rich_edit_exists"
+msgstr "rich_edit_exists"
+
+#: include/Checks/Deprecated.php:225
+msgid "default_topic_count_text"
+msgstr "default_topic_count_text"
+
+#: include/Checks/Deprecated.php:226
+msgid "format_to_post"
+msgstr "format_to_post"
+
+#: include/Checks/Deprecated.php:227
+msgid "like_escape"
+msgstr "like_escape"
+
+#: include/Checks/Deprecated.php:228
+msgid "url_is_accessable_via_ssl"
+msgstr "url_is_accessable_via_ssl"
+
+#: include/Checks/Deprecated.php:232
 msgid "get_allowed_themes"
 msgstr "get_allowed_themes"
 
-#: include/Checks/Deprecated.php:225
+#: include/Checks/Deprecated.php:233
 msgid "get_broken_themes"
 msgstr "get_broken_themes"
 
-#: include/Checks/Deprecated.php:226
+#: include/Checks/Deprecated.php:234
 msgid "current_theme_info"
 msgstr "current_theme_info"
 
-#: include/Checks/Deprecated.php:227
+#: include/Checks/Deprecated.php:235
 msgid "_insert_into_post_button"
 msgstr "_insert_into_post_button"
 
-#: include/Checks/Deprecated.php:228
+#: include/Checks/Deprecated.php:236
 msgid "_media_button"
 msgstr "_media_button"
 
-#: include/Checks/Deprecated.php:229
+#: include/Checks/Deprecated.php:237
 msgid "get_post_to_edit"
 msgstr "get_post_to_edit"
 
-#: include/Checks/Deprecated.php:230
+#: include/Checks/Deprecated.php:238
 msgid "get_default_page_to_edit"
 msgstr "get_default_page_to_edit"
 
-#: include/Checks/Deprecated.php:231
+#: include/Checks/Deprecated.php:239
 msgid "wp_create_thumbnail"
 msgstr "wp_create_thumbnail"
 
-#: include/Checks/Deprecated.php:232
+#: include/Checks/Deprecated.php:240
 msgid "wp_nav_menu_locations_meta_box"
 msgstr "wp_nav_menu_locations_meta_box"
 
-#: include/Checks/Deprecated.php:233
+#: include/Checks/Deprecated.php:241
 msgid "wp_update_core"
 msgstr "wp_update_core"
 
-#: include/Checks/Deprecated.php:234
+#: include/Checks/Deprecated.php:242
 msgid "wp_update_plugin"
 msgstr "wp_update_plugin"
 
-#: include/Checks/Deprecated.php:235
+#: include/Checks/Deprecated.php:243
 msgid "wp_update_theme"
 msgstr "wp_update_theme"
 
-#: include/Checks/Deprecated.php:236
+#: include/Checks/Deprecated.php:244
 msgid "the_attachment_links"
 msgstr "the_attachment_links"
 
-#: include/Checks/Deprecated.php:237
+#: include/Checks/Deprecated.php:245
 msgid "screen_icon"
 msgstr "screen_icon"
 
-#: include/Checks/Deprecated.php:238
+#: include/Checks/Deprecated.php:246
 msgid "get_screen_icon"
 msgstr "get_screen_icon"
 
-#: include/Checks/Deprecated.php:239
+#: include/Checks/Deprecated.php:247
 msgid "wp_dashboard_incoming_links_output"
 msgstr "wp_dashboard_incoming_links_output"
 
-#: include/Checks/Deprecated.php:240
+#: include/Checks/Deprecated.php:248
 msgid "wp_dashboard_secondary_output"
 msgstr "wp_dashboard_secondary_output"
 
-#: include/Checks/Deprecated.php:241
+#: include/Checks/Deprecated.php:249
 msgid "wp_dashboard_incoming_links"
 msgstr "wp_dashboard_incoming_links"
 
-#: include/Checks/Deprecated.php:242
+#: include/Checks/Deprecated.php:250
 msgid "wp_dashboard_incoming_links_control"
 msgstr "wp_dashboard_incoming_links_control"
 
-#: include/Checks/Deprecated.php:243
+#: include/Checks/Deprecated.php:251
 msgid "wp_dashboard_plugins"
 msgstr "wp_dashboard_plugins"
 
-#: include/Checks/Deprecated.php:244
+#: include/Checks/Deprecated.php:252
 msgid "wp_dashboard_primary_control"
 msgstr "wp_dashboard_primary_control"
 
-#: include/Checks/Deprecated.php:245
+#: include/Checks/Deprecated.php:253
 msgid "wp_dashboard_recent_comments_control"
 msgstr "wp_dashboard_recent_comments_control"
 
-#: include/Checks/Deprecated.php:246
+#: include/Checks/Deprecated.php:254
 msgid "wp_dashboard_secondary"
 msgstr "wp_dashboard_secondary"
 
-#: include/Checks/Deprecated.php:247
+#: include/Checks/Deprecated.php:255
 msgid "wp_dashboard_secondary_control"
 msgstr "wp_dashboard_secondary_control"
 
-#: include/Checks/Deprecated.php:250
+#: include/Checks/Deprecated.php:256
+msgid "_relocate_children"
+msgstr "_relocate_children"
+
+#: include/Checks/Deprecated.php:259
 msgid "ampReplace"
 msgstr "ampReplace"
 
-#: include/Checks/Deprecated.php:251
+#: include/Checks/Deprecated.php:260
 msgid "deldir"
 msgstr "deldir"
 
-#: include/Checks/Deprecated.php:252
+#: include/Checks/Deprecated.php:261
 msgid "doGzip"
 msgstr "doGzip"
 
-#: include/Checks/Deprecated.php:253
+#: include/Checks/Deprecated.php:262
 msgid "editorArea"
 msgstr "editorArea"
 
-#: include/Checks/Deprecated.php:254
+#: include/Checks/Deprecated.php:263
 msgid "getEditorContents"
 msgstr "getEditorContents"
 
-#: include/Checks/Deprecated.php:255
+#: include/Checks/Deprecated.php:264
 msgid "initEditor"
 msgstr "initEditor"
 
-#: include/Checks/Deprecated.php:256
+#: include/Checks/Deprecated.php:265
 msgid "initGzip"
 msgstr "initGzip"
 
-#: include/Checks/Deprecated.php:257
+#: include/Checks/Deprecated.php:266
 msgid "josGetArrayInts"
 msgstr "josGetArrayInts"
 
-#: include/Checks/Deprecated.php:258
+#: include/Checks/Deprecated.php:267
 msgid "josSpoofCheck"
 msgstr "josSpoofCheck"
 
-#: include/Checks/Deprecated.php:259
+#: include/Checks/Deprecated.php:268
 msgid "josSpoofValue"
 msgstr "josSpoofValue"
 
-#: include/Checks/Deprecated.php:260
+#: include/Checks/Deprecated.php:269
 msgid "loadOverlib"
 msgstr "loadOverlib"
 
-#: include/Checks/Deprecated.php:261
+#: include/Checks/Deprecated.php:270
 msgid "mosArrayToInts"
 msgstr "mosArrayToInts"
 
-#: include/Checks/Deprecated.php:262
+#: include/Checks/Deprecated.php:271
 msgid "mosBackTrace"
 msgstr "mosBackTrace"
 
-#: include/Checks/Deprecated.php:263
+#: include/Checks/Deprecated.php:272
 msgid "mosBindArrayToObject"
 msgstr "mosBindArrayToObject"
 
-#: include/Checks/Deprecated.php:264
+#: include/Checks/Deprecated.php:273
 msgid "mosChmod"
 msgstr "mosChmod"
 
-#: include/Checks/Deprecated.php:265
+#: include/Checks/Deprecated.php:274
 msgid "mosChmodRecursive"
 msgstr "mosChmodRecursive"
 
-#: include/Checks/Deprecated.php:266
+#: include/Checks/Deprecated.php:275
 msgid "mosCountAdminModules"
 msgstr "mosCountAdminModules"
 
-#: include/Checks/Deprecated.php:267
+#: include/Checks/Deprecated.php:276
 msgid "mosCountModules"
 msgstr "mosCountModules"
 
-#: include/Checks/Deprecated.php:268
+#: include/Checks/Deprecated.php:277
 msgid "mosCreateMail"
 msgstr "mosCreateMail"
 
-#: include/Checks/Deprecated.php:269
+#: include/Checks/Deprecated.php:278
 msgid "mosCurrentDate"
 msgstr "mosCurrentDate"
 
-#: include/Checks/Deprecated.php:270
+#: include/Checks/Deprecated.php:279
 msgid "mosErrorAlert"
 msgstr "mosErrorAlert"
 
-#: include/Checks/Deprecated.php:271
+#: include/Checks/Deprecated.php:280
 msgid "mosFormatDate"
 msgstr "mosFormatDate"
 
-#: include/Checks/Deprecated.php:272
+#: include/Checks/Deprecated.php:281
 msgid "mosGetBrowser"
 msgstr "mosGetBrowser"
 
-#: include/Checks/Deprecated.php:273
+#: include/Checks/Deprecated.php:282
 msgid "mosGetOrderingList"
 msgstr "mosGetOrderingList"
 
-#: include/Checks/Deprecated.php:274
+#: include/Checks/Deprecated.php:283
 msgid "mosGetOS"
 msgstr "mosGetOS"
 
-#: include/Checks/Deprecated.php:275
+#: include/Checks/Deprecated.php:284
 msgid "mosGetParam"
 msgstr "mosGetParam"
 
-#: include/Checks/Deprecated.php:276
+#: include/Checks/Deprecated.php:285
 msgid "mosHash"
 msgstr "mosHash"
 
-#: include/Checks/Deprecated.php:277
+#: include/Checks/Deprecated.php:286
 msgid "mosIsChmodable"
 msgstr "mosIsChmodable"
 
-#: include/Checks/Deprecated.php:278
+#: include/Checks/Deprecated.php:287
 msgid "mosLoadAdminModule"
 msgstr "mosLoadAdminModule"
 
-#: include/Checks/Deprecated.php:279
+#: include/Checks/Deprecated.php:288
 msgid "mosLoadComponent"
 msgstr "mosLoadComponent"
 
-#: include/Checks/Deprecated.php:280
+#: include/Checks/Deprecated.php:289
 msgid "mosLoadModule"
 msgstr "mosLoadModule"
 
-#: include/Checks/Deprecated.php:281
+#: include/Checks/Deprecated.php:290
 msgid "mosMail"
 msgstr "mosMail"
 
-#: include/Checks/Deprecated.php:282
+#: include/Checks/Deprecated.php:291
 msgid "mosMainBody"
 msgstr "mosMainBody"
 
-#: include/Checks/Deprecated.php:283
+#: include/Checks/Deprecated.php:292
 msgid "mosMakeHtmlSafe"
 msgstr "mosMakeHtmlSafe"
 
-#: include/Checks/Deprecated.php:284
+#: include/Checks/Deprecated.php:293
 msgid "mosMakePassword"
 msgstr "mosMakePassword"
 
-#: include/Checks/Deprecated.php:285
+#: include/Checks/Deprecated.php:294
 msgid "mosMakePath"
 msgstr "mosMakePath"
 
-#: include/Checks/Deprecated.php:286
+#: include/Checks/Deprecated.php:295
 msgid "mosMenuCheck"
 msgstr "mosMenuCheck"
 
-#: include/Checks/Deprecated.php:287
+#: include/Checks/Deprecated.php:296
 msgid "mosNotAuth"
 msgstr "mosNotAuth"
 
-#: include/Checks/Deprecated.php:288
+#: include/Checks/Deprecated.php:297
 msgid "mosObjectToArray"
 msgstr "mosObjectToArray"
 
-#: include/Checks/Deprecated.php:289
+#: include/Checks/Deprecated.php:298
 msgid "mosPathName"
 msgstr "mosPathName"
 
-#: include/Checks/Deprecated.php:290
+#: include/Checks/Deprecated.php:299
 msgid "mosPathWay"
 msgstr "mosPathWay"
 
-#: include/Checks/Deprecated.php:291
+#: include/Checks/Deprecated.php:300
 msgid "mosReadDirectory"
 msgstr "mosReadDirectory"
 
-#: include/Checks/Deprecated.php:292
+#: include/Checks/Deprecated.php:301
 msgid "mosRedirect"
 msgstr "mosRedirect"
 
-#: include/Checks/Deprecated.php:293
+#: include/Checks/Deprecated.php:302
 msgid "mosSendAdminMail"
 msgstr "mosSendAdminMail"
 
-#: include/Checks/Deprecated.php:294
+#: include/Checks/Deprecated.php:303
 msgid "mosShowHead"
 msgstr "mosShowHead"
 
-#: include/Checks/Deprecated.php:295
+#: include/Checks/Deprecated.php:304
 msgid "mosShowSource"
 msgstr "mosShowSource"
 
-#: include/Checks/Deprecated.php:296
+#: include/Checks/Deprecated.php:305
 msgid "mosStripslashes"
 msgstr "mosStripslashes"
 
-#: include/Checks/Deprecated.php:297
+#: include/Checks/Deprecated.php:306
 msgid "mosToolTip"
 msgstr "mosToolTip"
 
-#: include/Checks/Deprecated.php:298
+#: include/Checks/Deprecated.php:307
 msgid "mosTreeRecurse"
 msgstr "mosTreeRecurse"
 
-#: include/Checks/Deprecated.php:299
+#: include/Checks/Deprecated.php:308
 msgid "mosWarning"
 msgstr "mosWarning"
 
-#: include/Checks/Deprecated.php:300
+#: include/Checks/Deprecated.php:309
 msgid "sefRelToAbs"
 msgstr "sefRelToAbs"
 
-#: include/Checks/Deprecated.php:301
+#: include/Checks/Deprecated.php:310
 msgid "SortArrayObjects"
 msgstr "SortArrayObjects"
 
@@ -1799,8 +2563,8 @@ msgid ""
 msgstr ""
 "Le thème semble utiliser include ou require : <strong>%1$s</strong> %2$s Si "
 "ces fonctions sont utilisées pour inclure des sections séparées d&#39;un "
-"modèle à partir de fichiers indépendants, alors <strong>get_template_part ()"
-"</strong> doit être utilisé à la place."
+"modèle à partir de fichiers indépendants, alors <strong>get_template_part "
+"()</strong> doit être utilisé à la place."
 
 #: include/Checks/Includes.php:31
 msgid "Use of includes"
@@ -1916,11 +2680,20 @@ msgstr "Présence du fichier templateDetails.xml"
 msgid "Presence of file template_thumbnail.png"
 msgstr "Présence du fichier template_thumbnail.png"
 
-#: include/Checks/MoreDeprecated.php:35 include/Checks/MoreDeprecated.php:37
+#: include/Checks/MoreDeprecated.php:21
+#, php-format
+msgid ""
+"<strong>%1$s</strong> was found in the file <strong>%2$s</strong>. Use "
+"<strong>%3$s</strong> instead.%4$s"
+msgstr ""
+"<strong>%1$s</strong> trouvé dans le fichier <strong>%2$s</strong>. Il est "
+"préférable d&#39;utiliser <strong>%3$s</strong>. %4$s"
+
+#: include/Checks/MoreDeprecated.php:35
 msgid "get_bloginfo"
 msgstr "get_bloginfo"
 
-#: include/Checks/MoreDeprecated.php:36 include/Checks/MoreDeprecated.php:38
+#: include/Checks/MoreDeprecated.php:44
 msgid "bloginfo"
 msgstr "bloginfo"
 
@@ -2052,6 +2825,31 @@ msgstr "Balises courtes PHP"
 #: include/Checks/PHPShort.php:30
 msgid "Presence of PHP short tags"
 msgstr "Présence de balises PHP courtes"
+
+#: include/Checks/PluginTerritory.php:18
+#, php-format
+msgid ""
+"The theme uses the %s function, which is plugin-territory functionality."
+msgstr ""
+"Le thème utilise la fonction %s. Cette fonction n'est pas prévue pour être "
+"utilisée dans le contexte d'un thème, mais plutôt dans un plugin."
+
+#: include/Checks/PluginTerritory.php:29
+#, php-format
+msgid ""
+"The theme uses the %s function. Custom post-content shortcodes are plugin-"
+"territory functionality."
+msgstr ""
+"Le thème utilise la fonction %s. L'utilisation des custom post-content "
+"shortcodes est du domaine des plugins."
+
+#: include/Checks/PluginTerritory.php:40
+msgid "Plugin territory"
+msgstr "Contextes de plugin"
+
+#: include/Checks/PluginTerritory.php:42
+msgid "Plugin territory functionalities"
+msgstr "Fonctionnalités de plugin"
 
 #: include/Checks/PostFormat.php:23
 #, php-format
@@ -2322,10 +3120,6 @@ msgstr "<strong>Author URI</strong> introuvable."
 msgid "This theme doesn't seem to display tags."
 msgstr "Ce theme ne semble pas afficher les tags."
 
-#: include/Checks/Tags.php:25 controllers/controller_results.php:399
-msgid "Tags"
-msgstr "Tags"
-
 #: include/Checks/Tags.php:27
 msgid "Tags display"
 msgstr "Affichage des tags"
@@ -2355,6 +3149,91 @@ msgstr "Utilisation de the_date()"
 #: include/Checks/TimeDate.php:33
 msgid "Use of the_time()"
 msgstr "Utilisation de the_time()"
+
+#: include/Checks/Title.php:23
+msgid ""
+"No reference to <strong>add_theme_support( \"title-tag\" )</strong> was "
+"found in the theme. It is recommended that the theme implement this "
+"functionality for WordPress 4.1 and above."
+msgstr ""
+"Aucune référence à <strong>add_theme_support( \"title-tag\" )</strong> n'a "
+"été trouvée dans le thème. Il est recommandé que les thèmes implémentent "
+"cette fonctionnalité depuis WordPress 4.1."
+
+#: include/Checks/Title.php:32
+msgid ""
+"The theme needs to have <strong>&lt;title&gt;</strong> tags, ideally in the "
+"<strong>header.php</strong> file."
+msgstr ""
+"Le thème doit avoir des tags <strong>&lt;title&gt;</strong>, idéalement dans "
+"le fichier <strong>header.php</strong>."
+
+#: include/Checks/Title.php:40
+msgid ""
+"The theme needs to have a call to <strong>wp_title()</strong>, ideally in "
+"the <strong>header.php</strong> file."
+msgstr ""
+"Le thème doit comporter un appel à <strong>wp_title()</strong>, idéalement "
+"dans le fichier <strong>header.php</strong>."
+
+#: include/Checks/Title.php:53
+msgid ""
+"The <strong>&lt;title&gt;</strong> tags can only contain a call to "
+"<strong>wp_title()</strong>. Use the  <strong>wp_title filter</strong> to "
+"modify the output."
+msgstr ""
+"Les tags <strong>&lt;title&gt;</strong> ne peuvent contenir qu'un appe à "
+"<strong>wp_title()</strong>. <strong>wp_title filter</strong> soit être "
+"utilisée pour modifier la sortie."
+
+#: include/Checks/Title.php:64 include/Checks/Title.php:66
+msgid "Title"
+msgstr "Title"
+
+#: include/Checks/Widgets.php:14
+msgid ""
+"This theme contains no sidebars/widget areas. See <a href='https://codex."
+"wordpress.org/Widgets_API'>Widgets API</a>"
+msgstr ""
+"Ce thème ne contient pas de zone de sidebar/widget. Cf <a href='https://"
+"codex.wordpress.org/Widgets_API'>Widgets API</a>"
+
+#: include/Checks/Widgets.php:19
+msgid ""
+"The theme appears to use <strong>register_sidebar()</strong> but no "
+"<strong>dynamic_sidebar()</strong> was found. See: <a href='https://codex."
+"wordpress.org/Function_Reference/dynamic_sidebar'>dynamic_sidebar</a><pre> "
+"&lt;?php dynamic_sidebar( $index ); ?&gt;</pre>"
+msgstr ""
+"Le thème utilise <strong>register_sidebar()</strong> mais aucun appel à "
+"<strong>dynamic_sidebar()</strong> n'a été trouvé. Cf <a href='https://codex."
+"wordpress.org/Function_Reference/dynamic_sidebar'>dynamic_sidebar</a><pre> "
+"&lt;?php dynamic_sidebar( $index ); ?&gt;</pre>"
+
+#: include/Checks/Widgets.php:24
+msgid ""
+"The theme appears to use <strong>dynamic_sidebars()</strong> but no "
+"<strong>register_sidebar()</strong> was found. See: <a href='https://codex."
+"wordpress.org/Function_Reference/register_sidebar'>register_sidebar</a><pre> "
+"&lt;?php register_sidebar( $args ); ?&gt;</pre>"
+msgstr ""
+"Le thème utilise <strong>dynamic_sidebars()</strong> mais aucun appel à "
+"<strong>register_sidebar()</strong> n'a été trouvé. Cf <a href='https://"
+"codex.wordpress.org/Function_Reference/register_sidebar'>register_sidebar</"
+"a><pre> &lt;?php register_sidebar( $args ); ?&gt;</pre>"
+
+#: include/Checks/Widgets.php:32
+#, php-format
+msgid ""
+"Sidebars need to be registered in a custom function hooked to the "
+"<strong>widgets_init</strong> action. See: %s."
+msgstr ""
+"Les sidebars doivent être déclarées dans une fonction custom en hook à "
+"l'action <strong>widgets_init</strong>. Cf %s."
+
+#: include/Checks/Widgets.php:42 include/Checks/Widgets.php:44
+msgid "Widgets"
+msgstr "Widgets"
 
 #: include/Checks/Worms.php:20
 #, php-format
@@ -2451,532 +3330,267 @@ msgstr ""
 msgid "Malicious footer code injection detected!"
 msgstr "Injection de code malveillant détecté de bas de page!"
 
+#: include/FileValidator.php:135
+msgid "Mandatory thumbnail file screenshot.png is missing"
+msgstr "Fichier screenshot.png obligatoire introuvable"
+
+#: include/FileValidator.php:136
+msgid "Mandatory thumbnail file template_thumbnail.png is missing"
+msgstr "Le fichier obligatoire template_thumbnail.png est introuvable"
+
+#: include/FileValidator.php:241
+msgid "No files to upload"
+msgstr "Aucun fichier à télécharger"
+
+#: include/FileValidator.php:250
+#, php-format
+msgid ""
+"Could not upload file. File is empty or bigger than maximum upload file size "
+"(%s MB)."
+msgstr ""
+"Impossible de télécharger le fichier. Le fichier est vide ou plus gros que "
+"la taille maximum autorisée (%s Mo)."
+
+#: include/FileValidator.php:269
+#, php-format
+msgid ""
+"Bad file type. Mime type %s is not a recognized format for web themes. "
+"Uploaded file must be a zip archive."
+msgstr ""
+"Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
+"pour les themes web. Le fichier doit être une archive zip."
+
+#: include/FileValidator.php:276
+#, php-format
+msgid ""
+"Bad file extension. File extension %s not recognized. File extension must be "
+"\".zip\"."
+msgstr ""
+"Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
+"L&#39;extension doit être \".zip\"."
+
+#: include/FileValidator.php:282
+#, php-format
+msgid "The uploaded file size exceeds %s."
+msgstr "La taille du fichier téléchargé dépasse %s."
+
+#: include/FileValidator.php:288
+msgid "The uploaded file was only partially uploaded."
+msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
+
+#: include/FileValidator.php:294
+msgid "No file was uploaded."
+msgstr "Aucun fichier n&#39;a été téléchargé."
+
+#: include/FileValidator.php:436
+msgid "Files under 100 bytes are not accepted. Operation canceled."
+msgstr ""
+"Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
+"Apération annulée."
+
+#: include/FileValidator.php:466 include/ThemeInfo.php:172
+msgid "File could not be unzipped."
+msgstr "Fichier n&#39;a pas pu être décompressé."
+
+#: include/FileValidator.php:469 include/ThemeInfo.php:175
+msgid "Archive extraction failed. The following exception occured : "
+msgstr ""
+"L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
+"est produite :"
+
+#: include/ThemeInfo.php:120 include/ThemeInfo.php:124
+msgid "Cannot list files in archive."
+msgstr "Impossible de lister les fichiers de l'archive."
+
+#: include/ThemeInfo.php:153
+msgid "Multiple level nested zip archives are not supported."
+msgstr "Les archives imbriquées sur plusieurs niveaux ne sont pas valides."
+
+#: include/ThemeInfo.php:159
+msgid "Nested zip archives are not supported."
+msgstr "Les archives zip imbriquées ne sont pas supportées."
+
+#: include/ThemeInfo.php:230
+msgid "Archive is not a valid theme file."
+msgstr "L'archive n'est pas un fichier de theme valide."
+
+#: include/ThemeInfo.php:264
+msgid "style.css is missing or misspelled."
+msgstr "Le fichier style.ss est manquant ou mal orthographié."
+
+#: include/ThemeInfo.php:271
+msgid "style.css does not contain Theme name. Theme name is mandatory."
+msgstr ""
+"Le fichier style.css ne contient pas le nom du thème. Le nom du thème est "
+"obligatoire."
+
+#: include/ThemeInfo.php:314
+msgid ""
+"Malformed xml file templateDetails.xml. Cannot continue. Error details : "
+msgstr ""
+"Erreur dans la structure xml du fichier templateDetails.xml. Opération "
+"annulée. Détails :"
+
+#: include/ThemeInfo.php:323
+msgid "templateDetails.xml is empty or contains malformed xml"
+msgstr ""
+"Le fichier templateDetails.xml est vide ou sa structure xml est incorrecte."
+
+#: include/ThemeInfo.php:331
+msgid "templateDetails.xml does not have a name tag. name is mandatory."
+msgstr ""
+"Le fichier templateDetails.xml ne contient pas de tag de nom. Le tag de nom "
+"est obligatoire."
+
+#: include/ThemeInfo.php:372
+msgid ""
+"templateDetails.xml does not have a mosinstall, extension or install or node"
+msgstr ""
+"Le fichier templateDetails.xml ne contient de noeud mosinstall, extension ou "
+"install."
+
+#: include/ThemeInfo.php:493
+msgid ""
+"Invalid joomla template. templatedetails.xml found. Please rename it "
+"templateDetails.xml (capital D)"
+msgstr ""
+"Template joomla invalide. Le fichier templatedetails.xml a été trouvé. "
+"Renommez le templateDetails.xml (D majuscule)"
+
+#: include/ThemeInfo.php:773
+msgid "None"
+msgstr "Aucun"
+
+#: include/ThemeInfo.php:774
+msgid "Custom"
+msgstr "Propriétaire"
+
+#: include/ThemeInfo.php:775
+msgid "Creative Commons"
+msgstr "Creative Commons"
+
+#: include/ThemeInfo.php:776
+msgid "Creative Commons BY"
+msgstr "Creative Commons BY"
+
+#: include/ThemeInfo.php:777
+msgid "Creative Commons BY SA"
+msgstr "Creative Commons BY SA"
+
+#: include/ThemeInfo.php:778
+msgid "Creative Commons BY ND"
+msgstr "Creative Commons BY ND"
+
+#: include/ThemeInfo.php:779
+msgid "Creative Commons BY NC"
+msgstr "Creative Commons BY NC"
+
+#: include/ThemeInfo.php:780
+msgid "Creative Commons BY NC SA"
+msgstr "Creative Commons BY NC SA"
+
+#: include/ThemeInfo.php:781
+msgid "Creative Commons BY NC ND"
+msgstr "Creative Commons BY NC ND"
+
+#: include/ThemeInfo.php:782
+msgid "MIT X11"
+msgstr "MIT X11"
+
+#: include/ThemeInfo.php:783
+msgid "BSD"
+msgstr "BSD"
+
+#: include/ThemeInfo.php:784
+msgid "New BSD"
+msgstr "New BSD"
+
+#: include/ThemeInfo.php:785
+msgid "Free BSD"
+msgstr "Free BSD"
+
+#: include/ThemeInfo.php:786
+msgid "GNU LGPL 2"
+msgstr "GNU LGPL 2"
+
+#: include/ThemeInfo.php:787
+msgid "GNU LGPL 3"
+msgstr "GNU LGPL 3"
+
+#: include/ThemeInfo.php:788
+msgid "GNU GPL 2"
+msgstr "GNU GPL 2"
+
+#: include/ThemeInfo.php:789
+msgid "GNU GPL 3"
+msgstr "GNU GPL 3"
+
+#: include/ThemeInfo.php:790
+msgid "Apache"
+msgstr "Apache"
+
+#: include/ThemeInfo.php:791
+msgid "CDDL"
+msgstr "CDDL"
+
+#: include/ThemeInfo.php:792
+msgid "Eclipse"
+msgstr "Eclipse"
+
+#: include/_shield.php:29 include/shield.php:34 include/shield.php:72
+#, php-format
+msgid "Themecheck.org validation score : 100%%, %s."
+msgstr "Score de validation Themecheck.org : 100%%, %s."
+
+#: include/_shield.php:47 include/shield.php:55 include/shield.php:90
+#, php-format
+msgid ""
+"Themecheck.org validation score : %s%% (%s severe failures, %s warnings, %s)."
+msgstr ""
+"Score de validation Themecheck.org : %s%% (%s erreurs critique, %s alertes, "
+"%s)."
+
+#: include/_shield.php:49 include/shield.php:57 include/shield.php:92
+#, php-format
+msgid "Themecheck.org validation score : %s%% (%s warnings, %s)."
+msgstr "Score de validation Themecheck.org : %s%% (%s alertes, %s)."
+
+#: include/_shield.php:58 include/shield.php:103 score.php:114
+msgid "Error : non existant id."
+msgstr "Erreur : identificant non existant."
+
+#: include/tc_helpers.php:23 include/tc_helpers.php:42
+msgid "<pre>Line "
+msgstr "<pre>Ligne"
+
 #: include/unittests/ut_perfect_wordpress/footer.php:16
 #, php-format
 msgid "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 msgstr "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 
-#: error404.php:13
-msgid "Themecheck.org - The page does not exist."
-msgstr "Themecheck.org - La page n&#39;existe pas."
-
-#: error404.php:14
-msgid "Validate your web theme and templates"
-msgstr "Validez votre theme ou votre template"
-
-#: error404.php:45
-msgid "Error 404."
-msgstr "Erreur 404."
-
-#: error404.php:46
-msgid "Sorry, the page you requested doesn't exist."
-msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
-
-#: header.php:58 controllers/controller_contact.php:15
-#: controllers/controller_contact.php:16 controllers/controller_contact.php:90
-msgid "Contact us"
-msgstr "Contact"
-
 #: index.php:21 index.php:25
 msgid "Error"
 msgstr "Erreur"
-
-#: index.php:23
-msgid "Warning"
-msgstr "Attention"
 
 #: score.php:120
 msgid "Error : invalid id."
 msgstr "Erruer : identifiant invalide."
 
-#: controllers/controller_contact.php:32 controllers/controller_contact.php:33
-#: controllers/controller_contact.php:35
-msgid "Required field"
-msgstr "Requis"
-
-#: controllers/controller_contact.php:34
-msgid "invalid email address"
-msgstr "Adresse email invalide"
-
-#: controllers/controller_contact.php:74
-msgid "Message sent. We&#39;ll contact you soon."
-msgstr "Message envoyé. Nous vous recontacterons bientôt."
-
-#: controllers/controller_contact.php:74
-msgid "Back to home page"
-msgstr "Retour à la page d'accueil"
-
-#: controllers/controller_contact.php:79
-msgid "Invalid form"
-msgstr "Formulaire invalide"
-
-#: controllers/controller_contact.php:96
-msgid "Name (required)"
-msgstr "Nom (requis)"
-
-#: controllers/controller_contact.php:103
-msgid "Email (required)"
-msgstr "Email (requis)"
-
-#: controllers/controller_contact.php:110
-msgid "Website"
-msgstr "Site web"
-
-#: controllers/controller_contact.php:117
-msgid "Message (required)"
-msgstr "Message (requis)"
-
-#: controllers/controller_contact.php:123 controllers/controller_home.php:127
-msgid "Submit"
-msgstr "Soumettre"
-
-#: controllers/controller_home.php:19
-msgid "The Web Template Verification Service"
-msgstr "Le Service de Vérification de Modèles Web"
-
-#: controllers/controller_home.php:20
-msgid ""
-"A free service that checks web templates and themes for security and code "
-"quality."
-msgstr ""
-"Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
-"de sites web."
-
-#: controllers/controller_home.php:40 controllers/controller_results.php:367
-#: controllers/controller_results.php:368
-msgid "Wordpress theme"
-msgstr "Theme Wordpress"
-
-#: controllers/controller_home.php:41 controllers/controller_results.php:215
-#, php-format
-msgid "Wordpress %s theme"
-msgstr "Theme Wordpress %s"
-
-#: controllers/controller_home.php:43 controllers/controller_results.php:370
-#: controllers/controller_results.php:371
-msgid "Wordpress child theme"
-msgstr "Theme Wordpress Enfant"
-
-#: controllers/controller_home.php:44
-#, php-format
-msgid "Wordpress %s child theme"
-msgstr "Theme Wordpress Enfant %s"
-
-#: controllers/controller_home.php:46 controllers/controller_results.php:378
-#: controllers/controller_results.php:379
-msgid "Joomla template"
-msgstr "Template Joomla"
-
-#: controllers/controller_home.php:47 controllers/controller_results.php:216
-#, php-format
-msgid "Joomla %s template"
-msgstr "Template Joomla %s"
-
-#: controllers/controller_home.php:55
-msgid "Themeforest theme"
-msgstr "Thème Themeforest"
-
-#: controllers/controller_home.php:55
-msgid "Themeforest icon"
-msgstr "Icône Themeforest"
-
-#: controllers/controller_home.php:83
-msgid "Verify web themes and templates"
-msgstr "Vérifiez vos themes wordpress et joomla"
-
-#: controllers/controller_home.php:84
-msgid ""
-"Themecheck.org is a quick service that lets you verify web themes or "
-"templates for security and code quality. This service is free and compatible "
-"with Wordpress themes and Joomla templates."
-msgstr ""
-"Themecheck.org est un service gratuit et rapide de vérification de templates "
-"web. Ce service est compatible avec les themes Wordpress et les templates "
-"Joomla."
-
-#: controllers/controller_home.php:85
-msgid "More..."
-msgstr "Plus ..."
-
-#: controllers/controller_home.php:92
-msgid "Website owners"
-msgstr "Webmasters"
-
-#: controllers/controller_home.php:93
-msgid ""
-"Check themes or templates you download before installing them on your site"
-msgstr ""
-"Vérifiez les thèmes et les templates que vous téléchargez avant de les "
-"déployer sur votre site"
-
-#: controllers/controller_home.php:95
-msgid "Check code quality"
-msgstr "Vérification de qualité de code"
-
-#: controllers/controller_home.php:96
-msgid "Check presence of malware"
-msgstr "Vérification de présence de code malicieux"
-
-#: controllers/controller_home.php:100
-msgid "Developers"
-msgstr "Développeurs"
-
-#: controllers/controller_home.php:101
-msgid "Your create or distribute themes ?"
-msgstr "Vous créez ou distribuez des thèmes ?"
-
-#: controllers/controller_home.php:103
-msgid ""
-"Themecheck.org helps you verify they satisfy CMS standards and common users "
-"needs."
-msgstr ""
-"Themecheck.org vous aide à vérifier qu'ils vérifient les standards des CMS "
-"et les attentes de la majorité des utilisateurs."
-
-#: controllers/controller_home.php:104
-msgid "Share verification score on your site with ThemeCheck.org widget  "
-msgstr ""
-"Partagez le score de vérification sur votre site avec le widget ThemeCheck."
-"org  "
-
-#: controllers/controller_home.php:115
-msgid "Upload a zip file and get its verification score :"
-msgstr "Chargez un fichier zip pour obtenir son score :"
-
-#: controllers/controller_home.php:119
-msgid "Select file"
-msgstr "Choisissez un fichier"
-
-#: controllers/controller_home.php:121
-msgid "Maximum file size"
-msgstr "Taille maximum du fichier"
-
-#: controllers/controller_home.php:124
-msgid "Forget uploaded data after results"
-msgstr "Oublier les données uploadées après la validation"
-
-#: controllers/controller_home.php:124
-msgid ""
-"<ul><li>No data will be kept on themecheck.org servers (or any other)"
-"<li>Validation won't be visible to the public<li>If you want to see the "
-"results in the future, you'll have to re-submit your file</ul>"
-msgstr ""
-"<ul><li>Aucune donnée ne sera conservée sur les serveurs themecheck.org , ni "
-"sur aucun autre<li>Les résultats de validation ne seront visibles de "
-"personne d'autre<li>Si vous voulez consulter les résultats de validation "
-"dans le futur, il faudra soumettre à nouveau votre fichier</ul>"
-
-#: controllers/controller_home.php:139
-msgid "Recently checked themes"
-msgstr "Thèmes vérifiés récemment"
-
-#: controllers/controller_home.php:148
-msgid "Newer first"
-msgstr "Nouveau en premier"
-
-#: controllers/controller_home.php:149
-msgid "Higher scores first"
-msgstr "Meilleurs scores en premier"
-
-#: controllers/controller_home.php:171
-msgid "See more"
-msgstr "Voir plus"
-
-#: controllers/controller_massimport.php:19
-#: controllers/controller_massimport.php:20
-msgid "Mass import"
-msgstr "Import de masse"
-
-#: controllers/controller_results.php:88
-msgid "Unvalid form"
-msgstr "Formulaire invalide"
-
-#: controllers/controller_results.php:91
-msgid "No file uploaded."
-msgstr "Aucun fichier n&#39;a été téléchargé."
-
-#: controllers/controller_results.php:92 controllers/controller_results.php:93
-msgid "No file uploaded"
-msgstr "Aucun fichier n&#39;a été téléchargé"
-
-#: controllers/controller_results.php:101
-#, php-format
-msgid "%s%% : Joomla template %s"
-msgstr "%s%% : template Joomla %s"
-
-#: controllers/controller_results.php:102
-#, php-format
-msgid "Security and code quality score of Joomla template %s."
-msgstr "Score de sécurité et de qualité de code pour le template Joomla %s."
-
-#: controllers/controller_results.php:104
-#, php-format
-msgid "%s%% : Wordpress theme %s"
-msgstr "%s%% : thème Wordpress %s"
-
-#: controllers/controller_results.php:105
-#, php-format
-msgid "Security and code quality score of Wordpress theme %s."
-msgstr "Score de sécurité et de qualité de code pour le thème Wordpress %s."
-
-#: controllers/controller_results.php:122
-msgid "Check results"
-msgstr "Résultats de vérification"
-
-#: controllers/controller_results.php:123
-msgid "Security and code quality score"
-msgstr "Score de sécurité de qualité de code"
-
-#: controllers/controller_results.php:156
-#, php-format
-msgid "Validation results for <strong>%s</strong>"
-msgstr "Résultats de validation pour <strong>%s</strong>"
-
-#: controllers/controller_results.php:160
-msgid "Themecheck rules"
-msgstr "Règles Themecheck"
-
-#: controllers/controller_results.php:166
-msgid "Themeforest rules"
-msgstr "Règles Themeforest"
-
-#: controllers/controller_results.php:176
-msgid ""
-"This is a ThemeForest theme. Since Themeforest items are all checked by a "
-"human before they appear on their website, ThemeForest verification rules "
-"are more permissive than themecheck&#39;s and can give a better verification "
-"score ( <a href=\"http://support.envato.com/index.php?/Knowledgebase/Article/"
-"View/472/85/wordpress-theme-submission-requirements\" rel=\"nofollow"
-"\">Themeforest requirements</a> )."
-msgstr ""
-"Ceci est un thème distribué surThemeForest. Etant donné que  tous les thèmes "
-"de Themeforest sont validés par un humain avant d'être mis en ligne, les "
-"règles de vérification de Themeforest sont plus permissives que celles de "
-"themecheck et peuvent donner un meilleur score de vérification  ( <a href="
-"\"http://support.envato.com/index.php?/Knowledgebase/Article/View/472/85/"
-"wordpress-theme-submission-requirements\" rel=\"nofollow\">Themeforest "
-"requirements</a> )."
-
-#: controllers/controller_results.php:202
-msgid "Other files checked around the same date"
-msgstr "Autres fichiers validées durant la même période"
-
-#: controllers/controller_results.php:240
-msgid "Validation results"
-msgstr "Résultats de validation"
-
-#: controllers/controller_results.php:248
-#: controllers/controller_results.php:255
-msgid "Validation score : 0 %"
-msgstr "Score de validation : 0 %"
-
-#: controllers/controller_results.php:257
-msgid "Fatal error"
-msgstr "Erreur fatale"
-
-#: controllers/controller_results.php:259
-msgid "Go to home page to submit a new version"
-msgstr "Aller sur la page d'accueil pour soumettre une nouvelle version"
-
-#: controllers/controller_results.php:270
-msgid "Please send us a theme to check."
-msgstr "SVP, uploadez un thème à vérifier."
-
-#: controllers/controller_results.php:271
-msgid "Go to home page"
-msgstr "Aller à la page d'accueil."
-
-#: controllers/controller_results.php:299
-#: controllers/controller_results.php:319
-#, php-format
-msgid "Validation score : %s%%"
-msgstr "Score de validation  : %s%%"
-
-#: controllers/controller_results.php:317
-#, php-format
-msgid "Validation score : %s%% (%s critical alerts)"
-msgstr "Score de validation : %s%% (%s alertes critiques)"
-
-#: controllers/controller_results.php:329
-msgid "validation score"
-msgstr "Score de validation"
-
-#: controllers/controller_results.php:330
-#, php-format
-msgid "%s critical alerts. %s warnings."
-msgstr "%s alertes critiques. %s alertes simples."
-
-#: controllers/controller_results.php:335
-msgid "Share this page with the following link :"
-msgstr "Partagez cette page avec le lien suivant :"
-
-#: controllers/controller_results.php:341
-msgid ""
-"Display this score on your website with the following HTML code that links "
-"to this page :"
-msgstr "Affichez ce score sur votre site web avec le code HTML suivant :"
-
-#: controllers/controller_results.php:348
-msgid "Medium size icon (default) :"
-msgstr "Icône moyenne (défaut) : "
-
-#: controllers/controller_results.php:351
-msgid "Small size icon :"
-msgstr "Petite icône :"
-
-#: controllers/controller_results.php:353
-msgid ""
-"You can switch language with <strong>lang</strong> parameter in iframe's "
-"url. So far <strong>fr</strong> and <strong>en</strong> are supported. "
-"Default value is <strong>en</strong>."
-msgstr ""
-"Vous pouvez changer de langues avec le paramètre <strong>lang</strong> dans "
-"l'url de l'iframe. Pour l'instant les valeurs <strong>fr</strong> et "
-"<strong>en</strong> sont supportées. La valeur par défaut est <strong>en</"
-"strong>."
-
-#: controllers/controller_results.php:359
-msgid ""
-"These results were not saved on themecheck.org servers and will be lost when "
-"you quit this page."
-msgstr ""
-"Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
-"et seront perdu quand vous quitterez cette page."
-
-#: controllers/controller_results.php:365
-msgid "Theme name"
-msgstr "Nom du thème"
-
-#: controllers/controller_results.php:367
-#: controllers/controller_results.php:368
-#: controllers/controller_results.php:370
-#: controllers/controller_results.php:371
-#: controllers/controller_results.php:378
-#: controllers/controller_results.php:379
-msgid "Theme type"
-msgstr "Type de thème"
-
-#: controllers/controller_results.php:374
-msgid "Parent theme name"
-msgstr "Nom du thème parent"
-
-#: controllers/controller_results.php:380
-msgid "File name"
-msgstr "Nom du fichier"
-
-#: controllers/controller_results.php:381
-msgid "File size"
-msgstr "Taille du fichier"
-
-#: controllers/controller_results.php:381
-msgid "bytes"
-msgstr "octets"
-
-#: controllers/controller_results.php:382
-msgid "MD5"
-msgstr "MD5"
-
-#: controllers/controller_results.php:383
-msgid "SHA1"
-msgstr "SHA1"
-
-#: controllers/controller_results.php:385
-#: controllers/controller_results.php:386
-#: controllers/controller_results.php:388
-#: controllers/controller_results.php:389
-msgid "License"
-msgstr "Licence"
-
-#: controllers/controller_results.php:390
-msgid "Files included"
-msgstr "Fichiers inclus"
-
-#: controllers/controller_results.php:393
-#: controllers/controller_results.php:395
-msgid "Theme URI"
-msgstr "URI du thème URI"
-
-#: controllers/controller_results.php:397
-msgid "Version"
-msgstr "Version"
-
-#: controllers/controller_results.php:398
-msgid "Author URI"
-msgstr "URI de l'auteur"
-
-#: controllers/controller_results.php:401
-#: controllers/controller_results.php:402
-#: controllers/controller_results.php:403
-msgid "Layout"
-msgstr "Mise en page"
-
-#: controllers/controller_results.php:401
-msgid "Fixed"
-msgstr "Fixe"
-
-#: controllers/controller_results.php:402
-msgid "Fluid"
-msgstr "Fluide"
-
-#: controllers/controller_results.php:403
-msgid "Responsive"
-msgstr "Responsive"
-
-#: controllers/controller_results.php:405
-msgid "Copyright"
-msgstr "Copyright"
-
-#: controllers/controller_results.php:406
-msgid "Creation date"
-msgstr "Date de création"
-
-#: controllers/controller_results.php:407
-msgid "Last file update"
-msgstr "Dernière mise à jour du fichier"
-
-#: controllers/controller_results.php:408
-msgid "Last validation"
-msgstr "Dernière validation"
-
-#: controllers/controller_results.php:424
-msgid "Critical alerts"
-msgstr "Alertes critiques"
-
-#: controllers/controller_results.php:438
-msgid "Warnings"
-msgstr "Alertes"
-
-#: controllers/controller_results.php:452
-msgid "Info"
-msgstr "Info"
-
-#: controllers/controller_unittests.php:23
-#: controllers/controller_unittests.php:24
-msgid "Unit tests"
-msgstr "Tests unitaires"
-
-#: DB/History.php:62
-#, php-format
-msgid "DB Connexion error : %s"
-msgstr "Erreur de connexion à la BDD : %s"
-
-#: DB/History.php:135 DB/History.php:237 DB/History.php:290 DB/History.php:301
-#: DB/History.php:376
-#, php-format
-msgid "DB error : %s"
-msgstr "Erreur BDD : %s"
-
-#: DB/History.php:139 DB/History.php:154
-msgid "This theme has already been submitted."
-msgstr "Ce thème a déjà été soumis."
-
-#: DB/History.php:158
-msgid "It seems this archive is a new version of the theme \""
-msgstr "Il semble que cette archive soit une nouvelle version du theme \""
-
-#: DB/History.php:242
-msgid "The name \""
-msgstr "Le nom \""
+#~ msgid ""
+#~ "This service is free and compatible with Wordpress themes and Joomla "
+#~ "templates."
+#~ msgstr ""
+#~ "Ce service est gratuit et compatible avec les thèmes Wordpress et les "
+#~ "templates Joomla"
+
+#~ msgid "This theme"
+#~ msgstr "Ce thème"
+
+#~ msgid "is open source"
+#~ msgstr "est libre de distribution"
+
+#~ msgid "themes were tested on the site"
+#~ msgstr "thèmes ont été testé sur le site"
 
 #~ msgid "Validate your web theme or template"
 #~ msgstr "Validez gratuitement votre theme wordpress ou joomla"
@@ -3615,8 +4229,8 @@ msgstr "Le nom \""
 #~ "wordpress-hacked-googlerankinfo/\" target=\"_blank\">[1]</a>"
 #~ msgstr ""
 #~ "YAHG Googlerank.info code d'exploitation <a href=\"http://"
-#~ "creativebriefing.com/wordpress-hacked-googlerankinfo/\" target=\"_blank\">"
-#~ "[1]</ a>"
+#~ "creativebriefing.com/wordpress-hacked-googlerankinfo/\" target=\"_blank"
+#~ "\">[1]</ a>"
 
 #~ msgid ""
 #~ "Symptom of a link injection attack <a href=\"http://www.kyle-brady."

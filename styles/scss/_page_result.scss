@@ -1,0 +1,851 @@
+// --- CONTAINER ---
+#container{
+        
+		// --- PAGE ---
+	#content{
+		width: 100%;
+
+		.container_result{
+
+			.intro_result{
+				position: relative;
+				height: 750px;
+				@include RobotoTh;
+				color: #E5422C;		 		
+				text-align: center;		
+				overflow: hidden;		
+				
+				.content_intro{
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					transform: translate(-50%, -50%);
+					z-index: 10;
+
+					.icon_result{
+						width: 100%;
+						height: 182px;
+						padding-top: 64px;
+						display: block;
+						
+						.result_green,
+                                                .result_100,
+                                                .result_orange,
+                                                .result_red{
+                                                    font-size: 24px;
+                                                    transform: scale(3.3);
+                                                    padding-top: 10px;
+						    padding-left: 2px;
+						    font-weight: bold;
+                                                    
+                                                    .score_verif{
+                                                        position: relative;
+                                                        left: -1px;
+                                                    }
+						}
+					}
+
+					.validation_results{
+						margin-top: 20px;
+
+						.text_validation_results{
+							font-size: 32px;
+						}
+					}
+
+					.line{
+						margin-top: 5px;
+					}
+
+					h1{
+						margin-top: 20px;
+						color: #FFFFFF;
+						font-size: 62px;
+                                                line-height: 100%;
+					}
+
+					.responsive_theme{
+						margin-top: 60px;
+					}
+
+					.open_source_theme{
+					
+						span{
+							@include Lucida;
+							font-size: 12px;
+							color: #7D7D7D;
+						}
+					}
+
+					.container_alerts{
+						@include Lucida;
+						font-size: 12px; 
+						color: #FFFFFF; 
+						margin-top: 70px;
+
+						a{
+							text-decoration: none;
+							color: #ffffff;
+						}
+						
+						.critical_alerts{
+							
+							label{
+								margin-left: 20px;
+								cursor: pointer;
+
+								.alert_icon_small{
+									vertical-align: middle;
+									margin-left: 45px;
+								}
+							}
+
+							&:hover{
+								border-color: #d3d3d3; 
+								color: #d3d3d3;
+
+								.alert_icon_small{
+									background-position: -160px -139px;
+									width: 8px;
+									height: 13px;							
+								}
+							}
+						}
+
+						.warnings_alerts{
+							
+							
+							label{
+								margin-right: 30px;
+								cursor: pointer;
+
+								.warning_icon_small{
+									vertical-align: middle;
+									margin-right: 36px;
+								}
+							}
+
+							&:hover{
+								border-color: #d3d3d3; 
+								color: #d3d3d3;
+
+								.warning_icon_small{
+									background-position: -213px -138px;
+									vertical-align: middle;
+									width: 17px;
+									height: 17px;							
+								}
+							}
+						}
+					}
+				}
+
+				.img_item{
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0;
+
+					&:before{
+						content: '';
+						background: rgba(0,0,0,0.7);
+						position: absolute;
+						top: 0;
+						right: 0;
+						bottom: 0;
+						left: 0;
+						z-index: 5;
+					}
+
+					img{
+						width: 100%;
+						-webkit-filter: blur(7px);
+						transform: scale(1.1);
+					}
+				}
+			}
+
+			.container_details_theme{
+				text-align: center;
+				background: #F5F5F5;
+				padding-bottom: 48px;
+
+				h1{
+					@include RobotoTh;
+					font-size: 32px;
+					color: #212121;
+					padding-top: 43px;
+				}
+
+				.open_source_theme{
+					margin-top: 14px;
+					color: #7D7D7D;
+					font-size: 11px;
+				}
+
+				
+                                .content_list{
+                                    width: 1100px;
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    margin-top: 20px;
+                                    
+                                    .list_results{
+                                        text-align: left;
+                                        margin-left: 115px;
+                                    
+                                        border-bottom: 1px solid #d7d7d7;
+
+                                        li{
+                                            display: inline-block;
+
+                                            a{
+                                                @include RobotoLt;
+                                                color: #7D7D7D;
+                                                font-size: 16px;
+                                                text-decoration: none;
+                                            }
+
+                                            &.active{
+                                                border: 1px solid #d7d7d7;
+                                                border-bottom: none;
+                                                margin-bottom: -1px;
+                                                padding: 5px;
+                                                background: #f5f5f5;
+                                                border-radius: 3px;
+
+                                            }
+                                        }
+                                    }
+                                }
+                                                                     
+                                 .container_desc_theme{
+                                    display: none;
+                                    margin-top: 42px;
+                                    font-size: 0px;
+
+                                        .tab-pane{
+                                            padding-top: 40px;
+                                            
+                                            .info_themeForest{
+                                                width: 975px;
+                                                @include RobotoLt;
+                                                color: #7d7d7d;
+                                                font-size: 15px;
+                                                line-height: 20px;
+                                                margin: 15px auto;
+                                                padding-left: 90px;
+                                            }
+
+                                            .first_part_desc{
+                                                    display: inline-block;
+                                                    width: 364px;
+                                                    margin-left: 121px;
+                                                    margin-top: -24px;
+                                                    vertical-align: top;
+
+                                                    .template_responsive{
+                                                            position: relative;
+                                                            top: 23px;
+                                                            left: 141px;
+                                                            margin-bottom: -57px;
+                                                    }
+
+                                                    .img_theme{
+
+                                                        img{
+                                                            width: 364px;
+                                                        }
+                                                    }
+
+                                                    .desc_results{
+                                                        display: inline-block;
+                                                        width: 364px;
+                                                        padding-bottom: 20px;
+                                                        margin-top: 20px;
+                                                        font-family: Arial;
+                                                        background: #FFFFFF;
+
+                                                        .result_green,
+                                                        .result_100,
+                                                        .result_orange,
+                                                        .result_red{
+                                                                    @include RobotoTh;
+                                                                    font-size: 26px;
+                                                                    color: #E5422C;
+                                                                    font-weight: bold;
+                                                                    transform: scale(1.1);
+                                                                    float: left;
+                                                                    padding-top: 8px;
+                                                                    text-align: center;
+                                                                    margin-top: 25px;
+                                                                    margin-left: 15px;
+                                                            }
+
+
+                                                        .content_desc_results{
+                                                            padding: 12px 0 9px 20px;
+                                                            text-align: left;
+
+
+                                                                    .img_separt{
+                                                                        float: left;
+                                                                        margin-left: 15px;
+                                                                        margin-top: 15px;
+                                                                        height: 57px;
+                                                                    }
+
+                                                                    .title_desc_results{
+                                                                            font-size: 16px;
+                                                                            color: #212121;
+                                                                            float: left;
+
+
+                                                                            .desc_open_source{
+                                                                                    font-size: 10px;
+                                                                                    color: #7d7d7d;
+                                                                                    font-weight: normal;
+                                                                                    line-height: 18px;
+                                                                            }
+                                                                    }
+
+                                                                    .view_detail{
+                                                                            text-align: center;
+                                                                            display: inline-block;
+                                                                            width: 221px;
+                                                                        height: 28px;
+                                                                            background-color: transparent; 
+                                                                            border: 1px solid #7d7d7d; 
+                                                                            border-radius: 5px;
+                                                                            padding-top: 3px;
+                                                                            cursor: pointer;
+
+
+                                                                            .viewDetail{
+                                                                                    color: #7D7D7D;
+                                                                                    font-size: 10px; 
+                                                                                    cursor: pointer;
+
+                                                                                    .arrow_grey{
+                                                                                            vertical-align: middle;
+                                                                                            transform: scale(0.6);
+                                                                                    }
+                                                                            }
+
+                                                                            &:hover{
+                                                                                    border-color: #d3d3d3;
+
+                                                                                    label{
+                                                                                            color: #d3d3d3;
+
+                                                                                            .arrow_grey{
+                                                                                                    background-position: -177px 0;
+                                                                                            }
+                                                                                    }									
+                                                                            }
+
+                                                                    }
+
+                                                        }
+
+                                                        .iframe_result_theme{
+                                                            display: inline-block;
+
+                                                                .text_iframe{
+                                                                        width: 260px;
+                                                                        height: 66px;
+                                                                        word-break: break-word;
+                                                                        font-size: 10px;
+                                                                        padding: 10px 10px;
+                                                                        border: 1px solid #e3e6e6; 
+                                                                        border-radius: 5px;
+                                                                        box-shadow: 0 1px 12px -2px rgba(0, 0, 0, 0.3) inset;
+                                                                }
+                                                        }
+                                                    }
+
+                                                    .change_banner_style{
+                                                            font-size: 11px;
+                                                            font-weight: bold;
+                                                            color: #7D7D7D;
+                                                            margin-top: 16px;
+                                                            width: 364px;
+                                                            display: inline-block;
+
+                                                            label{
+                                                                    text-align: left;
+                                                            }
+
+                                                            select{
+                                                                    width: 220px;
+                                                                    border-radius: 5px;
+                                                                    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.5) inset;
+                                                            }
+                                                    }	
+                                            }
+
+                                            .second_part_desc{
+                                                    display: inline-block;
+                                                   // vertical-align: top;
+                                                    margin-left: 146px;
+
+                                                    ul{
+                                                            background: #F0F0F0;
+                                                            display: inline-block;
+                                                            width: 480px;
+
+
+                                                            li{
+                                                                    height: auto;
+                                                                    text-align: left;
+                                                                    display: inline-block;
+                                                                    width: 100%;
+
+                                                                    span{
+
+                                                                            height: 100%;
+                                                                        float: left;
+                                                                        padding: 8px 0;
+                                                                        padding-left: 14px;
+                                                                    }
+
+                                                                    .first_col{
+                                                                            font-size: 11px;
+                                                                            font-weight: bold;
+                                                                            color: #7D7D7D; 
+                                                                            width: 140px;
+
+
+                                                                    }
+
+                                                                    .second_col{
+                                                                            font-size: 10px;
+                                                                            color: #7D7D7D; 
+                                                                            width: 340px;
+                                                                            border-left: 1px dashed #FFFFFF;  
+                                                                    }
+                                                            }
+
+                                                            .first_line{
+                                                                    background: #E8E8E8;
+
+                                                                    .first_col{
+
+                                                                    }
+
+                                                                    .second_col{
+
+                                                                    }
+                                                            }
+                                                    }
+                                            }
+
+                                            .theme_is_open,
+                                            .theme_commercial{
+                                                    margin-top: 46px;
+                                                    font-size: 10px;
+                                                    color: #7d7d7d;
+                                            }
+                                            
+                                            .theme_commercial{
+                                                 font-size: 15px;
+                                                 margin-bottom: 20px;
+                                            }
+
+                                        }
+                                    }
+                                    
+                                    .active{
+                                        display: inline;
+                                    }
+                                    
+                                    .text_donostore{
+                                        display: block;
+                                        @include RobotoBd;
+                                        font-size: 18px;
+                                        color: #7D7D7D; 
+                                        margin-top: 30px;
+                                    }
+
+                                    .button_download{
+                                            width: 212px;
+                                            border: 1px solid #7d7d7d; 
+                                            border-radius: 5px;
+                                            margin: 0 auto;
+                                            margin-top: 10px;
+                                            margin-bottom: 25px;
+                                            cursor: pointer;
+
+                                            label{	
+                                                    display: block;
+                                                    margin: 10px 0;
+                                                    color: #7d7d7d;
+                                                    font-size: 14px;
+                                                    cursor: pointer;
+
+
+                                                    .downloadBold{
+                                                            vertical-align: middle;
+                                                            margin-right: 16px;
+                                                    }
+                                            }
+                                            &:hover{
+                                                    border-color: #d3d3d3;
+                                                    label{	
+                                                    color: #d3d3d3;
+
+                                                    .downloadBold{
+                                                            background-position: -128px 0;
+                                                    }
+                                            }
+                                            }
+                                    }
+                            }
+			
+                        
+                        #warningAlerts{
+/*                            background: #F5F5F5;
+                            padding-bottom: 75px;*/
+                         }
+                            
+			.container_critical,
+			.container_warning,
+			.container_tipOff,
+			.container_otherThemes{
+				background-color: #E5422C;
+				padding: 32px 0 54px 0;
+				text-align: center;
+				color: #FFFFFF;
+                                font-size: 15px;
+
+
+				.title_alert{
+					@include RobotoTh;
+					font-size: 56px;
+					
+				}
+
+				.line{
+					margin: 36px 0 64px 0;
+				}
+
+				.descript_alert{
+					width: 1080px;
+				    margin: 0 auto;
+
+					
+					ol{
+						list-style-type: decimal;
+						text-align: left;
+						@include LucidaBd;
+						
+						li{
+							padding: 29px 0 0 30px;
+							font-weight: normal;
+
+							.message_alert{
+								font-size: 18px;
+								@include RobotoLt;
+							}
+							
+							.file_default,
+							.info_alert{
+								display: block;
+								@include Lucida;
+								font-size: 12px;
+								color: #ff8d7e;
+								margin: 7px 0 2px 0;
+                                                                word-break: break-word;
+							}
+                                                        
+                                                        input{
+                                                            word-break: break-word;
+                                                        }
+							
+							.line_default{
+							    display: block;
+							
+							    input{
+							    	width: 100%;
+							    	height: 40px;
+							    	padding-left: 10px;
+							    	border-radius: 5px;
+							    }
+							}
+							
+						}
+                                                
+                                                .ligne_warning{
+                                                        border-bottom: 1px dotted #ffbb88;
+                                                        display: block;
+                                                        margin-left: -55px;
+                                                        margin-top: 24px;
+                                                }
+					}
+				}
+
+			}
+
+			.container_warning{
+				background-color: #EE8232;
+
+				.line{
+					margin: 34px 0 61px 0;
+				}
+				
+				.descript_alert{
+				
+					ol{
+						li{
+							padding: 29px 0 0 30px;
+							
+
+							.message_alert{
+								display: block;
+							}
+
+							.info_alert{
+								font-size: 11px;
+								@include Lucida;
+								color: #ffbb88;
+							}
+
+						}
+
+						.ligne_warning{
+								border-bottom: 1px dotted #ffbb88;
+								display: block;
+								margin-left: -55px;
+								margin-top: 24px;
+							}
+					}
+					
+				}
+			}
+
+			.container_tipOff{
+				background-color: #ffffff;
+
+				.title_alert{
+					color: #212121;
+				}
+
+				.descript_alert{
+						color: #7d7d7d;
+					ol{
+						li{
+							padding: 29px 0 0 30px;
+							
+							.message_alert{
+								display: block;
+								color: #00a8f6;
+							}
+
+							.info_alert{
+								color: #7d7d7d;
+							}
+
+						}
+
+						.ligne_warning{
+								border-bottom: 1px dotted #7d7d7d;
+								display: block;
+								margin-left: -55px;
+								margin-top: 24px;
+							}
+					}
+					
+				}
+			}
+
+			.container_otherThemes{
+				background-color: #F5F5F5;	
+				padding-bottom: 63px;
+
+				.title_alert{
+					color: #212121;
+				}
+
+				.line{
+					margin-bottom: 19px;
+				}
+			
+
+				.container_themes{
+					width: 1280px;
+					height: auto;
+					display: inline-block;
+					margin-left: auto;
+					margin-right: auto;
+
+					.block_theme{
+						float: left;
+
+						.content_theme{
+							margin-left: auto;
+						    margin-right: auto;
+						    display: inline-block;
+							background-color: white;
+							margin: 22px 22px 0 22px;
+							padding: 7px 6px 0 6px;
+
+							.bg_theme{
+								width: 364px;
+								height: 272px;
+                                                                padding: 5px;
+								background-color: #e2e2e2;
+
+								.img_theme{
+                                                                      width: 100%;
+                                                                      height: 100%;
+								}
+							}
+						
+							.footer_theme{
+								height: 81px;
+								padding: 13px 24px 11px 19px;
+
+								span{
+									float: left;
+								}
+		
+								.ico_result{
+									height: 57px!important;
+                                                                        
+                                                                    .score_verif{
+                                                                        position: relative;
+                                                                        top: 8px;
+                                                                        left: 8px;
+                                                                        @include RobotoBd;
+                                                                        font-size: 26px;
+                                                                        
+                                                                        &.addLeft{
+                                                                            left: 15px;
+                                                                        }
+                                                                    }
+								}
+
+								.separ_verti{
+									padding: 1px 13px 1px 13px;
+								}
+
+								.info_theme{
+									padding: 0 0 12px 0;
+									text-align: left;
+                                                                        width: 160px;
+
+									.title_theme{
+										font-size: 18px;
+										@include RobotoLt;
+										color: #212121;
+										line-height: 20px;
+                                                                                max-height: 44px;
+                                                                                overflow: hidden;
+                                                                                word-break: break-word;
+									}
+
+									.type_theme{
+										font-size: 10px;
+										color: #d3d3d3;
+									}
+
+								}
+								
+								.container_iconCms{
+									float: right;
+									width: 41px;
+									height: 100%;
+
+									.content_iconCms{
+										.download,
+										.theme_forest,
+										.template_monster,
+										.creative_market{
+											display: block;
+											float: none;
+											margin-top: 10px;
+											margin-left: auto;
+											margin-right: auto
+										}
+
+										.download{
+											margin-top: 0;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				.container_btnviewAll{
+
+					.view_all{
+						width: 252px;
+						height: 44px;
+						border-color: #7d7d7d;
+						margin-top: 65px;
+						padding-top: 9px;
+						cursor: pointer;
+
+						label{
+							font-size: 18px;
+							color: #7d7d7d;
+							cursor: pointer;
+
+							.arrow_grey{
+								vertical-align: middle;
+								margin-right: 15px;
+							}
+						}
+
+						&:hover{
+							border-color: #d3d3d3;
+
+							label{
+							color: #d3d3d3;
+							
+							.arrow_grey{
+							background-position: -177px 0;
+							}
+						}
+						}
+					}
+				}
+			}
+                        
+                        &.error_fatal{ 
+                            background: #f8f8f8;
+                            padding-top: 100px;
+                            text-align: center;
+                            color: #7d7d7d;
+                            
+                            .title_error_validation{
+                                h1{
+                                    font-size: 45px;
+                                }
+                            }
+                            
+                            .container_icon_validation{
+                                .shield1{
+                                    margin: 20px auto;
+                                    
+                                    .shield2{
+                                        position: relative;
+                                        top: 20px;
+                                        font-size: 125px;
+                                    }
+                                }
+                                
+                                a{
+                                    color: #7d7d7d;
+                                }
+                            }
+                        }
+		}
+   } 
+     // --- /PAGE---
+}
+// --- /CONTAINER ---
+@import '_mq_result';

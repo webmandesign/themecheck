@@ -87,6 +87,9 @@ abstract class Check
 		public $checks = array(); // checklist
 		public $currentThemetype;
 		public $currentCmsVersion;
+		public $currentThemeVersion;
+		public $currentThemeName;
+		public $currentThemeHash;
 		
     public function __construct()
     {
@@ -108,6 +111,21 @@ abstract class Check
 		public function setCurrentCmsVersion($cmsVersion)
 		{
 			$this->currentCmsVersion = $cmsVersion;
+		}
+		
+		public function setThemeVersion($themeVersion)
+		{
+			$this->currentThemeVersion = $themeVersion;
+		}
+		
+		public function setThemeName($themeName)
+		{
+			$this->currentThemeName = $themeName;
+		}
+		
+		public function setThemeHash($themeHash)
+		{
+			$this->currentThemeHash = $themeHash;
 		}
 		
 		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)

@@ -1,0 +1,182 @@
+.sprite{
+	background-image:url(../../img/images/icons/sprite.svg);
+	display: inline-block;
+	zoom:1;
+
+	&.arrow_grey{
+    	background-position: 0 0;  
+		width: 9px;
+		height: 19px;
+	}
+
+	&.arrow_white{
+    	background-position: -12px 0;  
+		width: 9px;
+		height: 17px;
+	}
+
+	&.arrow_grey_light{
+    	background-position: -177px 0;  
+		width: 9px;
+		height: 17px;
+	}
+	
+	&.check{
+		background-position: -26px 0;  
+		width: 17px;
+		height: 17px;
+	}
+
+	&.checked{
+		background-position: -46px 0;  
+		width: 17px;
+		height: 17px;
+	}
+
+	&.interrogation_green{
+		background-position: -66px 0;  
+		width: 13px;
+		height: 13px;
+	}
+
+	&.themeCkeck_white{
+		background-position: -84px 0;  
+		width: 14px;
+		height: 17px;
+	}
+
+	&.interrogation_white{
+		background-position: -156px 0;  
+		width: 13px;
+		height: 13px;
+	}
+
+	&.arrow_bottom{
+		background-position: -110px 0;  
+		width: 10px;
+		height: 6px;
+	}
+
+	&.download{
+		background-position: -128px 0;  
+		width: 20px;
+		height: 19px;
+	}
+
+	&.downloadBold{
+		background-position: -128px -87px;  
+		width: 20px;
+		height: 19px;
+	}
+
+	&.creative_market{
+		background-position: -342px 0;  
+		width: 41px;
+		height: 16px;
+	}
+
+	&.theme_forest{
+		background-position: -340px -28px;  
+		width: 18px;
+		height: 16px;
+	}
+
+	&.template_monster{
+		background-position: -364px -28px;  
+		width: 22px;
+		height: 20px;
+	}
+
+	&.website_owners{
+		background-position: 0 -22px;  
+		width: 75px;
+		height: 75px;
+	}
+
+	&.developers{
+		background-position: -85px -22px;  
+		width: 100px;
+		height: 60px;
+	}
+	
+	&.result_green{
+		background-position: -204px 0;  
+		width: 46px;
+		height: 56px;
+	}
+	&.result_100{
+		background-position: -268px 0;  
+		width: 46px;
+		height: 56px;
+	}
+	&.result_orange{
+		background-position: -204px -64px;  
+		width: 46px;
+		height: 56px;
+	}
+	&.result_red{
+		background-position: -268px -64px;  
+		width: 46px;
+		height: 56px;
+	}
+
+	&.template_responsive{
+		background-position: 0 -124px;  
+		width: 80px;
+		height: 80px;
+	}
+	
+	&.icon_responsive{
+		background-position: -110px -124px;  
+		width: 34px;
+		height: 27px;
+	}
+
+	&.alert_icon_small{
+		background-position: -160px -124px;  
+		width: 8px;
+		height: 12px;
+	}
+
+	&.alert_icon{
+		background-position: -180px -124px;  
+		width: 20px;
+		height: 29px;
+	}
+
+	&.warning_icon_small{
+		background-position: -213px -123px;  
+		width: 17px;
+		height: 17px;
+	}
+
+	&.warning_icon{
+		background-position: -240px -124px;  
+		width: 27px;
+		height: 24px;
+	}
+
+	&.tipOff_icon{
+		background-position: -110px -170px;  
+		width: 28px;
+		height: 38px;
+	}
+
+	&.warning_icon{
+		background-position: -240px -124px;  
+		width: 27px;
+		height: 24px;
+	}
+	
+	&.grey_cross{
+		background-position: -157px -166px;  
+		width: 20px;
+		height: 30px;
+	}
+
+	&.white_cross{
+		background-position: -190px -170px;  
+		width: 19px;
+		height: 19px;
+	}
+}

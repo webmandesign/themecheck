@@ -23,6 +23,7 @@ class Controller_home
 		{
 			$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"index.php"));
 		}
+                
 	}
 	
 	private function getThumb($themeInfo)
@@ -37,32 +38,81 @@ class Controller_home
 	//	if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $themeInfo['cmsVersion']);
 		
 		if ($themetype == TT_WORDPRESS) 	
-			if (empty($cmsVersion)) $themetype_text = __("Wordpress theme");
-			else $themetype_text = sprintf(__("Wordpress %s theme"), $cmsVersion);
+			if (empty($cmsVersion)) $themetype_text = __("WordPress theme");
+			else $themetype_text = sprintf(__("WordPress %s theme"), $cmsVersion);
 		else if ($themetype == TT_WORDPRESS_CHILD)
 			if (empty($cmsVersion)) $themetype_text = __("Wordpress child theme");
-			else $themetype_text = sprintf(__("Wordpress %s child theme"), $cmsVersion);
+			else $themetype_text = sprintf(__("WordPress %s child theme"), $cmsVersion);
 		else if ($themetype == TT_JOOMLA)
 			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
 			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
 		
 		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+                $imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
+                $imgWidth = $imgSize[0];
+                $imgHeight = $imgSize[1];
 		
-		$html .= '<div class="validated-theme" data-id="'.$themeInfo['id'].'">';
-		$html .= '<a href="'.$url.'" ><img style="box-shadow: 0 0 20px #DDD;" src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
-		$html .= '<div class="vts">';
-		if ($themeInfo["isThemeForest"]){
-			$html .= '<img src="img/logo_themeforest18.png" style="margin-right:2px;float:left;" title="'.__("Themeforest theme").'" alt="'.__("Themeforest icon").'">';
-		}
-		$html .= '<div class="dshield">';
-		$html .= getShield($themeInfo, I18N::getCurLang(), 40, $url, TC_HTTPDOMAIN.'/');
-		$html .= '</div>';
-		if ($themeInfo["isThemeForest"]){
-			$html .= '<span class="stext">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
-		} else {
-			$html .= '<span class="stext" style="width:170px;">'.htmlspecialchars($themeInfo['name']).'</span><br/><span style="font-size : 12px; color:#AAA;">'.$themetype_text.'</span>';
-		}
-		$html .= '</div>';
+		$html .= '<div class="block_theme" data-id="'.$themeInfo['id'].'">';
+			$html .= '<div class="content_theme">';
+				$html .= '<div class="bg_theme">';
+				if ($themeInfo['isNsfw']==true) 
+                                {
+                                    $html .= '<a href="'.$url.'" ><img src="/img/nsfw.png"></a>';
+                                }
+				else 
+                                {
+                                    $html .= '<a href="'.$url.'" ><img  src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
+                                }
+				$html .= '</div>';
+				
+				$html .= '<div class="footer_theme">';
+					$html .= '<span class="ico_result">';
+                            $html .=  getShield($themeInfo, I18N::getCurLang(), null, $url, TC_HTTPDOMAIN.'/');
+					$html .='</span>';
+					$html .= '<a href="'.$url.'" ><span class="separ_verti">';
+					$html .= '<img src= "'.TC_HTTPDOMAIN.'/img/images/images_theme/separVerti_footer_theme.png" alt="">';
+					$html .='</span></a>';
+					$html .= '<a href="'.$url.'" ><span class="info_theme">';
+					$html .= '<p class="title_theme">'.htmlspecialchars($themeInfo['name']).'</p>';
+					$html .= '<p class="type_theme">'.$themetype_text.'</p>';
+					$html .='</span></a>';
+					
+					$html .='<div class="container_iconCms">';
+						$html .= '<div class="content_iconCms"><a href="'.$url.'" >';
+							if ($themeInfo["isOpenSource"])
+							{
+								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?nom='.$themeInfo['name'].'&zipname='.$themeInfo['zipfilename'].'" '
+
+                                . 'onclick="trackDL(\''.$themeInfo['name'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
+									
+									if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
+									{
+										$themetype_text = $themetype_text.' '.__('Free');
+									}
+									else 
+									{
+										$themetype_text = __('Free').' '.$themetype_text;
+									}
+							}
+                                                        
+
+							else if ($themeInfo["isThemeForest"]){
+								$html .= '<span class="sprite theme_forest" title="'.__("Themeforest theme").'"></span>';
+							}
+							else if ($themeInfo["isCreativeMarket"]){
+								$html .= '<span class="sprite creative_market" title="'.__("Creative Market theme").'"></span>';
+							}
+							else if ($themeInfo["isTemplateMonster"]){
+								$html .= '<span class="sprite template_monster" title="'.__("Template Monster theme").'"></span>';
+							}
+							else if ($themeInfo["isPiqpaq"]){
+								$html .= '<img src="/img/logo_pipaq18.png" style="margin-right:2px;float:left;" title="'.__("Piqpaq theme").'" alt="'.__("Piqpaq icon").'">';
+							}
+						$html .= '</a></div>';
+					$html .= '</div>';
+				$html .= '</div>';
+		    $html .= '</div>';
+
 		$html .= '</div>';
 		
 		return $html;
@@ -70,118 +120,238 @@ class Controller_home
 	
 	public function render()
 	{
-		$max_size = Helpers::returnBytes(ini_get('upload_max_filesize'));
-		if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
-		$max_size_MB = $max_size / (1024*1024);
-		
-		$token = uniqid(true);
-		$_SESSION['token_'.$token] = time();
-		
-		?> 
-				<div class="jumbotron">
-					<div class="container">
-						<h1><?php echo __("Verify web themes and templates"); ?></h1>
-						<p><?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality. This service is free and compatible with Wordpress themes and Joomla templates."); ?>
-						<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><?php echo __("More..."); ?></a>
-						</p>
-						<div class="row">
-							
-							<div id="collapseOne" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="col-lg-6">
-										<h2><?php echo __("Website owners"); ?></h2>
-										<p><?php echo __("Check themes or templates you download before installing them on your site"); ?></p>
-										<ul>
-										<li><?php echo __("Check code quality"); ?></li>
-										<li><?php echo __("Check presence of malware"); ?></li>
-										</ul>
-									</div>
-									<div class="col-lg-6">
-										<h2><?php echo __("Developers"); ?></h2>
-										<p><?php echo __("Your create or distribute themes ?"); ?></p>
-										<ul>
-										<li><?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?></li>
-										<li><?php echo __("Share verification score on your site with ThemeCheck.org widget  "); ?>&nbsp;<img src="<?php echo TC_HTTPDOMAIN;?>/img/pictosuccess40.png"></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</div>
+?>
+        <script type="text/javascript"> var page="home" </script>
+<?php
+            
+            $max_size = Helpers::returnBytes(ini_get('upload_max_filesize')); 
+            if ($max_size > Helpers::returnBytes(ini_get('post_max_size'))) $max_size = Helpers::returnBytes(ini_get('post_max_size'));
+            $max_size_MB = $max_size / (1024*1024);
 
-				<div class="container text-center">
-					<h2 ><?php echo __("Upload a zip file and get its verification score :"); ?></h2><br/>
-					<form role="form" class="text-center" action="<?php echo TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(),"phpfile"=>"results"));?>" method="post" enctype="multipart/form-data">
-						<div class="form-group">
-							<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Helpers::returnBytes(ini_get('upload_max_filesize'));?>" />
-							<input type="file" name="file" id="file" class="filestyle" data-buttonText="<?php echo __("Select file"); ?>" data-classButton="btn btn-default btn-lg" data-classInput="input input-lg">
-						</div>
-						<?php echo __("Maximum file size")." : $max_size_MB MB";?> 
-						<br/><br/>
-						
-						<input type="checkbox" name="donotstore" value="donotstore">&nbsp;<?php echo __('Forget uploaded data after results').'&nbsp;<a id="forgetresultsmoreinfo" data-container="body" data-toggle="popover" data-placement="right" data-content="'.__("<ul><li>No data will be kept on themecheck.org servers (or any other)<li>Validation won't be visible to the public<li>If you want to see the results in the future, you'll have to re-submit your file</ul>").'" href="#!">( ? )</a>';?><br>
+            $token = uniqid(true);
+            $_SESSION['token_'.$token] = time();
 
-						<br/>
-						<button type="submit" class="btn btn-primary btn-lg" ><?php echo __("Submit"); ?></button>
-						<input type="hidden" name="token" value="<?php echo $token;?>"/>
-					</form>
-		<?php
-		
-							
-		// display recent validated file if	history is available			
-		if (USE_DB) {
-		$history = new History();
+            $nbreTheme = new History();
+            $data = $nbreTheme->getNumberOfTheme();
 
-		?>
-					<hr>
-					<h2><?php echo __("Recently checked themes"); ?></h2>
-					<div class="row">
-						<form id="sortform">
-							<div style="font-size:20px;" class="col-sm-4 col-sm-offset-4">
-								wordpress <input type='checkbox' name='theme[]' value='wordpress' <?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sortdropdown'/>
-								&nbsp;&nbsp;&nbsp;joomla <input type='checkbox' name='theme[]' value='joomla' <?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class='sortdropdown'/>
-							</div>
-							<div class="col-sm-3 col-sm-offset-1 col-xs-12">
-								<select name='sort' class='sortdropdown form-control' style="width:180px;margin:auto">
-									<option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?></option>
-									<option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?></option>
-								</select>
-							</div>
-						</form>
-					</div>
-					<div id="alreadyvalidated">
-					<?php 
-					if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
-					{
-						$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
-					}
-					else
-					{
-						$pagination = $history->getRecent();
-					}
-					foreach($pagination as $t)
-					{
-						echo $this->getThumb($t);
-					}
-					?>
-					</div>
-			<div style="text-align:center;"><button type="button" id="seemore-btn" class="btn">
-				<?php echo __("See more");?>
-			</button>
-			</div>
-		<?php } ?>		
-				</div> <!-- /container --> 
+            ?> 
+            <section id="content">
+                <div class="container">
+                    <div class="bg_home">
+                        <h1><?php echo __("Verify WordPress themes and Joomla templates"); ?></h1>
+
+                        <p class="description">
+                        <?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality."); ?><br>
+                        <?php echo __("This service is free and compatible with WordPress themes and Joomla templates."); ?>
+                        </p>
+                        <div id="ancreSubmit"></div>
+
+                        <div class="line"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/line_content-home.png"/></div>
+
+
+                        <h2><?php echo __("Upload a zip file and get its verification score"); ?></h2>
+
+                        <div class="container_submit">
+<!-- select file -->            
+                            <form role="form" class="text-center" action="<?php echo TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(),"phpfile"=>"results"));?>" method="post" enctype="multipart/form-data">
+                                <div class="content_select" id="content_select">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Helpers::returnBytes(ini_get('upload_max_filesize'));?>" />
+                                    <input type="file" name="file" id="file" class="fake_input" data-buttonText="<?php echo __("Select file"); ?>" data-classButton="btn btn-default btn-lg" data-classInput="input input-lg">
+                                    <label for="file"  class="select">
+                                            <span class="sprite arrow_white"></span>
+                                            <?php echo __("SELECT FILE.ZIP"); ?>
+                                    </label>
+                                </div>
+
+                                <div class="container_file_submit" id="container_file_submit">
+                                    <div class="content_file">
+                                            <input type="text" id="selected_file" class="selected_file" disabled="disabled"/>
+                                            <input type="file" name="new_file" id="new_file" class="fake_input"/>
+                                            <label for="new_file" class="new_file"><span class="sprite grey_cross"></span></label>
+                                    </div>
+                                    <div class="content_submit">
+                                        <input type="submit" id="submit" class="fake_input"/>
+                                        <input type="hidden" name="token" value="<?php echo $token;?>"/>
+                                        <label for="submit" class="submit" >
+                                            <span class="sprite arrow_white"></span>
+                                            <?php echo __("SUBMIT"); ?>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="select_zip" class="select_zip">
+                                    <label for="check_data">
+                                        <span id="sprite_check" class="sprite check"></span>                                         
+                                        <input type="checkbox" name="donotstore" value="donotstore" id="check_data" class="fake_input" onclick="check(this);"><?php echo __('Forget uploaded data after results').'&nbsp;<a id="forgetresultsmoreinfo"  data-container="body" data-toggle="popover" data-placement="bottom" data-content="'.__("<ul><li>No data will be kept on themecheck.org servers (or any other)<li>Validation won't be visible to the public<li>If you want to see the results in the future, you'll have to re-submit your file</ul>").'" href="#!"><span class="sprite interrogation_green"></span></a>';?>
+                                    </label>
+                                </div>
+                                <p>
+                                        <?php echo __("Maximum file size")." : $max_size_MB MB";?>
+                                </p>
+                            </form>
+                        </div>
+                    </div>	
+
+        <!-- themes already -->
+
+                    <div class="bg_themesAlready">
+                        <div class="bg_first_part">
+                                <div class="themes_verified">
+                                    <div class="img_separVerti">
+                                        <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/separation_vertical.png"/>
+                                    </div>
+                                    <h4 class="nbreTheme"><strong><?php echo $data[0].' '; ?></strong>
+                                    <?php echo __('THEMES ALREADY VERIFIED !'); ?></h4>
+                                </div>
+                        </div>
+                        <div class="bg_second_part">
+                            <div class="themes_for">
+                                <div class="content_website_owners">
+
+                                    <div class="website">
+                                        <span class="sprite website_owners"></span>
+                                    </div>
+
+                                    <div class="description_website">
+                                        <h2 class="subtitle"><?php echo __("Website owners"); ?></h2>
+                                        <div class="img_separHori">
+                                            <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/separation_horizontal.png">
+                                        </div>
+                                        <div class="descript">
+                                                <?php echo __("Check themes or templates you download before installing them on your site"); ?>
+                                        </div>
+                                        <div class="liste">
+                                            <ul> 	
+                                                <li><?php echo __("Check code quality"); ?></li>
+                                                <li><?php echo __("Check presence of malware"); ?></li>
+                                            </ul>
+                                        </div>	
+                                    </div>
+                                </div>
+                                <div class="content_developers">
+                                    <div class="dev">
+                                            <span class="sprite developers"></span>
+                                    </div>
+                                    <div class="description_developers">
+                                        <h2 class="subtitle"><?php echo __("Developers"); ?></h2>
+
+                                        <div class="img_separHori">
+                                                <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/separation_horizontal.png"/>
+                                        </div>
+
+                                        <div class="descript">
+                                                <?php echo __("Your create or distribute themes ?"); ?>
+                                        </div>
+
+                                        <div class="liste">
+                                            <ul> 	
+                                                <li>
+                                                    <?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?>
+                                                </li>
+                                                <li class="shareVerif">
+                                                    <?php echo __("Share verification score on your site with ThemeCheck.org widget"); ?>
+                                                    <span class="sprite themeCkeck_white"></span>
+                                                </li>
+                                            </ul>
+                                        </div>	
+                                    </div>
+                                </div>
+                                <div id="theme"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container_page_home" id="container_home">
+                        <div class="content_home">
+                            <h2 class="recently"><?php echo __("Recently checked themes"); ?></h2>
+
+                            <div class="line_content-home">
+                                    <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/line_content-home.png" width="303" class="img_line_content-home">
+                            </div>
+
+                            <div class="filter_themes">
+                                <form id="sortform">
+                                    <label><?php echo __("FILTER BY : "); ?></label>
+                <!-- SELECT CMS -->
+                                    <div class="selec_filters">	
+                                        <div class="select_cms">
+                                            <span class='selected'></span>
+                                            <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
+                                            
+                                            <input type='checkbox' name='theme[]' value='wordpress' id="wordpress"<?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class="sortdropdown fake_input"/>
+                                            <input type='checkbox' name='theme[]' value='joomla' id="joomla"<?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class="sortdropdown fake_input"/>
+                                            
+                                            <div class="selectOptions" id="filterThemes">
+                                                <span class="selectOption" value="All theme"><?php echo __("All theme");?></span>
+                                                <span class="selectOption" value='wordpress'>Wordpress themes</span>
+                                                <span class="selectOption" value='joomla' >Joomla themes</span>
+                                            </div>
+                                        </div>
+                 <!-- SELECT FIRST -->
+                                        <div class="select_first">
+                                            <span class='selected'></span>
+                                            <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
+                                             <select name='sort' class='sortdropdown fake_input' id="select_hidden">
+                                                <option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
+                                                <option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?>></option>
+                                            </select>
+                                            <div class="selectOptions" id="selectOptionsFirst">
+                                                <span class="selectOption"><?php echo __("Newer first");?></span>
+                                                <span class="selectOption"><?php echo __("Higher scores first");?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="block_container_themes">
+                                <div class="container_themes">
+                <?php
+
+                // display recent validated file if	history is available			
+                if (USE_DB) 
+                {
+                  $history = new History();
+
+                ?>
+
+                                    <div id="alreadyvalidated">
+                            <?php 
+                            if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
+                            {
+                                    $pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
+                            }
+                            else
+                            {
+                                    $pagination = $history->getRecent();
+                            }
+                            foreach($pagination as $t)
+                            {
+                                    echo $this->getThumb($t);
+                            }
+                            ?>
+                                    </div>
+                                </div>
+                            </div>
+        <?php   } ?>		
+                        </div>
+                        
+                         <div class="container_seemore">
+                          
+                            <label for="seemore-btn" class="seemore"><span class="sprite arrow_grey"></span><?php echo __("SEE MORE");?> <input type="button" class="fake_input" name="seemore" id="seemore-btn">
+                            </label>
+                        </div>
+                    </div>
+                </div>	
+            </section>
 				<script>
-				  $('#seemore-btn').click(function () {
+				  $('#seemore-btn').click(function () { 
 						$.ajax({
 							type: "POST",
 							url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=seemore';?>",
-							data: { olderthan: $("#alreadyvalidated div.validated-theme").last().data("id"), lang: "<?php echo I18N::getCurLang();?>" }
+							data: { olderthan: $("#alreadyvalidated div.block_theme").last().data("id"), lang: "<?php echo I18N::getCurLang();?>" }
 						}).done(function( obj ) {
-							$("#alreadyvalidated").append(obj.html);
-							if (obj.nomore) $("#seemore-btn").hide();
+							$("#alreadyvalidated").append(obj.html); 
+							if (obj.html == '') $("#container_home .seemore").css('display', 'none');
 							smallestid = obj.smallestid; 
 						}).fail(function() {
 							console.log("ajax error");
@@ -189,15 +359,68 @@ class Controller_home
 
 				  });
 				  
-				$('.sortdropdown').on("change", function(){
-					$.ajax({
+//				$('.sortdropdown').on("change", function(){ console.log('ok');
+//					$.ajax({
+//						type: "POST",
+//						url: "<?php //echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
+//						data: $("#sortform").serialize()
+//					}).done(function(obj){
+//						$("#alreadyvalidated").html(obj.html);
+//					}); 
+//      				});
+                                
+                                function ajaxSelectItem()
+                                {
+                                    $.ajax({
 						type: "POST",
 						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
 						data: $("#sortform").serialize()
 					}).done(function(obj){
 						$("#alreadyvalidated").html(obj.html);
-					});
-				})
+					}); 
+                                }
+                                
+                                $('#selectOptionsFirst .selectOption').on("click", function(){ 
+                                  
+                                    if($(this).html() == 'Higher scores first')
+                                    {
+                                        $('#select_hidden option[value="score"]').attr('selected', true);
+                                        $('#select_hidden option[value="id"]').attr('selected', false);
+                                    }
+                                    else
+                                    {
+                                        $('#select_hidden option[value="id"]').attr('selected', true);
+                                        $('#select_hidden option[value="score"]').attr('selected', false);
+                                    }
+                                 
+                                    ajaxSelectItem();
+                                });
+                                
+                                
+                                 $('#filterThemes .selectOption').on("click", function(){ 
+                                   
+                                   var selected = $(this).attr('value'); //theme selected
+                                   var select_cms = $('.select_cms input[type=checkbox]'); //input hidden
+                             
+                                   if(selected == 'wordpress' )
+                                   {
+                                       select_cms[0]['checked'] = true;  
+                                       select_cms[1]['checked'] = false;
+                                   }
+                                   else if (selected == 'joomla')
+                                   {
+                                       select_cms[1]['checked'] = true;
+                                       select_cms[0]['checked'] = false;  
+                                   }
+                                   else
+                                   {
+                                       select_cms[0]['checked'] = true;
+                                       select_cms[1]['checked'] = true;
+                                   }
+                                   
+                                   ajaxSelectItem();
+                                });
+                                
 				</script>
 				<?php
 	}

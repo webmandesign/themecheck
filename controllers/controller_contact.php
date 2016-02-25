@@ -17,13 +17,16 @@ class Controller_contact
 		global $ExistingLangs;
 		foreach ($ExistingLangs as $l)
 		{
-			$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"contact"));
+                    $this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"contact"));
 		}
 	}
 	
 	public function render()
-	{
-		if(isset($_POST['send'])){
+	{ 
+            ?>
+            <script type="text/javascript"> var page="contact" </script>
+<?php
+		if(isset($_POST['send'])){  
 			$errors = array();
 			if(isset($_SESSION['token_'.$_POST['token']]))
 			{
@@ -49,6 +52,7 @@ class Controller_contact
 					$text .= "<br>Message:<br>";
 					$text .= nl2br(htmlspecialchars($_POST['message']));
 					
+					if (preg_match("/[bcdfghjklmnpqrstvwxzBCDFGHJKLMNPQRSTVWXZ]{5,}/", $_POST['message'])) die; // anti spam 
 					$message->setBody($text, 'text/html');
 					
 					$to = array();
@@ -71,8 +75,13 @@ class Controller_contact
 					$mailer = \Swift_Mailer::newInstance($transport);
 					$test = $mailer->send($message);
 					
-					echo '<div class="container"><div class="alert alert-success">'. __("Message sent. We&#39;ll contact you soon.") .'</div><a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Back to home page").'</a></div>';
+                                        $errors['mail_sent'] = __('Message sent. We&#39;ll contact you soon.');
+					//echo '<div class="container"><div class="alert alert-success">'. __("Message sent. We&#39;ll contact you soon.") .'</div><a href="'.TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"index.php")).'">'.__("Back to home page").'</a></div>';
 				}
+                                else
+                                {
+                                    $errors['mail_error'] = __('Please complete the required field.');
+                                }
 			}
 			else
 			{
@@ -86,49 +95,61 @@ class Controller_contact
 			$_SESSION['token_'.$token] = time();
 		
 			?>
-			<div class="container">
-			<h1><?php echo __("Contact us");?></h1>
-			<br/><br/>
-					<div id="contact-form">
-						<form method="post" action="">
-							<div class="row">
-								<div class="form-group <?php if(isset($errors['name'])):?>has-error<?php endif;?> col-md-4 col-sm-6">
-									<label class="label-text control-label" for="name"><?php echo __("Name (required)");?></label>
-									<input type="text" class="name form-control" value="" id="name" name="name">
-									<?php if(isset($errors['name'])):?><span class='control-label'><?php echo $errors['name'];?></span><?php endif;?>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group <?php if(isset($errors['email'])):?>has-error<?php endif;?> col-md-4 col-sm-6">
-									<label class="label-email control-label" for="email"><?php echo __("Email (required)");?></label>
-									<input type="text" class="email font-primary form-control" value="" id="email" name="email">
-									<?php if(isset($errors['email'])):?><span class='control-label'><?php echo $errors['email'];?></span><?php endif;?>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group <?php if(isset($errors['website'])):?>has-error<?php endif;?> col-md-4 col-sm-6">
-									<label class="label-text control-label" for="website"><?php echo __("Website");?></label>
-									<input type="text" class="url font-primary form-control" value="" id="website" name="website">
-									<?php if(isset($errors['website'])):?><span class='control-label'><?php echo $errors['website'];?></span><?php endif;?>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group <?php if(isset($errors['message'])):?>has-error<?php endif;?> col-md-9">
-									<label class="label-textarea control-label" for="message"><?php echo __("Message (required)");?></label>
-									<textarea rows="10" id="message" name="message" class="font-primary form-control"></textarea>
-									<?php if(isset($errors['message'])):?><span class='control-label'><?php echo $errors['message'];?></span><?php endif;?>
-								</div>
-							</div>
-							<p class="contact-submit form-group <?php if(isset($errors['token'])):?>has-error<?php endif;?>">
-								<input type="submit" class="btn btn-primary" name="send" value="<?php echo __("Submit");?>">
-								<input type="hidden" name="token" value="<?php echo $token;?>">
-								<?php if(isset($errors['token'])):?><span class='control-label'><?php echo $errors['token'];?></span><?php endif;?>
-							</p>
-						</form>
-					</div>
+                        
+                        <section id="content">
+                            <div class="container_contact">
+                                <div class="bg_contact">
+                                    <div class="content_contact">
+                                        <h1><?php echo __("Contact us"); ?></h1>
 
-			</div>
-			
+                                        <span class="line_contact">
+                                                <img src="<?php echo TC_HTTPDOMAIN; ?>/img/images/line_content-home.png" alt="">
+                                        </span>
+
+                                        <form class="form_contact" method="post" action="">
+                                            <div class="renseignement_utilisateur">
+                                                    <div class="block_label">
+                                                            <label class="infos_user <?php if(isset($errors['name'])):?>has-error<?php endif;?>"><?php echo __("Name"); ?></label>
+                                                            <label class="required"><?php echo __("Required"); ?></label>
+                                                    </div>
+                                                    <input type="text" class="text_input <?php if(isset($errors['name'])):?>has-error<?php endif;?>" value="" id="name" name="name">
+                                            </div>
+                                            <div class="renseignement_utilisateur">
+                                                    <div class="block_label">
+                                                            <label class="infos_user <?php if(isset($errors['email'])):?>has-error<?php endif;?>" for="email"><?php echo __('Email'); ?></label>
+                                                            <label class="required"><?php echo __('Required'); ?></label>
+                                                    </div>
+                                                    <input type="text" class="text_input <?php if(isset($errors['email'])):?>has-error<?php endif;?>" value="" id="email" name="email">
+                                                   
+                                            </div>
+                                            <div class="renseignement_utilisateur">
+                                                    <div class="block_label">
+                                                            <label class="infos_user"><?php echo __("Website");?></label>
+                                                    </div>
+                                                    <input type="text" class="text_input" value="" id="website" name="website">
+                                                  
+                                            </div>
+                                            <div class="renseignement_utilisateur">
+                                                    <div class="block_label userMessage">
+                                                            <label class="infos_user <?php if(isset($errors['message'])):?>has-error<?php endif;?>"><?php echo __("Message");?></label>
+                                                            <label class="required"><?php echo __("Required");?></label>
+                                                    </div>
+                                                    <textarea class="text_input messageUser <?php if(isset($errors['message'])):?>has-error<?php endif;?>" rows="10" id="message" name="message"></textarea>
+                                                    
+                                            </div>
+                                             <div class="container_message">
+                                                <span class="fake_input <?php if(isset($errors['mail_sent'])):?>mail_sent<?php endif;?>"><?php echo $errors['mail_sent']; ?></span>
+                                                <span class="fake_input <?php if(isset($errors['mail_error'])):?>mail_error<?php endif;?>"><?php echo $errors['mail_error']; ?></span>
+                                            </div>
+                                            <label for="send" class="btn_action submitForm" value="<?php echo __("SUBMIT");?>"><span class="sprite arrow_white"></span><?php echo __("SUBMIT");?></label>
+                                            <input type="submit" class="fake_input" name="send" id="send">
+                                            <input type="hidden" name="token" value="<?php echo $token; ?>">
+                                           
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>			
 			<?php
 		}
 	}

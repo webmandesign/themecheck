@@ -1,0 +1,90 @@
+/* --- HEADER --- */
+	#header{
+		
+		.menu{
+			width: 100%; 
+			position: fixed;
+	   		z-index: 100;
+			text-align: center;
+			padding-top: 14px;
+			
+			.logo{		
+				padding-bottom: 6px;
+				float: left;	
+				height: 100%;
+				margin-left: 20px;
+			}
+
+			.container_liste_menu{
+				float: right;
+				margin-right: 20px;
+
+				ul{			
+					display: block;
+					height: 100%;
+					font-size: 0;
+	
+					li{
+						display: inline-block;
+						margin: 0 46px;
+
+						&:first-child{
+	   						margin-left: 0;
+	   					}
+
+	   					&:last-child{
+	   						margin-right: 0;
+	   					}
+
+						a{
+							display: block;
+							text-decoration: none;
+							color: white;
+							font-size: 14px;
+							line-height: 52px;
+
+							&:hover{
+								@include easeInOutCirc(200ms);
+								color: #cad334;
+							}
+						}
+                                                
+                                                .hover_anchor{
+                                                    @include easeInOutCirc(200ms);
+                                                    color: #cad334;
+                                                }
+					}
+				}
+			}
+			
+
+			#icon_menu_mobile{
+				display: none;
+				float: right;
+				height: 50px;
+				padding-top: 7px;
+				padding-right: 10px;
+
+				.line{
+					width: 40px;
+					height: 4px;
+					background: #fff;
+					display: block;
+					margin: 10px 0;
+					transform-origin: left;
+					@include easeInOutCirc(200ms);
+
+					&:first-child{
+   						margin-top: 0;
+   					}
+
+   					&:last-child{
+   						margin-bottom: 0;
+   					}
+				}
+			}
+		}
+		
+
+	} 
+/* --- /HEADER --- */   

@@ -26,22 +26,22 @@ function ErrorHandler($errLevel, $errMsg, $errFile, $errLine)
 }
 
 set_error_handler(__NAMESPACE__."\ErrorHandler");
-
+ 
 // Multilingual url un-rewriting
 $routeParts = Route::getInstance()->match();
 
 if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"] == "error404.php") 
 {
 	include_once (TC_ROOTDIR.'/error404.php');
-	die;
+     	die;
 } else 
-{
+{ 
 	include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
 	$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
-	$controller = new $classname();
+       	$controller = new $classname();
 	$controller->prepare();
-	require "header.php";
-	$controller->render();
-	require "footer.php";
+    	require "header.php";
+        $controller->render();
+        require "footer.php";
 }
 

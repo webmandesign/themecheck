@@ -39,7 +39,7 @@ class Screenshot_Checker extends CheckPart
                 $this->errorLevel = ERRORLEVEL_SUCCESS;
                 // we have or screenshot!
                 $image = getimagesize( $other_key );
-                if ( $image[0] > 880 || $image[1] > 660 ) {
+                if ( $image[0] > 1920 || $image[1] > 1600 ) {
                     $this->messages[] = __all('Screenshot size is too large. Detected: <strong>%1$sx%2$spx</strong>. Recommended size is 880x660px.', $image[0], $image[1]);
                     $this->errorLevel = $this->threatLevel;
                 }

@@ -7,4 +7,10 @@
   ga('create', 'UA-47860956-1', 'themecheck.org');
   ga('send', 'pageview');
 
+
+		var trackDL = function(name) {
+		console.log(name);
+		   ga('send', 'event', 'download', 'click', name);
+		}
+
 </script>

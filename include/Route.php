@@ -73,7 +73,7 @@ class Route {
 	
 	// Rewritten URL -> Parameters
 	public function match($url = null) 
-	{
+	{ 
 		global $ExistingLangs;
 		$i18n = I18N::getInstance();
 	
@@ -111,7 +111,7 @@ class Route {
 		$params = null;
 		if (count($aa)>1) $params = $aa[1];
 		
-		$parts = explode("/", $path);
+		$parts = explode("/", $path);  
 		foreach($ExistingLangs as $l)
 		{
 			if ($parts[0] == $l) {
@@ -121,12 +121,13 @@ class Route {
 			}
 		}
 
-		if (count($parts) === 0)
+                if (count($parts) === 0)
 		{
-			$route["phpfile"] = "home";
-		} if (count($parts) === 1)
+			$route["phpfile"] = "home"; 
+		} 
+                if (count($parts) === 1)
 		{
-			$p0 = $parts[0];
+			$p0 = $parts[0]; 
 			
 			if (empty($p0) || $p0== "index.php" || $p0 == "index.html" || $p0 == "index") $route["phpfile"] = "home";
 			else if ($p0 == $i18n->url($route["lang"], "score")) 
@@ -142,12 +143,16 @@ class Route {
 			{
 				$route["phpfile"] = "massimport";
 			}
+                         else if ($p0 == "download")
+                        {
+                            $route["phpfile"] = "download";
+                        }
 				
 			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
 		}
 		else if (count($parts) > 1)
-		{		
-			$p0 = $parts[0];
+		{	 
+			$p0 = $parts[0];                              
 
 			if ($p0 == $i18n->url($route["lang"], "score")) 
 			{
@@ -186,6 +191,7 @@ class Route {
 
 			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
 		}
+                
 		return $route;
 	}
 
@@ -206,8 +212,9 @@ class Route {
 		if (!isset($route["phpfile"])) return "Error : phpfile not defined";
 		if ($route["phpfile"] == "home")
 		{
-			$url = trim($url, '/ ');
-		} else if ($route["phpfile"] == "results")
+			$url = trim($url, '/ ');                                                                                   
+		} 
+                else if ($route["phpfile"] == "results")
 		{
 			$data = array();
 			if (isset($route["hash"])) 
@@ -234,26 +241,33 @@ class Route {
 				if ($route["themetype"] == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
 				if ($route["themetype"] == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress_theme';
 				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($route["namesanitized"]).'.html';
-			} else if (isset($route["ut"]))
+			} 
+                        else if (isset($route["ut"]))
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ').'?ut='.urlencode($route["ut"]);
-			} else {
+			}
+                        else {
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 			}
-		} else if ($route["phpfile"] == "unittests")
+		} 
+                else if ($route["phpfile"] == "unittests")
 		{
 			$url = trim($url.$i18n->url($route["lang"], 'unittests'), '/ ');
 			
-		} else if ($route["phpfile"] == "massimport")
+		} 
+                else if ($route["phpfile"] == "massimport")
 		{
 			$url = "massimport";
-		}	else if ($route["phpfile"] == "contact")
+		}	
+                else if ($route["phpfile"] == "contact")
 		{
 			$url = trim($url.$i18n->url($route["lang"], 'contact'), '/ ');
-		} else if ($route["phpfile"] == "error404.php")
+		} 
+                else if ($route["phpfile"] == "error404.php")
 		{
 			$url = trim($url.$i18n->url($route["lang"], $route["phpfile"]), '/ ');
 		}
+             
 		return strtolower($url);
 	}
 }

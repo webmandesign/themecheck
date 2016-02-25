@@ -1,0 +1,148 @@
+// --- CONTAINER ---
+#container{
+        
+		// --- PAGE ---
+	#content{
+		width: 100%;
+
+		.container_contact{
+			.bg_contact{
+				padding: 1px 0;
+				background: url(../../img/images/bg_home.jpg) center 0 no-repeat;
+				text-align: center;
+				background-size: cover;
+				height: 800px;
+
+				.content_contact{
+					padding-top: 125px;
+
+					h1{
+						display: block;
+						@include RobotoTh;
+						font-size: 62px;
+						color: #FFFFFF;
+					}
+
+					.line_contact{
+						display: block;
+						margin: 30px 0;
+					}
+
+					.form_contact{
+						width: 773px;
+						margin-right: auto;
+						margin-left: auto;
+
+						.renseignement_utilisateur{
+							margin-top: 10px;
+
+							&:first-child{
+								margin-top: 0;
+							}
+
+							.block_label{
+								display: inline-block;
+								width: 80px;
+								line-height: 13px;
+								vertical-align: middle;
+								text-align: right;
+								padding-right: 10px;
+
+								.infos_user{
+									@include RobotoLt;
+									font-size: 16px;
+									color: #ffffff; 
+                                                                       
+                                                                        &.has-error{
+                                                                            color: #E5422C;
+                                                                       }
+								}
+								
+								.required{
+									font-size: 9px;
+									color: #7d7d7d;
+								}
+                                                                                                                              
+							}
+                                                        
+                                                       
+
+							.userMessage{
+								vertical-align: top;
+								padding-top: 10px;
+							}
+
+							.text_input{
+								display: inline-block;
+								width: 607px;
+								height: 40px;
+								font-family: Arial;
+								font-size: 16px;
+								color: #9f9f9f;
+								border-radius: 3px;
+								margin-right: 80px;
+								padding: 0 14px;
+                                                                
+                                                                &.has-error{
+                                                                    border: 2px solid #E5422C;
+                                                                    color: #E5422C;
+                                                               }
+							}	
+
+						    .messageUser{
+						    	padding-top: 12px;
+								height: 200px;
+							}
+						}
+                                                
+                                                .container_message{
+                                                    @include RobotoLt;
+                                                    margin-top: 10px;
+                                                    
+                                                    .mail_sent{
+                                                        display: inline;                                                        
+                                                        color: #ffffff;                                                        
+                                                    }
+                                                    
+                                                    .mail_error{
+                                                        display: inline;                                                     
+                                                        color: #E5422C;                                                     
+                                                    }
+                                                }
+                                                
+						.submitForm{
+							display: block;
+							width: 270px;
+							@include RobotoLt;
+							color: #ffffff;
+							font-size: 22px;
+							margin-top: 58px;
+							margin-left: auto;
+							margin-right: auto;
+							padding: 6px 87px 0 71px;
+		
+							.arrow_white{
+								vertical-align: middle;
+								margin-right: 21px;
+								margin-bottom: 5px;
+							}
+
+							&:hover{
+								color: #7d7d7d;
+								border-color: #7d7d7d;
+
+								.arrow_white{
+									background-position: 0 0;
+								}
+
+							}
+
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@import '_mq_contact';

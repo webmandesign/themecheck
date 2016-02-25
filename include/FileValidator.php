@@ -43,6 +43,12 @@ class FileValidator
 	private $history = null; 
 
 	private static $checklistCommon = array (
+			"Wpvulndb",
+			"Cdn",
+			"Customizer",
+			"PluginTerritory",
+			"Title",
+			"Widgets",
             "Badthings",
             "Directories",
             "File",
@@ -94,6 +100,7 @@ class FileValidator
 	static public function hashToPathUpload($hash)
 	{
 		$path = TC_VAULTDIR.'/upload';
+           
 		if (!file_exists($path)) trigger_error('Directory TC_VAULTDIR/upload does not exist', E_USER_ERROR);
 		
 		$fullname = $path.'/'.$hash.'.zip';
@@ -137,7 +144,8 @@ class FileValidator
 
 		// save thumbnail for front-end display (even if not serializable since we want to display a thumbnail on the results page)
 		list($width_src, $height_src) = getimagesize($thumbfile);
-		$width = 206;
+
+        $width = 340;
 		$height = intval(($height_src * $width) / $width_src);
 		$image_p = imagecreatetruecolor($width, $height);
 		
@@ -162,7 +170,7 @@ class FileValidator
 		{
 			$imginfo = getimagesize($img);
 			$path_parts = pathinfo($img);
-			if ($imginfo !== false && $imginfo[0] >= 64 && $imginfo[1] >= 64) // check we havee an actual image and it is big enough
+			if ($imginfo !== false && $imginfo[0] >= 64 && $imginfo[1] >= 64) // check we have an actual image and it is big enough
 			{
 				$img_dst = realpath($savedirectory_img).'/'.$path_parts['basename'];
 				copy($img, $img_dst);
@@ -245,7 +253,7 @@ class FileValidator
 		}
 		
 		$accepted_exts = array("zip");
-		$accepted_types = array('application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed', 'application/octet-stream');
+		$accepted_types = array('binary','application/zip', 'application/x-zip-compressed', 'multipart/x-zip', 'application/x-compressed', 'application/octet-stream');
 		$filetype = self::fileMimeType($_FILES["file"]["tmp_name"], $_FILES["file"]["name"], false);
 		$extension = strtolower(pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION));
 
@@ -447,15 +455,19 @@ class FileValidator
 			$path = TC_ROOTDIR.'/../themecheck_vault/unzip';
 			if (!file_exists($path)) trigger_error('Directory TC_ROOTDIR/../themecheck_vault/unzip does not exist', E_USER_ERROR);
 			$unzippath = $path.'/'.$hash_alpha."/";
-			
+
 			$res = $zip->open($zipfilepath);
+
 			if ($res === TRUE) {
-			
 				if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath); // needed to avoid keeping old files that don't exist anymore in the new archive
 				$zip->extractTo($unzippath);
-
 				$zip->close();
 			} else {
+				if ($res == 19)
+				{					
+					echo "Not a zip archive : ".$zipfilepath;
+					die;
+				}
 				UserMessage::enqueue(__("File could not be unzipped."), ERRORLEVEL_FATAL);
 			}
 		} catch (Exception $e) {
@@ -543,8 +555,8 @@ class FileValidator
 		
 		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;
 
-		// update themeInfo data that is discovefred in initFromUnzippedArchivee
-	  $r = $this->themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize);
+		// update themeInfo data that is discovered in initFromUnzippedArchive
+	    $r = $this->themeInfo->initFromUnzippedArchive($unzippath, $this->themeInfo->zipfilename, $this->themeInfo->zipmimetype, $this->themeInfo->zipfilesize);
 
 		$files = listdir( $unzippath );
 		if ( $files ) {
@@ -580,6 +592,9 @@ class FileValidator
 		{
 			$check->setCurrentThemetype($this->themeInfo->themetype);
 			$check->setCurrentCmsVersion($this->themeInfo->cmsVersion);
+			$check->setThemeVersion($this->themeInfo->version);
+			$check->setThemeName($this->themeInfo->namedemo);
+			$check->setThemeHash($this->themeInfo->hash);
 			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{

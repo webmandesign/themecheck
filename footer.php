@@ -1,40 +1,68 @@
 <?php
 namespace ThemeCheck;
 ?>
-		<div class="container">
-		<hr>
-			<footer>
-				<div class="row">
-					<div class="col-xs-4" style="line-height:52px;">
-						&copy; Peoleo <?php echo date("Y");?>
+		<footer id="footer">
+			<div class="container_footer">
+				<div class="footer_first_part">
+					<div class="container_logo">
+						<img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/logo_themeCheck.png" class="logo_themeCheck"/>
 					</div>
-					<div class="col-xs-4" style="text-align:center;">
-						<a href="https://github.com/themecheck/themecheck"><img src="<?php echo TC_HTTPDOMAIN;?>/img/github48.png" alt="themecheck on github"><br/>Github</a>
-						<br><br><a href="http://www.joomla.org" rel="nofollow">joomla.org</a>
-						<br><a href="http://wordpress.org" rel="nofollow">wordpress.org</a>
-						<br><a href="http://owasp.org" rel="nofollow">owasp.org</a>
+					<div class="line_footer">
+						<img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/line_footer.png"/>
 					</div>
-					<div class="col-xs-4" style="text-align:right;line-height:52px">
-						<?php 
+					<div class="text_footer">
+						<p><?php echo __('Themecheck.org is unofficial fork of the famous Theme Check plugin with new ckecks, reduced false positive rate and multiple CMS compatibility. It is independant of wordpress.org and joomla.org.'); ?></p>
+					</div>
+					<div class="container_cms">
+						<ul>
+							<li>
+								<a href="http://wordpress.org" rel="nofollow" target="_blank"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/wordpress.png" class="wordpress"/></a>
+							</li>
+							<li>
+								<a href="http://www.joomla.org" rel="nofollow" target="_blank"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/joomla.png" class="joomla"/></a>
+							</li>
+							<li>
+								<a href="http://owasp.org" rel="nofollow" target="_blank"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/owasp.png" class="owasp"/></a>
+							</li>
+							<li>
+								<a href="https://github.com/themecheck/themecheck" target="_blank"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/github.png" class="github"/></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="footer_second_part">
+					<div class="content_footer_second_part">
+						<span class="copyright">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
+                                                <span class="langues">
+                                                <?php 
 						if (!empty($controller->samepage_i18n[I18N::getCurLang()])){
 							$langs="";
 							foreach ($controller->samepage_i18n as $l=>$url) {
-								if ($l == I18N::getCurLang()) $langs .= strtoupper($l).' | ';
-								else $langs .= '<a href="'.$url.'">'.strtoupper($l).'</a> | '; 
+								if ($l == I18N::getCurLang()) $langs .= '&nbsp;<span class="lang_selected">'.strtoupper($l).'</span>&nbsp; | ';
+								else $langs .= '<a href="'.$url.'" >'.strtoupper($l).'</a> | '; 
 							}
 							echo trim($langs,' |');
 						}?>
-						<br/>
-						<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fthemecheck.org&amp;width=65&amp;layout=box_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=65&amp;appId=244478959009718" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; float:right;" allowTransparency="true"></iframe>
+                                                </span>
+						<span class="like_facebook">
+							<div class="fb-like" data-href="http://themecheck.org/" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+						</span>
+						<span class="copyright_hidden hidden">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
 					</div>
 				</div>
-				<p>
-				</p>
-			</footer>
-		</div>
+			</div>
+		</footer>
+	</div>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/bootstrap.min.js"></script>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/bootstrap-filestyle.min.js"></script>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/plugins.js"></script>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/js/main.js"></script>
+
+		<!-- JS NEW INTEGRATION -->
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/jquery/jquery-1.11.1.min.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/peoleo/cuir.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Main.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home.js"></script>
+
 	</body>
 </html>

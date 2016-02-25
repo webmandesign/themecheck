@@ -27,7 +27,7 @@ class PHPShort extends Check
     {
 			$this->title = __all("PHP short tags");
 			$this->checks = array(
-						new PHPShort_Checker('SHORTTAGS', TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of PHP short tags'), '/<\?(\=?)(?!php|xml)/', 'ut_phpshort.zip')
+						new PHPShort_Checker('SHORTTAGS', TT_COMMON, ERRORLEVEL_WARNING, __all('Presence of PHP short tags'), '/<\?(\=?)(?!php|xml)/i', 'ut_phpshort.zip')
 			);
     }
 }

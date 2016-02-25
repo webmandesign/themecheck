@@ -1,2 +1,7 @@
 /dyn
-/DB
+/nbproject/private/
+*.suo
+/themecheck_clean/themecheck_clean/bin
+/themecheck_clean/themecheck_clean/obj
+/DB/db_credentials.php
+/themecheck_clean

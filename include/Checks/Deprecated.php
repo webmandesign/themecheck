@@ -15,7 +15,7 @@ class Deprecated_Checker extends CheckPart
         {
 						if (strpos($phpfile, $key) !== false)// optimization : strpos is faster than preg_match, and since the condition is rarely true, it is globally faster to use strpos as a filter before preg_match
 						{ 
-								if ( preg_match( '/[\s]+' . $key . '[\s-]*\(/', $phpfile, $matches ) )
+								if ( preg_match( '/\s' . $key . '[\s]*\(/', $phpfile, $matches ) )
 								{
 										$filename = tc_filename( $php_key );
 										$error = ltrim( rtrim( $matches[0], '(' ) );
@@ -35,8 +35,8 @@ class Deprecated extends Check
     {
 			$this->title = __all("Deprecated functions");
 			$this->checks = array(
-					new Deprecated_Checker('DEPRECATED_GET_POST_DATA', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('get_post_data'), array('get_post_data', 'get_post()', '1.5.1' ), 'ut_deprecatedwordpress_get_post_data.zip'),
-					new Deprecated_Checker('DEPRECATED_START_WP', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('start_wp'), array('start_wp', 'Use the Loop', '1.5' ),'ut_deprecatedwordpress_start_wp.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_POST_DATA', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('get_postdata'), array('get_postdata', 'get_post()', '1.5.1' ), 'ut_deprecatedwordpress_get_post_data.zip'),
+					new Deprecated_Checker('DEPRECATED_START_WP', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('start_wp'), array('start_wp', 'the Loop', '1.5' ),'ut_deprecatedwordpress_start_wp.zip'),
 					new Deprecated_Checker('DEPRECATED_THE_CATEGORY_ID', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('the_category_id'), array('the_category_id', 'get_the_category()', '0.71' ),'ut_deprecatedwordpress_the_category_id.zip'),
 					new Deprecated_Checker('DEPRECATED_THE_CATEGORY_HEAD', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('the_category_head'), array('the_category_head', 'get_the_category_by_ID()', '0.71' ),'ut_deprecatedwordpress_the_category_head.zip'),
 					new Deprecated_Checker('DEPRECATED_PREVIOUS_POST', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('previous_post'), array('previous_post', 'previous_post_link()', '2.0' ),'ut_deprecatedwordpress_previous_post.zip'),
@@ -217,9 +217,17 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_USER_PASS_OK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('user_pass_ok'), array('user_pass_ok', 'wp_authenticate()', '3.5' ),'ut_deprecatedrecommendedwordpress_user_pass_ok.zip'),
 					new Deprecated_Checker('DEPRECATED_SAVE_POST_HOOK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_save_post_hook'), array('_save_post_hook', 'none', '3.5' ),'ut_deprecatedrecommendedwordpress__save_post_hook.zip'),
 					new Deprecated_Checker('DEPRECATED_GD_EDIT_IMAGE_SUPPORT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('gd_edit_image_support'), array('gd_edit_image_support', 'wp_image_editor_supports()', '3.5' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_USER_ID_FROM_STRING', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_user_id_from_string'), array('get_user_id_from_string', 'get_user_by()', '3.6' ),'ut_deprecatedrecommendedwordpress_get_user_id_from_string.zip'),
 					new Deprecated_Checker('DEPRECATED_WP_CONVERT_BYTES_TO_HR', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_convert_bytes_to_hr'), array('wp_convert_bytes_to_hr', 'size_format()', '3.6' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
 					new Deprecated_Checker('DEPRECATED_SEARCH_TERMS_TIDY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_search_terms_tidy'), array('_search_terms_tidy', 'none', '3.7' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
-
+					new Deprecated_Checker('DEPRECATED_GET_BLOGADDRESS_BY_DOMAIN', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_blogaddress_by_domain'), array('get_blogaddress_by_domain', 'none', '3.7' ),'ut_deprecatedrecommendedwordpress_get_blogaddress_by_domain.zip'),
+					new Deprecated_Checker('DEPRECATED_RICH_EDIT_EXISTS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('rich_edit_exists'), array('rich_edit_exists', 'none', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_DEFAULT_TOPIC_COUNT_TEXT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('default_topic_count_text'), array('default_topic_count_text', 'none', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_FORMAT_TO_POST', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('format_to_post'), array('format_to_post', 'none', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_LIKE_ESCAPE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('like_escape'), array('like_escape', 'wpdb::esc_like()', '4.0' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_URL_IS_ACCESSIBLE_VIA_SSL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('url_is_accessable_via_ssl'), array('url_is_accessable_via_ssl', 'none', '4.0' ),'tobedefined.zip'),
+					
+					
 					// wp-admin recently deprecated warning
 					new Deprecated_Checker('DEPRECATED_GET_ALLOWED_THEMES', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_allowed_themes'), array('get_allowed_themes', 'wp_get_themes( array( &#39;allowed&#39; => true ) )', '3.4' ),'ut_deprecatedrecommendedwordpress_get_allowed_themes.zip'),
 					new Deprecated_Checker('DEPRECATED_GET_BROKEN_THEMES', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_broken_themes'), array('get_broken_themes', 'wp_get_themes( array( &#39;errors&#39; => true )', '3.4' ),'ut_deprecatedrecommendedwordpress_get_broken_themes.zip'),
@@ -245,6 +253,7 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_RECENT_COMMENTS_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_recent_comments_control'), array('wp_dashboard_recent_comments_control', 'none', '3.8' ),'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary'), array('wp_dashboard_secondary', 'none', '3.8' ),'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_WP_DASHBOARD_SECONDARY_CONTROL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_dashboard_secondary_control'), array('wp_dashboard_secondary_control', 'none', '3.8' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_RELOCATE_CHILDREN', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_relocate_children'), array('_relocate_children', 'none', '3.9' ),'tobedefined.zip'),					
 					
 					// joomla 1.5
 					new Deprecated_Checker('DEPRECATED_AMPREPLACE', TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('ampReplace'), array('ampReplace', 'none', '1.5' ),'tobedefined.zip'),

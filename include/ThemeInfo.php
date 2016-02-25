@@ -70,6 +70,11 @@ class ThemeInfo
 	public $validation_timestamp; // Unix timestamp
 	public $isTemplateMonster;
 	public $isThemeForest;	
+	public $isCreativeMarket;
+	public $isPiqpaq;
+        public $isOpenSource;  
+	public $isNsfw;
+
 	public $themeroot; // not stored in db. To be used to instal a demo by copying files
 	
 	public function __construct($hash)
@@ -174,11 +179,50 @@ class ThemeInfo
 
 		$this->themetype = $this->detectThemetype($unzippath);
 		
-		$merchant = self::getMerchant($unzippath, $this);
+                $merchant = self::getMerchant($unzippath, $this); 
+		
 		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
 		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
+		$this->isCreativeMarket = ($merchant == 'creativemarket') ? true : false;
+		$this->isPiqpaq = ($merchant == 'piqpaq') ? true : false;
+                
+ //condition open source     VALEUR bdd isOpenSource 0->false 1->true sinon null
+                if($merchant == null)
+                {
+                    // Vérifications sur les sites Wordpress.org et Joomla24
+                    $verif = false;
+                    include_once('curl_requests.php');
+                
+                    //Vérification si thème existe sur site Joomla24.com
+                    if($this->themetype == 2){$verif = isOnJoomla24($this->name,$this->zipfilename);}
+                    
+                    if(($this->license != 0)||($verif))
+                    {
+                        // verification si le thème existe sur les plateformes open source
+                        if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name,$this->zipfilename);
+						else $isOnOpenSourcePlatform = isOnWordpressOrg($this->namedemo);
+						
+                        if($isOnOpenSourcePlatform)
+                        {
+                            $this->isOpenSource = true;
+                        }
+                        else
+                        {
+                            $this->isOpenSource = null; // indefini
+                        }
+                    }
+                    else
+                    {
+                        $this->isOpenSource = false;
+                    }                   
+                }      
+                else 
+                {
+                  $this->isOpenSource = false;
+                }
+ // fin de la condition               
 		$this->namedemo = '';
-		
+
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
 		{
@@ -251,7 +295,7 @@ class ThemeInfo
 					global $g_creationDate;
 					$this->creationDate = $g_creationDate;
 			}
-			$this->cmsVersion = "3.9.1";
+			$this->cmsVersion = LAST_WP_VERSION;
 		}
 
 		if ($this->themetype == TT_JOOMLA)
@@ -357,7 +401,8 @@ class ThemeInfo
 		if ($this->license == TC_LICENSE_CUSTOM) $this->licenseText = $rawlicense;
 
 		$this->hasBacklinKey = false;
-
+		
+		$this->filesIncluded = '';
 		if ($filetypes['css']) $this->filesIncluded .= 'CSS, ';
 		if ($filetypes['php']) $this->filesIncluded .= 'PHP, ';
 		if ($filetypes['html'] || $filetypes['phtml'] || $filetypes['htm']) $this->filesIncluded .= 'HTML, ';
@@ -370,10 +415,10 @@ class ThemeInfo
 
 		$this->filesIncluded = trim($this->filesIncluded, " ,");
 		
-		// get themeforest url
-		
+		// get themeforest url and check if really exists on themeforest
 		if ($this->isThemeForest)
 		{
+				
 			preg_match('/[ 0-9a-zA-Z_-]+/', $this->name, $matches, PREG_OFFSET_CAPTURE);
 			$search = trim($matches[0][0]);
 			$url = 'http://marketplace.envato.com/api/edge/search:themeforest,wordpress,'.$search.'.json';
@@ -385,9 +430,27 @@ class ThemeInfo
 			$result = json_decode($result);
 			if (!empty($result) && !empty($result->search))
 			{
-				$this->themeUri = $result->search[0]->url;
+				$bestindex = -1;
+				$bestsales = 0;
+				$i = 0;
+				foreach($result->search as $v)
+				{
+					if (intval($v->sales) > $bestsales) {
+						$bestindex = $i;
+						$bestsales = intval($v->sales);
+					}
+					$i++;
+				}
+				if ($bestindex >=0) $this->themeUri = $result->search[0]->url;
+				//else $this->isThemeForest = false;
+			} else {
+				//$this->isThemeForest = false;
 			}
 		}
+		
+		// adult ?
+		$this->isNsfw = self::isNsfw($unzippath, $this);
+
 		return true;
 	}
 
@@ -452,29 +515,80 @@ class ThemeInfo
 	**/
 	static public function getMerchant($unzippath, $themeInfo)
 	{
+	
 		$is_themeforest = false;
 		$is_templatemonster = false;
+		$is_creativemarket = false;
+		$is_piqpaq = false;
 		$zipname = $themeInfo->zipfilename;
+		
 		if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
-		else if (strpos($themeInfo->themeUri,'themeforest') !== false || strpos($themeInfo->authorUri,'themeforest') !== false) $is_themeforest = true;
+		else if (strpos($themeInfo->themeUri,'piqpaq') !== false || strpos($themeInfo->authorUri,'piqpaq') !== false) $is_piqpaq = true;
+		else if (strpos($themeInfo->themeUri,'creativemarket') !== false || strpos($themeInfo->authorUri,'creativemarket') !== false) $is_creativemarket = true;
 		else if (strpos($zipname,'templatemonster')!== false || strpos($zipname,'template_monster')!== false || strpos($zipname,'template monster')!== false) $is_templatemonster = true;
 		else 
 		{
 			$files = listdir( $unzippath );
 			if ( $files ) {
 				foreach( $files as $key => $filename ) {
-					if ( substr( $filename, -4 ) == '.php' || substr( $filename, -4 ) == '.css' || substr( $filename, -4 ) == '.txt' ){
+				
+					//if ( substr( $filename, -4 ) == '.php' || substr( $filename, -4 ) == '.css' || substr( $filename, -4 ) == '.txt' )
+					if ( substr( $filename, -9 ) == "style.css" || substr( $filename, -19 ) == "templateDetails.xml")
+					{
 						$s = file_get_contents( $filename );
 						if (strpos($s,'envato') !== false || strpos($s,'themeforest') !== false || strpos($s,'theme forest') !== false) $is_themeforest = true;
+						else if (strpos($s,'creativemarket')!== false || strpos($s,'creative_market')!== false || strpos($s,'creative market')!== false) $is_creativemarket = true;
+						else if (strpos($s,'piqpaq')!== false || strpos($s,'piq_paq')!== false || strpos($s,'piq paq')!== false) $is_piqpaq = true;
 						else if (strpos($s,'templatemonster')!== false || strpos($s,'template_monster')!== false || strpos($s,'template monster')!== false) $is_templatemonster = true;
 					}
+					
+					if ($is_themeforest || $is_templatemonster || $is_creativemarket || $is_piqpaq) break;
 				}
 			}
 		}
-		
+
 		if ($is_themeforest) return 'themeforest';
 		else if ($is_templatemonster) return 'templatemonster';
+		else if ($is_creativemarket) return 'creativemarket';
+		else if ($is_piqpaq) return 'piqpaq';
 		else return null;
+	}
+	
+        
+	static public function isNsfw($unzippath, $themeInfo)
+	{
+		$isNsfw = false;
+		$zipname = strtolower($themeInfo->zipfilename);
+		
+		if (strpos($zipname,'xvideo')!== false || 
+			strpos($zipname,'flat_tube')!== false || 
+			strpos($zipname,'wpxtube')!== false || 
+			strpos($zipname,'tubeace')!== false || 
+			strpos($zipname,'bangy')!== false ||
+			strpos($zipname,'adult')!== false || 
+			strpos($zipname,'porn')!== false || 
+			strpos($zipname,'xxx')!== false || 
+			strpos($zipname,'sex')!== false) $isNsfw = true;
+
+		else 
+		{
+			$files = listdir( $unzippath );
+			if ( $files ) {
+				foreach( $files as $key => $filename ) {
+				
+					//if ( substr( $filename, -4 ) == '.php' || substr( $filename, -4 ) == '.css' || substr( $filename, -4 ) == '.txt' )
+					if ( substr( $filename, -9 ) == "style.css" || substr( $filename, -19 ) == "templateDetails.xml")
+					{
+						$s = file_get_contents( $filename );
+						if (strpos($s,'porn') !== false || strpos($s,'adult') !== false || strpos($s,'xxx') !== false) $is_themeforest = true;
+					}
+					
+					if ($isNsfw) break;
+				}
+			}
+		}
+
+		return $isNsfw;
 	}
 
 	/*
