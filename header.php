@@ -47,6 +47,7 @@ namespace ThemeCheck;
 					border : 1px solid #ddd;
 					font-size : 11px;
 					margin-bottom : 2px;
+					white-space: pre-wrap;
 				}
 		</style>
 	</head>
