@@ -89,6 +89,7 @@ abstract class Check
 		public $currentCmsVersion;
 		public $currentThemeVersion;
 		public $currentThemeName;
+		public $currentThemeDir;
 		public $currentThemeHash;
 		
     public function __construct()
@@ -121,6 +122,11 @@ abstract class Check
 		public function setThemeName($themeName)
 		{
 			$this->currentThemeName = $themeName;
+		}
+		
+		public function setThemeDir($themeDir)
+		{
+			$this->currentThemeDir = $themeDir;
 		}
 		
 		public function setThemeHash($themeHash)

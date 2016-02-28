@@ -39,7 +39,7 @@ class ThemeInfo
 	public $zipfilesize; // size of archive
 	public $userIp;// ip of poster
 	public $name;
-	public $namedemo; // directory name of installed theme in cms files
+	public $themedir; // directory name of installed theme in cms files
 	public $author;
 	public $description; // HTML description
 	public $descriptionBB; // description encoded in BB-code
@@ -72,10 +72,10 @@ class ThemeInfo
 	public $isThemeForest;	
 	public $isCreativeMarket;
 	public $isPiqpaq;
-        public $isOpenSource;  
+    public $isOpenSource;  
 	public $isNsfw;
 
-	public $themeroot; // not stored in db. To be used to instal a demo by copying files
+	public $themeroot; // not stored in db
 	
 	public function __construct($hash)
 	{
@@ -200,7 +200,7 @@ class ThemeInfo
                     {
                         // verification si le thème existe sur les plateformes open source
                         if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name,$this->zipfilename);
-						else $isOnOpenSourcePlatform = isOnWordpressOrg($this->namedemo);
+						else $isOnOpenSourcePlatform = isOnWordpressOrg($this->themedir);
 						
                         if($isOnOpenSourcePlatform)
                         {
@@ -221,7 +221,7 @@ class ThemeInfo
                   $this->isOpenSource = false;
                 }
  // fin de la condition               
-		$this->namedemo = '';
+		$this->themedir = '';
 
 		// undefined theme type
 		if ($this->themetype == TT_UNDEFINED)
@@ -243,13 +243,13 @@ class ThemeInfo
 						$style_css = $filename;
 						$this->themeroot = realpath($path_parts['dirname']);
 						$explod = explode(DIRECTORY_SEPARATOR, $this->themeroot);
-						if (count($explod) > 0)	$this->namedemo = $explod[count($explod)-1];
+						if (count($explod) > 0)	$this->themedir = $explod[count($explod)-1];
 					}
 					else if (strlen($filename) < strlen($style_css)) {
 						$style_css = $filename;
 						$this->themeroot = realpath($path_parts['dirname']);
 						$explod = explode(DIRECTORY_SEPARATOR, $this->themeroot);
-						if (count($explod) > 0)	$this->namedemo = $explod[count($explod)-1];
+						if (count($explod) > 0)	$this->themedir = $explod[count($explod)-1];
 					}
 				}
 
@@ -385,10 +385,10 @@ class ThemeInfo
 				return false;
 			}
 			
-			// for joomla, extract namedemo from zip name
+			// for joomla, extract themedir from zip name
 			$zipfilename_exploded = explode('.', $this->zipfilename);
 			array_pop($zipfilename_exploded);
-			$this->namedemo = implode('.', $zipfilename_exploded );
+			$this->themedir = implode('.', $zipfilename_exploded );
 		}
 		$this->modificationDate = time();
 		$this->validationDate = time();

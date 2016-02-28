@@ -48,21 +48,25 @@ class Wpvulndb extends Check
 			
 			$content = file_get_contents($url);
 			$wpvulnObject = json_decode($content);
-			$wpvuln = WpVuln::fromJson($wpvulnObject, $this->currentThemeName);
 			
-			if ($this->currentThemetype & $check->themetype)
+			if ($wpvulnObject  !== null && $wpvulnObject !== false)
 			{
-				foreach ($wpvuln->vulnerabilities as $v)
-				{						
-					$cmp = Check::versionCmp($this->currentThemeVersion, $v->fixed_in, null);
-					if ($cmp < 0)
-					{
-						$history->upsertWpVuln($this->currentThemeHash, $v);
-						
-						$check->code = $v;
-						$start_time = microtime(true);
-						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
-						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+				$wpvuln = WpVuln::fromJson($wpvulnObject, $this->currentThemeName);
+				
+				if ($this->currentThemetype & $check->themetype)
+				{
+					foreach ($wpvuln->vulnerabilities as $v)
+					{						
+						$cmp = Check::versionCmp($this->currentThemeVersion, $v->fixed_in, null);
+						if ($cmp < 0)
+						{
+							$history->upsertWpVuln($this->currentThemeHash, $v);
+							
+							$check->code = $v;
+							$start_time = microtime(true);
+							$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+							$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+						}
 					}
 				}
 			}

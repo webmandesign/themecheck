@@ -43,6 +43,7 @@ class FileValidator
 	private $history = null; 
 
 	private static $checklistCommon = array (
+			"TextDomain",
 			"Wpvulndb",
 			"Cdn",
 			"Customizer",
@@ -593,7 +594,8 @@ class FileValidator
 			$check->setCurrentThemetype($this->themeInfo->themetype);
 			$check->setCurrentCmsVersion($this->themeInfo->cmsVersion);
 			$check->setThemeVersion($this->themeInfo->version);
-			$check->setThemeName($this->themeInfo->namedemo);
+			$check->setThemeDir($this->themeInfo->themedir);
+			$check->setThemeName($this->themeInfo->name);
 			$check->setThemeHash($this->themeInfo->hash);
 			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)

@@ -37,13 +37,13 @@ class History
 			$this->db = new \PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PWD);
                         
 			$this->query_theme_insert = $this->db->prepare('INSERT INTO theme (hash, hash_md5, 
-                            hash_sha1, name, namesanitized, namedemo, themetype, parentId, cmsVersion, score, 
+                            hash_sha1, name, namesanitized, themedir, themetype, parentId, cmsVersion, score, 
                             criticalCount, warningsCount, zipfilename, zipmimetype, zipfilesize, userIp, 
                             author, description, descriptionBB, themeUri, version, authorUri, authorMail, 
                             tags, layout, license, licenseUri, filesIncluded, copyright, isThemeForest, 
                             isTemplateMonster, isCreativeMarket, isPiqpaq, isNsfw, creationDate, 
                             modificationDate, validationDate,isOpenSource) VALUES (:hash, UNHEX(:hash_md5), 
-                            UNHEX(:hash_sha1), :name,:namesanitized,:namedemo,:themetype,:parentId, :cmsVersion,
+                            UNHEX(:hash_sha1), :name,:namesanitized,:themedir,:themetype,:parentId, :cmsVersion,
                             :score,:criticalCount,:warningsCount,:zipfilename,:zipmimetype,:zipfilesize,
                             INET_ATON(:userIp),:author,:description,:descriptionBB,:themeUri,:version,:authorUri,
                             :authorMail,:tags,:layout,:license,:licenseUri,:filesIncluded,:copyright,:isThemeForest,
@@ -51,7 +51,7 @@ class History
                             FROM_UNIXTIME(:modificationDate), FROM_UNIXTIME(:validationDate),:isOpenSource)');
 			
 			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, '
-                                . 'namedemo=:namedemo, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
+                                . 'themedir=:themedir, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
                                 . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
                                 . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), description=:description, '
@@ -131,7 +131,7 @@ class History
 			{
 				$id = intval($row[0]);
 				$this->query_theme_update_score->bindValue(':themeUri', 		 $themeInfo->themeUri, \PDO::PARAM_STR);
-				$this->query_theme_update_score->bindValue(':namedemo', 		 $themeInfo->namedemo, \PDO::PARAM_STR);
+				$this->query_theme_update_score->bindValue(':themedir', 		 $themeInfo->themedir, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':score', 				 $themeInfo->score, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':criticalCount', $themeInfo->criticalCount, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':cmsVersion', 	 $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -183,7 +183,7 @@ class History
 																																		 hash_sha1=:hash_sha1,
 																																		 name=:name,
 																																		 namesanitized=:namesanitized,
-																																		 namedemo=:namedemo,
+																																		 themedir=:themedir,
 																																		 themetype=:themetype,
 																																		 parentId=:parentId,
 																																		 cmsVersion=:cmsVersion,
@@ -226,7 +226,7 @@ class History
 						$this->query_theme_update_all->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':namedemo', $themeInfo->namedemo, \PDO::PARAM_STR);
+						$this->query_theme_update_all->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':cmsVersion', $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -283,7 +283,7 @@ class History
 		$this->query_theme_insert->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
-		$this->query_theme_insert->bindValue(':namedemo', $themeInfo->namedemo, \PDO::PARAM_STR);
+		$this->query_theme_insert->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':cmsVersion', $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -352,7 +352,7 @@ class History
 		$themeInfo->zipfilesize = $obj->zipfilesize;
 		$themeInfo->userIp = $obj->userIp;
 		$themeInfo->name = $obj->name;
-		$themeInfo->namedemo = $obj->namedemo;
+		$themeInfo->themedir = $obj->themedir;
 		$themeInfo->author = $obj->author;
 		$themeInfo->description = $obj->description;
 		$themeInfo->descriptionBB = $obj->descriptionBB;
@@ -672,7 +672,7 @@ class History
      
         public function getNameIsOpenSource()
         {
-            $query = $this->db->query("SELECT namedemo,zipfilename,license,themetype"
+            $query = $this->db->query("SELECT themedir,zipfilename,license,themetype"
                     . "FROM theme WHERE ISNULL(isOpenSource)");
             $query->execute();
             $datas = array();
@@ -684,11 +684,11 @@ class History
             return $datas;
         }
         
-        public function updateIsOpenSource($value,$namedemo)
+        public function updateIsOpenSource($value,$themedir)
         {
-            $query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE namedemo=:namedemo");
+            $query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE themedir=:themedir");
             $query->bindValue(':isOpenSource',$value,\PDO::PARAM_BOOL);
-            $query->bindValue(':namedemo',$namedemo,\PDO::PARAM_STR);
+            $query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
             $query->execute();
         }
 		
