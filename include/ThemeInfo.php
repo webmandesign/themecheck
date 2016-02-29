@@ -179,48 +179,44 @@ class ThemeInfo
 
 		$this->themetype = $this->detectThemetype($unzippath);
 		
-                $merchant = self::getMerchant($unzippath, $this); 
+        $merchant = self::getMerchant($unzippath, $this); 
 		
 		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
 		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
 		$this->isCreativeMarket = ($merchant == 'creativemarket') ? true : false;
 		$this->isPiqpaq = ($merchant == 'piqpaq') ? true : false;
-                
- //condition open source     VALEUR bdd isOpenSource 0->false 1->true sinon null
-                if($merchant == null)
-                {
-                    // Vérifications sur les sites Wordpress.org et Joomla24
-                    $verif = false;
-                    include_once('curl_requests.php');
-                
-                    //Vérification si thème existe sur site Joomla24.com
-                    if($this->themetype == 2){$verif = isOnJoomla24($this->name,$this->zipfilename);}
-                    
-                    if(($this->license != 0)||($verif))
-                    {
-                        // verification si le thème existe sur les plateformes open source
-                        if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name,$this->zipfilename);
-						else $isOnOpenSourcePlatform = isOnWordpressOrg($this->themedir);
-						
-                        if($isOnOpenSourcePlatform)
-                        {
-                            $this->isOpenSource = true;
-                        }
-                        else
-                        {
-                            $this->isOpenSource = null; // indefini
-                        }
-                    }
-                    else
-                    {
-                        $this->isOpenSource = false;
-                    }                   
-                }      
-                else 
-                {
-                  $this->isOpenSource = false;
-                }
- // fin de la condition               
+
+		if($merchant == null) // if $merchant is null we may be open source
+		{
+			// Look for theme on Wordpress.org et Joomla24
+			$isOpenSource = false;
+			include_once('curl_requests.php');
+
+			if($this->license != 0)
+			{
+				// Does theme exist on open source plateforms
+				if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name, $this->zipfilename);
+				else $isOnOpenSourcePlatform = isOnWordpressOrg($this->themedir);
+				
+				if($isOnOpenSourcePlatform)
+				{
+					$this->isOpenSource = true;
+				}
+				else
+				{
+					$this->isOpenSource = null; // we don't know
+				}
+			}
+			else
+			{
+				$this->isOpenSource = false;
+			}                   
+		}      
+		else 
+		{
+		  $this->isOpenSource = false;
+		}
+            
 		$this->themedir = '';
 
 		// undefined theme type
