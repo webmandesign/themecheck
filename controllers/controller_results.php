@@ -67,7 +67,7 @@ class Controller_results
 		{
 			if(TC_ENVIRONMENT == "dev" || isset($_SESSION['token_'.$_POST['token']]))
 			{
-				unset($_SESSION['token_'.$_POST['token']]);
+				//unset($_SESSION['token_'.$_POST['token']]);
 				$themeInfo = FileValidator::upload();
 				if ($themeInfo)
 				{
@@ -89,7 +89,7 @@ class Controller_results
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 				}
 			} else {
-				UserMessage::enqueue(__("Unvalid form"), ERRORLEVEL_FATAL);
+				UserMessage::enqueue(__("Invalid form"), ERRORLEVEL_FATAL);
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
