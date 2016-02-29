@@ -7,13 +7,13 @@ class Badthings_Checker extends CheckPart
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         $grep = '';
 				
-				if ($this->id == 'BADTHINGS_GOOGLE_CX' || $this->id == 'BADTHINGS_GOOGLE_PUB')
-				{
-					if ($this->threatLevel == ERRORLEVEL_CRITICAL) $files = $php_files;
-					else $files = array_merge($php_files, $other_files);
-				} else {
-					$files = $php_files_filtered;
-				}
+		if ($this->id == 'BADTHINGS_GOOGLE_CX' || $this->id == 'BADTHINGS_GOOGLE_PUB')
+		{
+			if ($this->threatLevel == ERRORLEVEL_CRITICAL) $files = $php_files;
+			else $files = array_merge($php_files, $other_files);
+		} else {
+			$files = $php_files_filtered;
+		}
 				
         foreach ( $files as $php_key => $phpfile ) {
             if ( preg_match( $this->code, $phpfile, $matches ) ) {
