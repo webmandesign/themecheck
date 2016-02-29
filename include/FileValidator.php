@@ -589,7 +589,7 @@ class FileValidator
 		
 		$isThemeforest = true;
 		
-		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
+		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.		
 		foreach ($this->checklist as $check)
 		{
 			$check->setCurrentThemetype($this->themeInfo->themetype);
@@ -607,7 +607,12 @@ class FileValidator
 					{
 						$checkpart->title = $check->title; // a bit dirty
 						
-						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
+						if ($checkpart->errorLevel == ERRORLEVEL_FATAL) {
+							$m = $checkpart->getMonolingual(I18N::getCurLang());
+							$message = implode ('<br/>', $m->messages);
+							UserMessage::enqueue($message, ERRORLEVEL_FATAL);
+						}
+						else if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_INFO) $check_info[] = $checkpart;

@@ -20,8 +20,8 @@ class Version_Checker extends CheckPart
 					if (preg_match('/[ \t\/*#]*Version:(.*)$/mi', $file_content, $match) && !empty($match) && count($match)==2)
 					{
 						$version = trim($match[1]);
+						break; // break only if found. Multiple style.css files is possible.
 					}
-					break;
 				}
 			}
 		}
@@ -48,23 +48,25 @@ class Version_Checker extends CheckPart
 				}
 			}
 		}
-		
 		 
 		if (empty($version))
 		{
-			$this->messages[] = __all('Could not find theme version. A theme version must be given in style.css file.');
+			if ($this->id == "VERSION_SYNTAX_J") $this->messages[] = __all('Could not find template version. A template version must be given in templateDetails.xml file.');
+			if ($this->id == "VERSION_SYNTAX_WP") $this->messages[] = __all('Could not find theme version. A theme version must be given in style.css file.');
 			$this->errorLevel = $this->threatLevel;
 		} else 
 		{
 			if ( !preg_match('/^[0-9]{1,4}(\.[0-9]{1,4}){0,3}$/', $version, $match))
 			{
-				$this->messages[] = __all('Version syntax does not match one of the following templates : "n", "n.n", "n.n.n", or "n.n.n.n" where n can be 1 to 4 digits. Detected theme version was %1$s in file %2$s.', 
+				$this->messages[] = __all('Version syntax does not match one of the following patterns : "n", "n.n", "n.n.n", or "n.n.n.n" where n can be 1 to 4 digits. Detected theme version was %1$s in file %2$s.', 
 											'<strong>'.$version.'</strong>', '<strong>'.$filename.'</strong>');
+				$this->messages[] = __all('Themecheck.org does not accept themes with malformed version number.');
 				$this->errorLevel = $this->threatLevel;
 			}
 		}
     }
 }
+
 
 class Version extends Check
 {	
@@ -72,8 +74,9 @@ class Version extends Check
     {
 		$this->title = __all("Version syntax");
 		$this->checks = array(
-					new Version_Checker('VERSION_SYNTAX_WP',  TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('Incorrect theme version.'), null, 'ut_version_syntax_wp.zip'),
-					new Version_Checker('VERSION_SYNTAX_J',  TT_JOOMLA, ERRORLEVEL_CRITICAL, __all('Incorrect theme version.'), null, 'ut_version_syntax_j.zip'),
+					// these are fatal checks. Execution will stop when positive.
+					new Version_Checker('VERSION_SYNTAX_WP',  TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_FATAL, __all('Incorrect theme version.'), null, 'ut_version_syntax_wp.zip'),
+					new Version_Checker('VERSION_SYNTAX_J',  TT_JOOMLA, ERRORLEVEL_FATAL, __all('Incorrect theme version.'), null, 'ut_version_syntax_j.zip'),
 		);
     }
 }
