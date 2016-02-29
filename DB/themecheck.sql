@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 29 Février 2016 à 14:39
+-- Généré le: Lun 29 Février 2016 à 19:29
 -- Version du serveur: 5.5.44-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.13
 
@@ -26,7 +26,6 @@ SET time_zone = "+00:00";
 -- Structure de la table `download`
 --
 
-DROP TABLE IF EXISTS `download`;
 CREATE TABLE IF NOT EXISTS `download` (
   `user_ip` int(11) NOT NULL AUTO_INCREMENT,
   `date_download` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -39,7 +38,6 @@ CREATE TABLE IF NOT EXISTS `download` (
 -- Structure de la table `theme`
 --
 
-DROP TABLE IF EXISTS `theme`;
 CREATE TABLE IF NOT EXISTS `theme` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hash` char(25) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'hash code of archive',
@@ -80,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
   `isOpenSource` tinyint(1) DEFAULT NULL,
   `filesIncluded` varchar(256) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'first insertion in DB',
-  `modificationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'last update of archive content',
+  `modificationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'last update of archive content',
   `validationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'last validation date',
   PRIMARY KEY (`id`),
   UNIQUE KEY `public_id` (`hash`),
@@ -90,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
   KEY `score` (`score`),
   KEY `themetype` (`themetype`),
   KEY `creationDate` (`creationDate`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9910 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9912 ;
 
 -- --------------------------------------------------------
 
@@ -98,7 +96,6 @@ CREATE TABLE IF NOT EXISTS `theme` (
 -- Structure de la table `theme_wpvulnd`
 --
 
-DROP TABLE IF EXISTS `theme_wpvulnd`;
 CREATE TABLE IF NOT EXISTS `theme_wpvulnd` (
   `theme_hash` char(25) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `vuln_id` int(11) NOT NULL,
@@ -111,7 +108,6 @@ CREATE TABLE IF NOT EXISTS `theme_wpvulnd` (
 -- Structure de la table `wpvulndb_vulnerabilities`
 --
 
-DROP TABLE IF EXISTS `wpvulndb_vulnerabilities`;
 CREATE TABLE IF NOT EXISTS `wpvulndb_vulnerabilities` (
   `id` int(11) NOT NULL,
   `title` varchar(260) NOT NULL,

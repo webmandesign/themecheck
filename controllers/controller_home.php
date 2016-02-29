@@ -290,8 +290,8 @@ class Controller_home
                                         <div class="select_first">
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
-                                             <select name='sort' class='sortdropdown fake_input' id="select_hidden">
-                                                <option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
+                                            <select name='sort' class='sortdropdown fake_input' id="select_hidden">
+                                                <option value='modificationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='modificationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
                                                 <option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?>></option>
                                             </select>
                                             <div class="selectOptions" id="selectOptionsFirst">
@@ -372,12 +372,12 @@ class Controller_home
                                 function ajaxSelectItem()
                                 {
                                     $.ajax({
-						type: "POST",
-						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
-						data: $("#sortform").serialize()
-					}).done(function(obj){
-						$("#alreadyvalidated").html(obj.html);
-					}); 
+										type: "POST",
+										url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
+										data: $("#sortform").serialize()
+									}).done(function(obj){
+										$("#alreadyvalidated").html(obj.html);
+									}); 
                                 }
                                 
                                 $('#selectOptionsFirst .selectOption').on("click", function(){ 
@@ -385,11 +385,11 @@ class Controller_home
                                     if($(this).html() == 'Higher scores first')
                                     {
                                         $('#select_hidden option[value="score"]').attr('selected', true);
-                                        $('#select_hidden option[value="id"]').attr('selected', false);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', false);
                                     }
                                     else
                                     {
-                                        $('#select_hidden option[value="id"]').attr('selected', true);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', true);
                                         $('#select_hidden option[value="score"]').attr('selected', false);
                                     }
                                  
@@ -397,7 +397,7 @@ class Controller_home
                                 });
                                 
                                 
-                                 $('#filterThemes .selectOption').on("click", function(){ 
+                                $('#filterThemes .selectOption').on("click", function(){ 
                                    
                                    var selected = $(this).attr('value'); //theme selected
                                    var select_cms = $('.select_cms input[type=checkbox]'); //input hidden
@@ -470,7 +470,7 @@ class Controller_home
 		{
 			$_SESSION['sort'] = $_POST['sort'];
 			$_SESSION['theme'] = $_POST['theme'];
-		
+
 			$history = new History();
 			
 			$pagination = $history->getSorted($_POST['sort'], $_POST['theme']);

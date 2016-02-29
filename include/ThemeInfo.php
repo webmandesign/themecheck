@@ -386,7 +386,7 @@ class ThemeInfo
 			array_pop($zipfilename_exploded);
 			$this->themedir = implode('.', $zipfilename_exploded );
 		}
-		$this->modificationDate = time();
+		
 		$this->validationDate = time();
 		$this->license = self::getLicense($rawlicense);
 		if (preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $rawlicense, $match) && !empty($match) && count($match)==2) // if contains an url

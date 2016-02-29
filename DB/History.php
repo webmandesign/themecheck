@@ -61,7 +61,8 @@ class History
 			$this->query_theme_select_id = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp, HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme where id = :id');
 			$this->query_theme_select_namesanitized = $this->db->prepare('SELECT hash from theme where namesanitized = :namesanitized');
 			
-			$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY id DESC limit 0,100');
+			//$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY id DESC limit 0,100');
+			$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY modificationDate DESC limit 0,100');
 			$this->query_theme_select_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE themetype IN (:type) ORDER BY :sort DESC limit 0,100');
 			$this->query_theme_select_olderthan = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE id < :olderthan ORDER BY id DESC limit 0,100');
 			$this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
@@ -429,22 +430,28 @@ class History
 				$ret[]=$row; 
 			}
 		} else {
-			$this->query_theme_select_olderthan->bindValue(':olderthan', $olderthan, \PDO::PARAM_STR);
-			$this->query_theme_select_olderthan->execute();
+			// get theme info of id = $olderthan 
+			$query = $this->db->prepare('SELECT UNIX_TIMESTAMP(modificationDate) as modificationDate from theme WHERE id = :id');
+			$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
+			$query->execute();
+			$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
+			
+			$queryString = $this->query_theme_select_olderthan->queryString;
+			$queryString = str_replace(':olderthan', 'modificationDate < FROM_UNIXTIME('.$lastItem['modificationDate'].')', $queryString);
+			$query = $this->db->prepare($queryString);
+			$query->bindValue(':olderthan', $olderthan, \PDO::PARAM_STR);
+			$query->execute();
 			$ret = array();
-			while ($row = $this->query_theme_select_olderthan->fetch(\PDO::FETCH_ASSOC)) {
+			while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
 				$ret[]=$row; 
 			}
 		}
 		return $ret;
 	}
 	
-	public function getSorted($sort, $type, $olderthan=null)
+	public function getSorted($sort, $type, $olderthan = null)
 	{
-	
-		$themeType = array("wordpress"=>1, "joomla"=>2);
-		//$orderBy = array("creationDate", "score");
-		$orderBy = array("id", "score");
+		$themeType = array("wordpress"=>1, "joomla"=>2, "wordpress_child"=>4);
 		
 		if(null==$olderthan)
 		{
@@ -452,30 +459,31 @@ class History
 		}
 		else
 		{
+		// $this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, 
+		//																	UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, 
+		//																	UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
+			$olderthan_quot = $this->db->quote($olderthan, \PDO::PARAM_INT);
 			$queryString = $this->query_theme_select_olderthan_sorted->queryString;
-			
-			// get last if info
-			/*$query = $this->db->prepare('SELECT score,creationDate from theme WHERE id = :id');
-			$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
-			$query->execute();
-			$lastItem = $query->fetch(\PDO::FETCH_ASSOC);*/
-			
-			#gdsgsdg
-			
-			// sort by score
+						
 			if($sort=="score")
 			{
 				$query = $this->db->prepare('SELECT score from theme WHERE id = :id');
 				$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
 				$query->execute();
-				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
-				$queryString = str_replace(':olderthan', 'score <= "'.$lastItem['score'].'" and id < '.intval($olderthan).'', $queryString);
+				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);				
+				$queryString = str_replace(':olderthan', 'score <= "'.$lastItem['score'].'"', $queryString);
 			}
-			// sort by creation date
-			else
+			else if($sort=="modificationDate")
 			{
-				//$queryString = str_replace(':olderthan', 'creationDate < "'.$lastItem['creationDate'].'" and id < '.intval($olderthan).'', $queryString);
-				$queryString = str_replace(':olderthan', 'id < '.intval($olderthan).'', $queryString);
+				// get theme info of id = $olderthan 
+				$query = $this->db->prepare('SELECT UNIX_TIMESTAMP(modificationDate) as modificationDate from theme WHERE id = :id');
+				$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
+				$query->execute();
+				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
+			
+				$queryString = str_replace(':olderthan', 'modificationDate < FROM_UNIXTIME('.$lastItem['modificationDate'].')', $queryString);
+			} else { // $sort=="id" and others
+				$queryString = str_replace(':olderthan', 'id < '.$olderthan_quot, $queryString);
 			}
 		}
 	
@@ -485,26 +493,33 @@ class History
 		{
 			if(array_key_exists($v, $themeType)){
 				$r[]= $this->db->quote($themeType[$v]);
+				if ($v == "wordpress") // when asking wordpress, display child too
+				{
+					$r[]= $this->db->quote($themeType["wordpress_child"]);
+				}
 			}
 		}
 		$type = implode(",", $r);
 
 		$queryString = str_replace(':type', $type, $queryString);
 		
-		// order
-		if(in_array($sort, $orderBy)){
-			$order = $sort;
-		} else {
-			$order = $orderBy[0];
-		}
-		$queryString = str_replace(':sort', $order, $queryString);
-		
+		// order by
+		if ($sort == "modificationDate") $queryString = str_replace(':sort', 'modificationDate', $queryString);
+		else if ($sort == "score") $queryString = str_replace(':sort', 'score DESC, modificationDate', $queryString);
+		else $queryString = str_replace(':sort', 'id', $queryString);
+				
 		$query = $this->db->prepare($queryString);
 		$query->execute();
 		
 		$ret = array();
+		$trouve = false;
 		while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
-			$ret[]=$row; 
+			if ($sort == "score" && $olderthan !== null) { // only keep themes with the same score than $olderthan and that come AFTER $olderthan
+				if ($trouve) $ret[] = $row;
+				if ($row['id'] == $olderthan) $trouve = true;
+			} else {
+				$ret[]=$row; 
+			}
 		}
 		return $ret;
 	}
@@ -552,6 +567,26 @@ class History
 		return $r;
 	}
 	
+	public function getFewInfoPreviousOne($id)
+	{
+		$previous_id = $id;
+		for ($i =0; $i < 10; $i++) // loop until we find 1
+		{
+			$previous_id--;
+			if ($previous_id == 0) return false;
+			$this->query_theme_select_id->bindValue(':id', $previous_id, \PDO::PARAM_INT);
+			$this->query_theme_select_id->execute();
+			$r = $this->query_theme_select_id->fetch();
+			if (!empty($r["parentId"])) {
+				$rParent = $this->getFewInfo(intval($r["parentId"]));
+				$r["parentName"] = $rParent["name"];
+			}
+			
+			if (!empty($r["id"])) break;
+		}
+
+		return $r;
+	}
 	public function getInfoFromId($id)
 	{
 		$this->query_theme_select_id->bindValue(':id', $id, \PDO::PARAM_INT);

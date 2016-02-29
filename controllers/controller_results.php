@@ -69,6 +69,7 @@ class Controller_results
 				$themeInfo = FileValidator::upload();
 				if ($themeInfo)
 				{
+					$themeInfo->modificationDate = time(); // set modificationDate only at upload
 					$this->fileValidator = new FileValidator($themeInfo);
 					$this->fileValidator->validate();
 					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
@@ -350,7 +351,7 @@ class Controller_results
         }
         
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+ <!--   <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
 <!--    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>-->
     
                             <?php
@@ -371,12 +372,17 @@ class Controller_results
                             <?php
                                     $history = new History();
                                     $id = intval($history->getIdFromHash($themeInfo->hash)); 
-                                    for ($i = 1; $i > -3; $i--)
+
+									$cur_id = $id + 2;
+
+									for ($i = 0; $i < 3; $i++)
                                     {
-                                            if ($i == 0) $i--; // not the current one
-                                            $r = $history->getFewInfo($id + $i); 
+                                         //   if ($i == 0) $i--; 
+                                            $r = $history->getFewInfoPreviousOne($cur_id); 
                                             if ($r !== false)
                                             {
+													$cur_id = $r['id'];
+													if ($cur_id == $id) {$i --; continue;}// not the current one
                                                     $html = '';
                                                     $namesanitized = $r['namesanitized'];
                                                     $themetype = $r['themetype'];
@@ -426,7 +432,7 @@ class Controller_results
                                                     $html .= '</div>';
                                                     
                                                     echo $html;
-                                            }
+                                            } 
                                     }
                             ?>          
                                             </div>
