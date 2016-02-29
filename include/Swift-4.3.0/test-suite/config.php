@@ -11,7 +11,7 @@ if (defined('E_DEPRECATED'))
 //E_STRICT compliance -- If you change this timezone some tests may fail -
 // This only affects the tests, you need to ensure PHP is correctly set up in
 // your own code
-date_default_timezone_set('Australia/ACT');
+//date_default_timezone_set('Australia/ACT');
 
 //Time limit to process all tests
 set_time_limit(30);

@@ -67,7 +67,6 @@ class Version_Checker extends CheckPart
     }
 }
 
-
 class Version extends Check
 {	
     protected function createChecks()

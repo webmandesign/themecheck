@@ -52,8 +52,10 @@ class Controller_results
 				$m = filemtime(TC_INCDIR.'/Checks/'.$f);
 				if($youngestCheckTimestamp < $m) $youngestCheckTimestamp = $m;
 			}
+			
 			if ($this->fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
 			{
+			
 				$this->fileValidator->validate();	
 				
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
@@ -576,7 +578,7 @@ class Controller_results
                                             if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));
                                             else $characteristics[] = array(__("Theme type"), __("Joomla template").' '.$themeInfo->cmsVersion);		
                                     $characteristics[] = array(__("File name"), htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
-                                    $characteristics[] = array(__("File size"), $themeInfo->zipfilesize.' '.__('bytes'));
+                                    $characteristics[] = array(__("File size"), number_format($themeInfo->zipfilesize, 0, '.', ' ').' '.__('bytes'));
                                     $characteristics[] = array(__("MD5"), strtolower($themeInfo->hash_md5));
                                     $characteristics[] = array(__("SHA1"), strtolower($themeInfo->hash_sha1));
 

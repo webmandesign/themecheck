@@ -47,7 +47,7 @@ class Controller_download
 			}
 		  
 			// Set local timezone
-			date_default_timezone_set('Europe/Belgrade');
+			//date_default_timezone_set('Europe/Belgrade');
 			
 			// get local time
 			$date_now = date("Y-m-d H:i:s");//ok
@@ -66,7 +66,6 @@ class Controller_download
 					 $instanceDownload = new Download();
 					 $instanceDownload->InsertNewDownload($user_ip,$mk_date_now);
 				
-
 					if(isset($_GET['nom'])&& isset($_GET['zipname']))
 					{
 						$nameFile = $_GET['nom'];
@@ -74,26 +73,27 @@ class Controller_download
 						$history = new History();
 						$dataInfo = $history->getFewInfoFromName($nameFile);
 
-
 						if(!empty($dataInfo))
 						{
-							$chemin = TC_VAULTDIR.'/upload/'.$dataInfo['hash'].'.zip';
+							$path = TC_VAULTDIR.'/upload/'.$dataInfo['hash'].'.zip';
 
-							if (file_exists($chemin))
-							{								
+							if (file_exists($path))
+							{		
+							ob_end_clean();
+							ob_start();
 								header("Pragma: public");
 								header("Expires: 0");
 								header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
 								header("Cache-Control: public");
 								header("Content-Description: File Transfer");
-								header("Content-type: application/octet-stream");
+								header("Content-type: application/zip");
 								header("Content-Disposition: attachment; filename=\"".$zipname."\"");
 								header("Content-Transfer-Encoding: binary");
-								//header('Content-Length: ' . filesize($chemin)); // no Content-Length for servers that activate gzip compression (avoids corrupted files)
+								//header('Content-Length: ' . filesize($path)); // no Content-Length for servers that activate gzip compression (avoids corrupted files)
 								
-								ob_end_clean();
+								
 							
-								readfile($chemin);
+								readfile($path);
 								exit();
 							}
 						}

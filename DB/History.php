@@ -54,7 +54,7 @@ class History
                                 . 'themedir=:themedir, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
                                 . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
-                                . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), description=:description, '
+                                . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), modificationDate=FROM_UNIXTIME(:modificationDate), description=:description, '
                                 . 'descriptionBB=:descriptionBB,isOpenSource=:isOpenSource WHERE id = :id');
 		
 			$this->query_theme_select_hash = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp, HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme where hash = :hash');
@@ -119,7 +119,7 @@ class History
 	
 	public function saveTheme($themeInfo, $update = false)
 	{
-	  // If theme hash already exists return immediately
+		// If theme hash already exists return immediately
 		$q = $this->db->query('SELECT id from theme where hash = '.$this->db->quote($themeInfo->hash));
 		$row = $q->fetch();
 		
@@ -145,6 +145,7 @@ class History
 				$this->query_theme_update_score->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isPiqpaq', $themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
+				$this->query_theme_update_score->bindValue(':modificationDate', $themeInfo->modificationDate, \PDO::PARAM_INT);
 				$this->query_theme_update_score->bindValue(':validationDate', $themeInfo->validationDate, \PDO::PARAM_INT);
 				$this->query_theme_update_score->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
 				

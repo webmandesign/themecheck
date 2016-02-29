@@ -38,10 +38,15 @@ if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"
 { 
 	include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
 	$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
-       	$controller = new $classname();
+	$controller = new $classname();
 	$controller->prepare();
-    	require "header.php";
-        $controller->render();
-        require "footer.php";
+	if ($routeParts["phpfile"] == 'download')
+	{
+		$controller->render();
+	} else {
+		require "header.php";
+		$controller->render();
+		require "footer.php";
+	}
 }
 
