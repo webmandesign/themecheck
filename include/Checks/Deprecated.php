@@ -358,25 +358,23 @@ class Deprecated extends Check
 					// http://docs.joomla.org/Category:Compatibility
     }
 		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	{
+		$start_time_checker = microtime(true);
+		foreach ($this->checks as &$check)
 		{
-			$start_time_checker = microtime(true);
-			foreach ($this->checks as &$check)
+			$deprecatedSinceVersion = $check->code[2];
+			if ($themeInfo->themetype & $check->themetype)
 			{
-				$deprecatedSinceVersion = $check->code[2];
-				if ($themeInfo->themetype & $check->themetype)
+				if (version_compare($themeInfo->cmsVersion, $deprecatedSinceVersion) >= 0)
 				{
-					$cmp = Check::versionCmp($themeInfo->cmsVersion, $deprecatedSinceVersion, $check->themetype);
-
-					if ($cmp === false || $cmp >= 0)
-					{
-						$start_time = microtime(true);
-						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
-						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
-					}
+					$start_time = microtime(true);
+					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
+					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 				}
-				
-			}	
-			$this->duration = microtime(true) - $start_time_checker;			
-		}
+			}
+			
+		}	
+		$this->duration = microtime(true) - $start_time_checker;			
+	}
 }

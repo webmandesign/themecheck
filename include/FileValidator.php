@@ -48,7 +48,6 @@ class FileValidator
 			"Uri",
 			"StyleTags",
 			"Links",
-			"Version",
 			"TextDomain",
 			"Wpvulndb",
 			"Cdn",

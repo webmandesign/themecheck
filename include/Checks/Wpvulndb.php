@@ -57,8 +57,7 @@ class Wpvulndb extends Check
 				{
 					foreach ($wpvuln->vulnerabilities as $v)
 					{						
-						$cmp = Check::versionCmp($themeInfo->version, $v->fixed_in, null);
-						if ($cmp < 0)
+						if (version_compare($themeInfo->version, $v->fixed_in) < 0)
 						{
 							$history->upsertWpVuln($themeInfo->hash, $v);
 							
