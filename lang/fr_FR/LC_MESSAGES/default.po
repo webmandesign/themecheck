@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:30+0100\n"
-"PO-Revision-Date: 2016-03-01 16:31+0100\n"
+"POT-Creation-Date: 2016-03-01 16:38+0100\n"
+"PO-Revision-Date: 2016-03-01 16:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -17,19 +17,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: include\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: include/FileValidator.php:140
+#: include/FileValidator.php:141
 msgid "Mandatory thumbnail file screenshot.png is missing"
 msgstr "Fichier screenshot.png obligatoire introuvable"
 
-#: include/FileValidator.php:141
+#: include/FileValidator.php:142
 msgid "Mandatory thumbnail file template_thumbnail.png is missing"
 msgstr "Le fichier obligatoire template_thumbnail.png est introuvable"
 
-#: include/FileValidator.php:246
+#: include/FileValidator.php:247
 msgid "No files to upload"
 msgstr "Aucun fichier à télécharger"
 
-#: include/FileValidator.php:255
+#: include/FileValidator.php:256
 #, php-format
 msgid ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
@@ -38,7 +38,7 @@ msgstr ""
 "Impossible de télécharger le fichier. Le fichier est vide ou plus gros que "
 "la taille maximum autorisée (%s Mo)."
 
-#: include/FileValidator.php:274
+#: include/FileValidator.php:275
 #, php-format
 msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
@@ -47,7 +47,7 @@ msgstr ""
 "Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
 "pour les themes web. Le fichier doit être une archive zip."
 
-#: include/FileValidator.php:281
+#: include/FileValidator.php:282
 #, php-format
 msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
@@ -56,30 +56,30 @@ msgstr ""
 "Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
 "L&#39;extension doit être \".zip\"."
 
-#: include/FileValidator.php:287
+#: include/FileValidator.php:288
 #, php-format
 msgid "The uploaded file size exceeds %s."
 msgstr "La taille du fichier téléchargé dépasse %s."
 
-#: include/FileValidator.php:293
+#: include/FileValidator.php:294
 msgid "The uploaded file was only partially uploaded."
 msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
 
-#: include/FileValidator.php:299
+#: include/FileValidator.php:300
 msgid "No file was uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: include/FileValidator.php:441
+#: include/FileValidator.php:442
 msgid "Files under 100 bytes are not accepted. Operation canceled."
 msgstr ""
 "Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
 "Apération annulée."
 
-#: include/FileValidator.php:475 include/ThemeInfo.php:172
+#: include/FileValidator.php:476 include/ThemeInfo.php:172
 msgid "File could not be unzipped."
 msgstr "Fichier n&#39;a pas pu être décompressé."
 
-#: include/FileValidator.php:478 include/ThemeInfo.php:175
+#: include/FileValidator.php:479 include/ThemeInfo.php:175
 msgid "Archive extraction failed. The following exception occured : "
 msgstr ""
 "L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
@@ -1680,6 +1680,23 @@ msgstr "sefRelToAbs"
 #: include/Checks/Deprecated.php:352
 msgid "SortArrayObjects"
 msgstr "SortArrayObjects"
+
+#: include/Checks/Deregister.php:19
+#, php-format
+msgid ""
+"Found wp_deregister_script in %1$s. Themes must not deregister core scripts. "
+"%2$s"
+msgstr ""
+"Appel à wp_deregister_script dans %1$s. Les thèmes ne doivent appeler "
+"wp_deregister_script sur des scripts du core. %2$s"
+
+#: include/Checks/Deregister.php:30
+msgid "core scripts deregistered"
+msgstr "Script de core désabonné"
+
+#: include/Checks/Deregister.php:32
+msgid "Core scripts deregistration"
+msgstr "Désabonnement d'un script de core"
 
 #: include/Checks/Directories.php:27 include/Checks/File.php:25
 #, php-format

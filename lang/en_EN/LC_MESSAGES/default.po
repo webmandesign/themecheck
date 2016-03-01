@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:30+0100\n"
-"PO-Revision-Date: 2016-03-01 16:30+0100\n"
+"POT-Creation-Date: 2016-03-01 16:37+0100\n"
+"PO-Revision-Date: 2016-03-01 16:37+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,19 +16,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: include\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: include/FileValidator.php:140
+#: include/FileValidator.php:141
 msgid "Mandatory thumbnail file screenshot.png is missing"
 msgstr "Mandatory thumbnail file screenshot.png is missing"
 
-#: include/FileValidator.php:141
+#: include/FileValidator.php:142
 msgid "Mandatory thumbnail file template_thumbnail.png is missing"
 msgstr "Mandatory thumbnail file template_thumbnail.png is missing"
 
-#: include/FileValidator.php:246
+#: include/FileValidator.php:247
 msgid "No files to upload"
 msgstr "No files to upload"
 
-#: include/FileValidator.php:255
+#: include/FileValidator.php:256
 #, php-format
 msgid ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
@@ -37,7 +37,7 @@ msgstr ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
 "(%s MB)."
 
-#: include/FileValidator.php:274
+#: include/FileValidator.php:275
 #, php-format
 msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
@@ -46,7 +46,7 @@ msgstr ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
 "Uploaded file must be a zip archive."
 
-#: include/FileValidator.php:281
+#: include/FileValidator.php:282
 #, php-format
 msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
@@ -55,28 +55,28 @@ msgstr ""
 "Bad file extension. File extension %s not recognized. File extension must be "
 "\".zip\"."
 
-#: include/FileValidator.php:287
+#: include/FileValidator.php:288
 #, php-format
 msgid "The uploaded file size exceeds %s."
 msgstr "The uploaded file size exceeds %s."
 
-#: include/FileValidator.php:293
+#: include/FileValidator.php:294
 msgid "The uploaded file was only partially uploaded."
 msgstr "The uploaded file was only partially uploaded."
 
-#: include/FileValidator.php:299
+#: include/FileValidator.php:300
 msgid "No file was uploaded."
 msgstr "No file was uploaded."
 
-#: include/FileValidator.php:441
+#: include/FileValidator.php:442
 msgid "Files under 100 bytes are not accepted. Operation canceled."
 msgstr "Files under 100 bytes are not accepted. Operation canceled."
 
-#: include/FileValidator.php:475 include/ThemeInfo.php:172
+#: include/FileValidator.php:476 include/ThemeInfo.php:172
 msgid "File could not be unzipped."
 msgstr "File could not be unzipped."
 
-#: include/FileValidator.php:478 include/ThemeInfo.php:175
+#: include/FileValidator.php:479 include/ThemeInfo.php:175
 msgid "Archive extraction failed. The following exception occured : "
 msgstr "Archive extraction failed. The following exception occured : "
 
