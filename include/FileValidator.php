@@ -563,11 +563,11 @@ class FileValidator
 		$files = listdir( $unzippath );
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
-				if ( substr( $filename, -4 ) == '.php' ) {
+				if ( substr( $filename, -4 ) == '.php' && !is_dir( $filename )  ) {
 					$this->phpfiles[$filename] = file_get_contents( $filename );
 					$this->phpfiles_filtered[$filename] = Helpers::filterPhp( $this->phpfiles[$filename] );
 				}
-				else if ( substr( $filename, -4 ) == '.css' ) {
+				else if ( substr( $filename, -4 ) == '.css' && !is_dir( $filename ) ) {
 					$this->cssfiles[$filename] = file_get_contents( $filename );
 				}
 				else {
