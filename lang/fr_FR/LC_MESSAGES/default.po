@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:38+0100\n"
-"PO-Revision-Date: 2016-03-01 16:40+0100\n"
+"POT-Creation-Date: 2016-03-01 16:51+0100\n"
+"PO-Revision-Date: 2016-03-01 16:51+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -325,20 +325,20 @@ msgstr "Présnece de code Google Search"
 msgid "Presence of Google advertising code"
 msgstr "Présence de code Google adsense"
 
-#: include/Checks/Basic.php:24
+#: include/Checks/Basic.php:21
 #, php-format
 msgid "Could not find <strong>%1$s</strong>"
 msgstr "<strong>%1$s</strong> introuvable"
 
-#: include/Checks/Basic.php:34
+#: include/Checks/Basic.php:31
 msgid "Fundamental theme elements"
 msgstr "Eléments fondamentaux"
 
-#: include/Checks/Basic.php:36
+#: include/Checks/Basic.php:33
 msgid "Presence of DOCTYPE"
 msgstr "Présence d&#39;un DOCTYPE"
 
-#: include/Checks/Basic.php:37
+#: include/Checks/Basic.php:34
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
 "wp_footer\">wp_footer()</a>"
@@ -346,7 +346,7 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
 "wp_footer\">wp_footer()</a>"
 
-#: include/Checks/Basic.php:38
+#: include/Checks/Basic.php:35
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/wp_head"
 "\">wp_head()</a>"
@@ -354,7 +354,7 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/wp_head"
 "\">wp_head()</a>"
 
-#: include/Checks/Basic.php:39
+#: include/Checks/Basic.php:36
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
 "language_attributes\">language_attributes()</a>"
@@ -362,51 +362,35 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
 "language_attributes\">language_attributes()</a>"
 
-#: include/Checks/Basic.php:40
+#: include/Checks/Basic.php:37
 msgid "Definition of a charset"
 msgstr "Définition du charset"
 
+#: include/Checks/Basic.php:38
+msgid ""
+"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+"add_theme_support\">add_theme_support()</a>"
+msgstr ""
+"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+"add_theme_support\">add_theme_support()</a>"
+
+#: include/Checks/Basic.php:39
+msgid ""
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
+"comments_template\">comments_template()</a>"
+msgstr ""
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
+"comments_template\">comments_template()</a>"
+
+#: include/Checks/Basic.php:40
+msgid ""
+"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
+"wp_list_comments\">wp_list_comments()</a>"
+msgstr ""
+"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
+"wp_list_comments\">wp_list_comments()</a>"
+
 #: include/Checks/Basic.php:41
-msgid ""
-"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
-"add_theme_support\">add_theme_support()</a>"
-msgstr ""
-"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
-"add_theme_support\">add_theme_support()</a>"
-
-#: include/Checks/Basic.php:42
-msgid ""
-"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
-"register_sidebar\">register_sidebar()</a>"
-msgstr ""
-"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
-"register_sidebar\">register_sidebar()</a>"
-
-#: include/Checks/Basic.php:43
-msgid ""
-"Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
-"dynamic_sidebar\">dynamic_sidebar()</a>"
-msgstr ""
-"Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
-"dynamic_sidebar\">dynamic_sidebar()</a>"
-
-#: include/Checks/Basic.php:44
-msgid ""
-"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
-"comments_template\">comments_template()</a>"
-msgstr ""
-"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
-"comments_template\">comments_template()</a>"
-
-#: include/Checks/Basic.php:45
-msgid ""
-"Presence of <a href=\"https://codex.wordpress.org/Template_Tags/"
-"wp_list_comments\">wp_list_comments()</a>"
-msgstr ""
-"Présence de <a href=\"https://codex.wordpress.org/Template_Tags/"
-"wp_list_comments\">wp_list_comments()</a>"
-
-#: include/Checks/Basic.php:46
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Template_Tags/comment_form"
 "\">comment_form()</a>"
@@ -414,7 +398,7 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Template_Tags/comment_form"
 "\">comment_form()</a>"
 
-#: include/Checks/Basic.php:47
+#: include/Checks/Basic.php:42
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Template_Tags/body_class"
 "\">body_class()</a>"
@@ -422,7 +406,7 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Template_Tags/body_class"
 "\">body_class()</a>"
 
-#: include/Checks/Basic.php:48
+#: include/Checks/Basic.php:43
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
 "wp_link_pages\">wp_link_pages()</a>"
@@ -430,7 +414,7 @@ msgstr ""
 "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
 "wp_link_pages\">wp_link_pages()</a>"
 
-#: include/Checks/Basic.php:49
+#: include/Checks/Basic.php:44
 msgid ""
 "Presence of <a href=\"https://codex.wordpress.org/Template_Tags/post_class"
 "\">post_class()</a>"
@@ -3427,6 +3411,20 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 #: DB/History.php:273
 msgid "The name \""
 msgstr "Le nom \""
+
+#~ msgid ""
+#~ "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+#~ "register_sidebar\">register_sidebar()</a>"
+#~ msgstr ""
+#~ "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+#~ "register_sidebar\">register_sidebar()</a>"
+
+#~ msgid ""
+#~ "Presence of <a href=\"https://codex.wordpress.org/Function_Reference/"
+#~ "dynamic_sidebar\">dynamic_sidebar()</a>"
+#~ msgstr ""
+#~ "Présence de <a href=\"https://codex.wordpress.org/Function_Reference/"
+#~ "dynamic_sidebar\">dynamic_sidebar()</a>"
 
 #~ msgid "Typical Artisteer code was found."
 #~ msgstr "Code Artisteer typique détecté."

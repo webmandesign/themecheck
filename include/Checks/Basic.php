@@ -1,6 +1,4 @@
 <?php
-
-
 namespace ThemeCheck;
 
 class Basic_Checker extends CheckPart
@@ -16,10 +14,9 @@ class Basic_Checker extends CheckPart
         if ( !preg_match( '/' . $key . '/i', $php ) ) {
             if ( $this->id == 'BASIC_WP_ADD_THEME_SUPPORT' ) $key =  'add_theme_support( \'automatic-feed-links\' )';
             else if ( $this->id == 'BASIC_WP_BODY_CLASS' ) $key =  'body_class call in body tag';
-            else if ( $this->id == 'BASIC_WP_REGISTER_SIDEBAR' ) $key =  'register_sidebar() or register_sidebars()';
-						else if ( $key === 'charset' ) {
-							if (preg_match( '/encoding/i', $php )) return; // in xhtml charset can be declared with <?xml version="1.0" encoding="UTF-8"...
-						}
+			else if ( $key === 'charset' ) {
+				if (preg_match( '/encoding/i', $php )) return; // in xhtml charset can be declared with <?xml version="1.0" encoding="UTF-8"...
+			}
             else $key = substr($key,0,strpos($key, '\s*\('));
             $this->messages[] = __all('Could not find <strong>%1$s</strong>', $key );
             $this->errorLevel = $this->threatLevel;
@@ -39,8 +36,6 @@ class Basic extends Check
 						new Basic_Checker('BASIC_WP_LANG', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Function_Reference/language_attributes">language_attributes()</a>'), 'language_attributes', 'ut_basic_language_attributes.zip'),
 						new Basic_Checker('BASIC_CHARSET', TT_WORDPRESS | TT_JOOMLA, ERRORLEVEL_WARNING, __all('Definition of a charset'), 'charset', 'ut_basic_charset.zip'),
 						new Basic_Checker('BASIC_WP_ADD_THEME_SUPPORT', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Function_Reference/add_theme_support">add_theme_support()</a>'), 'add_theme_support\s*\(\s?("|\')automatic-feed-links("|\')\s?\)', 'ut_basic_add_theme_support.zip'),
-						new Basic_Checker('BASIC_WP_REGISTER_SIDEBAR', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Function_Reference/register_sidebar">register_sidebar()</a>'), 'register_sidebar[s]?\s*\(', 'ut_basic_register_sidebar.zip'),
-						new Basic_Checker('BASIC_WP_DYNAMIC_SIDEBAR', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Function_Reference/dynamic_sidebar">dynamic_sidebar()</a>'), 'dynamic_sidebar\s*\(', 'ut_basic_dynamic_sidebar.zip'),
 						new Basic_Checker('BASIC_WP_COMMENTS_TEMPLATE', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/comments_template">comments_template()</a>'), 'comments_template\s*\(', 'ut_basic_comments_template.zip'),
 						new Basic_Checker('BASIC_WP_LIST_COMMENTS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/wp_list_comments">wp_list_comments()</a>'), 'wp_list_comments\s*\(', 'ut_basic_wp_list_comments.zip'),
 						new Basic_Checker('BASIC_WP_COMMENT_FORM', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/comment_form">comment_form()</a>'), 'comment_form\s*\(', 'ut_basic_comment_form.zip'),
