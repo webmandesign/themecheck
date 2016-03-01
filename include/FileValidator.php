@@ -43,6 +43,7 @@ class FileValidator
 	private $history = null; 
 
 	private static $checklistCommon = array (
+			"Links",
 			"Version",
 			"TextDomain",
 			"Wpvulndb",

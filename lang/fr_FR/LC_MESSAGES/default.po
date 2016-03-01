@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-02-29 22:54+0100\n"
-"PO-Revision-Date: 2016-02-29 23:13+0100\n"
+"POT-Creation-Date: 2016-03-01 15:00+0100\n"
+"PO-Revision-Date: 2016-03-01 15:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -336,10 +336,6 @@ msgstr "Présnece de code Google Search"
 #: include/Checks/Badthings.php:68
 msgid "Presence of Google advertising code"
 msgstr "Présence de code Google adsense"
-
-#: include/Checks/Badthings.php:69
-msgid "Use of variable functions"
-msgstr "Utilisation de fonctions variables"
 
 #: include/Checks/Basic.php:24
 #, php-format
@@ -1963,6 +1959,19 @@ msgstr "Uniformité des caractères de fin de ligne"
 msgid "Both DOS and UNIX style line endings"
 msgstr "Les fins de ligne DOS et UNIX"
 
+#: include/Checks/Links.php:27
+#, php-format
+msgid "Possible hard-coded links were found in the file %1$s.%2$s"
+msgstr "Lien potentiellement codés en dur trouvé dans le fichier %1$s.%2$s"
+
+#: include/Checks/Links.php:39
+msgid "Static links"
+msgstr "Liens statiques"
+
+#: include/Checks/Links.php:41
+msgid "Presence of hard-coded links"
+msgstr "Présence de liens codés en dur"
+
 #: include/Checks/Malware.php:20
 #, php-format
 msgid "<strong>%1$s</strong> was found in the file <strong>%2$s</strong> %3$s"
@@ -3317,6 +3326,9 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 #: DB/History.php:273
 msgid "The name \""
 msgstr "Le nom \""
+
+#~ msgid "Use of variable functions"
+#~ msgstr "Utilisation de fonctions variables"
 
 #~ msgid "Unvalid form"
 #~ msgstr "Formulaire invalide"
