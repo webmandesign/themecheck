@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:11+0100\n"
-"PO-Revision-Date: 2016-03-01 16:11+0100\n"
+"POT-Creation-Date: 2016-03-01 16:16+0100\n"
+"PO-Revision-Date: 2016-03-01 16:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1731,49 +1731,57 @@ msgstr "Présence de l&#39;édition de style"
 msgid "Unwanted files"
 msgstr "Fichiers indésirables"
 
-#: include/Checks/File.php:39
+#: include/Checks/File.php:40
 msgid "Windows thumbnail store"
 msgstr "Fichier système de Windows"
 
-#: include/Checks/File.php:40
+#: include/Checks/File.php:41
 msgid "Windows system file"
 msgstr "Fichier système de Windows"
 
-#: include/Checks/File.php:41
+#: include/Checks/File.php:42
 msgid "NetBeans project file"
 msgstr "Fichier projet NetBeans "
 
-#: include/Checks/File.php:42
+#: include/Checks/File.php:43
 msgid "NetBeans project properties file"
 msgstr "Fichier de propriétés de projet NetBeans "
 
-#: include/Checks/File.php:43
+#: include/Checks/File.php:44
 msgid "Komodo project file"
 msgstr "Fichier de projet Komodo"
 
-#: include/Checks/File.php:44
+#: include/Checks/File.php:45
 msgid "hidden file(s) or folder(s)"
 msgstr "fichiers ou dossiers cachés"
 
-#: include/Checks/File.php:45
+#: include/Checks/File.php:46
 msgid "PHP server settings file"
 msgstr "Fichier de paramètres de serveur PHP"
 
-#: include/Checks/File.php:46
+#: include/Checks/File.php:47
 msgid "Dreamweaver project file"
 msgstr "Dossier de projet de Dreamweaver"
 
-#: include/Checks/File.php:47
+#: include/Checks/File.php:48
 msgid "PHP error log"
 msgstr "Journal des erreurs de PHP"
 
-#: include/Checks/File.php:48
+#: include/Checks/File.php:49
 msgid "server settings file"
 msgstr "fichier de paramètres de serveur"
 
-#: include/Checks/File.php:49
+#: include/Checks/File.php:50
 msgid "SQL dump file"
 msgstr "Fichier dump SQL"
+
+#: include/Checks/File.php:51
+msgid "OSX system file"
+msgstr "Fichier système OSX"
+
+#: include/Checks/File.php:52
+msgid "Lubith theme generator file"
+msgstr "Fichier de générateur de thème Lubith"
 
 #: include/Checks/Generated.php:16
 msgid "This theme appears to have been auto-generated."
