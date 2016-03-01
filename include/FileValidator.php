@@ -708,7 +708,6 @@ class FileValidator
 													'BADTHINGS_BASE64DEC',
 													'BADTHINGS_BASE64ENC_WP',
 													'BADTHINGS_BASE64ENC_JO',
-													'BADTHINGS_VARIABLEFUNC',
 													'MALWARE1',
 													'EDITORSTYLE',
 													'IFRAMES',
