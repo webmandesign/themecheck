@@ -43,6 +43,7 @@ class FileValidator
 	private $history = null; 
 
 	private static $checklistCommon = array (
+			"Favicon",
 			"Uri",
 			"StyleTags",
 			"Links",
@@ -85,7 +86,6 @@ class FileValidator
 			"PostThumb",
 			"SearchForm",
 			"Style",
-		//	"Suggested", //no : not sure this test makes sense
 			"Tags",
 			"TimeDate",
 			"Screenshot",

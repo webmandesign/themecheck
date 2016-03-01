@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:16+0100\n"
-"PO-Revision-Date: 2016-03-01 16:16+0100\n"
+"POT-Creation-Date: 2016-03-01 16:30+0100\n"
+"PO-Revision-Date: 2016-03-01 16:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -1726,6 +1726,23 @@ msgstr "Editor style"
 #: include/Checks/EditorStyle.php:26
 msgid "Presence of editor style"
 msgstr "Présence de l&#39;édition de style"
+
+#: include/Checks/Favicon.php:15
+#, php-format
+msgid ""
+"Possible Favicon found in %1$s. Favicons are handled by the Site Icon "
+"setting in the customizer since version 4.3."
+msgstr ""
+"Déclaration de favicon trouvée dans %1$s. Les favicons sont prises en "
+"charges dans le paramètrage Site Icon depuis la version 4.3."
+
+#: include/Checks/Favicon.php:26
+msgid "favicon presence"
+msgstr "présence de favicon"
+
+#: include/Checks/Favicon.php:28
+msgid "Favicon management"
+msgstr "Gestion des favicons"
 
 #: include/Checks/File.php:37
 msgid "Unwanted files"
