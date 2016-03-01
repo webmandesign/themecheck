@@ -66,7 +66,7 @@ class FileValidator
 			"OptionalFiles",
 			"LineEndings",
 			"AdminMenu",
-			"Artisteer",
+			"Generated",
 			"Basic",
 			"CommentPagination",
 			"CommentReply",
