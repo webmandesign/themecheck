@@ -1,5 +1,4 @@
 <?php
-
 namespace ThemeCheck;
 
 class Wpvulndb_Checker extends CheckPart
