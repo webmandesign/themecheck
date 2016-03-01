@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class LineEndings_Checker extends CheckPart
 {		
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
 	{		
 		$this->errorLevel = ERRORLEVEL_SUCCESS;
 		$files = array_merge($php_files, $css_files, $other_files);

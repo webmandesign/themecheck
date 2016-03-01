@@ -59,35 +59,34 @@ class FileValidator
             "NonPrintable",
             "PHPShort",
             "Worms",
-						"MandatoryFiles",
-						"OptionalFiles",
-						"LineEndings",
-						"AdminMenu",
-						"Artisteer",
-						"Basic",
-						"CommentPagination",
-						"CommentReply",
-						"Constants",
-						"ContentWidth",
-						"Custom",
-						"Deprecated",
-						"MoreDeprecated", 
-						"EditorStyle",
-						"Gravatar",
-						"I18NCheck",
-						"Includes",
-						"NavMenu",
-						"PostFormat",
-						"PostNav",
-						"PostThumb",
-						"SearchForm",
-						"Style",
-					//	"Suggested", //no : not sure this test makes sense
-						"Tags",
-					//	"TextDomain", //no : not sure this test makes sense 
-					  "TimeDate",
-						"Screenshot",
-						"JManifest"
+			"MandatoryFiles",
+			"OptionalFiles",
+			"LineEndings",
+			"AdminMenu",
+			"Artisteer",
+			"Basic",
+			"CommentPagination",
+			"CommentReply",
+			"Constants",
+			"ContentWidth",
+			"Custom",
+			"Deprecated",
+			"MoreDeprecated", 
+			"EditorStyle",
+			"Gravatar",
+			"I18NCheck",
+			"Includes",
+			"NavMenu",
+			"PostFormat",
+			"PostNav",
+			"PostThumb",
+			"SearchForm",
+			"Style",
+		//	"Suggested", //no : not sure this test makes sense
+			"Tags",
+			"TimeDate",
+			"Screenshot",
+			"JManifest"
 	);
 
 	public function __construct($themeInfo)
@@ -592,13 +591,7 @@ class FileValidator
 		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.		
 		foreach ($this->checklist as $check)
 		{
-			$check->setCurrentThemetype($this->themeInfo->themetype);
-			$check->setCurrentCmsVersion($this->themeInfo->cmsVersion);
-			$check->setThemeVersion($this->themeInfo->version);
-			$check->setThemeDir($this->themeInfo->themedir);
-			$check->setThemeName($this->themeInfo->name);
-			$check->setThemeHash($this->themeInfo->hash);
-			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
+			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles, $this->themeInfo);
 			foreach($check->checks as $checkpart)
 			{
 				if ($checkId === 'ALL' || $checkpart->id === $checkId) 

@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class Deprecated_Checker extends CheckPart
 {
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         
@@ -387,20 +387,20 @@ class Deprecated extends Check
 					// http://docs.joomla.org/Category:Compatibility
     }
 		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
 		{
 			$start_time_checker = microtime(true);
 			foreach ($this->checks as &$check)
 			{
 				$deprecatedSinceVersion = $check->code[2];
-				if ($this->currentThemetype & $check->themetype)
+				if ($themeInfo->themetype & $check->themetype)
 				{
-					$cmp = Check::versionCmp($this->currentCmsVersion, $deprecatedSinceVersion, $check->themetype);
+					$cmp = Check::versionCmp($themeInfo->cmsVersion, $deprecatedSinceVersion, $check->themetype);
 
 					if ($cmp === false || $cmp >= 0)
 					{
 						$start_time = microtime(true);
-						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
 						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 					}
 				}

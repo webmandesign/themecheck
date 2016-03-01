@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class NonPrintable_Checker extends CheckPart
 {		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
                 

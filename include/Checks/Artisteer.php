@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class Artisteer_Checker extends CheckPart
 {	
-		public function doCheck( $php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         // combine all the php files into one string to make it easier to search

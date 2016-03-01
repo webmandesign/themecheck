@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class Wpvulndb_Checker extends CheckPart
 {	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {
         $this->errorLevel = $this->threatLevel;
 
@@ -32,7 +32,7 @@ class Wpvulndb extends Check
 			);
     }
 	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
 	{
 		$start_time_checker = microtime(true);
 	
@@ -40,7 +40,7 @@ class Wpvulndb extends Check
 	
 		foreach ($this->checks as &$check)
 		{
-			$url = 'https://wpvulndb.com/api/v2/themes/'.urlencode($this->currentThemeName);
+			$url = 'https://wpvulndb.com/api/v2/themes/'.urlencode($themeInfo->name);
 		
 			$headers = get_headers($url);
 			$response_code = substr($headers[0], 9, 3);
@@ -51,20 +51,20 @@ class Wpvulndb extends Check
 			
 			if ($wpvulnObject  !== null && $wpvulnObject !== false)
 			{
-				$wpvuln = WpVuln::fromJson($wpvulnObject, $this->currentThemeName);
+				$wpvuln = WpVuln::fromJson($wpvulnObject, $themeInfo->name);
 				
-				if ($this->currentThemetype & $check->themetype)
+				if ($themeInfo->themetype & $check->themetype)
 				{
 					foreach ($wpvuln->vulnerabilities as $v)
 					{						
-						$cmp = Check::versionCmp($this->currentThemeVersion, $v->fixed_in, null);
+						$cmp = Check::versionCmp($themeInfo->version, $v->fixed_in, null);
 						if ($cmp < 0)
 						{
-							$history->upsertWpVuln($this->currentThemeHash, $v);
+							$history->upsertWpVuln($themeInfo->hash, $v);
 							
 							$check->code = $v;
 							$start_time = microtime(true);
-							$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+							$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $this->currentThemeInfo);
 							$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 						}
 					}
