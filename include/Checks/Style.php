@@ -23,6 +23,7 @@ class Style extends Check
     {
 			$this->title = __all("CSS files");
 			$this->checks = array(
+						// from plugin's style needed
 						new Style_Checker('STYLE_THEME_NAME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('Presence of theme name'), array('[ \t\/*#]*Theme Name:', __all('<strong>Theme name</strong> is missing from style.css header.')), 'ut_style_theme_name.zip'),
 						new Style_Checker('STYLE_THEME_DESCRIPTION', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of theme description'), array('[ \t\/*#]*Description:', __all('<strong>Description</strong> is missing from style.css header.')), "ut_style_description.zip"),
 						new Style_Checker('STYLE_THEME_AUTHOR', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of theme author'), array('[ \t\/*#]*Author:',__all('<strong>Author</strong> is missing from style.css header.')), "ut_style_author.zip"),
@@ -38,6 +39,7 @@ class Style extends Check
 						new Style_Checker('STYLE_WP_CAPTION_TEXT', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of .wp-caption-text class'), array('\.wp-caption-text', __all('<strong>.wp-caption-text</strong> css class is needed in theme css.')), "ut_style_wp_caption_text.zip"),
 						new Style_Checker('STYLE_GALLERY_CAPTION', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of .gallery-caption class'), array('\.gallery-caption', __all('<strong>.gallery-caption</strong> css class is needed in theme css.')), "ut_style_gallery_caption.zip"),
 						new Style_Checker('STYLE_SCREEN_READER_TEXT', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of .screen-reader-text class'), array('\.screen-reader-text', __all('<strong>.screen-reader-text</strong> css class is needed in your theme css. See : <a href="http://codex.wordpress.org/CSS#WordPress_Generated_Classes">the Codex</a> for an example implementation.')), "ut_style_screen_reader_text.zip"),
+						// from plugin's style suggested
 						new Style_Checker('STYLE_THEME_URI', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of Theme URI'), array('[ \t\/*#]*Theme URI:', __all('Could not find <strong>Theme URL</strong>.')), "ut_style_theme_uri.zip"),
 						new Style_Checker('STYLE_AUTHOR_URI', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Presence of Author URI'), array('[ \t\/*#]*Author URI:', __all('Could not find <strong>Author URI</strong>.')), "ut_style_author_uri.zip")
 			);
