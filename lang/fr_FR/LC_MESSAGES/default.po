@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 15:00+0100\n"
-"PO-Revision-Date: 2016-03-01 15:01+0100\n"
+"POT-Creation-Date: 2016-03-01 15:52+0100\n"
+"PO-Revision-Date: 2016-03-01 15:53+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -17,19 +17,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: include\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: include/FileValidator.php:138
+#: include/FileValidator.php:140
 msgid "Mandatory thumbnail file screenshot.png is missing"
 msgstr "Fichier screenshot.png obligatoire introuvable"
 
-#: include/FileValidator.php:139
+#: include/FileValidator.php:141
 msgid "Mandatory thumbnail file template_thumbnail.png is missing"
 msgstr "Le fichier obligatoire template_thumbnail.png est introuvable"
 
-#: include/FileValidator.php:244
+#: include/FileValidator.php:246
 msgid "No files to upload"
 msgstr "Aucun fichier à télécharger"
 
-#: include/FileValidator.php:253
+#: include/FileValidator.php:255
 #, php-format
 msgid ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
@@ -38,7 +38,7 @@ msgstr ""
 "Impossible de télécharger le fichier. Le fichier est vide ou plus gros que "
 "la taille maximum autorisée (%s Mo)."
 
-#: include/FileValidator.php:272
+#: include/FileValidator.php:274
 #, php-format
 msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
@@ -47,7 +47,7 @@ msgstr ""
 "Mauvais format de fichier. Le type Mime %s n&#39;est pas un format reconnu "
 "pour les themes web. Le fichier doit être une archive zip."
 
-#: include/FileValidator.php:279
+#: include/FileValidator.php:281
 #, php-format
 msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
@@ -56,30 +56,30 @@ msgstr ""
 "Mauvaise extension. L&#39;extension du fichier %s n&#39;est pas reconnue. "
 "L&#39;extension doit être \".zip\"."
 
-#: include/FileValidator.php:285
+#: include/FileValidator.php:287
 #, php-format
 msgid "The uploaded file size exceeds %s."
 msgstr "La taille du fichier téléchargé dépasse %s."
 
-#: include/FileValidator.php:291
+#: include/FileValidator.php:293
 msgid "The uploaded file was only partially uploaded."
 msgstr "Le fichier téléchargé n&#39;a été que partiellement téléchargé."
 
-#: include/FileValidator.php:297
+#: include/FileValidator.php:299
 msgid "No file was uploaded."
 msgstr "Aucun fichier n&#39;a été téléchargé."
 
-#: include/FileValidator.php:439
+#: include/FileValidator.php:441
 msgid "Files under 100 bytes are not accepted. Operation canceled."
 msgstr ""
 "Les fichiers d'une taille inférieure à 100 octets ne sont pas acceptés. "
 "Apération annulée."
 
-#: include/FileValidator.php:473 include/ThemeInfo.php:172
+#: include/FileValidator.php:475 include/ThemeInfo.php:172
 msgid "File could not be unzipped."
 msgstr "Fichier n&#39;a pas pu être décompressé."
 
-#: include/FileValidator.php:476 include/ThemeInfo.php:175
+#: include/FileValidator.php:478 include/ThemeInfo.php:175
 msgid "Archive extraction failed. The following exception occured : "
 msgstr ""
 "L&#39;extraction de l&#39;archive a échoué. L&#39;exception suivante s&#39;"
@@ -1261,55 +1261,55 @@ msgstr "type_url_form_file"
 msgid "add_contextual_help"
 msgstr "add_contextual_help"
 
-#: include/Checks/Deprecated.php:203 include/Checks/Deprecated.php:303
+#: include/Checks/Deprecated.php:203 include/Checks/Deprecated.php:274
 msgid "get_allowed_themes"
 msgstr "get_allowed_themes"
 
-#: include/Checks/Deprecated.php:204 include/Checks/Deprecated.php:304
+#: include/Checks/Deprecated.php:204 include/Checks/Deprecated.php:275
 msgid "get_broken_themes"
 msgstr "get_broken_themes"
 
-#: include/Checks/Deprecated.php:205 include/Checks/Deprecated.php:305
+#: include/Checks/Deprecated.php:205 include/Checks/Deprecated.php:276
 msgid "current_theme_info"
 msgstr "current_theme_info"
 
-#: include/Checks/Deprecated.php:207 include/Checks/Deprecated.php:306
+#: include/Checks/Deprecated.php:207 include/Checks/Deprecated.php:277
 msgid "_insert_into_post_button"
 msgstr "_insert_into_post_button"
 
-#: include/Checks/Deprecated.php:208 include/Checks/Deprecated.php:307
+#: include/Checks/Deprecated.php:208 include/Checks/Deprecated.php:278
 msgid "_media_button"
 msgstr "_media_button"
 
-#: include/Checks/Deprecated.php:209 include/Checks/Deprecated.php:308
+#: include/Checks/Deprecated.php:209 include/Checks/Deprecated.php:279
 msgid "get_post_to_edit"
 msgstr "get_post_to_edit"
 
-#: include/Checks/Deprecated.php:210 include/Checks/Deprecated.php:309
+#: include/Checks/Deprecated.php:210 include/Checks/Deprecated.php:280
 msgid "get_default_page_to_edit"
 msgstr "get_default_page_to_edit"
 
-#: include/Checks/Deprecated.php:211 include/Checks/Deprecated.php:310
+#: include/Checks/Deprecated.php:211 include/Checks/Deprecated.php:281
 msgid "wp_create_thumbnail"
 msgstr "wp_create_thumbnail"
 
-#: include/Checks/Deprecated.php:213 include/Checks/Deprecated.php:311
+#: include/Checks/Deprecated.php:213 include/Checks/Deprecated.php:282
 msgid "wp_nav_menu_locations_meta_box"
 msgstr "wp_nav_menu_locations_meta_box"
 
-#: include/Checks/Deprecated.php:215 include/Checks/Deprecated.php:315
+#: include/Checks/Deprecated.php:215 include/Checks/Deprecated.php:286
 msgid "the_attachment_links"
 msgstr "the_attachment_links"
 
-#: include/Checks/Deprecated.php:216 include/Checks/Deprecated.php:312
+#: include/Checks/Deprecated.php:216 include/Checks/Deprecated.php:283
 msgid "wp_update_core"
 msgstr "wp_update_core"
 
-#: include/Checks/Deprecated.php:217 include/Checks/Deprecated.php:313
+#: include/Checks/Deprecated.php:217 include/Checks/Deprecated.php:284
 msgid "wp_update_plugin"
 msgstr "wp_update_plugin"
 
-#: include/Checks/Deprecated.php:218 include/Checks/Deprecated.php:314
+#: include/Checks/Deprecated.php:218 include/Checks/Deprecated.php:285
 msgid "wp_update_theme"
 msgstr "wp_update_theme"
 
@@ -1321,47 +1321,47 @@ msgstr "_search_terms_tidy"
 msgid "get_blogaddress_by_domain"
 msgstr "get_blogaddress_by_domain"
 
-#: include/Checks/Deprecated.php:222 include/Checks/Deprecated.php:317
+#: include/Checks/Deprecated.php:222 include/Checks/Deprecated.php:288
 msgid "get_screen_icon"
 msgstr "get_screen_icon"
 
-#: include/Checks/Deprecated.php:223 include/Checks/Deprecated.php:316
+#: include/Checks/Deprecated.php:223 include/Checks/Deprecated.php:287
 msgid "screen_icon"
 msgstr "screen_icon"
 
-#: include/Checks/Deprecated.php:224 include/Checks/Deprecated.php:320
+#: include/Checks/Deprecated.php:224 include/Checks/Deprecated.php:291
 msgid "wp_dashboard_incoming_links"
 msgstr "wp_dashboard_incoming_links"
 
-#: include/Checks/Deprecated.php:225 include/Checks/Deprecated.php:321
+#: include/Checks/Deprecated.php:225 include/Checks/Deprecated.php:292
 msgid "wp_dashboard_incoming_links_control"
 msgstr "wp_dashboard_incoming_links_control"
 
-#: include/Checks/Deprecated.php:226 include/Checks/Deprecated.php:318
+#: include/Checks/Deprecated.php:226 include/Checks/Deprecated.php:289
 msgid "wp_dashboard_incoming_links_output"
 msgstr "wp_dashboard_incoming_links_output"
 
-#: include/Checks/Deprecated.php:227 include/Checks/Deprecated.php:322
+#: include/Checks/Deprecated.php:227 include/Checks/Deprecated.php:293
 msgid "wp_dashboard_plugins"
 msgstr "wp_dashboard_plugins"
 
-#: include/Checks/Deprecated.php:228 include/Checks/Deprecated.php:323
+#: include/Checks/Deprecated.php:228 include/Checks/Deprecated.php:294
 msgid "wp_dashboard_primary_control"
 msgstr "wp_dashboard_primary_control"
 
-#: include/Checks/Deprecated.php:229 include/Checks/Deprecated.php:324
+#: include/Checks/Deprecated.php:229 include/Checks/Deprecated.php:295
 msgid "wp_dashboard_recent_comments_control"
 msgstr "wp_dashboard_recent_comments_control"
 
-#: include/Checks/Deprecated.php:230 include/Checks/Deprecated.php:325
+#: include/Checks/Deprecated.php:230 include/Checks/Deprecated.php:296
 msgid "wp_dashboard_secondary"
 msgstr "wp_dashboard_secondary"
 
-#: include/Checks/Deprecated.php:231 include/Checks/Deprecated.php:326
+#: include/Checks/Deprecated.php:231 include/Checks/Deprecated.php:297
 msgid "wp_dashboard_secondary_control"
 msgstr "wp_dashboard_secondary_control"
 
-#: include/Checks/Deprecated.php:232 include/Checks/Deprecated.php:319
+#: include/Checks/Deprecated.php:232 include/Checks/Deprecated.php:290
 msgid "wp_dashboard_secondary_output"
 msgstr "wp_dashboard_secondary_output"
 
@@ -1385,7 +1385,7 @@ msgstr "get_current_site_name"
 msgid "wpmu_current_site"
 msgstr "wpmu_current_site"
 
-#: include/Checks/Deprecated.php:239 include/Checks/Deprecated.php:327
+#: include/Checks/Deprecated.php:239 include/Checks/Deprecated.php:298
 msgid "_relocate_children"
 msgstr "_relocate_children"
 
@@ -1433,263 +1433,263 @@ msgstr "prepreview_added_widget_instance"
 msgid "remove_prepreview_filters"
 msgstr "remove_prepreview_filters"
 
-#: include/Checks/Deprecated.php:286
+#: include/Checks/Deprecated.php:257
 msgid "preview_theme"
 msgstr "preview_theme"
 
-#: include/Checks/Deprecated.php:287
+#: include/Checks/Deprecated.php:258
 msgid "_preview_theme_template_filter"
 msgstr "_preview_theme_template_filter"
 
-#: include/Checks/Deprecated.php:288
+#: include/Checks/Deprecated.php:259
 msgid "_preview_theme_stylesheet_filter"
 msgstr "_preview_theme_stylesheet_filter"
 
-#: include/Checks/Deprecated.php:289
+#: include/Checks/Deprecated.php:260
 msgid "preview_theme_ob_filter"
 msgstr "preview_theme_ob_filter"
 
-#: include/Checks/Deprecated.php:290
+#: include/Checks/Deprecated.php:261
 msgid "preview_theme_ob_filter_callback"
 msgstr "preview_theme_ob_filter_callback"
 
-#: include/Checks/Deprecated.php:291
+#: include/Checks/Deprecated.php:262
 msgid "wp_richedit_pre"
 msgstr "wp_richedit_pre"
 
-#: include/Checks/Deprecated.php:292
+#: include/Checks/Deprecated.php:263
 msgid "wp_htmledit_pre"
 msgstr "wp_htmledit_pre"
 
-#: include/Checks/Deprecated.php:293
+#: include/Checks/Deprecated.php:264
 msgid "wp_ajax_wp_fullscreen_save_post"
 msgstr "wp_ajax_wp_fullscreen_save_post"
 
-#: include/Checks/Deprecated.php:295
+#: include/Checks/Deprecated.php:266
 msgid "post_permalink"
 msgstr "post_permalink"
 
-#: include/Checks/Deprecated.php:296
+#: include/Checks/Deprecated.php:267
 msgid "wp_get_http"
 msgstr "wp_get_http"
 
-#: include/Checks/Deprecated.php:297
+#: include/Checks/Deprecated.php:268
 msgid "force_ssl_login"
 msgstr "force_ssl_login"
 
-#: include/Checks/Deprecated.php:298
+#: include/Checks/Deprecated.php:269
 msgid "create_empty_blog"
 msgstr "create_empty_blog"
 
-#: include/Checks/Deprecated.php:299
+#: include/Checks/Deprecated.php:270
 msgid "get_admin_users_for_domain"
 msgstr "get_admin_users_for_domain"
 
-#: include/Checks/Deprecated.php:330
+#: include/Checks/Deprecated.php:301
 msgid "ampReplace"
 msgstr "ampReplace"
 
-#: include/Checks/Deprecated.php:331
+#: include/Checks/Deprecated.php:302
 msgid "deldir"
 msgstr "deldir"
 
-#: include/Checks/Deprecated.php:332
+#: include/Checks/Deprecated.php:303
 msgid "doGzip"
 msgstr "doGzip"
 
-#: include/Checks/Deprecated.php:333
+#: include/Checks/Deprecated.php:304
 msgid "editorArea"
 msgstr "editorArea"
 
-#: include/Checks/Deprecated.php:334
+#: include/Checks/Deprecated.php:305
 msgid "getEditorContents"
 msgstr "getEditorContents"
 
-#: include/Checks/Deprecated.php:335
+#: include/Checks/Deprecated.php:306
 msgid "initEditor"
 msgstr "initEditor"
 
-#: include/Checks/Deprecated.php:336
+#: include/Checks/Deprecated.php:307
 msgid "initGzip"
 msgstr "initGzip"
 
-#: include/Checks/Deprecated.php:337
+#: include/Checks/Deprecated.php:308
 msgid "josGetArrayInts"
 msgstr "josGetArrayInts"
 
-#: include/Checks/Deprecated.php:338
+#: include/Checks/Deprecated.php:309
 msgid "josSpoofCheck"
 msgstr "josSpoofCheck"
 
-#: include/Checks/Deprecated.php:339
+#: include/Checks/Deprecated.php:310
 msgid "josSpoofValue"
 msgstr "josSpoofValue"
 
-#: include/Checks/Deprecated.php:340
+#: include/Checks/Deprecated.php:311
 msgid "loadOverlib"
 msgstr "loadOverlib"
 
-#: include/Checks/Deprecated.php:341
+#: include/Checks/Deprecated.php:312
 msgid "mosArrayToInts"
 msgstr "mosArrayToInts"
 
-#: include/Checks/Deprecated.php:342
+#: include/Checks/Deprecated.php:313
 msgid "mosBackTrace"
 msgstr "mosBackTrace"
 
-#: include/Checks/Deprecated.php:343
+#: include/Checks/Deprecated.php:314
 msgid "mosBindArrayToObject"
 msgstr "mosBindArrayToObject"
 
-#: include/Checks/Deprecated.php:344
+#: include/Checks/Deprecated.php:315
 msgid "mosChmod"
 msgstr "mosChmod"
 
-#: include/Checks/Deprecated.php:345
+#: include/Checks/Deprecated.php:316
 msgid "mosChmodRecursive"
 msgstr "mosChmodRecursive"
 
-#: include/Checks/Deprecated.php:346
+#: include/Checks/Deprecated.php:317
 msgid "mosCountAdminModules"
 msgstr "mosCountAdminModules"
 
-#: include/Checks/Deprecated.php:347
+#: include/Checks/Deprecated.php:318
 msgid "mosCountModules"
 msgstr "mosCountModules"
 
-#: include/Checks/Deprecated.php:348
+#: include/Checks/Deprecated.php:319
 msgid "mosCreateMail"
 msgstr "mosCreateMail"
 
-#: include/Checks/Deprecated.php:349
+#: include/Checks/Deprecated.php:320
 msgid "mosCurrentDate"
 msgstr "mosCurrentDate"
 
-#: include/Checks/Deprecated.php:350
+#: include/Checks/Deprecated.php:321
 msgid "mosErrorAlert"
 msgstr "mosErrorAlert"
 
-#: include/Checks/Deprecated.php:351
+#: include/Checks/Deprecated.php:322
 msgid "mosFormatDate"
 msgstr "mosFormatDate"
 
-#: include/Checks/Deprecated.php:352
+#: include/Checks/Deprecated.php:323
 msgid "mosGetBrowser"
 msgstr "mosGetBrowser"
 
-#: include/Checks/Deprecated.php:353
+#: include/Checks/Deprecated.php:324
 msgid "mosGetOrderingList"
 msgstr "mosGetOrderingList"
 
-#: include/Checks/Deprecated.php:354
+#: include/Checks/Deprecated.php:325
 msgid "mosGetOS"
 msgstr "mosGetOS"
 
-#: include/Checks/Deprecated.php:355
+#: include/Checks/Deprecated.php:326
 msgid "mosGetParam"
 msgstr "mosGetParam"
 
-#: include/Checks/Deprecated.php:356
+#: include/Checks/Deprecated.php:327
 msgid "mosHash"
 msgstr "mosHash"
 
-#: include/Checks/Deprecated.php:357
+#: include/Checks/Deprecated.php:328
 msgid "mosIsChmodable"
 msgstr "mosIsChmodable"
 
-#: include/Checks/Deprecated.php:358
+#: include/Checks/Deprecated.php:329
 msgid "mosLoadAdminModule"
 msgstr "mosLoadAdminModule"
 
-#: include/Checks/Deprecated.php:359
+#: include/Checks/Deprecated.php:330
 msgid "mosLoadComponent"
 msgstr "mosLoadComponent"
 
-#: include/Checks/Deprecated.php:360
+#: include/Checks/Deprecated.php:331
 msgid "mosLoadModule"
 msgstr "mosLoadModule"
 
-#: include/Checks/Deprecated.php:361
+#: include/Checks/Deprecated.php:332
 msgid "mosMail"
 msgstr "mosMail"
 
-#: include/Checks/Deprecated.php:362
+#: include/Checks/Deprecated.php:333
 msgid "mosMainBody"
 msgstr "mosMainBody"
 
-#: include/Checks/Deprecated.php:363
+#: include/Checks/Deprecated.php:334
 msgid "mosMakeHtmlSafe"
 msgstr "mosMakeHtmlSafe"
 
-#: include/Checks/Deprecated.php:364
+#: include/Checks/Deprecated.php:335
 msgid "mosMakePassword"
 msgstr "mosMakePassword"
 
-#: include/Checks/Deprecated.php:365
+#: include/Checks/Deprecated.php:336
 msgid "mosMakePath"
 msgstr "mosMakePath"
 
-#: include/Checks/Deprecated.php:366
+#: include/Checks/Deprecated.php:337
 msgid "mosMenuCheck"
 msgstr "mosMenuCheck"
 
-#: include/Checks/Deprecated.php:367
+#: include/Checks/Deprecated.php:338
 msgid "mosNotAuth"
 msgstr "mosNotAuth"
 
-#: include/Checks/Deprecated.php:368
+#: include/Checks/Deprecated.php:339
 msgid "mosObjectToArray"
 msgstr "mosObjectToArray"
 
-#: include/Checks/Deprecated.php:369
+#: include/Checks/Deprecated.php:340
 msgid "mosPathName"
 msgstr "mosPathName"
 
-#: include/Checks/Deprecated.php:370
+#: include/Checks/Deprecated.php:341
 msgid "mosPathWay"
 msgstr "mosPathWay"
 
-#: include/Checks/Deprecated.php:371
+#: include/Checks/Deprecated.php:342
 msgid "mosReadDirectory"
 msgstr "mosReadDirectory"
 
-#: include/Checks/Deprecated.php:372
+#: include/Checks/Deprecated.php:343
 msgid "mosRedirect"
 msgstr "mosRedirect"
 
-#: include/Checks/Deprecated.php:373
+#: include/Checks/Deprecated.php:344
 msgid "mosSendAdminMail"
 msgstr "mosSendAdminMail"
 
-#: include/Checks/Deprecated.php:374
+#: include/Checks/Deprecated.php:345
 msgid "mosShowHead"
 msgstr "mosShowHead"
 
-#: include/Checks/Deprecated.php:375
+#: include/Checks/Deprecated.php:346
 msgid "mosShowSource"
 msgstr "mosShowSource"
 
-#: include/Checks/Deprecated.php:376
+#: include/Checks/Deprecated.php:347
 msgid "mosStripslashes"
 msgstr "mosStripslashes"
 
-#: include/Checks/Deprecated.php:377
+#: include/Checks/Deprecated.php:348
 msgid "mosToolTip"
 msgstr "mosToolTip"
 
-#: include/Checks/Deprecated.php:378
+#: include/Checks/Deprecated.php:349
 msgid "mosTreeRecurse"
 msgstr "mosTreeRecurse"
 
-#: include/Checks/Deprecated.php:379
+#: include/Checks/Deprecated.php:350
 msgid "mosWarning"
 msgstr "mosWarning"
 
-#: include/Checks/Deprecated.php:380
+#: include/Checks/Deprecated.php:351
 msgid "sefRelToAbs"
 msgstr "sefRelToAbs"
 
-#: include/Checks/Deprecated.php:381
+#: include/Checks/Deprecated.php:352
 msgid "SortArrayObjects"
 msgstr "SortArrayObjects"
 
@@ -2314,145 +2314,145 @@ msgstr "Formulaire de recherche"
 msgid "CSS files"
 msgstr "Fichiers CSS"
 
-#: include/Checks/Style.php:26
+#: include/Checks/Style.php:27
 msgid "Presence of theme name"
 msgstr "Présence du nom du thème"
 
-#: include/Checks/Style.php:26
+#: include/Checks/Style.php:27
 msgid "<strong>Theme name</strong> is missing from style.css header."
 msgstr ""
 "<strong>Theme name</strong> est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:27
+#: include/Checks/Style.php:28
 msgid "Presence of theme description"
 msgstr "Présence de la description du thème"
 
-#: include/Checks/Style.php:27
+#: include/Checks/Style.php:28
 msgid "<strong>Description</strong> is missing from style.css header."
 msgstr ""
 "<strong>Description</strong> est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:28
+#: include/Checks/Style.php:29
 msgid "Presence of theme author"
 msgstr "Présence du nom de l&#39;auteur du thème"
 
-#: include/Checks/Style.php:28
+#: include/Checks/Style.php:29
 msgid "<strong>Author</strong> is missing from style.css header."
 msgstr ""
 "<strong>Author</strong> est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:29
+#: include/Checks/Style.php:30
 msgid "Presence of theme version"
 msgstr "Présence de la version du thème"
 
-#: include/Checks/Style.php:29
+#: include/Checks/Style.php:30
 msgid "<strong>Version</strong> is missing from style.css header."
 msgstr ""
 "<strong>Version</strong>est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:30
+#: include/Checks/Style.php:31
 msgid "Presence of license type"
 msgstr "Présence du type de license"
 
-#: include/Checks/Style.php:30
+#: include/Checks/Style.php:31
 msgid "<strong>License</strong> is missing from style.css header."
 msgstr ""
 "<strong>License</strong> est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:31
+#: include/Checks/Style.php:32
 msgid "Presence of license url"
 msgstr "Présence de l&#39;url de la license"
 
-#: include/Checks/Style.php:31
+#: include/Checks/Style.php:32
 msgid "<strong>License URI</strong> is missing from style.css header."
 msgstr ""
 "<strong>License URI</strong> est absent de l&#39;entête du fichier style.css."
 
-#: include/Checks/Style.php:32
+#: include/Checks/Style.php:33
 msgid "Presence of .sticky class"
 msgstr "Présence de la classe .sticky"
 
-#: include/Checks/Style.php:32
+#: include/Checks/Style.php:33
 msgid "<strong>.sticky</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.sticky</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
-#: include/Checks/Style.php:33
+#: include/Checks/Style.php:34
 msgid "Presence of .bypostauthor class"
 msgstr "Présence de la classe .bypostauthor"
 
-#: include/Checks/Style.php:33
+#: include/Checks/Style.php:34
 msgid "<strong>.bypostauthor</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.bypostauthor</strong> n&#39;a pas été trouvée dans "
 "les styles du thème."
 
-#: include/Checks/Style.php:34
+#: include/Checks/Style.php:35
 msgid "Presence of .alignleft class"
 msgstr "Présence de la classe .alignleft"
 
-#: include/Checks/Style.php:34
+#: include/Checks/Style.php:35
 msgid "<strong>.alignleft</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.alignleft</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
-#: include/Checks/Style.php:35
+#: include/Checks/Style.php:36
 msgid "Presence of .alignright class"
 msgstr "Présence de la classe .alignright"
 
-#: include/Checks/Style.php:35
+#: include/Checks/Style.php:36
 msgid "<strong>.alignright</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.alignright</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
-#: include/Checks/Style.php:36
+#: include/Checks/Style.php:37
 msgid "Presence of .aligncenter class"
 msgstr "Présence de la classe .aligncenter"
 
-#: include/Checks/Style.php:36
+#: include/Checks/Style.php:37
 msgid "<strong>.aligncenter</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.aligncenter</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
-#: include/Checks/Style.php:37
+#: include/Checks/Style.php:38
 msgid "Presence of .wp-caption class"
 msgstr "Présence de la classe .wp-caption"
 
-#: include/Checks/Style.php:37
+#: include/Checks/Style.php:38
 msgid "<strong>.wp-caption</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.wp-caption</strong> n&#39;a pas été trouvée dans les "
 "styles du thème."
 
-#: include/Checks/Style.php:38
+#: include/Checks/Style.php:39
 msgid "Presence of .wp-caption-text class"
 msgstr "Présence de la classe .wp-caption-text"
 
-#: include/Checks/Style.php:38
+#: include/Checks/Style.php:39
 msgid "<strong>.wp-caption-text</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.wp-caption-text</strong> n&#39;a pas été trouvée dans "
 "les styles du thème."
 
-#: include/Checks/Style.php:39
+#: include/Checks/Style.php:40
 msgid "Presence of .gallery-caption class"
 msgstr "Présence de la classe .gallery-caption"
 
-#: include/Checks/Style.php:39
+#: include/Checks/Style.php:40
 msgid "<strong>.gallery-caption</strong> css class is needed in theme css."
 msgstr ""
 "La classe CSS <strong>.gallery-caption</strong> n&#39;a pas été trouvée dans "
 "les styles du thème."
 
-#: include/Checks/Style.php:40
+#: include/Checks/Style.php:41
 msgid "Presence of .screen-reader-text class"
 msgstr "Présence de la classe .screen-reader-text"
 
-#: include/Checks/Style.php:40
+#: include/Checks/Style.php:41
 msgid ""
 "<strong>.screen-reader-text</strong> css class is needed in your theme css. "
 "See : <a href=\"http://codex.wordpress.org/CSS#WordPress_Generated_Classes"
@@ -2463,21 +2463,55 @@ msgstr ""
 "CSS#WordPress_Generated_Classes\">le Codex</a> pour un exemple "
 "d'implémentation."
 
-#: include/Checks/Style.php:41
+#: include/Checks/Style.php:43
 msgid "Presence of Theme URI"
 msgstr "Présence de lURI du thème"
 
-#: include/Checks/Style.php:41
+#: include/Checks/Style.php:43
 msgid "Could not find <strong>Theme URL</strong>."
 msgstr "<strong>Theme URL</strong> introuvable."
 
-#: include/Checks/Style.php:42
+#: include/Checks/Style.php:44
 msgid "Presence of Author URI"
 msgstr "Présence de l&#39;URI de l&#39;auteur"
 
-#: include/Checks/Style.php:42
+#: include/Checks/Style.php:44
 msgid "Could not find <strong>Author URI</strong>."
 msgstr "<strong>Author URI</strong> introuvable."
+
+#: include/Checks/StyleTags.php:17
+msgid ""
+"Themes that use the tag accessibility-ready will need to undergo an "
+"accessibility review.<br/>See <a href=\"https://make.wordpress.org/themes/"
+"handbook/review/accessibility/\">https://make.wordpress.org/themes/handbook/"
+"review/accessibility/</a>"
+msgstr ""
+"Les thèmes qui utilisent le tag accessibility-ready doivent concoder avec "
+"les règles de la revue d&#39;accessibilité.<br/>Voir <a href=\"https://make."
+"wordpress.org/themes/handbook/review/accessibility/\">https://make.wordpress."
+"org/themes/handbook/review/accessibility/</a>"
+
+#: include/Checks/StyleTags.php:23
+msgid ""
+"The flexible-width and fixed-width tags changed to fluid-layout and fixed-"
+"layout tags in WordPress 3.8. Additionally, the responsive-layout tag was "
+"added."
+msgstr ""
+"Les tags flexible-width et fixed-width ont changé pour fluid-layout et fixed-"
+"layout dans WordPress 3.8. Le tag responsive-layout a été ajouté également."
+
+#: include/Checks/StyleTags.php:26
+#, php-format
+msgid "Found wrong tag %s in style.css header."
+msgstr "Tag inconnu %s trouvé dans l&#39;entête du fichier style.css."
+
+#: include/Checks/StyleTags.php:38
+msgid "theme tags"
+msgstr "tags du thème"
+
+#: include/Checks/StyleTags.php:40 include/Checks/Uri.php:36
+msgid "Presence of bad theme tags"
+msgstr "Présence de tags inconnus"
 
 #: include/Checks/Tags.php:14
 msgid "This theme doesn't seem to display tags."
@@ -2604,6 +2638,19 @@ msgstr ""
 #: include/Checks/Title.php:59 include/Checks/Title.php:61
 msgid "Title"
 msgstr "Title"
+
+#: include/Checks/Uri.php:17
+msgid "Theme URI and Author URI should not be the same."
+msgstr "Theme URI et  Author URI ne doivent pas être identiques."
+
+#: include/Checks/Uri.php:23
+msgid "Using a WordPress.org Theme URI is reserved for official themes."
+msgstr ""
+"L&#39; de Theme URI en WordPress.org est réservée aux thèmes officiels."
+
+#: include/Checks/Uri.php:34
+msgid "special URIs"
+msgstr "URIs particulières"
 
 #: include/Checks/Version.php:54
 msgid ""
