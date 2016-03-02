@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class Widgets_Checker extends CheckPart
 {	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck( $php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
 		
@@ -28,7 +28,7 @@ class Widgets_Checker extends CheckPart
 		/**
 		 * There are widgets registered, is the widgets_init action present?
 		 */
-		if ( strpos( $php, 'register_sidebar' ) !== false && preg_match( '/add_action\s*\(\s*("|\')widgets_init("|\')\s*,/', $php ) == false ) {
+		if ( strpos( $php, 'register_sidebar' ) !== false && preg_match( '/add_action\(\s*("|\')widgets_init("|\')\s*,/', $php ) == false ) {
 			$this->messages[] = __all( "Sidebars need to be registered in a custom function hooked to the <strong>widgets_init</strong> action. See: %s.", '<a href="https://codex.wordpress.org/Function_Reference/register_sidebar">register_sidebar()</a>' );
 			$this->errorLevel = ERRORLEVEL_CRITICAL;
 		}

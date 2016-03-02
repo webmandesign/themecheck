@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class PostNav_Checker extends CheckPart
 {
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         $php = implode( ' ', $php_files );

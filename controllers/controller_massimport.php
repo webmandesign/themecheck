@@ -462,9 +462,9 @@ class Controller_massimport
         public function ajax_updateOpenSource()
         {    
            
-            if(empty($_SESSION['themedir']))
+            if(empty($_SESSION['namedemo']))
             {
-               //Récuparation des themedir dans la bdd
+               //Récuparation des namedemo dans la bdd
                $data = new History();
                $datas = $data->getNameIsOpenSource();
               
@@ -474,7 +474,7 @@ class Controller_massimport
                for($i=0;$i<count($datas);$i++)
                {
                    $_SESSION['name'][$i] = $datas[$i]['name'];
-                   $_SESSION['themedir'][$i] = $datas[$i]['themedir'];
+                   $_SESSION['namedemo'][$i] = $datas[$i]['namedemo'];
                    $_SESSION['zipfilename'][$i] = $datas[$i]['zipfilename'];
                    $_SESSION['license'][$i] = $datas[$i]['license'];
                    $_SESSION['themetype'][$i] = $datas[$i]['themetype'];
@@ -487,11 +487,11 @@ class Controller_massimport
             if($_SESSION['iteration']<$_SESSION['countReq'])
             {
 
-                if(isset($_SESSION['themedir']))
+                if(isset($_SESSION['namedemo']))
                 {
                     include_once("include/curl_requests.php");
                     $name = $_SESSION['name'][$_SESSION['iteration']];
-                    $themeDir = $_SESSION['themedir'][$_SESSION['iteration']];
+                    $nameDemo = $_SESSION['namedemo'][$_SESSION['iteration']];
                     $zipfilename = $_SESSION['zipfilename'][$_SESSION['iteration']];
                     $license =  $_SESSION['license'][$_SESSION['iteration']];
                     $themetype = $_SESSION['themetype'][$_SESSION['iteration']];
@@ -501,7 +501,7 @@ class Controller_massimport
                     if($themetype != 2)
                     {
                        //Controle si thème existe sur site WordPress.org
-                       $themeOpenSource = themeWordPressExist($themeDir);
+                       $themeOpenSource = themeWordPressExist($nameDemo);
                     }
                     else
                     {
@@ -512,7 +512,7 @@ class Controller_massimport
                     if($themeOpenSource)
                     {
                        //Controle si thème existe sur site WordPress.org
-                       $themeOpenSource = isOnWordpressOrg($themeDir);
+                       $themeOpenSource = isOnWordpressOrg($nameDemo);
                     }
                     else
                     { 
@@ -525,14 +525,14 @@ class Controller_massimport
 		    if($themeOpenSource)
                     {
                        $update = new History();
-                       $update->updateIsOpenSource($themeOpenSource,$themeDir);
+                       $update->updateIsOpenSource($themeOpenSource,$nameDemo);
                        $_SESSION['iteration']++;
-                       echo 'Le thème '.$themeDir.' a été mis à jour';
+                       echo 'Le thème '.$nameDemo.' a été mis à jour';
                     }
                     else 
                     {
 		       $_SESSION['iteration']++;
-                       echo 'Le thème '.$themeDir.' est à jour';
+                       echo 'Le thème '.$nameDemo.' est à jour';
                     }
                 }
             }
@@ -541,7 +541,7 @@ class Controller_massimport
                 // Réinitialisation des variables de session
                 echo'Mise à jour terminée';
                 $_SESSION['iteration']=0;
-                $_SESSION['themedir']='';
+                $_SESSION['namedemo']='';
             }
       
         }

@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class Deprecated_Checker extends CheckPart
 {
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         
@@ -253,7 +253,36 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_REMOVE_PREPREVIEW_FILTERS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('remove_prepreview_filters'), array('remove_prepreview_filters', 'customize_dynamic_setting_args', '4.2' ),'ut_deprecatedwordpress_remove_prepreview_filters.zip'),
 			
 					// recently deprecated : warning
-					// from plugin's file dep_recommend.php 
+			/*		new Deprecated_Checker('DEPRECATED_GET_THEMES', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_themes'), array('get_themes', 'wp_get_themes()', '3.4' ),'ut_deprecatedrecommendedwordpress_get_themes.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_THEME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_theme'), array('get_theme', 'wp_get_theme()', '3.4' ),'ut_deprecatedrecommendedwordpress_get_theme.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_CURRENT_THEME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_current_theme'), array('get_current_theme', 'wp_get_theme()', '3.4' ),'ut_deprecatedrecommendedwordpress_get_current_theme.zip'),
+					new Deprecated_Checker('DEPRECATED_CLEAN_PRE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('clean_pre'), array('clean_pre', '', '3.4' ),'ut_deprecatedrecommendedwordpress_clean_pre.zip'),
+					new Deprecated_Checker('DEPRECATED_ADD_CUSTOM_IMAGE_HEADER', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('add_custom_image_header'), array('add_custom_image_header', 'add_theme_support( &#39;custom-header&#39;, $args )', '3.4' ),'ut_deprecatedrecommendedwordpress_add_custom_image_header.zip'),
+					new Deprecated_Checker('DEPRECATED_REMOVE_CUSTOM_IMAGE_HEADER', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('remove_custom_image_header'), array('remove_custom_image_header', 'remove_theme_support( &#39;custom-header&#39; )', '3.4' ),'ut_deprecatedrecommendedwordpress_remove_custom_image_header.zip'),
+					new Deprecated_Checker('DEPRECATED_ADD_CUSTOM_BACKGROUND', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('add_custom_background'), array('add_custom_background', 'add_theme_support( &#39;custom-background&#39;, $args )', '3.4' ),'ut_deprecatedrecommendedwordpress_add_custom_background.zip'),
+					new Deprecated_Checker('DEPRECATED_REMOVE_CUSTOM_BACKGROUND', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('remove_custom_background'), array('remove_custom_background', 'remove_theme_support( &#39;custom-background&#39; )', '3.4' ),'ut_deprecatedrecommendedwordpress_remove_custom_background.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_THEME_DATA', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_theme_data'), array('get_theme_data', 'wp_get_theme()', '3.4' ),'ut_deprecatedrecommendedwordpress_get_theme_data.zip'),
+					new Deprecated_Checker('DEPRECATED_UPDATE_PAGE_CACHE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('update_page_cache'), array('update_page_cache', 'update_post_cache()', '3.4' ),'ut_deprecatedrecommendedwordpress_update_page_cache.zip'),
+					new Deprecated_Checker('DEPRECATED_CLEAN_PAGE_CACHE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('clean_page_cache'), array('clean_page_cache', 'clean_post_cache()', '3.4' ),'ut_deprecatedrecommendedwordpress_clean_page_cache.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_EXPLAIN_NONCE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_explain_nonce'), array('wp_explain_nonce', 'wp_nonce_ays', '3.4.1' ),'ut_deprecatedrecommendedwordpress_wp_explain_nonce.zip'),
+					new Deprecated_Checker('DEPRECATED_STICKY_CLASS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('sticky_class'), array('sticky_class', 'post_class()', '3.5' ),'ut_deprecatedrecommendedwordpress_sticky_class.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_POST_ANCESTORS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_get_post_ancestors'), array('_get_post_ancestors', '', '3.5' ),'ut_deprecatedrecommendedwordpress__get_post_ancestors.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_LOAD_IMAGE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_load_image'), array('wp_load_image', 'wp_get_image_editor()', '3.5' ),'ut_deprecatedrecommendedwordpress_wp_load_image.zip'),
+					new Deprecated_Checker('DEPRECATED_IMAGE_RESIZE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('image_resize'), array('image_resize', 'wp_get_image_editor()', '3.5' ),'ut_deprecatedrecommendedwordpress_image_resize.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_GET_SINGLE_POST', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_get_single_post'), array('wp_get_single_post', 'get_post()', '3.5' ),'ut_deprecatedrecommendedwordpress_wp_get_single_post.zip'),
+					new Deprecated_Checker('DEPRECATED_USER_PASS_OK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('user_pass_ok'), array('user_pass_ok', 'wp_authenticate()', '3.5' ),'ut_deprecatedrecommendedwordpress_user_pass_ok.zip'),
+					new Deprecated_Checker('DEPRECATED_SAVE_POST_HOOK', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_save_post_hook'), array('_save_post_hook', '', '3.5' ),'ut_deprecatedrecommendedwordpress__save_post_hook.zip'),
+					new Deprecated_Checker('DEPRECATED_GD_EDIT_IMAGE_SUPPORT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('gd_edit_image_support'), array('gd_edit_image_support', 'wp_image_editor_supports()', '3.5' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_USER_ID_FROM_STRING', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_user_id_from_string'), array('get_user_id_from_string', 'get_user_by()', '3.6' ),'ut_deprecatedrecommendedwordpress_get_user_id_from_string.zip'),
+					new Deprecated_Checker('DEPRECATED_WP_CONVERT_BYTES_TO_HR', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_convert_bytes_to_hr'), array('wp_convert_bytes_to_hr', 'size_format()', '3.6' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_SEARCH_TERMS_TIDY', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_search_terms_tidy'), array('_search_terms_tidy', '', '3.7' ),'ut_deprecatedrecommendedwordpress_gd_edit_image_support.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_BLOGADDRESS_BY_DOMAIN', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_blogaddress_by_domain'), array('get_blogaddress_by_domain', '', '3.7' ),'ut_deprecatedrecommendedwordpress_get_blogaddress_by_domain.zip'),
+					new Deprecated_Checker('DEPRECATED_RICH_EDIT_EXISTS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('rich_edit_exists'), array('rich_edit_exists', '', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_DEFAULT_TOPIC_COUNT_TEXT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('default_topic_count_text'), array('default_topic_count_text', '', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_FORMAT_TO_POST', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('format_to_post'), array('format_to_post', '', '3.9' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_LIKE_ESCAPE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('like_escape'), array('like_escape', 'wpdb::esc_like()', '4.0' ),'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_URL_IS_ACCESSIBLE_VIA_SSL', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('url_is_accessable_via_ssl'), array('url_is_accessable_via_ssl', '', '4.0' ),'tobedefined.zip'),
+			*/
 					new Deprecated_Checker('DEPRECATED_preview_theme', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('preview_theme'), array('preview_theme', '', '4.3' ), 'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_preview_theme_template_filter', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_preview_theme_template_filter'), array('_preview_theme_template_filter', '', '4.3' ), 'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_preview_theme_stylesheet_filter', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('_preview_theme_stylesheet_filter'), array('_preview_theme_stylesheet_filter', '', '4.3' ), 'tobedefined.zip'),
@@ -358,23 +387,25 @@ class Deprecated extends Check
 					// http://docs.joomla.org/Category:Compatibility
     }
 		
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
-	{
-		$start_time_checker = microtime(true);
-		foreach ($this->checks as &$check)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 		{
-			$deprecatedSinceVersion = $check->code[2];
-			if ($themeInfo->themetype & $check->themetype)
+			$start_time_checker = microtime(true);
+			foreach ($this->checks as &$check)
 			{
-				if (version_compare($themeInfo->cmsVersion, $deprecatedSinceVersion) >= 0)
+				$deprecatedSinceVersion = $check->code[2];
+				if ($this->currentThemetype & $check->themetype)
 				{
-					$start_time = microtime(true);
-					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
-					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+					$cmp = Check::versionCmp($this->currentCmsVersion, $deprecatedSinceVersion, $check->themetype);
+
+					if ($cmp === false || $cmp >= 0)
+					{
+						$start_time = microtime(true);
+						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+					}
 				}
-			}
-			
-		}	
-		$this->duration = microtime(true) - $start_time_checker;			
-	}
+				
+			}	
+			$this->duration = microtime(true) - $start_time_checker;			
+		}
 }

@@ -49,7 +49,7 @@ abstract class CheckPart
 			$this->id = $id;
     }
 		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 		{
 		}
 		
@@ -81,10 +81,15 @@ abstract class CheckPart
 // A set of checks related to a specific subject
 abstract class Check
 {
-	public $duration;		// duration in seconds (float)
-	public $checkCount; // total number of checks the class is supposed to make
-	public $title;			// title (multilingual array)
-	public $checks = array(); // checklist
+		public $duration;		// duration in seconds (float)
+		public $checkCount; // total number of checks the class is supposed to make
+		public $title;			// title (multilingual array)
+		public $checks = array(); // checklist
+		public $currentThemetype;
+		public $currentCmsVersion;
+		public $currentThemeVersion;
+		public $currentThemeName;
+		public $currentThemeHash;
 		
     public function __construct()
     {
@@ -96,20 +101,56 @@ abstract class Check
 			$this->currentCmsVersion = '0';
     }
 		
-	abstract protected function createChecks();
-	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
-	{
-		$start_time_checker = microtime(true);
-		foreach ($this->checks as &$check)
+		abstract protected function createChecks();
+		
+		public function setCurrentThemetype($themetype)
 		{
-			if ($themeInfo->themetype & $check->themetype)
+			$this->currentThemetype = $themetype;
+		}
+		
+		public function setCurrentCmsVersion($cmsVersion)
+		{
+			$this->currentCmsVersion = $cmsVersion;
+		}
+		
+		public function setThemeVersion($themeVersion)
+		{
+			$this->currentThemeVersion = $themeVersion;
+		}
+		
+		public function setThemeName($themeName)
+		{
+			$this->currentThemeName = $themeName;
+		}
+		
+		public function setThemeHash($themeHash)
+		{
+			$this->currentThemeHash = $themeHash;
+		}
+		
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
+		{
+			$start_time_checker = microtime(true);
+			foreach ($this->checks as &$check)
 			{
-				$start_time = microtime(true);
-				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
-				$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
-			}
-		}	
-		$this->duration = microtime(true) - $start_time_checker;
-	}
+				if ($this->currentThemetype & $check->themetype)
+				{
+					$start_time = microtime(true);
+					$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+					$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
+				}
+			}	
+			$this->duration = microtime(true) - $start_time_checker;
+		}
+		
+		public static function versionCmp($v1, $v2, $themetype)
+		{
+			$v1_int = intval(str_pad(str_replace(".", "", $v1), 5, "0"));
+			$v2_int = intval(str_pad(str_replace(".", "", $v2), 5, "0"));
+			if ($v1_int == 0 || $v2_int == 0) return false; // one of the version does not match N.N... pattern
+			if ($v1_int < $v2_int) return -1;
+			if ($v1_int > $v2_int) return 1;
+			
+			return 0;
+		}
 }

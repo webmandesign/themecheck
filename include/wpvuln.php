@@ -14,18 +14,13 @@ class WpVuln
 	{
 		$instance = new self();
 		$instance->name = $name;
-		foreach ($jsonObject as $j) // a bit dirty, buut could not find another way to extract first object without knowing property name (relying on $name is not safe)
-		{
-			$obj = $j; 
-			break;
-		}
-		$instance->latest_version = $obj->latest_version;
+		$instance->latest_version = $jsonObject->$name->latest_version;
 		if ($instance->latest_version === null) $instance->latest_version = '';
-		$instance->last_updated = $obj->last_updated;
+		$instance->last_updated = $jsonObject->$name->last_updated;
 		if ($instance->last_updated === null) $instance->last_updated = '';
-		$instance->popular = $obj->popular;
+		$instance->popular = $jsonObject->$name->popular;
 		
-		foreach ($obj->vulnerabilities as $v)
+		foreach ($jsonObject->$name->vulnerabilities as $v)
 		{
 			$vul = new WpVulnVulnerability();
 			$vul->id = $v->id;

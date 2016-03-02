@@ -43,12 +43,6 @@ class FileValidator
 	private $history = null; 
 
 	private static $checklistCommon = array (
-			"Deregister",
-			"Favicon",
-			"Uri",
-			"StyleTags",
-			"Links",
-			"TextDomain",
 			"Wpvulndb",
 			"Cdn",
 			"Customizer",
@@ -63,33 +57,35 @@ class FileValidator
             "NonPrintable",
             "PHPShort",
             "Worms",
-			"MandatoryFiles",
-			"OptionalFiles",
-			"LineEndings",
-			"AdminMenu",
-			"Generated",
-			"Basic",
-			"CommentPagination",
-			"CommentReply",
-			"Constants",
-			"ContentWidth",
-			"Custom",
-			"Deprecated",
-			"MoreDeprecated", 
-			"EditorStyle",
-			"Gravatar",
-			"I18NCheck",
-			"Includes",
-			"NavMenu",
-			"PostFormat",
-			"PostNav",
-			"PostThumb",
-			"SearchForm",
-			"Style",
-			"Tags",
-			"TimeDate",
-			"Screenshot",
-			"JManifest"
+						"MandatoryFiles",
+						"OptionalFiles",
+						"LineEndings",
+						"AdminMenu",
+						"Artisteer",
+						"Basic",
+						"CommentPagination",
+						"CommentReply",
+						"Constants",
+						"ContentWidth",
+						"Custom",
+						"Deprecated",
+						"MoreDeprecated", 
+						"EditorStyle",
+						"Gravatar",
+						"I18NCheck",
+						"Includes",
+						"NavMenu",
+						"PostFormat",
+						"PostNav",
+						"PostThumb",
+						"SearchForm",
+						"Style",
+					//	"Suggested", //no : not sure this test makes sense
+						"Tags",
+					//	"TextDomain", //no : not sure this test makes sense 
+					  "TimeDate",
+						"Screenshot",
+						"JManifest"
 	);
 
 	public function __construct($themeInfo)
@@ -565,11 +561,11 @@ class FileValidator
 		$files = listdir( $unzippath );
 		if ( $files ) {
 			foreach( $files as $key => $filename ) {
-				if ( substr( $filename, -4 ) == '.php' && !is_dir( $filename )  ) {
+				if ( substr( $filename, -4 ) == '.php' ) {
 					$this->phpfiles[$filename] = file_get_contents( $filename );
 					$this->phpfiles_filtered[$filename] = Helpers::filterPhp( $this->phpfiles[$filename] );
 				}
-				else if ( substr( $filename, -4 ) == '.css' && !is_dir( $filename ) ) {
+				else if ( substr( $filename, -4 ) == '.css' ) {
 					$this->cssfiles[$filename] = file_get_contents( $filename );
 				}
 				else {
@@ -591,10 +587,15 @@ class FileValidator
 		
 		$isThemeforest = true;
 		
-		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.		
+		// run validation. Checks are done in all existing languages and return multilingual arrays in place of strings.
 		foreach ($this->checklist as $check)
 		{
-			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles, $this->themeInfo);
+			$check->setCurrentThemetype($this->themeInfo->themetype);
+			$check->setCurrentCmsVersion($this->themeInfo->cmsVersion);
+			$check->setThemeVersion($this->themeInfo->version);
+			$check->setThemeName($this->themeInfo->namedemo);
+			$check->setThemeHash($this->themeInfo->hash);
+			$check->doCheck($this->phpfiles, $this->phpfiles_filtered, $this->cssfiles, $this->otherfiles);
 			foreach($check->checks as $checkpart)
 			{
 				if ($checkId === 'ALL' || $checkpart->id === $checkId) 
@@ -603,12 +604,7 @@ class FileValidator
 					{
 						$checkpart->title = $check->title; // a bit dirty
 						
-						if ($checkpart->errorLevel == ERRORLEVEL_FATAL) {
-							$m = $checkpart->getMonolingual(I18N::getCurLang());
-							$message = implode ('<br/>', $m->messages);
-							UserMessage::enqueue($message, ERRORLEVEL_FATAL);
-						}
-						else if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
+						if ($checkpart->errorLevel == ERRORLEVEL_CRITICAL) $check_critical[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_WARNING) $check_warnings[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_SUCCESS) $check_successes[] = $checkpart;
 						else if ($checkpart->errorLevel == ERRORLEVEL_INFO) $check_info[] = $checkpart;
@@ -704,6 +700,7 @@ class FileValidator
 													'BADTHINGS_BASE64DEC',
 													'BADTHINGS_BASE64ENC_WP',
 													'BADTHINGS_BASE64ENC_JO',
+													'BADTHINGS_VARIABLEFUNC',
 													'MALWARE1',
 													'EDITORSTYLE',
 													'IFRAMES',

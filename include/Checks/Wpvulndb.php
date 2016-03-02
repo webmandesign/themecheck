@@ -1,9 +1,10 @@
 <?php
+
 namespace ThemeCheck;
 
 class Wpvulndb_Checker extends CheckPart
 {	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = $this->threatLevel;
 
@@ -31,7 +32,7 @@ class Wpvulndb extends Check
 			);
     }
 	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 	{
 		$start_time_checker = microtime(true);
 	
@@ -39,7 +40,7 @@ class Wpvulndb extends Check
 	
 		foreach ($this->checks as &$check)
 		{
-			$url = 'https://wpvulndb.com/api/v2/themes/'.urlencode($themeInfo->name);
+			$url = 'https://wpvulndb.com/api/v2/themes/'.urlencode($this->currentThemeName);
 		
 			$headers = get_headers($url);
 			$response_code = substr($headers[0], 9, 3);
@@ -47,24 +48,21 @@ class Wpvulndb extends Check
 			
 			$content = file_get_contents($url);
 			$wpvulnObject = json_decode($content);
+			$wpvuln = WpVuln::fromJson($wpvulnObject, $this->currentThemeName);
 			
-			if ($wpvulnObject  !== null && $wpvulnObject !== false)
+			if ($this->currentThemetype & $check->themetype)
 			{
-				$wpvuln = WpVuln::fromJson($wpvulnObject, $themeInfo->name);
-				
-				if ($themeInfo->themetype & $check->themetype)
-				{
-					foreach ($wpvuln->vulnerabilities as $v)
-					{						
-						if (version_compare($themeInfo->version, $v->fixed_in) < 0)
-						{
-							$history->upsertWpVuln($themeInfo->hash, $v);
-							
-							$check->code = $v;
-							$start_time = microtime(true);
-							$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $this->currentThemeInfo);
-							$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
-						}
+				foreach ($wpvuln->vulnerabilities as $v)
+				{						
+					$cmp = Check::versionCmp($this->currentThemeVersion, $v->fixed_in, null);
+					if ($cmp < 0)
+					{
+						$history->upsertWpVuln($this->currentThemeHash, $v);
+						
+						$check->code = $v;
+						$start_time = microtime(true);
+						$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
+						$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 					}
 				}
 			}

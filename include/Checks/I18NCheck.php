@@ -4,7 +4,7 @@ namespace ThemeCheck;
 
 class I18NCheck_Checker extends CheckPart
 {
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         
@@ -86,15 +86,15 @@ class I18NCheck extends Check
 			);
     }
 	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
 	{
 		$start_time_checker = microtime(true);
 		foreach ($this->checks as &$check)
 		{
-			if ($themeInfo->themetype & $check->themetype)
+			if ($this->currentThemetype & $check->themetype)
 			{
 				$start_time = microtime(true);
-				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo);
+				$check->doCheck($php_files, $php_files_filtered, $css_files, $other_files);
 				$check->duration = microtime(true) - $start_time; // check duration is calculated outside of the check to simplify check's code
 			}
 		}	

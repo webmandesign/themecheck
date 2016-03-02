@@ -3,7 +3,7 @@ namespace ThemeCheck;
 
 class File_Checker extends CheckPart
 {		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files)
     {        
         $this->errorLevel = ERRORLEVEL_SUCCESS;
         $filenames = array();
@@ -36,7 +36,6 @@ class File extends Check
     {
 			$this->title = __all("Unwanted files");
 			$this->checks = array(
-						// from plugin's filenames.php
 						new File_Checker('FILE_THUMBSDB', TT_COMMON, ERRORLEVEL_WARNING, __all('Windows thumbnail store'), 'thumbs.db', 'ut_file_thumbs.zip'),
 						new File_Checker('FILE_DESKTOPINI', TT_COMMON, ERRORLEVEL_WARNING, __all('Windows system file'), 'desktop.ini', 'ut_file_desktop.zip'),
 						new File_Checker('FILE_PROJECTXML', TT_COMMON, ERRORLEVEL_WARNING, __all('NetBeans project file'), 'project.xml', 'ut_file_project_xml.zip'),
@@ -47,9 +46,7 @@ class File extends Check
 						new File_Checker('FILE_DWSYNCXML', TT_COMMON, ERRORLEVEL_WARNING, __all('Dreamweaver project file'), 'dwsync.xml', 'ut_file_dwsync_xml.zip'),
 						new File_Checker('FILE_ERRORLOG', TT_COMMON, ERRORLEVEL_CRITICAL, __all('PHP error log'), 'error_log', 'ut_file_error_log.zip'),
 						new File_Checker('FILE_WEBCONFIG', TT_COMMON, ERRORLEVEL_CRITICAL, __all('server settings file'), 'web.config', 'ut_file_web_config.zip'),
-						new File_Checker('FILE_SQL', TT_COMMON, ERRORLEVEL_CRITICAL, __all('SQL dump file'), '\.sql', 'ut_file_sql.zip'),
-						new File_Checker('FILE_SQL', TT_COMMON, ERRORLEVEL_WARNING, __all('OSX system file'), '__MACOSX', 'ut_file_macosx.zip'),
-						new File_Checker('FILE_SQL', TT_COMMON, ERRORLEVEL_WARNING, __all('Lubith theme generator file'), '\.lubith', 'ut_file_lubith.zip')
+						new File_Checker('FILE_SQL', TT_COMMON, ERRORLEVEL_CRITICAL, __all('SQL dump file'), '\.sql', 'ut_file_sql.zip')
 			);
     }
 }

@@ -26,7 +26,7 @@ function ErrorHandler($errLevel, $errMsg, $errFile, $errLine)
 }
 
 set_error_handler(__NAMESPACE__."\ErrorHandler");
- 
+
 // Multilingual url un-rewriting
 $routeParts = Route::getInstance()->match();
 
@@ -38,15 +38,10 @@ if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"
 { 
 	include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
 	$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
-	$controller = new $classname();
+       	$controller = new $classname();
 	$controller->prepare();
-	if ($routeParts["phpfile"] == 'download')
-	{
-		$controller->render();
-	} else {
-		require "header.php";
-		$controller->render();
-		require "footer.php";
-	}
+    	require "header.php";
+        $controller->render();
+        require "footer.php";
 }
 

@@ -1,17 +1,27 @@
 /* -------------  Bouton Select -------------------- */
 
 $('#content').on('change','#file',function(){ 
-			document.getElementById('container_file_submit').style.display = 'inline';
-			document.getElementById('content_select').style.display = 'none';
-			document.getElementById('selected_file').value = document.getElementById('file').value;
-			document.getElementById('select_zip').className = 'submit_zip';
+//			document.getElementById('container_file_submit').style.display = 'inline';
+//			document.getElementById('content_select').style.display = 'none';
+//			document.getElementById('selected_file').value = document.getElementById('file').value;
+//			document.getElementById('select_zip').className = 'submit_zip';
+                        var nameUpload = ($('#file').val()).substring(12,($('#file').val()).length);
+
+                        $('#container_file_submit').show();
+                        $('#content_select').hide();
+                        $('#selected_file').val(nameUpload);
+                        $('#select_zip').attr('class', 'submit_zip');
 					});
 
 /* ------------- Submit -------------------- */
 
 $('#content').on('change','#new_file',function(){ 
-						document.getElementById('selected_file').value = document.getElementById('new_file').value;
-					});
+        var newUpload = $('#new_file').val();
+        var nameNewUpload = newUpload.substring(12,newUpload.length);
+       
+        $('#selected_file').val(nameNewUpload);
+   
+        });
 
 /* ----------- Select -------------*/
 
@@ -63,6 +73,7 @@ function enableSelectBoxes(){
 			$(this).parent().siblings('span.selected').html($(this).html());
 		});
 	});	
+    
 
 }
 
@@ -85,3 +96,18 @@ function check(id)
     }
 }
 
+
+// ----------------------------------- WINDOW LOAD -------------------------------------- 
+// --------------------------------------------------------------------------------------
+	
+    $(window).load(function()
+    {
+        //default value select
+        $('#select_hidden option[value="id"]').attr('selected', true);
+        $('#select_hidden option[value="score"]').attr('selected', false);
+
+        $('.select_cms input[type=checkbox]')[0]['checked'] = true;
+        $('.select_cms input[type=checkbox]')[1]['checked'] = true;
+
+         ajaxSelectItem();
+    });

@@ -11,7 +11,7 @@ namespace ThemeCheck;
  */
 class Title_Checker extends CheckPart
 {	
-	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+	public function doCheck( $php_files, $php_files_filtered, $css_files, $other_files)
     {
         $this->errorLevel = ERRORLEVEL_SUCCESS;
 		
@@ -44,7 +44,7 @@ class Title_Checker extends CheckPart
 			
 			// First looks ahead to see of there's <title>...</title>
 			// Then performs a negative look ahead for <title> wp_title(...); </title>
-			if ( preg_match( '/(?=<title>(.*)<\/title>)(?!<title>\s*<\?php\s*wp_title\([^\)]*\);?\s*\?>\s*<\/title>)/s', $file_content ) ) {
+			if ( preg_match( '/(?=<title>(.*)<\/title>)(?!<title>\s*<\?php\s*wp_title\([^\)]*\);\s*\?>\s*<\/title>)/s', $file_content ) ) {
 				$this->messages[] = __all( 'The <strong>&lt;title&gt;</strong> tags can only contain a call to <strong>wp_title()</strong>. Use the  <strong>wp_title filter</strong> to modify the output.');
 				$this->errorLevel = ERRORLEVEL_CRITICAL;
 			}

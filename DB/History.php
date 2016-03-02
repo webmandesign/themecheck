@@ -37,13 +37,13 @@ class History
 			$this->db = new \PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PWD);
                         
 			$this->query_theme_insert = $this->db->prepare('INSERT INTO theme (hash, hash_md5, 
-                            hash_sha1, name, namesanitized, themedir, themetype, parentId, cmsVersion, score, 
+                            hash_sha1, name, namesanitized, namedemo, themetype, parentId, cmsVersion, score, 
                             criticalCount, warningsCount, zipfilename, zipmimetype, zipfilesize, userIp, 
                             author, description, descriptionBB, themeUri, version, authorUri, authorMail, 
                             tags, layout, license, licenseUri, filesIncluded, copyright, isThemeForest, 
                             isTemplateMonster, isCreativeMarket, isPiqpaq, isNsfw, creationDate, 
                             modificationDate, validationDate,isOpenSource) VALUES (:hash, UNHEX(:hash_md5), 
-                            UNHEX(:hash_sha1), :name,:namesanitized,:themedir,:themetype,:parentId, :cmsVersion,
+                            UNHEX(:hash_sha1), :name,:namesanitized,:namedemo,:themetype,:parentId, :cmsVersion,
                             :score,:criticalCount,:warningsCount,:zipfilename,:zipmimetype,:zipfilesize,
                             INET_ATON(:userIp),:author,:description,:descriptionBB,:themeUri,:version,:authorUri,
                             :authorMail,:tags,:layout,:license,:licenseUri,:filesIncluded,:copyright,:isThemeForest,
@@ -51,18 +51,17 @@ class History
                             FROM_UNIXTIME(:modificationDate), FROM_UNIXTIME(:validationDate),:isOpenSource)');
 			
 			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, '
-                                . 'themedir=:themedir, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
+                                . 'namedemo=:namedemo, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
                                 . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
-                                . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), modificationDate=FROM_UNIXTIME(:modificationDate), description=:description, '
+                                . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), description=:description, '
                                 . 'descriptionBB=:descriptionBB,isOpenSource=:isOpenSource WHERE id = :id');
 		
 			$this->query_theme_select_hash = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp, HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme where hash = :hash');
 			$this->query_theme_select_id = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp, HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme where id = :id');
 			$this->query_theme_select_namesanitized = $this->db->prepare('SELECT hash from theme where namesanitized = :namesanitized');
 			
-			//$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY id DESC limit 0,100');
-			$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY modificationDate DESC limit 0,100');
+			$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY id DESC limit 0,100');
 			$this->query_theme_select_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE themetype IN (:type) ORDER BY :sort DESC limit 0,100');
 			$this->query_theme_select_olderthan = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE id < :olderthan ORDER BY id DESC limit 0,100');
 			$this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
@@ -119,7 +118,7 @@ class History
 	
 	public function saveTheme($themeInfo, $update = false)
 	{
-		// If theme hash already exists return immediately
+	  // If theme hash already exists return immediately
 		$q = $this->db->query('SELECT id from theme where hash = '.$this->db->quote($themeInfo->hash));
 		$row = $q->fetch();
 		
@@ -132,7 +131,7 @@ class History
 			{
 				$id = intval($row[0]);
 				$this->query_theme_update_score->bindValue(':themeUri', 		 $themeInfo->themeUri, \PDO::PARAM_STR);
-				$this->query_theme_update_score->bindValue(':themedir', 		 $themeInfo->themedir, \PDO::PARAM_STR);
+				$this->query_theme_update_score->bindValue(':namedemo', 		 $themeInfo->namedemo, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':score', 				 $themeInfo->score, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':criticalCount', $themeInfo->criticalCount, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':cmsVersion', 	 $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -145,7 +144,6 @@ class History
 				$this->query_theme_update_score->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isPiqpaq', $themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
-				$this->query_theme_update_score->bindValue(':modificationDate', $themeInfo->modificationDate, \PDO::PARAM_INT);
 				$this->query_theme_update_score->bindValue(':validationDate', $themeInfo->validationDate, \PDO::PARAM_INT);
 				$this->query_theme_update_score->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
 				
@@ -185,7 +183,7 @@ class History
 																																		 hash_sha1=:hash_sha1,
 																																		 name=:name,
 																																		 namesanitized=:namesanitized,
-																																		 themedir=:themedir,
+																																		 namedemo=:namedemo,
 																																		 themetype=:themetype,
 																																		 parentId=:parentId,
 																																		 cmsVersion=:cmsVersion,
@@ -228,7 +226,7 @@ class History
 						$this->query_theme_update_all->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
+						$this->query_theme_update_all->bindValue(':namedemo', $themeInfo->namedemo, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':cmsVersion', $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -285,7 +283,7 @@ class History
 		$this->query_theme_insert->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
-		$this->query_theme_insert->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
+		$this->query_theme_insert->bindValue(':namedemo', $themeInfo->namedemo, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':cmsVersion', $themeInfo->cmsVersion, \PDO::PARAM_STR);
@@ -354,7 +352,7 @@ class History
 		$themeInfo->zipfilesize = $obj->zipfilesize;
 		$themeInfo->userIp = $obj->userIp;
 		$themeInfo->name = $obj->name;
-		$themeInfo->themedir = $obj->themedir;
+		$themeInfo->namedemo = $obj->namedemo;
 		$themeInfo->author = $obj->author;
 		$themeInfo->description = $obj->description;
 		$themeInfo->descriptionBB = $obj->descriptionBB;
@@ -431,28 +429,22 @@ class History
 				$ret[]=$row; 
 			}
 		} else {
-			// get theme info of id = $olderthan 
-			$query = $this->db->prepare('SELECT UNIX_TIMESTAMP(modificationDate) as modificationDate from theme WHERE id = :id');
-			$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
-			$query->execute();
-			$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
-			
-			$queryString = $this->query_theme_select_olderthan->queryString;
-			$queryString = str_replace(':olderthan', 'modificationDate < FROM_UNIXTIME('.$lastItem['modificationDate'].')', $queryString);
-			$query = $this->db->prepare($queryString);
-			$query->bindValue(':olderthan', $olderthan, \PDO::PARAM_STR);
-			$query->execute();
+			$this->query_theme_select_olderthan->bindValue(':olderthan', $olderthan, \PDO::PARAM_STR);
+			$this->query_theme_select_olderthan->execute();
 			$ret = array();
-			while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
+			while ($row = $this->query_theme_select_olderthan->fetch(\PDO::FETCH_ASSOC)) {
 				$ret[]=$row; 
 			}
 		}
 		return $ret;
 	}
 	
-	public function getSorted($sort, $type, $olderthan = null)
+	public function getSorted($sort, $type, $olderthan=null)
 	{
-		$themeType = array("wordpress"=>1, "joomla"=>2, "wordpress_child"=>4);
+	
+		$themeType = array("wordpress"=>1, "joomla"=>2);
+		//$orderBy = array("creationDate", "score");
+		$orderBy = array("id", "score");
 		
 		if(null==$olderthan)
 		{
@@ -460,31 +452,30 @@ class History
 		}
 		else
 		{
-		// $this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, 
-		//																	UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, 
-		//																	UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
-			$olderthan_quot = $this->db->quote($olderthan, \PDO::PARAM_INT);
 			$queryString = $this->query_theme_select_olderthan_sorted->queryString;
-						
+			
+			// get last if info
+			/*$query = $this->db->prepare('SELECT score,creationDate from theme WHERE id = :id');
+			$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
+			$query->execute();
+			$lastItem = $query->fetch(\PDO::FETCH_ASSOC);*/
+			
+			#gdsgsdg
+			
+			// sort by score
 			if($sort=="score")
 			{
 				$query = $this->db->prepare('SELECT score from theme WHERE id = :id');
 				$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
 				$query->execute();
-				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);				
-				$queryString = str_replace(':olderthan', 'score <= "'.$lastItem['score'].'"', $queryString);
-			}
-			else if($sort=="modificationDate")
-			{
-				// get theme info of id = $olderthan 
-				$query = $this->db->prepare('SELECT UNIX_TIMESTAMP(modificationDate) as modificationDate from theme WHERE id = :id');
-				$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
-				$query->execute();
 				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
-			
-				$queryString = str_replace(':olderthan', 'modificationDate < FROM_UNIXTIME('.$lastItem['modificationDate'].')', $queryString);
-			} else { // $sort=="id" and others
-				$queryString = str_replace(':olderthan', 'id < '.$olderthan_quot, $queryString);
+				$queryString = str_replace(':olderthan', 'score <= "'.$lastItem['score'].'" and id < '.intval($olderthan).'', $queryString);
+			}
+			// sort by creation date
+			else
+			{
+				//$queryString = str_replace(':olderthan', 'creationDate < "'.$lastItem['creationDate'].'" and id < '.intval($olderthan).'', $queryString);
+				$queryString = str_replace(':olderthan', 'id < '.intval($olderthan).'', $queryString);
 			}
 		}
 	
@@ -494,33 +485,26 @@ class History
 		{
 			if(array_key_exists($v, $themeType)){
 				$r[]= $this->db->quote($themeType[$v]);
-				if ($v == "wordpress") // when asking wordpress, display child too
-				{
-					$r[]= $this->db->quote($themeType["wordpress_child"]);
-				}
 			}
 		}
 		$type = implode(",", $r);
 
 		$queryString = str_replace(':type', $type, $queryString);
 		
-		// order by
-		if ($sort == "modificationDate") $queryString = str_replace(':sort', 'modificationDate', $queryString);
-		else if ($sort == "score") $queryString = str_replace(':sort', 'score DESC, modificationDate', $queryString);
-		else $queryString = str_replace(':sort', 'id', $queryString);
-				
+		// order
+		if(in_array($sort, $orderBy)){
+			$order = $sort;
+		} else {
+			$order = $orderBy[0];
+		}
+		$queryString = str_replace(':sort', $order, $queryString);
+		
 		$query = $this->db->prepare($queryString);
 		$query->execute();
 		
 		$ret = array();
-		$trouve = false;
 		while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
-			if ($sort == "score" && $olderthan !== null) { // only keep themes with the same score than $olderthan and that come AFTER $olderthan
-				if ($trouve) $ret[] = $row;
-				if ($row['id'] == $olderthan) $trouve = true;
-			} else {
-				$ret[]=$row; 
-			}
+			$ret[]=$row; 
 		}
 		return $ret;
 	}
@@ -568,26 +552,6 @@ class History
 		return $r;
 	}
 	
-	public function getFewInfoPreviousOne($id)
-	{
-		$previous_id = $id;
-		for ($i =0; $i < 10; $i++) // loop until we find 1
-		{
-			$previous_id--;
-			if ($previous_id == 0) return false;
-			$this->query_theme_select_id->bindValue(':id', $previous_id, \PDO::PARAM_INT);
-			$this->query_theme_select_id->execute();
-			$r = $this->query_theme_select_id->fetch();
-			if (!empty($r["parentId"])) {
-				$rParent = $this->getFewInfo(intval($r["parentId"]));
-				$r["parentName"] = $rParent["name"];
-			}
-			
-			if (!empty($r["id"])) break;
-		}
-
-		return $r;
-	}
 	public function getInfoFromId($id)
 	{
 		$this->query_theme_select_id->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -708,7 +672,7 @@ class History
      
         public function getNameIsOpenSource()
         {
-            $query = $this->db->query("SELECT themedir,zipfilename,license,themetype"
+            $query = $this->db->query("SELECT namedemo,zipfilename,license,themetype"
                     . "FROM theme WHERE ISNULL(isOpenSource)");
             $query->execute();
             $datas = array();
@@ -720,11 +684,11 @@ class History
             return $datas;
         }
         
-        public function updateIsOpenSource($value,$themedir)
+        public function updateIsOpenSource($value,$namedemo)
         {
-            $query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE themedir=:themedir");
+            $query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE namedemo=:namedemo");
             $query->bindValue(':isOpenSource',$value,\PDO::PARAM_BOOL);
-            $query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
+            $query->bindValue(':namedemo',$namedemo,\PDO::PARAM_STR);
             $query->execute();
         }
 		

@@ -11,7 +11,7 @@ Please add your contribution to improve the checks !
 
 ## License 
 
-GPLv2
+MIT
 
 
 ## Installation 
