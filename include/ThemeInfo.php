@@ -389,13 +389,22 @@ class ThemeInfo
 		
 		$this->validationDate = time();
 		$this->license = self::getLicense($rawlicense);
-		if (preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $rawlicense, $match) && !empty($match) && count($match)==2) // if contains an url
-		{
-			$this->licenseUri = trim($match[1]);
+		
+		// check URIs. Invalid URIs are changed to null
+		if ($this->license == TC_LICENSE_CUSTOM) {
+			$this->licenseText = $rawlicense;
+			
+			if (preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $rawlicense, $match) && !empty($match) && count($match)==2) // if contains an url
+			{
+				$this->licenseUri = trim($match[1]);
+			}
+			if (!empty($this->licenseUri) && !self::urlExists($this->licenseUri)) $this->licenseUri = null; // check 404s and other http errors
 		}
-		if (empty($this->licenseUri)) $this->licenseUri = self::getLicenseUri($this->license);
-		if ($this->license == TC_LICENSE_CUSTOM) $this->licenseText = $rawlicense;
-
+		else $this->licenseUri = self::getLicenseUri($this->license);
+		
+		if (!empty($this->themeUri) && !self::urlExists($this->themeUri)) $this->themeUri = null; // check 404s and other http errors
+		if (!empty($this->authorUri) && !self::urlExists($this->authorUri)) $this->authorUri = null; // check 404s and other http errors
+		
 		$this->hasBacklinKey = false;
 		
 		$this->filesIncluded = '';
@@ -788,5 +797,11 @@ class ThemeInfo
 
 		if (isset($names[$licenseId])) return $names[$licenseId];
 		return '';
+	}
+	
+	static public function urlExists($url)
+	{
+		if (!$fp = curl_init($url)) return false;
+		return true;
 	}
 }

@@ -23,9 +23,9 @@ class CommentPagination extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __all("Comment pagination");
-			$this->checks = array(
-						new CommentPagination_Checker('COMMENT_PAGINATION', TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
-			);
+		$this->title = __all("Comment pagination");
+		$this->checks = array(
+					new CommentPagination_Checker('COMMENT_PAGINATION', TT_WORDPRESS, ERRORLEVEL_WARNING, __all("Declaration of comment pagination"), "paginate_comments_links previous_comments_link next_comments_link", 'ut_commentpagination.zip')
+		);
     }
 }

@@ -25,21 +25,21 @@ class Cdn extends Check
 {	
     protected function createChecks()
     {
-			$this->title = __all("Cdn");
-			$this->checks = array(
-						new Cdn_Checker('CDN', TT_COMMON, ERRORLEVEL_WARNING, __all("Use of CDN"), 
-									array(
-										'bootstrap-maxcdn'      => 'maxcdn.bootstrapcdn.com/bootstrap',
-										'bootstrap-netdna'      => 'netdna.bootstrapcdn.com/bootstrap',
-										'bootswatch-maxcdn'     => 'maxcdn.bootstrapcdn.com/bootswatch',
-										'bootswatch-netdna'     => 'netdna.bootstrapcdn.com/bootswatch',
-										'font-awesome-maxcdn'   => 'maxcdn.bootstrapcdn.com/font-awesome',
-										'font-awesome-netdna'   => 'netdna.bootstrapcdn.com/font-awesome',
-										'html5shiv-google'      => 'html5shiv.googlecode.com/svn/trunk/html5.js',
-										'html5shiv-maxcdn'      => 'oss.maxcdn.com/libs/html5shiv',
-										'jquery'                => 'code.jquery.com/jquery-',
-										'respond-js'            => 'oss.maxcdn.com/libs/respond.js',
-									) , 'ut_cdn.zip')
-			);
+		$this->title = __all("Cdn");
+		$this->checks = array(
+					new Cdn_Checker('CDN', TT_COMMON, ERRORLEVEL_WARNING, __all("Use of CDN"), 
+								array(
+									'bootstrap-maxcdn'      => 'maxcdn.bootstrapcdn.com/bootstrap',
+									'bootstrap-netdna'      => 'netdna.bootstrapcdn.com/bootstrap',
+									'bootswatch-maxcdn'     => 'maxcdn.bootstrapcdn.com/bootswatch',
+									'bootswatch-netdna'     => 'netdna.bootstrapcdn.com/bootswatch',
+									'font-awesome-maxcdn'   => 'maxcdn.bootstrapcdn.com/font-awesome',
+									'font-awesome-netdna'   => 'netdna.bootstrapcdn.com/font-awesome',
+									'html5shiv-google'      => 'html5shiv.googlecode.com/svn/trunk/html5.js',
+									'html5shiv-maxcdn'      => 'oss.maxcdn.com/libs/html5shiv',
+									'jquery'                => 'code.jquery.com/jquery-',
+									'respond-js'            => 'oss.maxcdn.com/libs/respond.js',
+								) , 'ut_cdn.zip')
+		);
     }
 }

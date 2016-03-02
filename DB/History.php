@@ -51,7 +51,7 @@ class History
                             FROM_UNIXTIME(:modificationDate), FROM_UNIXTIME(:validationDate),:isOpenSource)');
 			
 			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, '
-                                . 'themedir=:themedir, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
+                                . 'themedir=:themedir, authorUri=:authorUri, licenseUri=:licenseUri, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
                                 . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
                                 . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), modificationDate=FROM_UNIXTIME(:modificationDate), description=:description, '
@@ -131,7 +131,9 @@ class History
 			if ($update)
 			{
 				$id = intval($row[0]);
+				$this->query_theme_update_score->bindValue(':licenseUri', 		 $themeInfo->licenseUri, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':themeUri', 		 $themeInfo->themeUri, \PDO::PARAM_STR);
+				$this->query_theme_update_score->bindValue(':authorUri', 		 $themeInfo->authorUri, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':themedir', 		 $themeInfo->themedir, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':score', 				 $themeInfo->score, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':criticalCount', $themeInfo->criticalCount, \PDO::PARAM_STR);
