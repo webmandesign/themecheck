@@ -246,7 +246,7 @@ class TextDomain_Checker extends CheckPart
 									$filename = tc_filename( $php_key );
 									$this->messages[] = __all('Found a translation function that has an incorrect number of arguments. Function %1$s, with the arguments %2$s in file %3$s.', 
 																'<strong>' . $func . '</strong>',
-																'<strong>' . implode(', ',$new_args) . '</strong>',
+																'<strong>' . htmlspecialchars( implode(', ',$new_args) ). '</strong>',
 																'<strong>' . $filename . '</strong>');
 																
 									$this->errorLevel = $this->threatLevel;
@@ -277,7 +277,7 @@ class TextDomain_Checker extends CheckPart
 								$filename = tc_filename( $php_key );
 								$this->messages[] = __all('Found a translation function that is missing a text-domain. Function %1$s, with the arguments %2$s in file %3$s.', 
 																'<strong>' . $func . '</strong>',
-																'<strong>' . implode(', ',$args) . '</strong>',
+																'<strong>' . htmlspecialchars( implode(', ',$args)) . '</strong>',
 																'<strong>' . $filename . '</strong>');
 																
 								$this->errorLevel = $this->threatLevel;
