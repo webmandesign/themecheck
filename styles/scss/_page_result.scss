@@ -353,10 +353,11 @@
                                                             display: inline-block;
 
                                                                 .text_iframe{
+                                                                        display: block;
                                                                         width: 260px;
                                                                         height: 66px;
                                                                         word-break: break-word;
-                                                                        font-size: 10px;
+                                                                        font-size: 9px;
                                                                         padding: 10px 10px;
                                                                         border: 1px solid #e3e6e6; 
                                                                         border-radius: 5px;
@@ -543,10 +544,22 @@
 						li{
 							padding: 29px 0 0 30px;
 							font-weight: normal;
+                                                        
+                                                        pre
+                                                        {
+                                                            background : #FFF;
+                                                            color : #333;
+                                                            padding : 10px;
+                                                            border-radius: 2px;
+                                                            border : 1px solid #ddd;
+                                                            font-size : 11px;
+                                                            margin-bottom : 2px;
+                                                        }
 
 							.message_alert{
 								font-size: 18px;
 								@include RobotoLt;
+                                                            
 							}
 							
 							.file_default,
@@ -557,21 +570,6 @@
 								color: #ff8d7e;
 								margin: 7px 0 2px 0;
                                                                 word-break: break-word;
-							}
-                                                        
-                                                        input{
-                                                            word-break: break-word;
-                                                        }
-							
-							.line_default{
-							    display: block;
-							
-							    input{
-							    	width: 100%;
-							    	height: 40px;
-							    	padding-left: 10px;
-							    	border-radius: 5px;
-							    }
 							}
 							
 						}
@@ -586,6 +584,13 @@
 				}
 
 			}
+                        .container_critical{
+                            .descript_alert{
+                                  a{
+                                        color: white;
+                                    }
+                            }
+                        }
 
 			.container_warning{
 				background-color: #EE8232;
@@ -609,16 +614,24 @@
 								font-size: 11px;
 								@include Lucida;
 								color: #ffbb88;
+                                                                
+                                                                a{
+                                                                    color: #ffbb88;
+                                                                }
 							}
+                                                        
+                                                          a{
+                                                            color: white;
+                                                        }
 
 						}
 
 						.ligne_warning{
-								border-bottom: 1px dotted #ffbb88;
-								display: block;
-								margin-left: -55px;
-								margin-top: 24px;
-							}
+                                                        border-bottom: 1px dotted #ffbb88;
+                                                        display: block;
+                                                        margin-left: -55px;
+                                                        margin-top: 24px;
+                                                }
 					}
 					
 				}
@@ -644,6 +657,10 @@
 
 							.info_alert{
 								color: #7d7d7d;
+                                                                
+                                                                  a{
+                                                                    color: #7d7d7d;
+                                                                }
 							}
 
 						}
@@ -716,12 +733,13 @@
                                                                     .score_verif{
                                                                         position: relative;
                                                                         top: 8px;
-                                                                        left: 8px;
+                                                                        left: 9px;
                                                                         @include RobotoBd;
                                                                         font-size: 26px;
+                                                                        letter-spacing: -1px; 
                                                                         
-                                                                        &.addLeft{
-                                                                            left: 15px;
+                                                                        &.addLeft{ 
+                                                                            left: 17px;
                                                                         }
                                                                     }
 								}

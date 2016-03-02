@@ -36,8 +36,6 @@
 		// CHECK DEVICE
 			checkDevice();
 
-		// INIT CUIR
-			$('html').cuir();
 		
 		// MENU MOBILE
 		$('#icon_menu_mobile').on('click', switchMenu);
@@ -155,27 +153,33 @@
 	};
 
 	scrollDown = function()
-	{
-	    var anchor = $(this).attr('href');
-            var posAnchor = $(anchor).offset().top;
-            if(anchor == "#warningAlerts")
+	{ 
+	    var urlAnchor = $(this).attr('href');
+            var splitUrl = urlAnchor.split('#');
+            
+            if(splitUrl.length <= 2)
             {
-                posAnchor = posAnchor - 70;
+                var anchor = '#'+splitUrl[1];
+                var posAnchor = $(anchor).offset().top; 
+                if(anchor == "#warningAlerts")
+                {
+                    posAnchor = posAnchor - 70;
+                }
+                else if(anchor == "#criticalAlerts")
+                {
+                    posAnchor = posAnchor - 10;
+                }
+
+                $('html, body').animate({
+                    scrollTop: posAnchor + 'px'
+                }, 500, function()
+                {
+                    if(checkDevice() == 'isMobile')
+                    {
+                            $('#menu').removeClass('open');
+                    }
+                });
             }
-            else if(anchor == "#criticalAlerts")
-            {
-                posAnchor = posAnchor - 10;
-            }
-	 
-	    $('html, body').animate({
-	        scrollTop: posAnchor + 'px'
-	    }, 500, function()
-	    {
-	    	if(checkDevice() == 'isMobile')
-	    	{
-	    		$('#menu').removeClass('open');
-	    	}
-	    });
 
 	    return false;
 	};

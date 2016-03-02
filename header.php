@@ -19,9 +19,9 @@ namespace ThemeCheck;
 		<meta property="og:title" content="<?php echo $controller->meta["title"]; ?>" />
 		<meta property="og:description" content="<?php echo $controller->meta["description"]; ?>" />
 		
-		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/bootstrap.css"/>
+		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/bootstrap-dist.css"/>
 <!--		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
-		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/main.css">-->
+		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/main.css"> -->
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/styles.css"/>
 
                 <link href='https://fonts.googleapis.com/css?family=Roboto:300,100,bold' rel='stylesheet' type='text/css'/>
@@ -29,27 +29,15 @@ namespace ThemeCheck;
 		<link href='http://fonts.googleapis.com/css?family=Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
 		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/<?php if(isset($controller->meta["favicon"])){echo $controller->meta["favicon"];} else { echo "favicon"; };?>.ico" />
 		<link rel="icon" type="image/png" href="<?php echo TC_HTTPDOMAIN;?>/<?php if(isset($controller->meta["favicon"])){echo $controller->meta["favicon"];} else { echo "favicon"; };?>.png" />
-		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+		<script>window.jQuery || document.write('<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/jquery/jquery-1.11.1.min.js"><\/script>')</script>
 
 		
 		<script>
 			var domain_site = "<?php echo TC_HTTPDOMAIN; ?>"; 
 		</script>
-		<style>
-				pre
-				{
-					background : #FFF;
-					color : #333;
-					padding : 10px;
-					border-radius: 2px;
-					border : 1px solid #ddd;
-					font-size : 11px;
-					margin-bottom : 2px;
-					white-space: pre-wrap;
-				}
-		</style>
+		
 	</head>
 	<body>
             <script>

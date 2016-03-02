@@ -52,10 +52,8 @@ class Controller_results
 				$m = filemtime(TC_INCDIR.'/Checks/'.$f);
 				if($youngestCheckTimestamp < $m) $youngestCheckTimestamp = $m;
 			}
-			
 			if ($this->fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
 			{
-			
 				$this->fileValidator->validate();	
 				
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
@@ -67,11 +65,10 @@ class Controller_results
 		{
 			if(TC_ENVIRONMENT == "dev" || isset($_SESSION['token_'.$_POST['token']]))
 			{
-				//unset($_SESSION['token_'.$_POST['token']]);
+				unset($_SESSION['token_'.$_POST['token']]);
 				$themeInfo = FileValidator::upload();
 				if ($themeInfo)
 				{
-					$themeInfo->modificationDate = time(); // set modificationDate only at upload
 					$this->fileValidator = new FileValidator($themeInfo);
 					$this->fileValidator->validate();
 					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
@@ -89,7 +86,7 @@ class Controller_results
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 				}
 			} else {
-				UserMessage::enqueue(__("Invalid form"), ERRORLEVEL_FATAL);
+				UserMessage::enqueue(__("Unvalid form"), ERRORLEVEL_FATAL);
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
@@ -146,6 +143,7 @@ class Controller_results
 	
 	public function render()
 	{
+      
 ?>
         <script type="text/javascript"> var page="results" </script>
 <?php 
@@ -335,13 +333,13 @@ class Controller_results
         
         /* New Integration*/
        
-        $('.iframe_result_theme .text_iframe').attr('value', $("#select_banner_style option:selected").val());
+        $('.iframe_result_theme .text_iframe').text(($("#select_banner_style option:selected").val()));//($("#select_banner_style option:selected").innerHtml);
         
         $('#select_banner_style').change(function(){
            
            var valueIframe = $("#select_banner_style option:selected").val(); 
             
-           $('.iframe_result_theme .text_iframe').attr('value', valueIframe);
+           $('.iframe_result_theme .text_iframe').text(valueIframe);
         
         });
         
@@ -353,7 +351,7 @@ class Controller_results
         }
         
     </script>
- <!--   <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>-->
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 <!--    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>-->
     
                             <?php
@@ -374,17 +372,12 @@ class Controller_results
                             <?php
                                     $history = new History();
                                     $id = intval($history->getIdFromHash($themeInfo->hash)); 
-
-									$cur_id = $id + 2;
-
-									for ($i = 0; $i < 3; $i++)
+                                    for ($i = 1; $i > -3; $i--)
                                     {
-                                         //   if ($i == 0) $i--; 
-                                            $r = $history->getFewInfoPreviousOne($cur_id); 
+                                            if ($i == 0) $i--; // not the current one
+                                            $r = $history->getFewInfo($id + $i); 
                                             if ($r !== false)
                                             {
-													$cur_id = $r['id'];
-													if ($cur_id == $id) {$i --; continue;}// not the current one
                                                     $html = '';
                                                     $namesanitized = $r['namesanitized'];
                                                     $themetype = $r['themetype'];
@@ -434,7 +427,7 @@ class Controller_results
                                                     $html .= '</div>';
                                                     
                                                     echo $html;
-                                            } 
+                                            }
                                     }
                             ?>          
                                             </div>
@@ -534,7 +527,7 @@ class Controller_results
                                                 </div>-->
                                             </div>
                                             <div class="iframe_result_theme">
-                                                <input type="text" class="text_iframe" value="" readonly/>
+                                                <span class="text_iframe"></span>
                                            </div>
                                         </div>
                               
@@ -578,7 +571,7 @@ class Controller_results
                                             if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("Joomla template"));
                                             else $characteristics[] = array(__("Theme type"), __("Joomla template").' '.$themeInfo->cmsVersion);		
                                     $characteristics[] = array(__("File name"), htmlspecialchars($themeInfo->zipfilename, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
-                                    $characteristics[] = array(__("File size"), number_format($themeInfo->zipfilesize, 0, '.', ' ').' '.__('bytes'));
+                                    $characteristics[] = array(__("File size"), $themeInfo->zipfilesize.' '.__('bytes'));
                                     $characteristics[] = array(__("MD5"), strtolower($themeInfo->hash_md5));
                                     $characteristics[] = array(__("SHA1"), strtolower($themeInfo->hash_sha1));
 

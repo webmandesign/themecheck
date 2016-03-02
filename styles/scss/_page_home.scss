@@ -513,9 +513,10 @@
                                                                                         left: 10px;
                                                                                         font-size: 24px;
                                                                                         @include RobotoBd;
+                                                                                        letter-spacing: -1px;
                                                                                        
                                                                                          &.addLeft{
-                                                                                            left: 15px;
+                                                                                            left: 17px;
                                                                                         }
                                                                                     }
                                                                                 }

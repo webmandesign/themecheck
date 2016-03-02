@@ -119,7 +119,7 @@ class Controller_home
 	}
 	
 	public function render()
-	{
+	{   
 ?>
         <script type="text/javascript"> var page="home" </script>
 <?php
@@ -165,9 +165,9 @@ class Controller_home
 
                                 <div class="container_file_submit" id="container_file_submit">
                                     <div class="content_file">
-                                            <input type="text" id="selected_file" class="selected_file" disabled="disabled"/>
-                                            <input type="file" name="new_file" id="new_file" class="fake_input"/>
-                                            <label for="new_file" class="new_file"><span class="sprite grey_cross"></span></label>
+                                            <input type="text" id="selected_file" class="selected_file" disabled="disabled" value=""/>
+                                            <!-- <input type="file" name="new_file" id="new_file" class="fake_input"/> -->
+                                            <label for="file" class="new_file"><span class="sprite grey_cross"></span></label>
                                     </div>
                                     <div class="content_submit">
                                         <input type="submit" id="submit" class="fake_input"/>
@@ -276,7 +276,7 @@ class Controller_home
                                         <div class="select_cms">
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
-                                            
+    
                                             <input type='checkbox' name='theme[]' value='wordpress' id="wordpress"<?php if(isset($_SESSION['theme'])){if(in_array("wordpress",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class="sortdropdown fake_input"/>
                                             <input type='checkbox' name='theme[]' value='joomla' id="joomla"<?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class="sortdropdown fake_input"/>
                                             
@@ -290,8 +290,8 @@ class Controller_home
                                         <div class="select_first">
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
-                                            <select name='sort' class='sortdropdown fake_input' id="select_hidden">
-                                                <option value='modificationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='modificationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
+                                             <select name='sort' class='sortdropdown fake_input' id="select_hidden">
+                                                <option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
                                                 <option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?>></option>
                                             </select>
                                             <div class="selectOptions" id="selectOptionsFirst">
@@ -302,6 +302,46 @@ class Controller_home
                                     </div>
                                 </form>
                             </div>
+                 
+                        <?php  if(isset($_SESSION['theme']))
+                               {
+                                    if(count($_SESSION['theme']) < 2)
+                                    {  print_r($_SESSION['theme'][0]);
+                        ?>
+                                        <script type="text/javascript"> 
+                                          
+                                        var sessionTheme = <?php echo $_SESSION['theme'][0]; ?>; 
+                                      //  console.log(sessionTheme['value']);
+                                            
+                                        $('div.select_cms').each(function(){
+                                            
+                                           console.log($(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption').attr('value')));
+                                            //console.log($(this).attr('value'));
+//                                            $(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption').html());
+//                                            $(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+                                            
+                                        });
+                                                
+                                          
+                                        
+                                        </script>
+                        <?php
+                                    }
+                               }
+                               
+                               if(isset($_SESSION['sort']))
+                               {
+                        ?>
+                                    <script type="text/javascript"> 
+                                        
+                                        var sessionSort = <?php echo $_SESSION['sort'][0]; ?>; 
+                                        
+                                    
+                                    </script>
+                        <?php
+                               }
+                        ?>
+                           
 
                             <div class="block_container_themes">
                                 <div class="container_themes">
@@ -372,24 +412,24 @@ class Controller_home
                                 function ajaxSelectItem()
                                 {
                                     $.ajax({
-										type: "POST",
-										url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
-										data: $("#sortform").serialize()
-									}).done(function(obj){
-										$("#alreadyvalidated").html(obj.html);
-									}); 
+						type: "POST",
+						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
+						data: $("#sortform").serialize()
+					}).done(function(obj){
+						$("#alreadyvalidated").html(obj.html);
+					}); 
                                 }
                                 
                                 $('#selectOptionsFirst .selectOption').on("click", function(){ 
                                   
-                                    if($(this).html() == 'Higher scores first')
+                                    if(($(this).html() == 'Higher scores first') || ($(this).html() == 'Meilleurs scores en premier'))
                                     {
                                         $('#select_hidden option[value="score"]').attr('selected', true);
-                                        $('#select_hidden option[value="modificationDate"]').attr('selected', false);
+                                        $('#select_hidden option[value="id"]').attr('selected', false);
                                     }
                                     else
                                     {
-                                        $('#select_hidden option[value="modificationDate"]').attr('selected', true);
+                                        $('#select_hidden option[value="id"]').attr('selected', true);
                                         $('#select_hidden option[value="score"]').attr('selected', false);
                                     }
                                  
@@ -397,7 +437,7 @@ class Controller_home
                                 });
                                 
                                 
-                                $('#filterThemes .selectOption').on("click", function(){ 
+                                 $('#filterThemes .selectOption').on("click", function(){ 
                                    
                                    var selected = $(this).attr('value'); //theme selected
                                    var select_cms = $('.select_cms input[type=checkbox]'); //input hidden
@@ -420,6 +460,7 @@ class Controller_home
                                    
                                    ajaxSelectItem();
                                 });
+                                
                                 
 				</script>
 				<?php
@@ -470,7 +511,7 @@ class Controller_home
 		{
 			$_SESSION['sort'] = $_POST['sort'];
 			$_SESSION['theme'] = $_POST['theme'];
-
+		
 			$history = new History();
 			
 			$pagination = $history->getSorted($_POST['sort'], $_POST['theme']);

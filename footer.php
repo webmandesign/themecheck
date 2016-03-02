@@ -53,16 +53,15 @@ namespace ThemeCheck;
 			</div>
 		</footer>
 	</div>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/bootstrap.min.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/js/vendor/bootstrap-filestyle.min.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/js/plugins.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/js/main.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/vendor/bootstrap.min.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/vendor/bootstrap-filestyle.min.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/plugins.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/popup.js"></script>
 
 		<!-- JS NEW INTEGRATION -->
 		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/jquery/jquery-1.11.1.min.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/peoleo/cuir.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Main.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Main-dist.js"></script>
+		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home-dist.js"></script>
 
 	</body>
 </html>
