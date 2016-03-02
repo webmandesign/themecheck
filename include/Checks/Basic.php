@@ -40,7 +40,7 @@ class Basic extends Check
 					new Basic_Checker('BASIC_WP_COMMENTS_TEMPLATE', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/comments_template">comments_template()</a>'), 'comments_template\s*\(', 'ut_basic_comments_template.zip'),
 					new Basic_Checker('BASIC_WP_LIST_COMMENTS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/wp_list_comments">wp_list_comments()</a>'), 'wp_list_comments\s*\(', 'ut_basic_wp_list_comments.zip'),
 					new Basic_Checker('BASIC_WP_COMMENT_FORM', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/comment_form">comment_form()</a>'), 'comment_form\s*\(', 'ut_basic_comment_form.zip'),
-					new Basic_Checker('BASIC_WP_BODY_CLASS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/body_class">body_class()</a>'), '<body.*body_class\s*\(', 'ut_basic_body_class.zip'),
+					new Basic_Checker('BASIC_WP_BODY_CLASS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/body_class">body_class()</a>'), 'body_class\s*\(', 'ut_basic_body_class.zip'),
 					new Basic_Checker('BASIC_WP_LINK_PAGES', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Function_Reference/wp_link_pages">wp_link_pages()</a>'), 'wp_link_pages\s*\(', 'ut_basic_wp_link_pages.zip'),
 					new Basic_Checker('BASIC_WP_POST_CLASS', TT_WORDPRESS, ERRORLEVEL_WARNING, __all('Presence of <a href="https://codex.wordpress.org/Template_Tags/post_class">post_class()</a>'), 'post_class\s*\(', 'ut_basic_post_class.zip'),
 		);
