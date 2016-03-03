@@ -302,47 +302,59 @@ class Controller_home
                                     </div>
                                 </form>
                             </div>
-                 
-                        <?php  if(isset($_SESSION['theme']))
-                               {
+                            <script type="text/javascript"> 
+                                var sessionTheme = "";
+                                var sessionSort = "";
+                            </script>
+                
+                       <?php  if(isset($_SESSION['theme']))
+                               { 
                                     if(count($_SESSION['theme']) < 2)
-                                    {  print_r($_SESSION['theme'][0]);
-                        ?>
+                                    {  
+                              
+                                ?>
                                         <script type="text/javascript"> 
                                           
-                                        var sessionTheme = <?php echo $_SESSION['theme'][0]; ?>; 
-                                      //  console.log(sessionTheme['value']);
-                                            
-                                        $('div.select_cms').each(function(){
-                                            
-                                           console.log($(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption').attr('value')));
-                                            //console.log($(this).attr('value'));
-//                                            $(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption').html());
-//                                            $(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
-                                            
+                                        sessionTheme = <?php echo $_SESSION['theme'][0]; ?>; 
+                                       
+                                        $('div.select_cms .selectOptions .selectOption').each(function(){
+
+                                            if($(this).attr('value') == sessionTheme['value'])
+                                            {
+                                                $(this).closest('div.select_cms').attr('value',$(this).attr('value'));
+                                                $(this).parent().siblings('span.selected').html($(this).html());
+                                            }
                                         });
-                                                
-                                          
-                                        
+    
                                         </script>
                         <?php
                                     }
                                }
                                
-                               if(isset($_SESSION['sort']))
+                               if(isset($_SESSION['sort']) && $_SESSION['sort'] != 'id')
                                {
-                        ?>
-                                    <script type="text/javascript"> 
+
+                            ?>
+                                        <script type="text/javascript">                              
+
+                                        $('div.select_first .selectOptions .selectOption').each(function(){
+
+                                            if($(this).html() == 'Higher scores first' || $(this).html() == 'Meilleurs scores en premier')
+                                            {
+                                                $(this).closest('div.select_first').attr('value',$(this).attr('value'));
+                                                $(this).parent().siblings('span.selected').html($(this).html());
+
+                                                sessionSort = $(this).html();
+                                            }
+                                        });
+    
                                         
-                                        var sessionSort = <?php echo $_SESSION['sort'][0]; ?>; 
-                                        
-                                    
-                                    </script>
-                        <?php
+                                        </script>
+                            <?php
+                               
                                }
                         ?>
-                           
-
+                        
                             <div class="block_container_themes">
                                 <div class="container_themes">
                 <?php
@@ -383,7 +395,10 @@ class Controller_home
                     </div>
                 </div>	
             </section>
-				<script>
+
+            <script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home-dist.js"></script>
+
+			<script>
 				  $('#seemore-btn').click(function () { 
 						$.ajax({
 							type: "POST",
