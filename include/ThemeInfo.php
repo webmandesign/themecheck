@@ -402,8 +402,8 @@ class ThemeInfo
 		}
 		else $this->licenseUri = self::getLicenseUri($this->license);
 		
-		if (!empty($this->themeUri) && !self::urlExists($this->themeUri)) $this->themeUri = null; // check 404s and other http errors
-		if (!empty($this->authorUri) && !self::urlExists($this->authorUri)) $this->authorUri = null; // check 404s and other http errors
+		if (!empty($this->themeUri) && !(preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $this->themeUri) || self::urlExists($this->themeUri))) $this->themeUri = null; // check 404s and other http errors
+		if (!empty($this->authorUri) && !(preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $this->themeUri) || self::urlExists($this->authorUri))) $this->authorUri = null; // check 404s and other http errors
 		
 		$this->hasBacklinKey = false;
 		
