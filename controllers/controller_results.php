@@ -97,12 +97,19 @@ class Controller_results
 
 		if (!empty($themeInfo))
 		{
+			$prefix = '';
 			if ($themeInfo->themetype == TT_JOOMLA)
 			{
-				$this->meta["title"] = sprintf(__("%s%% : Joomla template %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
+				if (strpos(strtolower($themeInfo->name), 'joomla') === false) $prefix .= " Joomla";
+				if (strpos(strtolower($themeInfo->name), 'template') === false) $prefix .= " template";
+				if ($prefix == " Joomla template") $prefix = __(" Joomla template");
+				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
 			} else {
-				$this->meta["title"] = sprintf(__("%s%% : WordPress theme %s"), htmlspecialchars($themeInfo->score), htmlspecialchars($themeInfo->name));
+				if (strpos(strtolower($themeInfo->name), 'wordpress') === false) $prefix .= " WordPress";
+				if (strpos(strtolower($themeInfo->name), 'theme') === false) $prefix .= " theme";
+				if ($prefix == " WordPress theme") $prefix = __(" WordPress theme");
+				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of WordPress theme %s."), htmlspecialchars($themeInfo->name));
 			}
 			
