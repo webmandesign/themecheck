@@ -65,7 +65,7 @@ class History
 			$this->query_theme_select_recent = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme ORDER BY modificationDate DESC limit 0,100');
 			$this->query_theme_select_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE themetype IN (:type) ORDER BY :sort DESC limit 0,100');
 			$this->query_theme_select_olderthan = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE id < :olderthan ORDER BY id DESC limit 0,100');
-			$this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC limit 0,100');
+			$this->query_theme_select_olderthan_sorted = $this->db->prepare('SELECT *,INET_NTOA(userIp) as userIp,HEX(hash_md5) as hash_md5, HEX(hash_sha1) as hash_sha1, UNIX_TIMESTAMP(creationDate) as creationDate, UNIX_TIMESTAMP(modificationDate) as modificationDate, UNIX_TIMESTAMP(validationDate) as validationDate from theme WHERE :olderthan AND themetype IN (:type) ORDER BY :sort DESC');
 			$this->query_theme_select_zipfilename = $this->db->prepare('SELECT id from theme WHERE zipfilename=:zipfilename');
 
 			$this->query_vulndb_select_vuln = $this->db->prepare('SELECT * FROM wpvulndb_vulnerabilities WHERE id=:id');
@@ -440,9 +440,9 @@ class History
 			$lastItem = $query->fetch(\PDO::FETCH_ASSOC);
 			
 			$queryString = $this->query_theme_select_olderthan->queryString;
-			$queryString = str_replace(':olderthan', 'modificationDate < FROM_UNIXTIME('.$lastItem['modificationDate'].')', $queryString);
+			$queryString = str_replace('id < :olderthan', 'modificationDate < FROM_UNIXTIME(:olderthanModificationDate)', $queryString);
 			$query = $this->db->prepare($queryString);
-			$query->bindValue(':olderthan', $olderthan, \PDO::PARAM_STR);
+			$query->bindValue(':olderthanModificationDate', $lastItem['modificationDate'], \PDO::PARAM_INT);
 			$query->execute();
 			$ret = array();
 			while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
@@ -474,7 +474,7 @@ class History
 				$query->bindValue(':id', $olderthan, \PDO::PARAM_INT);
 				$query->execute();
 				$lastItem = $query->fetch(\PDO::FETCH_ASSOC);				
-				$queryString = str_replace(':olderthan', 'score <= "'.$lastItem['score'].'"', $queryString);
+				$queryString = str_replace(':olderthan', 'score <= '.$lastItem['score'], $queryString);
 			}
 			else if($sort=="modificationDate")
 			{
@@ -510,19 +510,25 @@ class History
 		if ($sort == "modificationDate") $queryString = str_replace(':sort', 'modificationDate', $queryString);
 		else if ($sort == "score") $queryString = str_replace(':sort', 'score DESC, modificationDate', $queryString);
 		else $queryString = str_replace(':sort', 'id', $queryString);
-				
+		
 		$query = $this->db->prepare($queryString);
 		$query->execute();
 		
 		$ret = array();
 		$trouve = false;
+		$i = 0;
 		while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
 			if ($sort == "score" && $olderthan !== null) { // only keep themes with the same score than $olderthan and that come AFTER $olderthan
-				if ($trouve) $ret[] = $row;
+				if ($trouve) {
+					$ret[] = $row;
+					$i ++;
+				}
 				if ($row['id'] == $olderthan) $trouve = true;
 			} else {
 				$ret[]=$row; 
+				$i ++;
 			}
+			if ($i>= 100) break;
 		}
 		return $ret;
 	}
@@ -708,92 +714,92 @@ class History
 		return $ret;
 	}
      
-        public function getNameIsOpenSource()
-        {
-            $query = $this->db->query("SELECT themedir,zipfilename,license,themetype"
-                    . "FROM theme WHERE ISNULL(isOpenSource)");
-            $query->execute();
-            $datas = array();
-            while($row = $query->fetch())
-            {
-                $datas[] = $row; 
-            }
-           
-            return $datas;
-        }
-        
-        public function updateIsOpenSource($value,$themedir)
-        {
-            $query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE themedir=:themedir");
-            $query->bindValue(':isOpenSource',$value,\PDO::PARAM_BOOL);
-            $query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
-            $query->execute();
-        }
-		
-		public function getNumberOfTheme()
+	public function getNameIsOpenSource()
+	{
+		$query = $this->db->query("SELECT themedir,zipfilename,license,themetype"
+				. "FROM theme WHERE ISNULL(isOpenSource)");
+		$query->execute();
+		$datas = array();
+		while($row = $query->fetch())
 		{
-			$query = $this->db->query("SELECT COUNT('id') FROM theme");
-			$query->execute();
-			$data = $query->fetch();
-			
-			return $data;
+			$datas[] = $row; 
 		}
+	   
+		return $datas;
+	}
+	
+	public function updateIsOpenSource($value,$themedir)
+	{
+		$query = $this->db->prepare("UPDATE theme SET isOpenSource=:isOpenSource WHERE themedir=:themedir");
+		$query->bindValue(':isOpenSource',$value,\PDO::PARAM_BOOL);
+		$query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
+		$query->execute();
+	}
+	
+	public function getNumberOfTheme()
+	{
+		$query = $this->db->query("SELECT COUNT('id') FROM theme");
+		$query->execute();
+		$data = $query->fetch();
 		
-		public function upsertWpVuln($theme_hash, $wpVuln)
-		{
-			if ($wpVuln == null) return;
+		return $data;
+	}
+	
+	public function upsertWpVuln($theme_hash, $wpVuln)
+	{
+		if ($wpVuln == null) return;
 
-			$this->query_theme_vulndb_select->bindValue(':theme_hash', $theme_hash, \PDO::PARAM_STR);
-			$r= $this->query_theme_vulndb_select->execute();
-			$row = $this->query_theme_vulndb_select->fetch();
-			
-			if (!isset($row[0]))
+		$this->query_theme_vulndb_select->bindValue(':theme_hash', $theme_hash, \PDO::PARAM_STR);
+		$r= $this->query_theme_vulndb_select->execute();
+		$row = $this->query_theme_vulndb_select->fetch();
+		
+		if (!isset($row[0]))
+		{
+			$this->query_theme_vulndb_insert->bindValue(':theme_hash', $theme_hash, \PDO::PARAM_STR);
+			$this->query_theme_vulndb_insert->bindValue(':vuln_id', $wpVuln->id, \PDO::PARAM_INT);
+
+			$r = $this->query_theme_vulndb_insert->execute();
+			if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
 			{
-				$this->query_theme_vulndb_insert->bindValue(':theme_hash', $theme_hash, \PDO::PARAM_STR);
-				$this->query_theme_vulndb_insert->bindValue(':vuln_id', $wpVuln->id, \PDO::PARAM_INT);
-
-				$r = $this->query_theme_vulndb_insert->execute();
-				if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
-				{
-					$e = $this->query_theme_vulndb_insert->errorInfo();
-					trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
-				}
-			}
-
-			$references = implode(',', $wpVuln->references);
-			
-			$this->query_vulndb_select_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
-			$r= $this->query_vulndb_select_vuln->execute();
-			$row = $this->query_vulndb_select_vuln->fetch();
-			
-			if (isset($row[0]))
-			{	
-				$this->query_vulndb_update_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
-				$this->query_vulndb_update_vuln->bindValue(':title', $wpVuln->title, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':created_at', $wpVuln->created_at, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':updated_at', $wpVuln->updated_at, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':published_date', $wpVuln->published_date, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':vuln_type', $wpVuln->vuln_type, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':fixed_in', $wpVuln->fixed_in, \PDO::PARAM_STR);
-				$this->query_vulndb_update_vuln->bindValue(':references', $references, \PDO::PARAM_STR);
-
-				$r = $this->query_vulndb_update_vuln->execute();
-			} else {
-				$this->query_vulndb_insert_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
-				$this->query_vulndb_insert_vuln->bindValue(':title', $wpVuln->title, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':created_at', $wpVuln->created_at, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':updated_at', $wpVuln->updated_at, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':published_date', $wpVuln->published_date, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':vuln_type', $wpVuln->vuln_type, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':fixed_in', $wpVuln->fixed_in, \PDO::PARAM_STR);
-				$this->query_vulndb_insert_vuln->bindValue(':references', $references, \PDO::PARAM_STR);
-
-				$r = $this->query_vulndb_insert_vuln->execute();
-				if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
-				{
-					$e = $this->query_vulndb_insert_vuln->errorInfo();
-					trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
-				}
+				$e = $this->query_theme_vulndb_insert->errorInfo();
+				trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
 			}
 		}
+
+		$references = implode(',', $wpVuln->references);
+		
+		$this->query_vulndb_select_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
+		$r= $this->query_vulndb_select_vuln->execute();
+		$row = $this->query_vulndb_select_vuln->fetch();
+		
+		if (isset($row[0]))
+		{	
+			$this->query_vulndb_update_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
+			$this->query_vulndb_update_vuln->bindValue(':title', $wpVuln->title, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':created_at', $wpVuln->created_at, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':updated_at', $wpVuln->updated_at, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':published_date', $wpVuln->published_date, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':vuln_type', $wpVuln->vuln_type, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':fixed_in', $wpVuln->fixed_in, \PDO::PARAM_STR);
+			$this->query_vulndb_update_vuln->bindValue(':references', $references, \PDO::PARAM_STR);
+
+			$r = $this->query_vulndb_update_vuln->execute();
+		} else {
+			$this->query_vulndb_insert_vuln->bindValue(':id', $wpVuln->id, \PDO::PARAM_INT);
+			$this->query_vulndb_insert_vuln->bindValue(':title', $wpVuln->title, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':created_at', $wpVuln->created_at, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':updated_at', $wpVuln->updated_at, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':published_date', $wpVuln->published_date, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':vuln_type', $wpVuln->vuln_type, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':fixed_in', $wpVuln->fixed_in, \PDO::PARAM_STR);
+			$this->query_vulndb_insert_vuln->bindValue(':references', $references, \PDO::PARAM_STR);
+
+			$r = $this->query_vulndb_insert_vuln->execute();
+			if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
+			{
+				$e = $this->query_vulndb_insert_vuln->errorInfo();
+				trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
+			}
+		}
+	}
 }
