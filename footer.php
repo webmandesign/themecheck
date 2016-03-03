@@ -61,7 +61,7 @@ namespace ThemeCheck;
 		<!-- JS NEW INTEGRATION -->
 		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/jquery/jquery-1.11.1.min.js"></script>
 		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Main-dist.js"></script>
-		<script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home-dist.js"></script>
+		
 
 	</body>
 </html>

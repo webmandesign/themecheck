@@ -1,27 +1,37 @@
 /* -------------  Bouton Select -------------------- */
 
 $('#content').on('change','#file',function(){ 
-//			document.getElementById('container_file_submit').style.display = 'inline';
-//			document.getElementById('content_select').style.display = 'none';
-//			document.getElementById('selected_file').value = document.getElementById('file').value;
-//			document.getElementById('select_zip').className = 'submit_zip';
-                        var nameUpload = ($('#file').val()).substring(12,($('#file').val()).length);
 
-                        $('#container_file_submit').show();
-                        $('#content_select').hide();
-                        $('#selected_file').val(nameUpload);
-                        $('#select_zip').attr('class', 'submit_zip');
-					});
+		var nameUpload;
 
-/* ------------- Submit -------------------- */
+		if(navigator.userAgent.match(/chrome/i))
+		{
+            nameUpload = ($('#file').val()).substring(12,($('#file').val()).length);
+            console.log('navigator->chrome');
+        }
+        else
+        {
+        	nameUpload = ($('#file').val());
+        	console.log('autre navigator');
+        }
 
-$('#content').on('change','#new_file',function(){ 
+    $('#container_file_submit').show();
+    $('#content_select').hide();
+    $('#selected_file').val(nameUpload);
+    $('#select_zip').attr('class', 'submit_zip');
+});
+
+
+
+/*$('#content').on('change','#new_file',function(){ 
+
+
         var newUpload = $('#new_file').val();
         var nameNewUpload = newUpload.substring(12,newUpload.length);
        
         $('#selected_file').val(nameNewUpload);
    
-        });
+        });*/
 
 /* ----------- Select -------------*/
 
@@ -32,11 +42,16 @@ $(document).ready(function() {
 function enableSelectBoxes(){
 // All themes
 	$('div.select_cms').each(function(){
-		$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
-		$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+
+		if(sessionTheme == "")
+		{
+			$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
+			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+		}
+	
 		
             //Open Options    
-		$(this).children('span.selected,span.selectArrow').click(function(){
+		$(this).children('span.selected,span.selectArrow').on('click', function(){
 			if($(this).parent().children('div.selectOptions').css('display') == 'none'){
 				$(this).parent().children('div.selectOptions').css('display','block');
 			}
@@ -47,7 +62,7 @@ function enableSelectBoxes(){
 		});
 		
             //Close Options and change value   
-		$(this).find('span.selectOption').click(function(){
+		$(this).find('span.selectOption').on('click', function(){
 			$(this).parent().css('display','none');
 			$(this).closest('div.select_cms').attr('value',$(this).attr('value'));
 			$(this).parent().siblings('span.selected').html($(this).html());
@@ -56,10 +71,14 @@ function enableSelectBoxes(){
 
 // Recent themes
 	$('div.select_first').each(function(){
-		$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
-		$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+
+		if(sessionSort != 'Meilleurs scores en premier' && sessionSort != 'Higher scores first')
+		{
+			$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
+			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+		}
 		
-		$(this).children('span.selected,span.selectArrow').click(function(){
+		$(this).children('span.selected,span.selectArrow').on('click',function(){
 			if($(this).parent().children('div.selectOptions').css('display') == 'none'){
 				$(this).parent().children('div.selectOptions').css('display','block');
 			}
@@ -69,15 +88,16 @@ function enableSelectBoxes(){
 			}
 		});
 		
-		$(this).find('span.selectOption').click(function(){
+		$(this).find('span.selectOption').on('click',function(){
 			$(this).parent().css('display','none');
 			$(this).closest('div.select_first').attr('value',$(this).attr('value'));
-			$(this).parent().siblings('span.selected').html($(this).html());
+			$(this).parent().siblings('span.selected').html($(this).html()); 
 		});
 	});	
     
 
 }
+
 
 /* ---------- Checkbox -------------*/
 function check(id)
@@ -98,22 +118,3 @@ function check(id)
     }
 }
 
-
-// ----------------------------------- WINDOW LOAD -------------------------------------- 
-// --------------------------------------------------------------------------------------
-	
-    $(window).load(function()
-    {
-        /*default value select
-        $('#select_hidden option[value="id"]').attr('selected', true);
-        $('#select_hidden option[value="score"]').attr('selected', false);
-
-        $('.select_cms input[type=checkbox]')[0]['checked'] = true;
-        $('.select_cms input[type=checkbox]')[1]['checked'] = true;
-
-         ajaxSelectItem();*/
-        
-       //console.log($('#select_cms input:checked'));
-    });
-
-    
