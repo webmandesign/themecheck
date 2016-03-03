@@ -29,9 +29,9 @@ class LineEndings extends Check
 		//	$test = "windows style line ending\r\nunix style line ending\n";
 		//	file_put_contents('C:\xampp\htdocs\PIQPAQ\themecheck\include\unittests\index.php',$test);
 		
-			$this->title = __all("Line endings consistency");
-			$this->checks = array(
-						new LineEndings_Checker('LINEENDINGS', TT_COMMON, ERRORLEVEL_WARNING, __all('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
-			);
+		$this->title = __all("Line endings consistency");
+		$this->checks = array(
+					new LineEndings_Checker('LINEENDINGS', TT_COMMON, ERRORLEVEL_WARNING, __all('Both DOS and UNIX style line endings'), null, 'ut_lineendings.zip')
+		);
     }
 }

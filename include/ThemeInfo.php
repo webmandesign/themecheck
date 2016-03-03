@@ -402,8 +402,8 @@ class ThemeInfo
 		}
 		else $this->licenseUri = self::getLicenseUri($this->license);
 		
-		if (!empty($this->themeUri) && !self::urlExists($this->themeUri)) $this->themeUri = null; // check 404s and other http errors
-		if (!empty($this->authorUri) && !self::urlExists($this->authorUri)) $this->authorUri = null; // check 404s and other http errors
+		if (!empty($this->themeUri) && !(preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $this->themeUri) && self::urlExists($this->themeUri))) $this->themeUri = null; // check 404s and other http errors
+		if (!empty($this->authorUri) && !(preg_match('%(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=])%i', $this->authorUri) && self::urlExists($this->authorUri))) $this->authorUri = null; // check 404s and other http errors
 		
 		$this->hasBacklinKey = false;
 		
@@ -801,7 +801,24 @@ class ThemeInfo
 	
 	static public function urlExists($url)
 	{
-		if (!$fp = curl_init($url)) return false;
-		return true;
+		if (isset($_SESSION["urlExists"][$url])) return $_SESSION["urlExists"][$url];
+		
+		$ret = true;
+		$handle = curl_init($url);
+		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($handle, CURLOPT_HEADER, true);
+
+		$response = curl_exec($handle);
+	
+		$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+		if(intval($httpCode) >= 400 || $httpCode == 0) { //0 for non http error : dns, etc.
+			$ret = false;
+		}
+
+		curl_close($handle);
+		
+		$_SESSION["urlExists"][$url] = $ret;
+		return $ret;
 	}
 }
