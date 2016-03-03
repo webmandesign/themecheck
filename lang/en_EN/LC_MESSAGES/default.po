@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-01 16:51+0100\n"
-"PO-Revision-Date: 2016-03-01 16:51+0100\n"
+"POT-Creation-Date: 2016-03-03 14:56+0100\n"
+"PO-Revision-Date: 2016-03-03 14:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -16,19 +16,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: include\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: include/FileValidator.php:141
+#: include/FileValidator.php:140
 msgid "Mandatory thumbnail file screenshot.png is missing"
 msgstr "Mandatory thumbnail file screenshot.png is missing"
 
-#: include/FileValidator.php:142
+#: include/FileValidator.php:141
 msgid "Mandatory thumbnail file template_thumbnail.png is missing"
 msgstr "Mandatory thumbnail file template_thumbnail.png is missing"
 
-#: include/FileValidator.php:247
+#: include/FileValidator.php:246
 msgid "No files to upload"
 msgstr "No files to upload"
 
-#: include/FileValidator.php:256
+#: include/FileValidator.php:255
 #, php-format
 msgid ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
@@ -37,7 +37,7 @@ msgstr ""
 "Could not upload file. File is empty or bigger than maximum upload file size "
 "(%s MB)."
 
-#: include/FileValidator.php:275
+#: include/FileValidator.php:274
 #, php-format
 msgid ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
@@ -46,7 +46,7 @@ msgstr ""
 "Bad file type. Mime type %s is not a recognized format for web themes. "
 "Uploaded file must be a zip archive."
 
-#: include/FileValidator.php:282
+#: include/FileValidator.php:281
 #, php-format
 msgid ""
 "Bad file extension. File extension %s not recognized. File extension must be "
@@ -55,28 +55,28 @@ msgstr ""
 "Bad file extension. File extension %s not recognized. File extension must be "
 "\".zip\"."
 
-#: include/FileValidator.php:288
+#: include/FileValidator.php:287
 #, php-format
 msgid "The uploaded file size exceeds %s."
 msgstr "The uploaded file size exceeds %s."
 
-#: include/FileValidator.php:294
+#: include/FileValidator.php:293
 msgid "The uploaded file was only partially uploaded."
 msgstr "The uploaded file was only partially uploaded."
 
-#: include/FileValidator.php:300
+#: include/FileValidator.php:299
 msgid "No file was uploaded."
 msgstr "No file was uploaded."
 
-#: include/FileValidator.php:442
+#: include/FileValidator.php:441
 msgid "Files under 100 bytes are not accepted. Operation canceled."
 msgstr "Files under 100 bytes are not accepted. Operation canceled."
 
-#: include/FileValidator.php:476 include/ThemeInfo.php:172
+#: include/FileValidator.php:475 include/ThemeInfo.php:172
 msgid "File could not be unzipped."
 msgstr "File could not be unzipped."
 
-#: include/FileValidator.php:479 include/ThemeInfo.php:175
+#: include/FileValidator.php:478 include/ThemeInfo.php:175
 msgid "Archive extraction failed. The following exception occured : "
 msgstr "Archive extraction failed. The following exception occured : "
 
@@ -102,7 +102,7 @@ msgstr "Themecheck.org validation score : %s%% (%s warnings, %s)."
 msgid "Error : non existant id."
 msgstr "Error : non existant id."
 
-#: include/tc_helpers.php:26 include/tc_helpers.php:45
+#: include/tc_helpers.php:26 include/tc_helpers.php:49
 msgid "<pre>Line "
 msgstr "<pre>Line "
 
@@ -150,7 +150,7 @@ msgid ""
 msgstr ""
 "templateDetails.xml does not have a mosinstall, extension or install or node"
 
-#: include/ThemeInfo.php:488
+#: include/ThemeInfo.php:498
 msgid ""
 "Invalid joomla template. templatedetails.xml found. Please rename it "
 "templateDetails.xml (capital D)"
@@ -158,83 +158,83 @@ msgstr ""
 "Invalid joomla template. templatedetails.xml found. Please rename it "
 "templateDetails.xml (capital D)"
 
-#: include/ThemeInfo.php:768
+#: include/ThemeInfo.php:778
 msgid "None"
 msgstr "None"
 
-#: include/ThemeInfo.php:769
+#: include/ThemeInfo.php:779
 msgid "Custom"
 msgstr "Custom"
 
-#: include/ThemeInfo.php:770
+#: include/ThemeInfo.php:780
 msgid "Creative Commons"
 msgstr "Creative Commons"
 
-#: include/ThemeInfo.php:771
+#: include/ThemeInfo.php:781
 msgid "Creative Commons BY"
 msgstr "Creative Commons BY"
 
-#: include/ThemeInfo.php:772
+#: include/ThemeInfo.php:782
 msgid "Creative Commons BY SA"
 msgstr "Creative Commons BY SA"
 
-#: include/ThemeInfo.php:773
+#: include/ThemeInfo.php:783
 msgid "Creative Commons BY ND"
 msgstr "Creative Commons BY ND"
 
-#: include/ThemeInfo.php:774
+#: include/ThemeInfo.php:784
 msgid "Creative Commons BY NC"
 msgstr "Creative Commons BY NC"
 
-#: include/ThemeInfo.php:775
+#: include/ThemeInfo.php:785
 msgid "Creative Commons BY NC SA"
 msgstr "Creative Commons BY NC SA"
 
-#: include/ThemeInfo.php:776
+#: include/ThemeInfo.php:786
 msgid "Creative Commons BY NC ND"
 msgstr "Creative Commons BY NC ND"
 
-#: include/ThemeInfo.php:777
+#: include/ThemeInfo.php:787
 msgid "MIT X11"
 msgstr "MIT X11"
 
-#: include/ThemeInfo.php:778
+#: include/ThemeInfo.php:788
 msgid "BSD"
 msgstr "BSD"
 
-#: include/ThemeInfo.php:779
+#: include/ThemeInfo.php:789
 msgid "New BSD"
 msgstr "New BSD"
 
-#: include/ThemeInfo.php:780
+#: include/ThemeInfo.php:790
 msgid "Free BSD"
 msgstr "Free BSD"
 
-#: include/ThemeInfo.php:781
+#: include/ThemeInfo.php:791
 msgid "GNU LGPL 2"
 msgstr "GNU LGPL 2"
 
-#: include/ThemeInfo.php:782
+#: include/ThemeInfo.php:792
 msgid "GNU LGPL 3"
 msgstr "GNU LGPL 3"
 
-#: include/ThemeInfo.php:783
+#: include/ThemeInfo.php:793
 msgid "GNU GPL 2"
 msgstr "GNU GPL 2"
 
-#: include/ThemeInfo.php:784
+#: include/ThemeInfo.php:794
 msgid "GNU GPL 3"
 msgstr "GNU GPL 3"
 
-#: include/ThemeInfo.php:785
+#: include/ThemeInfo.php:795
 msgid "Apache"
 msgstr "Apache"
 
-#: include/ThemeInfo.php:786
+#: include/ThemeInfo.php:796
 msgid "CDDL"
 msgstr "CDDL"
 
-#: include/ThemeInfo.php:787
+#: include/ThemeInfo.php:797
 msgid "Eclipse"
 msgstr "Eclipse"
 
@@ -269,7 +269,7 @@ msgstr ""
 "ckecks, reduced false positive rate and multiple CMS compatibility. It is "
 "independant of wordpress.org and joomla.org."
 
-#: header.php:101
+#: header.php:89
 msgid "CONTACT"
 msgstr "CONTACT"
 
@@ -277,7 +277,7 @@ msgstr "CONTACT"
 msgid "Error"
 msgstr "Error"
 
-#: index.php:23 controllers/controller_results.php:751
+#: index.php:23 controllers/controller_results.php:767
 msgid "Warning"
 msgstr "Warning"
 
@@ -307,7 +307,7 @@ msgstr "Message sent. We&#39;ll contact you soon."
 msgid "Please complete the required field."
 msgstr "Please complete the required field."
 
-#: controllers/controller_contact.php:88 controllers/controller_results.php:92
+#: controllers/controller_contact.php:88 controllers/controller_results.php:90
 msgid "Invalid form"
 msgstr "Invalid form"
 
@@ -354,12 +354,13 @@ msgstr ""
 "A free service that checks web templates and themes for security and code "
 "quality."
 
-#: controllers/controller_home.php:41 controllers/controller_results.php:567
-#: controllers/controller_results.php:568
+#: controllers/controller_home.php:41 controllers/controller_results.php:125
+#: controllers/controller_results.php:583
+#: controllers/controller_results.php:584
 msgid "WordPress theme"
 msgstr "WordPress theme"
 
-#: controllers/controller_home.php:42 controllers/controller_results.php:392
+#: controllers/controller_home.php:42 controllers/controller_results.php:408
 #, php-format
 msgid "WordPress %s theme"
 msgstr "WordPress %s theme"
@@ -373,12 +374,13 @@ msgstr "Wordpress child theme"
 msgid "WordPress %s child theme"
 msgstr "WordPress %s child theme"
 
-#: controllers/controller_home.php:47 controllers/controller_results.php:578
-#: controllers/controller_results.php:579
+#: controllers/controller_home.php:47 controllers/controller_results.php:113
+#: controllers/controller_results.php:594
+#: controllers/controller_results.php:595
 msgid "Joomla template"
 msgstr "Joomla template"
 
-#: controllers/controller_home.php:48 controllers/controller_results.php:393
+#: controllers/controller_home.php:48 controllers/controller_results.php:409
 #, php-format
 msgid "Joomla %s template"
 msgstr "Joomla %s template"
@@ -388,8 +390,8 @@ msgid "Quick download"
 msgstr "Quick download"
 
 #: controllers/controller_home.php:90 controllers/controller_home.php:94
-#: controllers/controller_results.php:176
-#: controllers/controller_results.php:180
+#: controllers/controller_results.php:194
+#: controllers/controller_results.php:198
 msgid "Free"
 msgstr "Free"
 
@@ -525,7 +527,7 @@ msgstr "Newer first"
 msgid "Higher scores first"
 msgstr "Higher scores first"
 
-#: controllers/controller_home.php:340
+#: controllers/controller_home.php:392
 msgid "SEE MORE"
 msgstr "SEE MORE"
 
@@ -534,72 +536,75 @@ msgstr "SEE MORE"
 msgid "Mass import"
 msgstr "Mass import"
 
-#: controllers/controller_results.php:95
+#: controllers/controller_results.php:93
 msgid "No file uploaded."
 msgstr "No file uploaded."
 
-#: controllers/controller_results.php:96 controllers/controller_results.php:97
+#: controllers/controller_results.php:94 controllers/controller_results.php:95
 msgid "No file uploaded"
 msgstr "No file uploaded"
 
-#: controllers/controller_results.php:105
-#, php-format
-msgid "%s%% : Joomla template %s"
-msgstr "%s%% : Joomla template %s"
-
 #: controllers/controller_results.php:106
+#: controllers/controller_results.php:108
+msgid " Joomla template"
+msgstr " Joomla template"
+
+#: controllers/controller_results.php:109
 #, php-format
 msgid "Security and code quality score of Joomla template %s."
 msgstr "Security and code quality score of Joomla template %s."
 
-#: controllers/controller_results.php:108
-#, php-format
-msgid "%s%% : WordPress theme %s"
-msgstr "%s%% : WordPress theme %s"
+#: controllers/controller_results.php:117
+msgid " WordPress theme"
+msgstr " WordPress theme"
 
-#: controllers/controller_results.php:109
+#: controllers/controller_results.php:120
 #, php-format
 msgid "Security and code quality score of WordPress theme %s."
 msgstr "Security and code quality score of WordPress theme %s."
 
 #: controllers/controller_results.php:126
+msgid "theme"
+msgstr "theme"
+
+#: controllers/controller_results.php:143
 msgid "Check results"
 msgstr "Check results"
 
-#: controllers/controller_results.php:127
+#: controllers/controller_results.php:144
 msgid "Security and code quality score"
 msgstr "Security and code quality score"
 
-#: controllers/controller_results.php:190
-#: controllers/controller_results.php:466
+#: controllers/controller_results.php:208
+#: controllers/controller_results.php:482
 msgid "Validation results"
 msgstr "Validation results"
 
-#: controllers/controller_results.php:219
+#: controllers/controller_results.php:237
 msgid " CRITICAL ALERT"
 msgstr " CRITICAL ALERT"
 
-#: controllers/controller_results.php:223
+#: controllers/controller_results.php:241
 msgid " CRITICAL ALERTS"
 msgstr " CRITICAL ALERTS"
 
-#: controllers/controller_results.php:242
+#: controllers/controller_results.php:260
 msgid "  WARNING"
 msgstr "  WARNING"
 
-#: controllers/controller_results.php:246
+#: controllers/controller_results.php:264
 msgid "  WARNINGS"
 msgstr "  WARNINGS"
 
-#: controllers/controller_results.php:276
+#: controllers/controller_results.php:294
 msgid "Themecheck rules"
 msgstr "Themecheck rules"
 
-#: controllers/controller_results.php:282
+#: controllers/controller_results.php:300
 msgid "Themeforest rules"
 msgstr "Themeforest rules"
 
-#: controllers/controller_results.php:300
+#: controllers/controller_results.php:318
 msgid ""
 "This is a ThemeForest theme. Since Themeforest items are all checked by a "
 "human before they appear on their website, ThemeForest verification rules "
@@ -615,144 +620,144 @@ msgstr ""
 "View/472/85/wordpress-theme-submission-requirements\" rel=\"nofollow"
 "\">Themeforest requirements</a> )."
 
-#: controllers/controller_results.php:366
+#: controllers/controller_results.php:382
 msgid "Other checked themes"
 msgstr "Other checked themes"
 
-#: controllers/controller_results.php:447
+#: controllers/controller_results.php:463
 msgid "VIEW ALL THEMES"
 msgstr "VIEW ALL THEMES"
 
-#: controllers/controller_results.php:473
-#: controllers/controller_results.php:480
+#: controllers/controller_results.php:489
+#: controllers/controller_results.php:496
 msgid "Validation score : 0 %"
 msgstr "Validation score : 0 %"
 
-#: controllers/controller_results.php:482
+#: controllers/controller_results.php:498
 msgid "Fatal error"
 msgstr "Fatal error"
 
-#: controllers/controller_results.php:484
+#: controllers/controller_results.php:500
 msgid "Go to home page to submit a new version"
 msgstr "Go to home page to submit a new version"
 
-#: controllers/controller_results.php:498
+#: controllers/controller_results.php:514
 msgid "Please send us a theme to check."
 msgstr "Please send us a theme to check."
 
-#: controllers/controller_results.php:499
+#: controllers/controller_results.php:515
 msgid "Go to home page"
 msgstr "Go to home page"
 
-#: controllers/controller_results.php:543
+#: controllers/controller_results.php:559
 msgid "CHANGE BANNER STYLE :"
 msgstr "CHANGE BANNER STYLE :"
 
-#: controllers/controller_results.php:546
+#: controllers/controller_results.php:562
 msgid "Big size icon : (height: 240px, width: 200px)"
 msgstr "Big size icon : (height: 240px, width: 200px)"
 
-#: controllers/controller_results.php:548
+#: controllers/controller_results.php:564
 msgid "Medium size icon (default) : (height: 80px, width: 67px)"
 msgstr "Medium size icon (default) : (height: 80px, width: 67px)"
 
-#: controllers/controller_results.php:550
+#: controllers/controller_results.php:566
 msgid "Small size icon : (height: 40px, width: 33px)"
 msgstr "Small size icon : (height: 40px, width: 33px)"
 
-#: controllers/controller_results.php:567
-#: controllers/controller_results.php:568
-#: controllers/controller_results.php:570
-#: controllers/controller_results.php:571
-#: controllers/controller_results.php:578
-#: controllers/controller_results.php:579
+#: controllers/controller_results.php:583
+#: controllers/controller_results.php:584
+#: controllers/controller_results.php:586
+#: controllers/controller_results.php:587
+#: controllers/controller_results.php:594
+#: controllers/controller_results.php:595
 msgid "Theme type"
 msgstr "Theme type"
 
-#: controllers/controller_results.php:570
-#: controllers/controller_results.php:571
+#: controllers/controller_results.php:586
+#: controllers/controller_results.php:587
 msgid "WordPress child theme"
 msgstr "WordPress child theme"
 
-#: controllers/controller_results.php:574
+#: controllers/controller_results.php:590
 msgid "Parent theme name"
 msgstr "Parent theme name"
 
-#: controllers/controller_results.php:580
+#: controllers/controller_results.php:596
 msgid "File name"
 msgstr "File name"
 
-#: controllers/controller_results.php:581
+#: controllers/controller_results.php:597
 msgid "File size"
 msgstr "File size"
 
-#: controllers/controller_results.php:581
+#: controllers/controller_results.php:597
 msgid "bytes"
 msgstr "bytes"
 
-#: controllers/controller_results.php:582
+#: controllers/controller_results.php:598
 msgid "MD5"
 msgstr "MD5"
 
-#: controllers/controller_results.php:583
+#: controllers/controller_results.php:599
 msgid "SHA1"
 msgstr "SHA1"
 
-#: controllers/controller_results.php:586
-#: controllers/controller_results.php:587
-#: controllers/controller_results.php:589
-#: controllers/controller_results.php:590
+#: controllers/controller_results.php:602
+#: controllers/controller_results.php:603
+#: controllers/controller_results.php:605
+#: controllers/controller_results.php:606
 msgid "License"
 msgstr "License"
 
-#: controllers/controller_results.php:591
+#: controllers/controller_results.php:607
 msgid "Files included"
 msgstr "Files included"
 
-#: controllers/controller_results.php:594
-#: controllers/controller_results.php:596
+#: controllers/controller_results.php:610
+#: controllers/controller_results.php:612
 msgid "Theme URI"
 msgstr "Theme URI"
 
-#: controllers/controller_results.php:598
+#: controllers/controller_results.php:614
 msgid "Version"
 msgstr "Version"
 
-#: controllers/controller_results.php:599
+#: controllers/controller_results.php:615
 msgid "Author URI"
 msgstr "Author URI"
 
-#: controllers/controller_results.php:600
+#: controllers/controller_results.php:616
 msgid "Tags"
 msgstr "Tags"
 
-#: controllers/controller_results.php:607
+#: controllers/controller_results.php:623
 msgid "Creation date"
 msgstr "Creation date"
 
-#: controllers/controller_results.php:608
+#: controllers/controller_results.php:624
 msgid "Last file update"
 msgstr "Last file update"
 
-#: controllers/controller_results.php:609
+#: controllers/controller_results.php:625
 msgid "Last validation"
 msgstr "Last validation"
 
-#: controllers/controller_results.php:654
+#: controllers/controller_results.php:670
 msgid "This theme is open source."
 msgstr "This theme is open source."
 
-#: controllers/controller_results.php:661
+#: controllers/controller_results.php:677
 msgid "DOWNLOAD"
 msgstr "DOWNLOAD"
 
-#: controllers/controller_results.php:675
+#: controllers/controller_results.php:691
 msgid ""
 "This theme is proprietary. Themecheck doesn't distribute commercial themes."
 msgstr ""
 "This theme is proprietary. Themecheck doesn't distribute commercial themes."
 
-#: controllers/controller_results.php:679
+#: controllers/controller_results.php:695
 msgid ""
 "This theme seems to be proprietary. Themecheck doesn't distribute commercial "
 "themes."
@@ -760,7 +765,7 @@ msgstr ""
 "This theme seems to be proprietary. Themecheck doesn't distribute commercial "
 "themes."
 
-#: controllers/controller_results.php:689
+#: controllers/controller_results.php:705
 msgid ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
@@ -768,15 +773,15 @@ msgstr ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
 
-#: controllers/controller_results.php:698
+#: controllers/controller_results.php:714
 msgid "Line"
 msgstr "Line"
 
-#: controllers/controller_results.php:706
+#: controllers/controller_results.php:722
 msgid "Critical alerts"
 msgstr "Critical alerts"
 
-#: controllers/controller_results.php:792
+#: controllers/controller_results.php:808
 msgid "Tip-off"
 msgstr "Tip-off"
 
@@ -790,23 +795,29 @@ msgstr "Unit tests"
 msgid "DB Connexion error : %s"
 msgstr "DB Connexion error : %s"
 
-#: DB/History.php:157 DB/History.php:268 DB/History.php:326 DB/History.php:337
-#: DB/History.php:418 DB/History.php:757 DB/History.php:793
+#: DB/History.php:159 DB/History.php:270 DB/History.php:328 DB/History.php:339
+#: DB/History.php:420 DB/History.php:765 DB/History.php:801
 #, php-format
 msgid "DB error : %s"
 msgstr "DB error : %s"
 
-#: DB/History.php:161 DB/History.php:177
+#: DB/History.php:163 DB/History.php:179
 msgid "This theme has already been submitted."
 msgstr "This theme has already been submitted."
 
-#: DB/History.php:181
+#: DB/History.php:183
 msgid "It seems this archive is a new version of the theme \""
 msgstr "It seems this archive is a new version of the theme \""
 
-#: DB/History.php:273
+#: DB/History.php:275
 msgid "The name \""
 msgstr "The name \""
+
+#~ msgid "%s%% : Joomla template %s"
+#~ msgstr "%s%% : Joomla template %s"
+
+#~ msgid "%s%% : WordPress theme %s"
+#~ msgstr "%s%% : WordPress theme %s"
 
 #~ msgid "Back to home page"
 #~ msgstr "Back to home page"

@@ -430,6 +430,7 @@ class ThemeInfo
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 			$result = curl_exec($ch);
 			curl_close($ch);
 			$result = json_decode($result);
@@ -808,6 +809,8 @@ class ThemeInfo
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($handle, CURLOPT_HEADER, true);
+		curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 10); // we don't want to link to slow pages
+		curl_setopt($handle, CURLOPT_TIMEOUT, 15); //timeout in seconds, we don't want to link to slow pages
 
 		$response = curl_exec($handle);
 	

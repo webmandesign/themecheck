@@ -69,6 +69,7 @@ class Controller_results
 				$themeInfo = FileValidator::upload();
 				if ($themeInfo)
 				{
+					$themeInfo->modificationDate = time(); // set modificationDate only at upload
 					$this->fileValidator = new FileValidator($themeInfo);
 					$this->fileValidator->validate();
 					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
@@ -86,7 +87,7 @@ class Controller_results
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 				}
 			} else {
-				UserMessage::enqueue(__("Unvalid form"), ERRORLEVEL_FATAL);
+				UserMessage::enqueue(__("Invalid form"), ERRORLEVEL_FATAL);
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
@@ -104,13 +105,25 @@ class Controller_results
 				if (strpos(strtolower($themeInfo->name), 'template') === false) $prefix .= " template";
 				if ($prefix == " Joomla template") $prefix = __(" Joomla template");
 				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = str_replace(__(" Joomla template"), __(" Joomla template"), $this->meta["title"]);
 				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
+				
+				// avoid most similar title between language variations
+				$this->meta["title"] = str_replace("joomla", "Joomla", $this->meta["title"]);
+				$this->meta["title"] = str_replace("Joomla template", __("Joomla template"), $this->meta["title"]);
 			} else {
 				if (strpos(strtolower($themeInfo->name), 'wordpress') === false) $prefix .= " WordPress";
 				if (strpos(strtolower($themeInfo->name), 'theme') === false) $prefix .= " theme";
-				if ($prefix == " WordPress theme") $prefix = __(" WordPress theme");
+				if ($prefix == " WordPress theme") $prefix = __(" WordPress theme");				
+				
 				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of WordPress theme %s."), htmlspecialchars($themeInfo->name));
+				
+				// avoid most similar title between language variations
+				$this->meta["title"] = str_replace("Wordpress", "WordPress", $this->meta["title"]);
+				$this->meta["title"] = str_replace("wordpress", "WordPress", $this->meta["title"]);
+				$this->meta["title"] = str_replace("WordPress theme", __("WordPress theme"), $this->meta["title"]);
+				$this->meta["title"] = str_replace("theme", __("theme"), $this->meta["title"]);
 			}
 			
 			if ($themeInfo->score<100.0)
@@ -358,8 +371,6 @@ class Controller_results
         }
         
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-<!--    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>-->
     
                             <?php
                             if (USE_DB)
@@ -379,12 +390,17 @@ class Controller_results
                             <?php
                                     $history = new History();
                                     $id = intval($history->getIdFromHash($themeInfo->hash)); 
-                                    for ($i = 1; $i > -3; $i--)
+
+									$cur_id = $id + 2;
+
+									for ($i = 0; $i < 3; $i++)
                                     {
-                                            if ($i == 0) $i--; // not the current one
-                                            $r = $history->getFewInfo($id + $i); 
+                                         //   if ($i == 0) $i--; 
+                                            $r = $history->getFewInfoPreviousOne($cur_id); 
                                             if ($r !== false)
                                             {
+													$cur_id = $r['id'];
+													if ($cur_id == $id) {$i --; continue;}// not the current one
                                                     $html = '';
                                                     $namesanitized = $r['namesanitized'];
                                                     $themetype = $r['themetype'];

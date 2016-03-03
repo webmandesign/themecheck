@@ -41,7 +41,7 @@ class Controller_home
 			if (empty($cmsVersion)) $themetype_text = __("WordPress theme");
 			else $themetype_text = sprintf(__("WordPress %s theme"), $cmsVersion);
 		else if ($themetype == TT_WORDPRESS_CHILD)
-			if (empty($cmsVersion)) $themetype_text = __("Wordpress child theme");
+			if (empty($cmsVersion)) $themetype_text = __("WordPress child theme");
 			else $themetype_text = sprintf(__("WordPress %s child theme"), $cmsVersion);
 		else if ($themetype == TT_JOOMLA)
 			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
@@ -291,7 +291,7 @@ class Controller_home
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
                                              <select name='sort' class='sortdropdown fake_input' id="select_hidden">
-                                                <option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
+                                                <option value='modificationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
                                                 <option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?>></option>
                                             </select>
                                             <div class="selectOptions" id="selectOptionsFirst">
@@ -440,11 +440,11 @@ class Controller_home
                                     if(($(this).html() == 'Higher scores first') || ($(this).html() == 'Meilleurs scores en premier'))
                                     {
                                         $('#select_hidden option[value="score"]').attr('selected', true);
-                                        $('#select_hidden option[value="id"]').attr('selected', false);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', false);
                                     }
                                     else
                                     {
-                                        $('#select_hidden option[value="id"]').attr('selected', true);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', true);
                                         $('#select_hidden option[value="score"]').attr('selected', false);
                                     }
                                  
