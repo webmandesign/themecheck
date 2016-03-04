@@ -226,13 +226,12 @@ class FileValidator
 		{
 			$fewInfo = $history->getFewInfo($themeInfo->parentId);
 			if (!empty($fewInfo["id"]))
-			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentUriNameSeo = $fewInfo["namesanitized"];
 			$themeInfo->parentThemeType = $fewInfo["themetype"];
 		}
 			
 		if ($themeInfo->isThemeForest) $fileValidator->generateThemeForestReport();
-			
-			
+
 		return $fileValidator;
 	}
 	
@@ -491,7 +490,7 @@ class FileValidator
 			$fewInfo = $history->getFewInfoFromName($themeInfo->parentName);
 			if (!empty($fewInfo["id"]))
 			$themeInfo->parentId = intval($fewInfo["id"]);
-			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentUriNameSeo = $fewInfo["namesanitized"];
 			$themeInfo->parentThemeType = $fewInfo["themetype"];
 		}
 		if (!$r) return null;

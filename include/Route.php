@@ -121,11 +121,11 @@ class Route {
 			}
 		}
 
-                if (count($parts) === 0)
+		if (count($parts) === 0)
 		{
 			$route["phpfile"] = "home"; 
 		} 
-                if (count($parts) === 1)
+		if (count($parts) === 1)
 		{
 			$p0 = $parts[0]; 
 			
@@ -143,10 +143,10 @@ class Route {
 			{
 				$route["phpfile"] = "massimport";
 			}
-                         else if ($p0 == "download")
-                        {
-                            $route["phpfile"] = "download";
-                        }
+			else if ($p0 == "download")
+			{
+				$route["phpfile"] = "download";
+			}
 				
 			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
 		}
@@ -160,32 +160,45 @@ class Route {
 				{
 					$route["phpfile"] = "results";
 				} else {
-					$nameSanitized = null;
-					$themetypes = array (TT_WORDPRESS => 'wordpress_theme',
-															 TT_JOOMLA => 'joomla_template',
-															 TT_WORDPRESS_CHILD => 'wordpress_theme');
-					foreach ($themetypes as $themetype => $prefix)
+					$uriNameSeo = null;
+					$themetypesprefix = array ('wordpress_theme','wordpress-theme','joomla_template','joomla-template');
+
+					foreach ($themetypesprefix as $prefix)
 					{
 						$prefixi18n = trim($i18n->url($route["lang"], $prefix));
 						
-						if (preg_match('/^'.$prefixi18n.'_([-_0-9a-zA-Z]+)\.html$/', $parts[1], $matches))
+						if (preg_match('/^'.$prefixi18n.'[_-]([0-9a-zA-Z\-\_\(\)]+)\.html$/', $parts[1], $matches))
 						{
-							$nameSanitized = $matches[1];
+							$uriNameSeo = $matches[1];
 							
 							break;
 						} 
 					}
-					if (empty($nameSanitized)) $route["phpfile"] = "error404.php";
+					
+					if (empty($uriNameSeo)) $route["phpfile"] = "error404.php";
 					else {
 						$history = new History();
-						$hash = $history->getHashFromNamesanitized($nameSanitized);
+						$hash = $history->getHashFromUriNameSeo($uriNameSeo);
+
+						if (empty($hash)) {
+							$hash = $history->getHashFromNamesanitized($uriNameSeo);
+							
+							if (!empty($hash)) {
+								$history->generateUriNameSeoInDb($hash);
+								$newUrl = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$route["lang"], "phpfile"=>"results", "hash"=>$hash));
+								ob_clean();
+								header("Status: 301 Moved Permanently", false, 301);
+								header("Location: ".$newUrl);
+								exit();
+							}
+						}
 						if (empty($hash)) $route["phpfile"] = "error404.php";
 						else {
 							$route["hash"] = $hash;
 							if ($p0 == $i18n->url($route["lang"], "unittests"))	$route["phpfile"] = "unittests";
 							else $route["phpfile"] = "results";
 						}
-					}		
+					}	
 				}				
 			} 
 
@@ -214,11 +227,12 @@ class Route {
 		{
 			$url = trim($url, '/ ');                                                                                   
 		} 
-                else if ($route["phpfile"] == "results")
+		else if ($route["phpfile"] == "results")
 		{
 			$data = array();
 			if (isset($route["hash"])) 
 			{
+			
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 				
 				if (!USE_DB) {
@@ -228,25 +242,34 @@ class Route {
 				$history = new History();
 				$themeInfo = $history->loadThemeFromHash($route["hash"]);
 				if (empty($themeInfo)) return null;
-				$data["name"] = $themeInfo->namesanitized;
-				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress_theme';
-				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
-				if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress_theme';
-				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($data["name"]).'.html';
-			}	else if (isset($route["namesanitized"]) && isset($route["themetype"])) 
+				$data["uriNameSeo"] = $themeInfo->uriNameSeo;
+				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress-theme';
+				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla-template';
+				if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress-theme';
+				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$themeInfo->uriNameSeo.'.html';
+			}	else if (isset($route["uriNameSeo"]) && isset($route["themetype"])) 
+			{
+				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
+
+				if ($route["themetype"] == TT_WORDPRESS) 	$data["themetype"] = 'wordpress-theme';
+				if ($route["themetype"] == TT_JOOMLA) 		$data["themetype"] = 'joomla-template';
+				if ($route["themetype"] == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress-theme';
+				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$route["uriNameSeo"].'.html';
+			} 
+			else if (isset($route["namesanitized"]) && isset($route["themetype"])) // legacy
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 
 				if ($route["themetype"] == TT_WORDPRESS) 	$data["themetype"] = 'wordpress_theme';
-				if ($route["themetype"] == TT_JOOMLA) 	$data["themetype"] = 'joomla_template';
+				if ($route["themetype"] == TT_JOOMLA) 		$data["themetype"] = 'joomla_template';
 				if ($route["themetype"] == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress_theme';
-				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.trim($route["namesanitized"]).'.html';
-			} 
-                        else if (isset($route["ut"]))
+				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'_'.$route["namesanitized"].'.html';
+			}
+			else if (isset($route["ut"]))
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ').'?ut='.urlencode($route["ut"]);
 			}
-                        else {
+			else {
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 			}
 		} 

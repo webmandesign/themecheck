@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-03 14:56+0100\n"
-"PO-Revision-Date: 2016-03-03 14:56+0100\n"
+"POT-Creation-Date: 2016-03-03 15:45+0100\n"
+"PO-Revision-Date: 2016-03-03 15:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2927,9 +2927,10 @@ msgstr "Thème WordPress %s"
 msgid "WordPress %s theme"
 msgstr "Thème WordPress %s"
 
-#: controllers/controller_home.php:44
-msgid "Wordpress child theme"
-msgstr "Theme Wordpress Enfant"
+#: controllers/controller_home.php:44 controllers/controller_results.php:586
+#: controllers/controller_results.php:587
+msgid "WordPress child theme"
+msgstr "Thème WordPress enfant"
 
 #: controllers/controller_home.php:45
 #, php-format
@@ -2986,8 +2987,8 @@ msgid ""
 "Themecheck.org is a quick service that lets you verify web themes or "
 "templates for security and code quality."
 msgstr ""
-"Themecheck.org est un service rapide qui vous permet de vérifier thèmes Web "
-"ou des modèles pour la sécurité et la qualité du code ."
+"Themecheck.org est un service rapide qui vous permet de vérifier la sécurité "
+"et la qualité du code des thèmes et des modèles de site Web."
 
 #: controllers/controller_home.php:145
 msgid ""
@@ -2995,7 +2996,7 @@ msgid ""
 "templates."
 msgstr ""
 "Ce service est gratuit et compatible avec les thèmes WordPress et les "
-"templates Joomla"
+"templates Joomla."
 
 #: controllers/controller_home.php:152
 msgid "Upload a zip file and get its verification score"
@@ -3241,11 +3242,6 @@ msgstr "Petite icône : (height: 40px, width: 33px)"
 msgid "Theme type"
 msgstr "Type de thème"
 
-#: controllers/controller_results.php:586
-#: controllers/controller_results.php:587
-msgid "WordPress child theme"
-msgstr "Thème WordPress enfant"
-
 #: controllers/controller_results.php:590
 msgid "Parent theme name"
 msgstr "Nom du thème parent"
@@ -3375,6 +3371,9 @@ msgstr "Il semble que cette archive soit une nouvelle version du theme \""
 #: DB/History.php:275
 msgid "The name \""
 msgstr "Le nom \""
+
+#~ msgid "Wordpress child theme"
+#~ msgstr "Theme Wordpress Enfant"
 
 #~ msgid ""
 #~ "Could not find template version. A template version must be given in "

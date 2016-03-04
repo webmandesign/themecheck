@@ -30,6 +30,7 @@ class Controller_home
 	{
 		$html = '';
 		$namesanitized = $themeInfo['namesanitized'];
+		$uriNameSeo = $themeInfo['uriNameSeo'];
 		$themetype = $themeInfo['themetype'];
 		$score = $themeInfo['score'];
 		$cmsVersion = $themeInfo['cmsVersion'];
@@ -47,7 +48,11 @@ class Controller_home
 			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
 			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
 		
-		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+		if (empty($uriNameSeo)) // legacy
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+		else 
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
+				
                 $imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
                 $imgWidth = $imgSize[0];
                 $imgHeight = $imgSize[1];
@@ -370,15 +375,15 @@ class Controller_home
                             <?php 
                             if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
                             {
-                                    $pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
+								$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
                             }
                             else
                             {
-                                    $pagination = $history->getRecent();
+								$pagination = $history->getRecent();
                             }
                             foreach($pagination as $t)
                             {
-                                    echo $this->getThumb($t);
+								echo $this->getThumb($t);
                             }
                             ?>
                                     </div>

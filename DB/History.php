@@ -37,20 +37,20 @@ class History
 			$this->db = new \PDO('mysql:host='.DB_HOST.';dbname='.DB_DATABASE, DB_USER, DB_PWD);
                         
 			$this->query_theme_insert = $this->db->prepare('INSERT INTO theme (hash, hash_md5, 
-                            hash_sha1, name, namesanitized, themedir, themetype, parentId, cmsVersion, score, 
+                            hash_sha1, name, namesanitized, uriNameSeo, themedir, themetype, parentId, cmsVersion, score, 
                             criticalCount, warningsCount, zipfilename, zipmimetype, zipfilesize, userIp, 
                             author, description, descriptionBB, themeUri, version, authorUri, authorMail, 
                             tags, layout, license, licenseUri, filesIncluded, copyright, isThemeForest, 
                             isTemplateMonster, isCreativeMarket, isPiqpaq, isNsfw, creationDate, 
                             modificationDate, validationDate,isOpenSource) VALUES (:hash, UNHEX(:hash_md5), 
-                            UNHEX(:hash_sha1), :name,:namesanitized,:themedir,:themetype,:parentId, :cmsVersion,
+                            UNHEX(:hash_sha1), :name, :namesanitized, :uriNameSeo, :themedir, :themetype, :parentId, :cmsVersion,
                             :score,:criticalCount,:warningsCount,:zipfilename,:zipmimetype,:zipfilesize,
                             INET_ATON(:userIp),:author,:description,:descriptionBB,:themeUri,:version,:authorUri,
                             :authorMail,:tags,:layout,:license,:licenseUri,:filesIncluded,:copyright,:isThemeForest,
                             :isTemplateMonster, :isCreativeMarket, :isPiqpaq, :isNsfw,  FROM_UNIXTIME(:creationDate),
                             FROM_UNIXTIME(:modificationDate), FROM_UNIXTIME(:validationDate),:isOpenSource)');
 			
-			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, '
+			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, uriNameSeo=:uriNameSeo, '
                                 . 'themedir=:themedir, authorUri=:authorUri, licenseUri=:licenseUri, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
                                 . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
@@ -87,7 +87,7 @@ class History
 	/** 
 	*		Sanitize string and returns alphanumeric and underscores only
 	**/
-	static public function sanitizedString($str)
+	/*static public function sanitizedString_old($str)
 	{
 		// convert accents to un-accented letters
 		$unwanted_array = array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
@@ -103,9 +103,9 @@ class History
 		return $result;
 	}
 	
-	public function getUniqueSanitizedName($name)
+	public function getUniqueSanitizedName_old($name)
 	{
-		$sanitized = self::sanitizedString($name);
+		$sanitized = self::sanitizedString_old($name);
 		$sanitized_orig = $sanitized;
 		$i = '';
 		do {
@@ -113,6 +113,46 @@ class History
 			$q = $this->db->query('SELECT count(*) from theme where namesanitized = '.$this->db->quote($sanitized));
 			$row = $q->fetch();
 			if (empty($i)) $i = 1; else $i++;
+		} while (intval($row[0]) > 0);
+		return $sanitized;
+	}
+	
+	public function boom()
+	{
+	echo '---<br/>';
+		$query = $this->db->query('SELECT id,name,namesanitized from theme');
+		$query2 = $this->db->prepare("UPDATE theme SET namesanitized=:namesanitized WHERE id=:id");
+		
+		$query->execute();
+		while ($row = $query->fetch(\PDO::FETCH_ASSOC)) {
+			if (empty( $row["namesanitized"]))
+			{
+				$id = $row["id"];
+				$namesanitized = $this->getUniqueSanitizedName_old($row["name"]);
+				
+				
+				$query2->bindValue(':namesanitized',$namesanitized,\PDO::PARAM_STR);
+				$query2->bindValue(':id',$id,\PDO::PARAM_INT);
+				$query2->execute();
+			}
+		}
+	}*/
+	
+	public function getUniqueUriNameSeo($name, $version)
+	{
+		$sanitizedN = ThemeInfo::sanitizedString($name);
+		$sanitizedV = ThemeInfo::sanitizedString($version);
+		$sanitizedV = str_replace("-", "_", $sanitizedV);
+		$sanitizedV = str_replace("v", "", $sanitizedV);
+		$sanitized_orig = $sanitizedN.'-v'.$sanitizedV;
+		$i = 0;
+		$j = '';
+		do {
+			$sanitized = $sanitized_orig.$j;
+			$q = $this->db->query('SELECT count(*) from theme where uriNameSeo = '.$this->db->quote($sanitized));
+			$row = $q->fetch();
+			if ($i == 0) $i = 1; else $i++;
+			$j = '('.$i.')';
 		} while (intval($row[0]) > 0);
 		return $sanitized;
 	}
@@ -132,6 +172,7 @@ class History
 			{
 				$id = intval($row[0]);
 				$this->query_theme_update_score->bindValue(':licenseUri', 		 $themeInfo->licenseUri, \PDO::PARAM_STR);
+				$this->query_theme_update_score->bindValue(':uriNameSeo',   $themeInfo->uriNameSeo, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':themeUri', 		 $themeInfo->themeUri, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':authorUri', 		 $themeInfo->authorUri, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':themedir', 		 $themeInfo->themedir, \PDO::PARAM_STR);
@@ -166,7 +207,7 @@ class History
 		}
 
 		// If theme name already exists
-		$q = $this->db->query('SELECT id,score,hash,name,namesanitized,INET_NTOA(userIp) as userIp from theme where name = '.$this->db->quote($themeInfo->name));
+		$q = $this->db->query('SELECT id,score,hash,name,namesanitized,uriNameSeo, INET_NTOA(userIp) as userIp from theme where name = '.$this->db->quote($themeInfo->name));
 		$row = $q->fetch();
 		if (!empty($row))
 		{
@@ -187,6 +228,7 @@ class History
 																																		 hash_sha1=:hash_sha1,
 																																		 name=:name,
 																																		 namesanitized=:namesanitized,
+																																		 uriNameSeo=:uriNameSeo,
 																																		 themedir=:themedir,
 																																		 themetype=:themetype,
 																																		 parentId=:parentId,
@@ -223,13 +265,15 @@ class History
 																																					 
 						$id = intval($row['id']);
 						// update values in DB
-						$themeInfo->namesanitized = $row['namesanitized']; // can't call getUniqueSanitizedName because it would generate a new unique name, we need the same as before because namesanitized is used to build url and we do'nt want to change url
+						$themeInfo->namesanitized = $row['namesanitized']; // can't call getUniqueUriNameSeo because it would generate a new unique name, we need the same as before because namesanitized is used to build url and we do'nt want to change url
+						$themeInfo->uriNameSeo = $row['uriNameSeo'];
 						$this->query_theme_update_all->bindValue(':id', $id, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':hash', $themeInfo->hash, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':hash_md5', $themeInfo->hash_md5, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
+						$this->query_theme_update_all->bindValue(':uriNameSeo', $themeInfo->uriNameSeo, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
@@ -279,14 +323,16 @@ class History
 		}
 		
 		// generate sanitized name
-		$themeInfo->namesanitized = $this->getUniqueSanitizedName($themeInfo->name);
- 
+		$themeInfo->namesanitized = "";// not used anymore
+		$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version);
+		
 		// save to DB
 		$this->query_theme_insert->bindValue(':hash', $themeInfo->hash, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':hash_md5', $themeInfo->hash_md5, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
+		$this->query_theme_insert->bindValue(':uriNameSeo', $themeInfo->uriNameSeo, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
@@ -356,6 +402,8 @@ class History
 		$themeInfo->zipfilesize = $obj->zipfilesize;
 		$themeInfo->userIp = $obj->userIp;
 		$themeInfo->name = $obj->name;
+		$themeInfo->namesanitized = $obj->namesanitized;
+		$themeInfo->uriNameSeo = $obj->uriNameSeo;
 		$themeInfo->themedir = $obj->themedir;
 		$themeInfo->author = $obj->author;
 		$themeInfo->description = $obj->description;
@@ -376,7 +424,6 @@ class History
 		$themeInfo->isPiqpaq = $obj->isPiqpaq;
 		$themeInfo->isNsfw = $obj->isNsfw;		
 		$themeInfo->filesIncluded = $obj->filesIncluded;
-		$themeInfo->namesanitized = $obj->namesanitized;
 		$themeInfo->creationDate = $obj->creationDate;
 		$themeInfo->modificationDate = $obj->modificationDate;
 		$themeInfo->validationDate = $obj->validationDate;
@@ -413,7 +460,7 @@ class History
 		$this->query_theme_select_namesanitized = $this->db->prepare('SELECT hash from theme where namesanitized = :namesanitized');
 		
 		$this->query_theme_select_namesanitized->bindValue(':namesanitized', $namesanitized, \PDO::PARAM_STR);
-	  $r = $this->query_theme_select_namesanitized->execute();
+		$r = $this->query_theme_select_namesanitized->execute();
 		if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
 		{
 			$e = $this->query_theme_select_namesanitized->errorInfo();
@@ -421,6 +468,37 @@ class History
 		}
 		$row = $this->query_theme_select_namesanitized->fetch(); // return first row
 		return $row[0];
+	}
+	
+	public function getHashFromUriNameSeo($uriNameSeo)
+	{
+		$this->query_theme_select_namesanitized = $this->db->prepare('SELECT hash from theme where uriNameSeo = :uriNameSeo');
+		
+		$this->query_theme_select_namesanitized->bindValue(':uriNameSeo', $uriNameSeo, \PDO::PARAM_STR);
+		$r = $this->query_theme_select_namesanitized->execute();
+		if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
+		{
+			$e = $this->query_theme_select_namesanitized->errorInfo();
+			trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
+		}
+		$row = $this->query_theme_select_namesanitized->fetch(); // return first row
+		return $row[0];
+	}
+	
+	public function generateUriNameSeoInDb($hash)
+	{
+		// If theme hash already exists return immediately
+		$q = $this->db->query('SELECT id,name,version,uriNameSeo from theme where hash = '.$this->db->quote($hash));
+		$row = $q->fetch();
+		
+		if (!empty($row["uriNameSeo"])) return $row["uriNameSeo"];
+		$uriNameSeo = $this->getUniqueUriNameSeo($row["name"], $row["version"]);
+		
+		$query = $this->db->prepare("UPDATE theme SET uriNameSeo=:uriNameSeo WHERE hash=:hash");
+		$query->bindValue(':uriNameSeo',$uriNameSeo,\PDO::PARAM_STR);
+		$query->bindValue(':hash',$hash,\PDO::PARAM_STR);
+		$query->execute();
+		return $uriNameSeo;
 	}
 	
 	public function getRecent($olderthan = null)
@@ -655,7 +733,7 @@ class History
 	public function getFewInfoFromName($name)
 	{
 		$query = $this->db->prepare('SELECT id, hash, themetype, '
-                        . 'namesanitized from theme WHERE name=:name');
+                        . 'namesanitized, uriNameSeo from theme WHERE name=:name');
 		$query->bindValue(':name', $name, \PDO::PARAM_STR);
 		$query->execute();
 		$r = $query->fetch();

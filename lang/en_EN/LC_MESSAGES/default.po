@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-03 14:56+0100\n"
-"PO-Revision-Date: 2016-03-03 14:56+0100\n"
+"POT-Creation-Date: 2016-03-03 15:45+0100\n"
+"PO-Revision-Date: 2016-03-03 15:45+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -365,9 +365,10 @@ msgstr "WordPress theme"
 msgid "WordPress %s theme"
 msgstr "WordPress %s theme"
 
-#: controllers/controller_home.php:44
-msgid "Wordpress child theme"
-msgstr "Wordpress child theme"
+#: controllers/controller_home.php:44 controllers/controller_results.php:586
+#: controllers/controller_results.php:587
+msgid "WordPress child theme"
+msgstr "WordPress child theme"
 
 #: controllers/controller_home.php:45
 #, php-format
@@ -674,11 +675,6 @@ msgstr "Small size icon : (height: 40px, width: 33px)"
 msgid "Theme type"
 msgstr "Theme type"
 
-#: controllers/controller_results.php:586
-#: controllers/controller_results.php:587
-msgid "WordPress child theme"
-msgstr "WordPress child theme"
-
 #: controllers/controller_results.php:590
 msgid "Parent theme name"
 msgstr "Parent theme name"
@@ -812,6 +808,9 @@ msgstr "It seems this archive is a new version of the theme \""
 #: DB/History.php:275
 msgid "The name \""
 msgstr "The name \""
+
+#~ msgid "Wordpress child theme"
+#~ msgstr "Wordpress child theme"
 
 #~ msgid "%s%% : Joomla template %s"
 #~ msgstr "%s%% : Joomla template %s"

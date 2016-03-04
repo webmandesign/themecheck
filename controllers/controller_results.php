@@ -586,7 +586,7 @@ class Controller_results
                                             if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("WordPress child theme"));
                                             else $characteristics[] = array(__("Theme type"), __("WordPress child theme").' '.$themeInfo->cmsVersion);
                                             if (!empty($themeInfo->parentName)){
-                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNameSanitized , "themetype"=>$themeInfo->parentThemeType ));
+                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentUriNameSeo , "themetype"=>$themeInfo->parentThemeType ));
                                                     $characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
                                             }
                                     }
