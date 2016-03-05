@@ -660,18 +660,26 @@ class Controller_results
                                     if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), date("Y-m-d", $themeInfo->creationDate));
                                     if (!empty($themeInfo->modificationDate))$characteristics[] = array(__("Last file update"), date("Y-m-d", $themeInfo->modificationDate));
                                     if (!empty($themeInfo->validationDate))$characteristics[] = array(__("Last validation"), date("Y-m-d H:i", $themeInfo->validationDate));
-
-                                    /*if (!empty($themeInfo->isOpenSource))
-                                    {
-                                            $characteristics[] = array(__("Download"), __("This theme is open source.<br/>Direct download link : ").'<a  href="'.TC_HTTPDOMAIN.'/download?nom='.
-                                              $themeInfo->name.'&zipname='.$themeInfo->zipfilename.'" onclick="trackDL(\''.$themeInfo->name.'\');">'.$themeInfo->zipfilename.'</a>');
-                                    } else {
-                                            if ($themeInfo->isTemplateMonster || $themeInfo->isTemplateMonster || $themeInfo->isTemplateMonster) {
-                                                    $characteristics[] = array(__("Download"), __("This theme is proprietary. Themecheck doesn't distribute commercial themes."));
-                                            } else {
-                                                    $characteristics[] = array(__("Download"), __("This theme seems to be proprietary. Themecheck doesn't distribute commercial themes."));
-                                            }
-                                    }*/
+									
+									$history = new History();
+									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
+									if (!empty($otherVersions))
+									{	
+										$data_array = array();
+										foreach($otherVersions as $row)
+										{
+										//	$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row[uriNameSeo], "themetype"=>$row[themetype]));
+											if ($row['isHigherVersion'] == 1)
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
+											else
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
+											$versiondata = array("href"=>$href,"version"=>$row["version"], "score"=>$row["score"]);
+											
+											$data_array[] = $versiondata;
+											//echo '<p style="margin:20px"><a href="'.$href.'">'.htmlspecialchars($row["name"]).', version '.htmlspecialchars($row["version"]).' : '.$row["score"].'</a></p>';
+										}
+										$characteristics[] = array(__("Other versions"), $data_array);
+									}
                     $i = 1;
             
                     foreach ($characteristics as $c)
@@ -687,7 +695,17 @@ class Controller_results
                             $css_class = 'second_line';
                         }
 
-						echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
+						if ($c[0] == __("Other versions"))
+						{
+							echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">';
+							$data_array = $c[1];
+							foreach($data_array as $versiondata)
+							{
+								echo '<p style="margin-bottom:10px"><a href="'.$versiondata["href"].'">'.htmlspecialchars($versiondata["version"].' : '.$versiondata["score"].'%').'</a></p>';
+							}
+							echo '</span></li>';
+						} else
+							echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
 
                         $i++;
                     }
@@ -742,23 +760,6 @@ class Controller_results
                                     {
                                         echo '<span class="text_donostore">'.__("These results were not saved on themecheck.org servers and will be lost when you quit this page.").'</span>';
                                     }
-									
-									$history = new History();
-									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
-									if (!empty($otherVersions))
-									{	
-										echo '<span class="text_donostore">'.__('Other versions and variations of this theme :').'</span>';
-										foreach($otherVersions as $row)
-										{
-										//	$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row[uriNameSeo], "themetype"=>$row[themetype]));
-											if ($row['isHigherVersion'] == 1)
-												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
-											else
-												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
-															
-											echo '<p style="margin:20px"><a href="'.$href.'">'.htmlspecialchars($row["name"]).', version '.htmlspecialchars($row["version"]).' : '.$row["score"].'</a></p>';
-										}
-									}
                                 ?>
                            
                                 <div id="criticalAlerts"></div>
