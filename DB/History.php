@@ -935,10 +935,11 @@ class History
 		}
 	}
 	
-	public function getOtherVersions($hash, $themedir, $themetype)
+	public function getOtherVersions($hash, $themedir, $themetype, $name)
 	{
-		$query = $this->db->prepare('SELECT hash, name, uriNameSeo, uriNameSeoHigherVersion, version, isHigherVersion, themetype, score from theme WHERE themedir=:themedir AND hash!=:hash AND themetype=:themetype ORDER BY version DESC');
+		$query = $this->db->prepare('SELECT hash, name, uriNameSeo, uriNameSeoHigherVersion, version, isHigherVersion, themetype, score from theme WHERE (themedir=:themedir OR name LIKE :name) AND hash!=:hash AND themetype=:themetype ORDER BY version DESC');
 		$query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
+		$query->bindValue(':name',$name,\PDO::PARAM_STR);
 		$query->bindValue(':hash',$hash,\PDO::PARAM_STR);
 		$query->bindValue(':themetype',$themetype,\PDO::PARAM_INT);
 		$r = $query->execute();

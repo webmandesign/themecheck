@@ -662,7 +662,7 @@ class Controller_results
                                     if (!empty($themeInfo->validationDate))$characteristics[] = array(__("Last validation"), date("Y-m-d H:i", $themeInfo->validationDate));
 									
 									$history = new History();
-									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
+									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype, $themeInfo->name);
 									if (!empty($otherVersions))
 									{	
 										$data_array = array();
