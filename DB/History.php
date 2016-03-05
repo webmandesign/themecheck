@@ -651,6 +651,16 @@ class History
 		return null;
 	}
 	
+	public function isHighestVersion($hash)
+	{		
+		$query = $this->db->prepare('SELECT isHigherVersion from theme WHERE hash=:hash');
+		$query->bindValue(':hash', $hash, \PDO::PARAM_STR);
+		$query->execute();
+		$r = $query->fetch();
+		if (isset($r['isHigherVersion'])) return intval($r['isHigherVersion']);
+		return 0;
+	}
+	
 	public function getFewInfo($id)
 	{
 		$this->query_theme_select_id->bindValue(':id', $id, \PDO::PARAM_INT);

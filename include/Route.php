@@ -182,6 +182,19 @@ class Route {
 						$hash = $history->getHashFromUriNameSeoHigherVersion($uriNameSeo);
 						if (empty($hash)) {
 							$hash = $history->getHashFromUriNameSeo($uriNameSeo);
+							
+							if (!empty($hash)) { // url rewriting migration (to be erased in 2017) : redirect if highest version theme is reached from a versioned url
+								$isHighestVersion = $history->isHighestVersion($hash);
+								if ($isHighestVersion == 1)
+								{
+									$newUrl = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$route["lang"], "phpfile"=>"results", "hash"=>$hash));
+									ob_clean();
+									header("Status: 301 Moved Permanently", false, 301);
+									header("Location: ".$newUrl);
+									exit();
+								}
+							}
+							
 							if (empty($hash)) {
 								$hash = $history->getHashFromNamesanitized($uriNameSeo);
 								
@@ -235,7 +248,6 @@ class Route {
 			$data = array();
 			if (isset($route["hash"])) 
 			{
-			
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 				
 				$history = new History();
@@ -244,6 +256,7 @@ class Route {
 				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress-theme';
 				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla-template';
 				if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress-theme';
+
 				if ($themeInfo->isHigherVersion)
 					$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$themeInfo->uriNameSeoHigherVersion.'.html';
 				else 
