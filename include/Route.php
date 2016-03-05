@@ -178,18 +178,21 @@ class Route {
 					if (empty($uriNameSeo)) $route["phpfile"] = "error404.php";
 					else {
 						$history = new History();
-						$hash = $history->getHashFromUriNameSeo($uriNameSeo);
-
+						
+						$hash = $history->getHashFromUriNameSeoHigherVersion($uriNameSeo);
 						if (empty($hash)) {
-							$hash = $history->getHashFromNamesanitized($uriNameSeo);
-							
-							if (!empty($hash)) {
-								$history->generateUriNameSeoInDb($hash);
-								$newUrl = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$route["lang"], "phpfile"=>"results", "hash"=>$hash));
-								ob_clean();
-								header("Status: 301 Moved Permanently", false, 301);
-								header("Location: ".$newUrl);
-								exit();
+							$hash = $history->getHashFromUriNameSeo($uriNameSeo);
+							if (empty($hash)) {
+								$hash = $history->getHashFromNamesanitized($uriNameSeo);
+								
+								if (!empty($hash)) {
+									$history->generateUriNameSeoInDb($hash);
+									$newUrl = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$route["lang"], "phpfile"=>"results", "hash"=>$hash));
+									ob_clean();
+									header("Status: 301 Moved Permanently", false, 301);
+									header("Location: ".$newUrl);
+									exit();
+								}
 							}
 						}
 						if (empty($hash)) $route["phpfile"] = "error404.php";
@@ -235,18 +238,16 @@ class Route {
 			
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 				
-				if (!USE_DB) {
-					echo 'error in route. cannot assemble route without DB';
-					die;
-				}
 				$history = new History();
 				$themeInfo = $history->loadThemeFromHash($route["hash"]);
 				if (empty($themeInfo)) return null;
-				$data["uriNameSeo"] = $themeInfo->uriNameSeo;
 				if ($themeInfo->themetype == TT_WORDPRESS) 	$data["themetype"] = 'wordpress-theme';
 				if ($themeInfo->themetype == TT_JOOMLA) 	$data["themetype"] = 'joomla-template';
 				if ($themeInfo->themetype == TT_WORDPRESS_CHILD) 	$data["themetype"] = 'wordpress-theme';
-				$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$themeInfo->uriNameSeo.'.html';
+				if ($themeInfo->isHigherVersion)
+					$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$themeInfo->uriNameSeoHigherVersion.'.html';
+				else 
+					$url .= '/'.trim($i18n->url($route["lang"], $data["themetype"])).'-'.$themeInfo->uriNameSeo.'.html';
 			}	else if (isset($route["uriNameSeo"]) && isset($route["themetype"])) 
 			{
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
@@ -273,20 +274,20 @@ class Route {
 				$url = trim($url.$i18n->url($route["lang"], 'score'), '/ ');
 			}
 		} 
-                else if ($route["phpfile"] == "unittests")
+        else if ($route["phpfile"] == "unittests")
 		{
 			$url = trim($url.$i18n->url($route["lang"], 'unittests'), '/ ');
 			
 		} 
-                else if ($route["phpfile"] == "massimport")
+        else if ($route["phpfile"] == "massimport")
 		{
 			$url = "massimport";
 		}	
-                else if ($route["phpfile"] == "contact")
+        else if ($route["phpfile"] == "contact")
 		{
 			$url = trim($url.$i18n->url($route["lang"], 'contact'), '/ ');
 		} 
-                else if ($route["phpfile"] == "error404.php")
+        else if ($route["phpfile"] == "error404.php")
 		{
 			$url = trim($url.$i18n->url($route["lang"], $route["phpfile"]), '/ ');
 		}

@@ -18,6 +18,7 @@ namespace ThemeCheck;
 		<meta property="og:url" content="<?php echo TC_HTTPDOMAIN;?>" />
 		<meta property="og:title" content="<?php echo $controller->meta["title"]; ?>" />
 		<meta property="og:description" content="<?php echo $controller->meta["description"]; ?>" />
+		<?php if (isset($controller->meta["robots"])) echo '<meta property="robots" content="'.$controller->meta["robots"].'"/>';?>
 		
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/bootstrap-dist.css"/>
 <!--		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">

@@ -93,6 +93,7 @@ class Controller_results
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
 			$this->meta["title"] = __("No file uploaded");
 			$this->meta["description"] = __("No file uploaded");
+			$this->meta["robots"] = "noindex";
 			return ;
 		}
 
@@ -139,9 +140,11 @@ class Controller_results
 				}
 			}
 			
+			if ($themeInfo->isHigherVersion == 0) $this->meta["robots"] = "noindex";
 		} else {
 			$this->meta["title"] = __("Check results");
 			$this->meta["description"] = __("Security and code quality score");
+			$this->meta["robots"] = "noindex";
 		}
 		
 		global $ExistingLangs;
@@ -150,7 +153,7 @@ class Controller_results
 			if ($this->fileValidator)
 			{
 				$themeInfo = $this->fileValidator->themeInfo;
-				if (!empty($themeInfo) && $themeInfo->serializable && USE_DB) {
+				if (!empty($themeInfo) && $themeInfo->serializable) {
 					$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "hash"=>$themeInfo->hash));
 				} else {
 					$this->samepage_i18n[$l] = null;
@@ -271,6 +274,12 @@ class Controller_results
                                 }
                                 ?>
                                     </div>
+									<?php
+									$userMessage = UserMessage::getInstance();
+                        echo '<div class="title_error_validation" style="margin-top:30px">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
+                        ?>
+                                      
+                          
                                 </div>
                                 <div class="img_item">
                                         <img src="<?php if ($themeInfo->isNsfw) echo "/img/nsfw.png"; else echo TC_HTTPDOMAIN.'/'.$themeInfo->hash.'/thumbnail.png';?>">
@@ -373,7 +382,7 @@ class Controller_results
     </script>
     
                             <?php
-                            if (USE_DB)
+                            
                             {
                             ?>
                                         <div class="container_otherThemes">
@@ -403,12 +412,23 @@ class Controller_results
 													if ($cur_id == $id) {$i --; continue;}// not the current one
                                                     $html = '';
                                                     $namesanitized = $r['namesanitized'];
+													$uriNameSeo = $r['uriNameSeo'];
+													$uriNameSeoHigherVersion = $r['uriNameSeoHigherVersion'];
                                                     $themetype = $r['themetype'];
                                                     $score = $r['score'];
                                                     $themetype_text = sprintf(__("WordPress %s theme"),$r['cmsVersion']);
                                                     if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $r['cmsVersion']);
-                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-                                                    $html .= '<div class="block_theme">';
+                                                   // $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+                                                    if (empty($uriNameSeo)) // legacy
+														$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+													else {
+														if ($themeInfo['isHigherVersion'] == 1)
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
+														else
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeoHigherVersion, "themetype"=>$themetype));
+													}
+													
+													$html .= '<div class="block_theme">';
                                                         $html .= '<div class="content_theme">';
                                                                 $html .= '<div class="bg_theme">';
                                                                     $html .= '<a href="'.$url.'"><img src="'.TC_HTTPDOMAIN.'/'.$r['hash'].'/thumbnail.png" alt="" class="img_theme"/></a>';
@@ -587,7 +607,17 @@ class Controller_results
                                             else $characteristics[] = array(__("Theme type"), __("WordPress child theme").' '.$themeInfo->cmsVersion);
                                             if (!empty($themeInfo->parentName)){
                                                     $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentUriNameSeo , "themetype"=>$themeInfo->parentThemeType ));
-                                                    $characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
+                                                    
+													if (empty($themeInfo->parentUriNameSeo)) // legacy
+														$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNamesanitized, "themetype"=>$themeInfo->parentThemeType));
+													else {
+														if ($themeInfo->parentIsHigherVersion == 1)
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$themeInfo->parentUriNameSeo, "themetype"=>$themeInfo->parentThemeType));
+														else
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$themeInfo->parentUriNameSeoHigherVersion, "themetype"=>$themeInfo->parentThemeType));
+													}
+													
+													$characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
                                             }
                                     }
                                     else if ($themeInfo->themetype == TT_JOOMLA)

@@ -41,6 +41,7 @@ class ThemeInfo
 	public $name;
 	public $namesanitized;
 	public $uriNameSeo;
+	public $uriNameSeoHigherVersion;
 	public $themedir; // directory name of installed theme in cms files
 	public $author;
 	public $description; // HTML description

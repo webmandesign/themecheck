@@ -3,7 +3,7 @@ namespace ThemeCheck;
 require_once TC_INCDIR."/FileValidator.php";
 require_once TC_INCDIR."/Helpers.php";
 require_once TC_INCDIR."/shield.php";
-if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
+include_once (TC_ROOTDIR.'/DB/History.php');
 
 class Controller_home
 {
@@ -31,6 +31,7 @@ class Controller_home
 		$html = '';
 		$namesanitized = $themeInfo['namesanitized'];
 		$uriNameSeo = $themeInfo['uriNameSeo'];
+		$uriNameSeoHigherVersion = $themeInfo['uriNameSeoHigherVersion'];
 		$themetype = $themeInfo['themetype'];
 		$score = $themeInfo['score'];
 		$cmsVersion = $themeInfo['cmsVersion'];
@@ -49,58 +50,59 @@ class Controller_home
 			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
 		
 		if (empty($uriNameSeo)) // legacy
-				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-		else 
+			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+		else {
+			if ($themeInfo['isHigherVersion'] == 1)
 				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
-				
-                $imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
-                $imgWidth = $imgSize[0];
-                $imgHeight = $imgSize[1];
+			else
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeoHigherVersion, "themetype"=>$themetype));
+		}
+		
+		$imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
+		$imgWidth = $imgSize[0];
+		$imgHeight = $imgSize[1];
 		
 		$html .= '<div class="block_theme" data-id="'.$themeInfo['id'].'">';
 			$html .= '<div class="content_theme">';
 				$html .= '<div class="bg_theme">';
 				if ($themeInfo['isNsfw']==true) 
-                                {
-                                    $html .= '<a href="'.$url.'" ><img src="/img/nsfw.png"></a>';
-                                }
+				{
+					$html .= '<a href="'.$url.'" ><img src="/img/nsfw.png"></a>';
+				}
 				else 
-                                {
-                                    $html .= '<a href="'.$url.'" ><img  src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
-                                }
+				{
+					$html .= '<a href="'.$url.'" ><img  src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
+				}
 				$html .= '</div>';
-				
+					
 				$html .= '<div class="footer_theme">';
 					$html .= '<span class="ico_result">';
-                            $html .=  getShield($themeInfo, I18N::getCurLang(), null, $url, TC_HTTPDOMAIN.'/');
+                    $html .= getShield($themeInfo, I18N::getCurLang(), null, $url, TC_HTTPDOMAIN.'/');
 					$html .='</span>';
 					$html .= '<a href="'.$url.'" ><span class="separ_verti">';
 					$html .= '<img src= "'.TC_HTTPDOMAIN.'/img/images/images_theme/separVerti_footer_theme.png" alt="">';
 					$html .='</span></a>';
 					$html .= '<a href="'.$url.'" ><span class="info_theme">';
-					$html .= '<p class="title_theme">'.htmlspecialchars($themeInfo['name']).'</p>';
+					$html .= '<p class="title_theme">'.htmlspecialchars($themeInfo['name']).' '.htmlspecialchars($themeInfo['version']).'</p>';
 					$html .= '<p class="type_theme">'.$themetype_text.'</p>';
-					$html .='</span></a>';
+					$html .= '</span></a>';
 					
 					$html .='<div class="container_iconCms">';
 						$html .= '<div class="content_iconCms"><a href="'.$url.'" >';
 							if ($themeInfo["isOpenSource"])
 							{
 								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?nom='.$themeInfo['name'].'&zipname='.$themeInfo['zipfilename'].'" '
-
                                 . 'onclick="trackDL(\''.$themeInfo['name'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
 									
-									if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
-									{
-										$themetype_text = $themetype_text.' '.__('Free');
-									}
-									else 
-									{
-										$themetype_text = __('Free').' '.$themetype_text;
-									}
+								if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
+								{
+									$themetype_text = $themetype_text.' '.__('Free');
+								}
+								else 
+								{
+									$themetype_text = __('Free').' '.$themetype_text;
+								}
 							}
-                                                        
-
 							else if ($themeInfo["isThemeForest"]){
 								$html .= '<span class="sprite theme_forest" title="'.__("Themeforest theme").'"></span>';
 							}
@@ -365,9 +367,10 @@ class Controller_home
                 <?php
 
                 // display recent validated file if	history is available			
-                if (USE_DB) 
+                
                 {
                   $history = new History();
+				  $history->booom();
 
                 ?>
 
@@ -492,31 +495,29 @@ class Controller_home
 		$olderthan = intval($_POST["olderthan"]);
 		$response = null;
 		
-		if (USE_DB)
+		$history = new History();
+		if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
 		{
-			$history = new History();
-			if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
-			{
-				$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme'], $olderthan);
-			}
-			else
-			{
-				$pagination = $history->getRecent($olderthan);
-			}
-			
-			$smallestid = 0;
-			$html = '';
-			foreach($pagination as $t)
-			{
-				$html .= $this->getThumb($t);
-				if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
-			}
-			
-			$response["html"] = $html;
-			if ($smallestid == 1) $response["nomore"] = true;
-			else $response["nomore"] = false;
-			$response["smallestid"] = $smallestid;
+			$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme'], $olderthan);
 		}
+		else
+		{
+			$pagination = $history->getRecent($olderthan);
+		}
+		
+		$smallestid = 0;
+		$html = '';
+		foreach($pagination as $t)
+		{
+			$html .= $this->getThumb($t);
+			if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
+		}
+		
+		$response["html"] = $html;
+		if ($smallestid == 1) $response["nomore"] = true;
+		else $response["nomore"] = false;
+		$response["smallestid"] = $smallestid;
+
 		ob_clean();
 		header('Content-Type: application/json');
 		echo json_encode($response);
