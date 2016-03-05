@@ -384,7 +384,14 @@ class Controller_results
                             <?php
                             
                             {
+							
                             ?>
+							
+							
+							<?php
+							$history = new History();
+							
+							?>
                                         <div class="container_otherThemes">
 
                                             <div class="title_alert">
@@ -397,7 +404,7 @@ class Controller_results
 
                                             <div class="container_themes">
                             <?php
-                                    $history = new History();
+                                   
                                     $id = intval($history->getIdFromHash($themeInfo->hash)); 
 
 									$cur_id = $id + 2;
@@ -679,8 +686,9 @@ class Controller_results
                         {
                             $css_class = 'second_line';
                         }
-                        
-                        echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
+
+						echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
+
                         $i++;
                     }
                                     ?>
@@ -734,6 +742,23 @@ class Controller_results
                                     {
                                         echo '<span class="text_donostore">'.__("These results were not saved on themecheck.org servers and will be lost when you quit this page.").'</span>';
                                     }
+									
+									$history = new History();
+									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
+									if (!empty($otherVersions))
+									{	
+										echo '<span class="text_donostore">'.__('Other versions and variations of this theme :').'</span>';
+										foreach($otherVersions as $row)
+										{
+										//	$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row[uriNameSeo], "themetype"=>$row[themetype]));
+											if ($row['isHigherVersion'] == 1)
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
+											else
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
+															
+											echo '<p style="margin:20px"><a href="'.$href.'">'.htmlspecialchars($row["name"]).', version '.htmlspecialchars($row["version"]).' : '.$row["score"].'</a></p>';
+										}
+									}
                                 ?>
                            
                                 <div id="criticalAlerts"></div>

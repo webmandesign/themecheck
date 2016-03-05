@@ -245,9 +245,9 @@ class TextDomain_Checker extends CheckPart
 									$new_args[] = $text;
 									$filename = tc_filename( $php_key );
 									$this->messages[] = __all('Found a translation function that has an incorrect number of arguments. Function %1$s, with the arguments %2$s in file %3$s.', 
-																'<strong>' . $func . '</strong>',
+																'<strong>' . htmlspecialchars($func) . '</strong>',
 																'<strong>' . htmlspecialchars( implode(', ',$new_args) ). '</strong>',
-																'<strong>' . $filename . '</strong>');
+																'<strong>' . htmlspecialchars($filename) . '</strong>');
 																
 									$this->errorLevel = $this->threatLevel;
 								} else if ($rules[$func][$args_count] == 'domain') {
@@ -276,9 +276,9 @@ class TextDomain_Checker extends CheckPart
 							if (!$found_domain) {
 								$filename = tc_filename( $php_key );
 								$this->messages[] = __all('Found a translation function that is missing a text-domain. Function %1$s, with the arguments %2$s in file %3$s.', 
-																'<strong>' . $func . '</strong>',
+																'<strong>' . htmlspecialchars($func) . '</strong>',
 																'<strong>' . htmlspecialchars( implode(', ',$args)) . '</strong>',
-																'<strong>' . $filename . '</strong>');
+																'<strong>' . htmlspecialchars($filename) . '</strong>');
 																
 								$this->errorLevel = $this->threatLevel;
 							}
@@ -297,7 +297,7 @@ class TextDomain_Checker extends CheckPart
 			
 			if ( $domainscount > 1 ) {
 				$this->messages[] = __all('More than one text-domain is being used in this theme. This means the theme will not be compatible with WordPress.org language packs. The domains found are %1$s.', 
-																'<strong>' . $domainlist . '</strong>');
+																'<strong>' . htmlspecialchars($domainlist) . '</strong>');
 				$this->errorLevel = $this->threatLevel;
 			}  
 			// themecheck plugin info "Only one text-domain is being used in this theme" not relevant in themecheck.org

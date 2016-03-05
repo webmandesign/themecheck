@@ -369,9 +369,8 @@ class Controller_home
                 // display recent validated file if	history is available			
                 
                 {
-                  $history = new History();
-				  $history->booom();
-
+					$history = new History();
+					$history->booom();
                 ?>
 
                                     <div id="alreadyvalidated">

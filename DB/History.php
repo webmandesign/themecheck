@@ -83,18 +83,22 @@ class History
       unset ($this->db);
 	}
 		
-	public function getUniqueUriNameSeo($name, $version)
+	public function getUniqueUriNameSeo($name, $version, $hash)
 	{
 		$sanitizedN = ThemeInfo::sanitizedString($name);
 		$sanitizedV = ThemeInfo::sanitizedString($version);
-		$sanitizedV = str_replace("-", "_", $sanitizedV);
-		$sanitizedV = str_replace("v", "", $sanitizedV);
-		$sanitized_orig = $sanitizedN.'-v'.$sanitizedV;
+		$sanitized_orig = $sanitizedN;
+		if (strpos($sanitizedN, $sanitizedV) === false) // version not already in name
+		{
+			$sanitizedV = str_replace("-", "_", $sanitizedV);
+			$sanitizedV = str_replace("v", "", $sanitizedV);
+			$sanitized_orig = $sanitizedN.'-v'.$sanitizedV;
+		}
 		$i = 0;
 		$j = '';
 		do {
 			$sanitized = $sanitized_orig.$j;
-			$q = $this->db->query('SELECT count(*) from theme where uriNameSeo = '.$this->db->quote($sanitized));
+			$q = $this->db->query('SELECT count(*) from theme where uriNameSeo = '.$this->db->quote($sanitized).' AND hash!='.$this->db->quote($hash));
 			$row = $q->fetch();
 			if ($i == 0) $i = 1; else $i++;
 			$j = '('.$i.')';
@@ -102,14 +106,14 @@ class History
 		return $sanitized;
 	}
 	
-	public function getUniqueUriNameSeoHigherVersion($name, $themedir)
+	public function getUniqueUriNameSeoHigherVersion($name, $themedir, $hash)
 	{
 		$sanitized_orig = ThemeInfo::sanitizedString($name);
 		$i = 0;
 		$j = '';
 		do {
 			$sanitized = $sanitized_orig.$j;
-			$q = $this->db->query('SELECT themedir from theme where uriNameSeoHigherVersion = '.$this->db->quote($sanitized));
+			$q = $this->db->query('SELECT themedir from theme where uriNameSeoHigherVersion = '.$this->db->quote($sanitized).' AND hash!='.$this->db->quote($hash));
 			$rows = $q->fetchAll();
 			if (empty($rows)) return $sanitized;
 			if (count($rows)==0) return $sanitized;
@@ -307,8 +311,8 @@ class History
 		
 		// generate sanitized name
 		$themeInfo->namesanitized = "";// not used anymore
-		$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version);
-		$themeInfo->uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($themeInfo->name, $themeInfo->themedir);
+		$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version, $themeInfo->hash);
+		$themeInfo->uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($themeInfo->name, $themeInfo->themedir, $themeInfo->hash);
 		
 		// save to DB
 		$this->query_theme_insert->bindValue(':hash', $themeInfo->hash, \PDO::PARAM_STR);
@@ -494,17 +498,17 @@ class History
 	{
 		$q = $this->db->query('SELECT id,name,version,uriNameSeo,uriNameSeoHigherVersion,themedir from theme where hash = '.$this->db->quote($hash));
 		$row = $q->fetch();
-		
+
 		$uriNameSeo = $row["uriNameSeo"];
 		$uriNameSeoHigherVersion = $row["uriNameSeoHigherVersion"];
 		
 		if (!empty($uriNameSeo) && !empty($uriNameSeoHigherVersion)) return;
-		
+
 		if (empty($uriNameSeo))
-			$uriNameSeo = $this->getUniqueUriNameSeo($row["name"], $row["version"]);
+			$uriNameSeo = $this->getUniqueUriNameSeo($row["name"], $row["version"], $hash);
 		
 		if (empty($uriNameSeoHigherVersion))
-			$uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($row["name"], $row["themedir"]);
+			$uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($row["name"], $row["themedir"], $hash);
 		
 		$query = $this->db->prepare("UPDATE theme SET uriNameSeo=:uriNameSeo, uriNameSeoHigherVersion=:uriNameSeoHigherVersion WHERE hash=:hash");
 		$query->bindValue(':uriNameSeo',$uriNameSeo,\PDO::PARAM_STR);
@@ -901,23 +905,51 @@ class History
 		}
 	}
 	
+	// large one time db operations
 	public function booom()
 	{
-		$query = $this->db->query('SELECT themedir from theme GROUP BY themedir');
+		return;
+		/*$query = $this->db->query('SELECT themedir from theme GROUP BY themedir');
 		$query->execute();
 		$rows = $query->fetchAll();
 		foreach ($rows as $row)
 		{
 			$this->findHigherVersion($row["themedir"]);
-		}
+		}*/
 		
-		$query2 = $this->db->query('SELECT hash from theme');
+		$query2 = $this->db->query('SELECT hash,themedir,version,isHigherVersion from theme');
 		$query2->execute();
 		$rows2 = $query2->fetchAll();
 		foreach ($rows2 as $row)
 		{
 			$this->generateUriNameSeoInDb($row["hash"]);
+			
+			/*//if ($row["isHigherVersion"]==1)
+		//{
+				$query3 = $this->db->prepare('DELETE from theme WHERE version=:version AND themedir=:themedir AND hash!=:hash AND isHigherVersion=0');
+				$query3->bindValue(':version',$row["version"],\PDO::PARAM_STR);
+				$query3->bindValue(':themedir',$row["themedir"],\PDO::PARAM_STR);
+				$query3->bindValue(':hash',$row["hash"],\PDO::PARAM_STR);
+				$query3->execute();
+			//}*/
 		}
+	}
+	
+	public function getOtherVersions($hash, $themedir, $themetype)
+	{
+		$query = $this->db->prepare('SELECT hash, name, uriNameSeo, uriNameSeoHigherVersion, version, isHigherVersion, themetype, score from theme WHERE themedir=:themedir AND hash!=:hash AND themetype=:themetype ORDER BY version DESC');
+		$query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
+		$query->bindValue(':hash',$hash,\PDO::PARAM_STR);
+		$query->bindValue(':themetype',$themetype,\PDO::PARAM_INT);
+		$r = $query->execute();
+		if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
+		{
+			$e = $query->errorInfo();
+			trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
+		}
+			
+		$rows = $query->fetchAll();
+		return $rows;
 	}
 	
 	public function findHigherVersion($themedir)
