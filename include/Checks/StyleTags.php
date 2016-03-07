@@ -15,7 +15,7 @@ class StyleTags_Checker extends CheckPart
 			$tag = trim($tag);// clean after explode()
 			if ( strpos( strtolower( $tag ), "accessibility-ready") !== false ) {
 				$this->messages[] = __all('Themes that use the tag accessibility-ready will need to undergo an accessibility review.<br/>See <a href="https://make.wordpress.org/themes/handbook/review/accessibility/">https://make.wordpress.org/themes/handbook/review/accessibility/</a>');
-				if ($this->errorLevel == ERRORLEVEL_SUCCESS) $this->errorLevel = $this->threatLevel;
+				if ($this->errorLevel == ERRORLEVEL_SUCCESS) $this->errorLevel = ERRORLEVEL_INFO;
 			}
 
 			if ( !in_array( strtolower( $tag ), $allowed_tags ) ) {
