@@ -20,7 +20,7 @@ class PostFormat_Checker extends CheckPart
                     $matches[0] = str_replace(array('"',"'"),'', $matches[0]);
                     $error = esc_html( rtrim($matches[0], '(' ) );
                     $grep = tc_grep( rtrim($matches[0], '(' ), $php_key);
-                    $this->messages[] = __all('<strong>add_theme_support()</strong> was found in the file <strong>%1$s</strong>. However get_post_format and/or has_post_format were not found%2$s.', $filename, $css_found);
+                    $this->messages[] = __all('<strong>add_theme_support()</strong> was found in the file <strong>%1$s</strong>. However get_post_format and/or has_post_format were not found%2$s.', esc_html($filename), esc_html($css_found));
                     $this->errorLevel = $this->threatLevel;
                 }
             }

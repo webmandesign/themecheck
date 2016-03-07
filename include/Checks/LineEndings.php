@@ -14,7 +14,7 @@ class LineEndings_Checker extends CheckPart
 			if ( isset( $e['extension'] ) && in_array( $e['extension'], array( 'php', 'css', 'txt', 'js' ) ) ) {
 					if (preg_match("/\r\n/", $file_content) && preg_match("/[^\r]\n/", $file_content)) {
 						$filename = tc_filename( $key );
-						$this->messages[] = __all('Found a mix of &#92;r&#92;n and &#92;n line endings in file <strong>%1$s</strong>.', $filename);
+						$this->messages[] = __all('Found a mix of &#92;r&#92;n and &#92;n line endings in file <strong>%1$s</strong>.', esc_html($filename));
 						$this->errorLevel = $this->threatLevel;
 					}
 			}

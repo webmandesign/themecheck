@@ -53,7 +53,7 @@ class I18NCheck_Checker extends CheckPart
 							}
 
 							$var_name = $token[1];
-							$this->messages[] = __all('Possible variable %1$s found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s', '<strong>'.$var_name.'</strong>', $filename, $error);
+							$this->messages[] = __all('Possible variable %1$s found in translation function in <strong>%2$s</strong>. Translation function calls should not contain PHP variables. %3$s', '<strong>'.esc_html($var_name).'</strong>', esc_html($filename), $error); // $error alreadu escaped in tc_grep
                             $this->errorLevel = $this->threatLevel;
                             
 							break; // stop looking at the tokens on this line once a variable is found

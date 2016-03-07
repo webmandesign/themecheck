@@ -12,7 +12,7 @@ class Favicon_Checker extends CheckPart
 			$filename = tc_filename( $file_path );
 
 			if ( preg_match( '/(<link rel=[\'"]icon[\'"])|(<link rel=[\'"]apple-touch-icon-precomposed[\'"])|(<meta name=[\'"]msapplication-TileImage[\'"])/', $file_content, $matches ) ) {	
-				$this->messages[] = __all( 'Possible Favicon found in %1$s. Favicons are handled by the Site Icon setting in the customizer since version 4.3.', '<strong>' . $filename . '</strong>' );
+				$this->messages[] = __all( 'Possible Favicon found in %1$s. Favicons are handled by the Site Icon setting in the customizer since version 4.3.', '<strong>' . esc_html($filename) . '</strong>' );
 				$this->errorLevel = $this->threatLevel;
 			}
 		}

@@ -14,7 +14,7 @@ class Iframes_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( trim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', htmlspecialchars($error), $filename, $grep );
+                $this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', esc_html($error), esc_html($filename), $grep );
                 $this->errorLevel = $this->threatLevel;
             }
         }

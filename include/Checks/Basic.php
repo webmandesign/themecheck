@@ -12,14 +12,14 @@ class Basic_Checker extends CheckPart
         $key = $this->code;
         
         if ( !preg_match( '/' . $key . '/i', $php ) ) {
-            if ( $this->id == 'BASIC_WP_ADD_THEME_SUPPORT' ) $key =  '<strong>add_theme_support( \'automatic-feed-links\' )</strong>';
-            else if ( $this->id == 'BASIC_WP_BODY_CLASS' ) $key =  '<strong>body_class</strong> call in body tag';
+            if ( $this->id == 'BASIC_WP_ADD_THEME_SUPPORT' ) $key =  'add_theme_support( \'automatic-feed-links\' )';
+            else if ( $this->id == 'BASIC_WP_BODY_CLASS' ) $key =  'body_class call in body tag';
 			else if ( $key === 'charset' ) {
 				if (preg_match( '/encoding/i', $php )) return; // in xhtml charset can be declared with <?xml version="1.0" encoding="UTF-8"...
-				$key = '<strong>charset</strong>';
+				$key = 'charset';
 			}
-            else $key = '<strong>'.substr($key,0,strpos($key, '\s*\(')).'</strong>';
-            $this->messages[] = __all('Could not find %1$s.', $key );
+            else $key = substr($key,0,strpos($key, '\s*\('));
+            $this->messages[] = __all('Could not find %1$s.', '<strong>'.esc_html($key).'</strong>' );
             $this->errorLevel = $this->threatLevel;
         }
     }

@@ -17,7 +17,7 @@ class Worms_Checker extends CheckPart
                 $filename = tc_filename($php_key);
                 $error = $matches[0];
                 $grep = tc_grep($error, $php_key);
-                $this->messages[] = __all('<strong>%1$s</strong> %2$s', $filename, $grep);
+                $this->messages[] = __all('<strong>%1$s</strong> %2$s', esc_html($filename), $grep);
                 $this->errorLevel = $this->threatLevel;
             }
         }

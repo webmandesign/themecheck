@@ -23,7 +23,7 @@ class JManifest_Checker extends CheckPart
                             if ( !preg_match( '/<' . $this->code . '>/i' , $otherfile, $matches ) )
                             {
                                 $filename = tc_filename( $other_key );
-                                $this->messages[] = __all('Missing tag "%1$s" in %2$s.', $this->code, $filename);
+                                $this->messages[] = __all('Missing tag "%1$s" in %2$s.', esc_html($this->code), esc_html($filename));
                                 $this->errorLevel = $this->threatLevel;
                             }
                         }
@@ -31,7 +31,7 @@ class JManifest_Checker extends CheckPart
                 } else 
 								{
 									$filename = tc_filename( $other_key );
-									$this->messages[] = __all('Cannot read xml content <strong>%1$s</strong>.', $filename);
+									$this->messages[] = __all('Cannot read xml content <strong>%1$s</strong>.', esc_html($filename));
                   $this->errorLevel = ERRORLEVEL_CRITICAL;
 								}
             }

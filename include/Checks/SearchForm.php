@@ -14,7 +14,7 @@ class SearchForm_Checker extends CheckPart
             {
                 $grep = tc_preg( $this->code, $php_key );
                 $filename = tc_filename( $php_key );
-                $this->messages[] = __all('File <strong>%1$s</strong> :%2$s Use <strong>get_search_form()</strong> instead of including searchform.php directly.', $filename, $grep);
+                $this->messages[] = __all('File <strong>%1$s</strong> :%2$s Use <strong>get_search_form()</strong> instead of including searchform.php directly.', esc_html($filename), $grep);
                 $this->errorLevel = $this->threatLevel;
             }
         }

@@ -23,7 +23,7 @@ class StyleTags_Checker extends CheckPart
 					$this->messages[] = __all('The flexible-width and fixed-width tags changed to fluid-layout and fixed-layout tags in WordPress 3.8. Additionally, the responsive-layout tag was added.');
 					$this->errorLevel = $this->threatLevel;
 				} else {
-					$this->messages[] = __all('Found wrong tag %s in style.css header.', '<strong>' . $tag . '</strong>');
+					$this->messages[] = __all('Found wrong tag %s in style.css header.', '<strong>' . esc_html($tag) . '</strong>');
 					$this->errorLevel = $this->threatLevel;
 				}
 			}

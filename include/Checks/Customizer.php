@@ -16,13 +16,13 @@ class Customizer_Checker extends CheckPart
 				foreach ( $matches[1] as $match ) {
 					// Check if we have sanitize_callback or sanitize_js_callback
 					if ( false === strpos( $match, 'sanitize_callback' ) && false === strpos( $match, 'sanitize_js_callback' ) ) {
-						$this->messages[] = __all( 'Found a Customizer setting that did not have a sanitization callback function in file <strong>%s</strong>. Every call to the <strong>add_setting()</strong> method needs to have a sanitization callback function passed.', $filename  );
+						$this->messages[] = __all( 'Found a Customizer setting that did not have a sanitization callback function in file <strong>%s</strong>. Every call to the <strong>add_setting()</strong> method needs to have a sanitization callback function passed.', esc_html($filename)  );
 						$this->errorLevel = $this->threatLevel;
 						break;
 					} else {
 						// There's a callback, check that no empty parameter is passed.
 						if ( preg_match( '/[\'"](?:sanitize_callback|sanitize_js_callback)[\'"]\s*=>\s*[\'"]\s*[\'"]/', $match ) ) {
-							$this->messages[] = __all( 'Found a Customizer setting that had an empty value passed as sanitization callback in file <strong>%s</strong>. You need to pass a function name as sanitization callback.', $filename  );
+							$this->messages[] = __all( 'Found a Customizer setting that had an empty value passed as sanitization callback in file <strong>%s</strong>. You need to pass a function name as sanitization callback.', esc_html($filename));
 							$this->errorLevel = $this->threatLevel;
 							break;
 						}

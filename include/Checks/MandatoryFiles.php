@@ -9,14 +9,14 @@ class MandatoryFiles_Checker extends CheckPart
         $mandatoryfile = $this->code;
         $missing = true;
 				
-				$files = array_merge($php_files, $css_files, $other_files);
+		$files = array_merge($php_files, $css_files, $other_files);
         foreach (array_keys($files) as $filepath)
         {
             if (basename($filepath) == $mandatoryfile) {$missing = false; break;}
         }
         if ($missing)
         {
-            $this->messages[] = __all('Could not find file <strong>%1$s</strong> in the theme.', $mandatoryfile);
+            $this->messages[] = __all('Could not find file <strong>%1$s</strong> in the theme.', esc_html($mandatoryfile));
             $this->errorLevel = $this->threatLevel;
         }
     }
