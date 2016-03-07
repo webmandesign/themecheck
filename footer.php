@@ -39,7 +39,7 @@ namespace ThemeCheck;
 							$langs="";
 							foreach ($controller->samepage_i18n as $l=>$url) {
 								if ($l == I18N::getCurLang()) $langs .= '&nbsp;<span class="lang_selected">'.strtoupper($l).'</span>&nbsp; | ';
-								else $langs .= '<a href="'.$url.'" >'.strtoupper($l).'</a> | '; 
+								else $langs .= '<a rel="alternate" hreflang="'.$l.'" href="'.$url.'" >'.strtoupper($l).'</a> | '; 
 							}
 							echo trim($langs,' |');
 						}?>

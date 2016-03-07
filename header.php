@@ -20,12 +20,18 @@ namespace ThemeCheck;
 		<meta property="og:description" content="<?php echo $controller->meta["description"]; ?>" />
 		<?php if (isset($controller->meta["robots"])) echo '<meta property="robots" content="'.$controller->meta["robots"].'"/>';?>
 		
+		<?php 
+		if (!empty($controller->samepage_i18n[I18N::getCurLang()])){
+			foreach ($controller->samepage_i18n as $l=>$url) {
+				echo '<link rel="alternate" hreflang="'.$l.'" href="'.$url.'"/>';
+			}
+		}?>			
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/bootstrap-dist.css"/>
 <!--		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="<?php //echo TC_HTTPDOMAIN;?>/css/main.css"> -->
 		<link rel="stylesheet" href="<?php echo TC_HTTPDOMAIN;?>/styles/css/styles.css"/>
 
-                <link href='https://fonts.googleapis.com/css?family=Roboto:300,100,bold' rel='stylesheet' type='text/css'/>
+		<link href='https://fonts.googleapis.com/css?family=Roboto:300,100,bold' rel='stylesheet' type='text/css'/>
                 
 		<link href='http://fonts.googleapis.com/css?family=Arimo&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
 		<link rel="icon" href="<?php echo TC_HTTPDOMAIN;?>/<?php if(isset($controller->meta["favicon"])){echo $controller->meta["favicon"];} else { echo "favicon"; };?>.ico" />

@@ -639,8 +639,8 @@ class Controller_results
                                             if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license).'<br>'.htmlspecialchars($themeInfo->licenseText));
                                             else $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license));
                                     else 
-                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
-                                            else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
+                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
+                                            else $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
                                     $characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
                                     if (!empty($themeInfo->themeUri)) {
                                             if (strpos($themeInfo->themeUri,'themeforest.net')!==false)
@@ -649,7 +649,7 @@ class Controller_results
                                                     $characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'">'.htmlspecialchars($themeInfo->themeUri).'</a>');
                                     }
                                     if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
-                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
+                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a rel="author" href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
                                     if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
                                     /*if (!empty($themeInfo->layout)) {
                                             if ($themeInfo->layout == 1) $characteristics[] = array(__("Layout"), __("Fixed"));
