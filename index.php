@@ -29,24 +29,22 @@ set_error_handler(__NAMESPACE__."\ErrorHandler");
  
 // Multilingual url un-rewriting
 $routeParts = Route::getInstance()->match();
-
-if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"] == "error404.php") 
+if (empty($routeParts) || empty($routeParts["phpfile"]) || $routeParts["phpfile"] == "error404") 
 {
-	include_once (TC_ROOTDIR.'/error404.php');
-     	die;
-} else 
-{ 
-	include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
-	$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
-	$controller = new $classname();
-	$controller->prepare();
-	if ($routeParts["phpfile"] == 'download')
-	{
-		$controller->render();
-	} else {
-		require "header.php";
-		$controller->render();
-		require "footer.php";
-	}
-}
+	ob_clean();
+	header("HTTP/1.0 404 Not Found");
+	$routeParts["phpfile"] = "error404";
+} 
 
+include (TC_ROOTDIR.'/controllers/controller_'.$routeParts["phpfile"].'.php');
+$classname = '\\ThemeCheck\\Controller_'.$routeParts["phpfile"];
+$controller = new $classname();
+$controller->prepare();
+if ($routeParts["phpfile"] == 'download')
+{
+	$controller->render();
+} else {
+	require "header.php";
+	$controller->render();
+	require "footer.php";
+}

@@ -215,7 +215,6 @@ AddDefaultCharset utf-8
     RewriteEngine On
   # RewriteBase /
 
-RewriteRule ^error404(.*)$                         		error404.php [QSA,NC,L]
 RewriteRule ^score\.php(.*)$                          score.php$1 [QSA,NC,L]
 RewriteRule ^ajax\.php(.*)$                           ajax.php$1 [QSA,NC,L]
 RewriteRule ^sitemap([_a-z]*)\.xml$                   sitemap$1.xml [QSA,NC,L]

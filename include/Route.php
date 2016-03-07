@@ -148,7 +148,7 @@ class Route {
 				$route["phpfile"] = "download";
 			}
 				
-			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
+			if (empty($route["phpfile"])) $route["phpfile"] = "error404";
 		}
 		else if (count($parts) > 1)
 		{	 
@@ -175,7 +175,7 @@ class Route {
 						} 
 					}
 					
-					if (empty($uriNameSeo)) $route["phpfile"] = "error404.php";
+					if (empty($uriNameSeo)) $route["phpfile"] = "error404";
 					else {
 						$history = new History();
 						
@@ -208,7 +208,7 @@ class Route {
 								}
 							}
 						}
-						if (empty($hash)) $route["phpfile"] = "error404.php";
+						if (empty($hash)) $route["phpfile"] = "error404";
 						else {
 							$route["hash"] = $hash;
 							if ($p0 == $i18n->url($route["lang"], "unittests"))	$route["phpfile"] = "unittests";
@@ -218,7 +218,7 @@ class Route {
 				}				
 			} 
 
-			if (empty($route["phpfile"])) $route["phpfile"] = "error404.php";
+			if (empty($route["phpfile"])) $route["phpfile"] = "error404";
 		}
                 
 		return $route;
