@@ -14,6 +14,7 @@ class Controller_error404
 	{
 		$this->meta["title"] = __("Error 404 (Not Found)");
 		$this->meta["description"] = __("Error 404 (Not Found)");
+		$this->meta["robots"] = "noindex";
 		global $ExistingLangs;
 		foreach ($ExistingLangs as $l)
 		{
