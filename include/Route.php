@@ -378,17 +378,21 @@ class Route {
 			{
 				$l = 'en';
 				$d = $row["validationDate"];
-				if ($row['isHigherVersion'] == 1)
-					$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
-				else
-					$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
-				$string = '<url>
+				global $ExistingLangs;
+				foreach($ExistingLangs as $l)
+				{
+					if ($row['isHigherVersion'] == 1)
+						$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
+					else
+						$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
+					$string = '<url>
 	<loc>'.$url.'</loc>
 	<lastmod>'.$d.'</lastmod>
 	<changefreq>monthly</changefreq>
 	<priority>0.5</priority>
   </url>';
-				fwrite($fp, $string);
+					fwrite($fp, $string);
+				}
 			}
 			fwrite($fp, '</urlset>');
 			fclose($fp);
