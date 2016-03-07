@@ -655,6 +655,8 @@ class FileValidator
 		if ($isThemeforest) $this->generateThemeForestReport();
 		
 		$this->duration = microtime(true) - $start_time_checker;
+		
+		//Route::getInstance()->updateSitemap($this->themeInfo->themetype);
 	}
 	
 	public function getValidationResults($lang)

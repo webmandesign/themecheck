@@ -637,6 +637,15 @@ class History
 		return $ret;
 	}
 	
+	public function getAllFromType($themetype)
+	{
+		$q = $this->db->prepare('SELECT id, hash, name, themetype, isHigherVersion, uriNameSeo, uriNameSeoHigherVersion, validationDate from theme WHERE themetype=:themetype');
+		$q->bindValue(':themetype', $themetype, \PDO::PARAM_INT);
+		$q->execute();
+		$rows = $q->fetchAll();
+		return $rows;
+	}
+	
 	// only to be used in admin tasks
 	public function getIdFromZipName($zipfilename)
 	{

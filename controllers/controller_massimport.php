@@ -16,12 +16,16 @@ class Controller_massimport
 	
 	public function prepare()
 	{
+				Route::getInstance()->updateSitemap(1);
+		Route::getInstance()->updateSitemap(2);
+		Route::getInstance()->updateSitemap(4);
 		$this->meta["title"] = __("Mass import");
 		$this->meta["description"] = __("Mass import");
 	}
 	
 	public function render()
 	{
+	return;
 		?>
          <section id="content">
             <div class="container_massimport">	
