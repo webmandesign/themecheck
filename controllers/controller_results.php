@@ -662,7 +662,7 @@ class Controller_results
                                     if (!empty($themeInfo->validationDate))$characteristics[] = array(__("Last validation"), date("Y-m-d H:i", $themeInfo->validationDate));
 									
 									$history = new History();
-									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype, $themeInfo->name);
+									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
 									if (!empty($otherVersions))
 									{	
 										$data_array = array();
@@ -726,8 +726,7 @@ class Controller_results
                                             <div class="theme_is_open"><?php echo __('This theme is open source.'); ?></div>
 
                                             <div class="button_download">
-                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?nom='.
-                                                      $themeInfo->name.'&zipname='.$themeInfo->zipfilename.'" onclick="trackDL(\''.$themeInfo->name.'\')"'; ?>" style="text-decoration: none;">
+                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?h='.$themeInfo->hash.'" onclick="trackDL(\''.$themeInfo->name.'\')"'; ?>" style="text-decoration: none;">
                                                 <label for="buttonDownload" class="buttonDownload">
                                                         <span class="sprite downloadBold"></span>
                                                         <?php echo __('DOWNLOAD'); ?>

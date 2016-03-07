@@ -83,9 +83,10 @@ class History
       unset ($this->db);
 	}
 		
-	public function getUniqueUriNameSeo($name, $version, $hash)
+	public function getUniqueUriNameSeo($name, $version, $hash, $themedir)
 	{
 		$sanitizedN = ThemeInfo::sanitizedString($name);
+		if (empty($sanitizedN)) $sanitizedN = ThemeInfo::sanitizedString($themedir); // when name is in chinese or other non alaphabetical language
 		$sanitizedV = ThemeInfo::sanitizedString($version);
 		$sanitized_orig = $sanitizedN;
 		if (strpos($sanitizedN, $sanitizedV) === false) // version not already in name
@@ -106,9 +107,10 @@ class History
 		return $sanitized;
 	}
 	
-	public function getUniqueUriNameSeoHigherVersion($name, $themedir, $hash)
+	public function getUniqueUriNameSeoHigherVersion($name, $themedir, $hash, $themedir)
 	{
 		$sanitized_orig = ThemeInfo::sanitizedString($name);
+		if (empty($sanitized_orig)) $sanitized_orig = ThemeInfo::sanitizedString($themedir); // when name is in chinese or other non alaphabetical language
 		$i = 0;
 		$j = '';
 		do {
@@ -311,8 +313,8 @@ class History
 		
 		// generate sanitized name
 		$themeInfo->namesanitized = "";// not used anymore
-		$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version, $themeInfo->hash);
-		$themeInfo->uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($themeInfo->name, $themeInfo->themedir, $themeInfo->hash);
+		$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version, $themeInfo->hash, $themeInfo->themedir);
+		$themeInfo->uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($themeInfo->name, $themeInfo->themedir, $themeInfo->hash, $themeInfo->themedir);
 		
 		// save to DB
 		$this->query_theme_insert->bindValue(':hash', $themeInfo->hash, \PDO::PARAM_STR);
@@ -423,7 +425,6 @@ class History
 		$themeInfo->validationDate = $obj->validationDate;
 		$themeInfo->isOpenSource = $obj->isOpenSource;
    
-		
 		try {
 			$path = TC_VAULTDIR.'/upload';		
 			$fullname = $path.'/'.$hash.'.zip';
@@ -505,10 +506,10 @@ class History
 		if (!empty($uriNameSeo) && !empty($uriNameSeoHigherVersion)) return;
 
 		if (empty($uriNameSeo))
-			$uriNameSeo = $this->getUniqueUriNameSeo($row["name"], $row["version"], $hash);
+			$uriNameSeo = $this->getUniqueUriNameSeo($row["name"], $row["version"], $hash, $row["themedir"]);
 		
 		if (empty($uriNameSeoHigherVersion))
-			$uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($row["name"], $row["themedir"], $hash);
+			$uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($row["name"], $row["themedir"], $hash, $row["themedir"]);
 		
 		$query = $this->db->prepare("UPDATE theme SET uriNameSeo=:uriNameSeo, uriNameSeoHigherVersion=:uriNameSeoHigherVersion WHERE hash=:hash");
 		$query->bindValue(':uriNameSeo',$uriNameSeo,\PDO::PARAM_STR);
@@ -917,7 +918,7 @@ class History
 			$this->findHigherVersion($row["themedir"]);
 		}*/
 		
-		$query2 = $this->db->query('SELECT hash,themedir,version,isHigherVersion from theme');
+		$query2 = $this->db->query("SELECT hash,themedir,version,isHigherVersion from theme WHERE uriNameSeo=''");
 		$query2->execute();
 		$rows2 = $query2->fetchAll();
 		foreach ($rows2 as $row)
@@ -935,11 +936,10 @@ class History
 		}
 	}
 	
-	public function getOtherVersions($hash, $themedir, $themetype, $name)
+	public function getOtherVersions($hash, $themedir, $themetype)
 	{
-		$query = $this->db->prepare('SELECT hash, name, uriNameSeo, uriNameSeoHigherVersion, version, isHigherVersion, themetype, score from theme WHERE (themedir=:themedir OR name LIKE :name) AND hash!=:hash AND themetype=:themetype ORDER BY version DESC');
+		$query = $this->db->prepare('SELECT hash, name, uriNameSeo, uriNameSeoHigherVersion, version, isHigherVersion, themetype, score from theme WHERE themedir=:themedir AND hash!=:hash AND themetype=:themetype ORDER BY version DESC');
 		$query->bindValue(':themedir',$themedir,\PDO::PARAM_STR);
-		$query->bindValue(':name',$name,\PDO::PARAM_STR);
 		$query->bindValue(':hash',$hash,\PDO::PARAM_STR);
 		$query->bindValue(':themetype',$themetype,\PDO::PARAM_INT);
 		$r = $query->execute();

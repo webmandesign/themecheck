@@ -91,7 +91,7 @@ class Controller_home
 						$html .= '<div class="content_iconCms"><a href="'.$url.'" >';
 							if ($themeInfo["isOpenSource"])
 							{
-								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?nom='.$themeInfo['name'].'&zipname='.$themeInfo['zipfilename'].'" '
+								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?h='.$themeInfo['hash'].'" '
                                 . 'onclick="trackDL(\''.$themeInfo['name'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
 									
 								if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))

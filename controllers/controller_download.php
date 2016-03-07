@@ -61,66 +61,63 @@ class Controller_download
 			$instanceDownload = new Download();
 			$count = $instanceDownload->CountDownloadByUser($user_ip,$mk_date_now,$yesterday);
 		  
-				if($count[0]<10)
+			if($count[0]<10)
+			{
+				 $instanceDownload = new Download();
+				 $instanceDownload->InsertNewDownload($user_ip,$mk_date_now);
+			
+				if(isset($_GET['h'])) // use hash instead of id to harden automatized site scraping
 				{
-					 $instanceDownload = new Download();
-					 $instanceDownload->InsertNewDownload($user_ip,$mk_date_now);
-				
-					if(isset($_GET['nom'])&& isset($_GET['zipname']))
+					$hash = $_GET['h'];
+					$history = new History();
+					$themeInfo = $history->loadThemeFromHash($hash);
+
+					if(!empty($themeInfo))
 					{
-						$nameFile = $_GET['nom'];
-						$zipname = $_GET['zipname'];
-						$history = new History();
-						$dataInfo = $history->getFewInfoFromName($nameFile);
+						$path = TC_VAULTDIR.'/upload/'.$themeInfo->hash.'.zip';
 
-						if(!empty($dataInfo))
-						{
-							$path = TC_VAULTDIR.'/upload/'.$dataInfo['hash'].'.zip';
-
-							if (file_exists($path))
-							{		
+						if (file_exists($path))
+						{		
 							ob_end_clean();
 							ob_start();
-								header("Pragma: public");
-								header("Expires: 0");
-								header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-								header("Cache-Control: public");
-								header("Content-Description: File Transfer");
-								header("Content-type: application/zip");
-								header("Content-Disposition: attachment; filename=\"".$zipname."\"");
-								header("Content-Transfer-Encoding: binary");
-								//header('Content-Length: ' . filesize($path)); // no Content-Length for servers that activate gzip compression (avoids corrupted files)
-								
-								
-							
-								readfile($path);
-								exit();
-							}
-						}
-						else
-						{
-							exit("filename does not exist");
+							header("Pragma: public");
+							header("Expires: 0");
+							header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+							header("Cache-Control: public");
+							header("Content-Description: File Transfer");
+							header("Content-type: application/zip");
+							header("Content-Disposition: attachment; filename=\"".$themeInfo->zipfilename."\"");
+							header("Content-Transfer-Encoding: binary");
+							//header('Content-Length: ' . filesize($path)); // no Content-Length for servers that activate gzip compression (avoids corrupted files)
+
+							readfile($path);
+							exit();
 						}
 					}
+					else
+					{
+						exit("filename does not exist");
+					}
 				}
-				else
-				{
-					 $dateFirstDownload = $instanceDownload->GetDateMinDownload($user_ip,$mk_date_now,$yesterday);
-					 $nextDownload = date("Y-m-d H:i:s",strtotime($dateFirstDownload[0]." +1 days"));
-					
-					 $explodeDateHour = explode(' ',$nextDownload);
-					 $explodeDate = explode('-',$explodeDateHour[0]);
-					 $explodeHour = explode(':',$explodeDateHour[1]);
-					 $downloadAutho = $explodeDate[2].'-'.$explodeDate[1].' à  '.$explodeHour[0].':'.$explodeHour[1];
-					
-					  // daily limit reached
-					  echo '<span style="text-align:center;"><p><h2 >'.$count[0].' daily downloads allowed'
-							  . '</h2></p><br>'
-							  . '<p><h3>Next download will be possible at '.$downloadAutho.'</h3></p></span>';
-							;
-					  header("Refresh: 5;URL=index.php");
-				}
-		   }
+			}
+			else
+			{
+				 $dateFirstDownload = $instanceDownload->GetDateMinDownload($user_ip,$mk_date_now,$yesterday);
+				 $nextDownload = date("Y-m-d H:i:s",strtotime($dateFirstDownload[0]." +1 days"));
+				
+				 $explodeDateHour = explode(' ',$nextDownload);
+				 $explodeDate = explode('-',$explodeDateHour[0]);
+				 $explodeHour = explode(':',$explodeDateHour[1]);
+				 $downloadAutho = $explodeDate[2].'-'.$explodeDate[1].' à  '.$explodeHour[0].':'.$explodeHour[1];
+				
+				  // daily limit reached
+				  echo '<span style="text-align:center;"><p><h2 >'.$count[0].' daily downloads allowed'
+						  . '</h2></p><br>'
+						  . '<p><h3>Next download will be possible at '.$downloadAutho.'</h3></p></span>';
+						;
+				  header("Refresh: 5;URL=index.php");
+			}
+	   }
 		
 		exit();
 	}
