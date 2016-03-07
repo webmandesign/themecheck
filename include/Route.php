@@ -314,37 +314,46 @@ class Route {
 		$string = '<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <sitemap>
-      <loc>http://TC_HTTPDOMAIN/sitemap_wordpress.xml</loc>
+      <loc>'.TC_HTTPDOMAIN.'/sitemap_static.xml</loc>
       <lastmod>'.$d.'</lastmod>
    </sitemap>
    <sitemap>
-      <loc>http://TC_HTTPDOMAIN/sitemap_wordpress_child.xml</loc>
+      <loc>'.TC_HTTPDOMAIN.'/sitemap_wordpress.xml</loc>
       <lastmod>'.$d.'</lastmod>
    </sitemap>
    <sitemap>
-      <loc>http://TC_HTTPDOMAIN/sitemap_joomla.xml</loc>
+      <loc>'.TC_HTTPDOMAIN.'/sitemap_wordpress_child.xml</loc>
       <lastmod>'.$d.'</lastmod>
    </sitemap>
-</sitemapindex>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-	<loc>http://'.TC_HTTPDOMAIN.'</loc>
-	<lastmod>'.$d.'</lastmod>
-	<changefreq>hourly</changefreq>
-	<priority>1</priority>
-  </url>
-  <url>
-	<loc>http://'.TC_HTTPDOMAIN.'/fr/</loc>
-	<lastmod>'.$d.'</lastmod>
-	<changefreq>monthly</changefreq>
-	<priority>1</priority>
-  </url>
-</urlset>';
+   <sitemap>
+      <loc>'.TC_HTTPDOMAIN.'/sitemap_joomla.xml</loc>
+      <lastmod>'.$d.'</lastmod>
+   </sitemap>
+</sitemapindex>';
 		
 		$fp = fopen(TC_ROOTDIR.'/sitemap.xml', 'w');
 		fwrite($fp, $string);
 		fclose($fp);
 		
+		$string = '<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+	<loc>'.TC_HTTPDOMAIN.'</loc>
+	<lastmod>'.$d.'</lastmod>
+	<changefreq>hourly</changefreq>
+	<priority>1</priority>
+  </url>
+  <url>
+	<loc>'.TC_HTTPDOMAIN.'/fr/</loc>
+	<lastmod>'.$d.'</lastmod>
+	<changefreq>hourly</changefreq>
+	<priority>1</priority>
+  </url>
+</urlset>';
+
+		$fp = fopen(TC_ROOTDIR.'/sitemap_static.xml', 'w');
+		fwrite($fp, $string);
+		fclose($fp);
 		
 		if ($themetype > 0) {
 			$history = new History();
