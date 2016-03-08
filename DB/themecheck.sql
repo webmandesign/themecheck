@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 29 Février 2016 à 19:29
+-- Généré le: Sam 05 Mars 2016 à 23:03
 -- Version du serveur: 5.5.44-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.13
 
@@ -45,6 +45,9 @@ CREATE TABLE IF NOT EXISTS `theme` (
   `hash_sha1` binary(20) NOT NULL,
   `name` varchar(64) NOT NULL,
   `namesanitized` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `uriNameSeo` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `uriNameSeoHigherVersion` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `seoUri` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `themedir` varchar(256) NOT NULL COMMENT 'name of theme directory in wordpress/joomla directories',
   `themetype` int(11) unsigned NOT NULL COMMENT '0:undefined, 1:wordpress, 2:joomla, 4:wordpress-child',
   `parentId` int(11) DEFAULT NULL,
@@ -62,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
   `descriptionBB` text,
   `themeUri` varchar(260) DEFAULT NULL,
   `version` varchar(32) DEFAULT NULL,
+  `isHigherVersion` tinyint(1) NOT NULL DEFAULT '0',
   `authorUri` varchar(260) DEFAULT NULL,
   `authorMail` varchar(260) DEFAULT NULL,
   `tags` varchar(256) DEFAULT NULL,
@@ -88,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
   KEY `score` (`score`),
   KEY `themetype` (`themetype`),
   KEY `creationDate` (`creationDate`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9912 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9995 ;
 
 -- --------------------------------------------------------
 

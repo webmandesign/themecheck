@@ -24,7 +24,7 @@ class Links_Checker extends CheckPart
 					}
 				}
 				if ( $grep ) {
-					$this->messages[] = __all('Possible hard-coded links were found in the file %1$s.%2$s', '<strong>' . $filename . '</strong>', $grep );
+					$this->messages[] = __all('Possible hard-coded links were found in the file %1$s.%2$s', '<strong>' . esc_html($filename) . '</strong>', $grep );
 					$this->errorLevel = $this->threatLevel;
 				}
 			}

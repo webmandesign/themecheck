@@ -3,7 +3,7 @@ namespace ThemeCheck;
 require_once TC_INCDIR."/FileValidator.php";
 require_once TC_INCDIR."/Helpers.php";
 require_once TC_INCDIR."/shield.php";
-if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
+include_once (TC_ROOTDIR.'/DB/History.php');
 
 class Controller_home
 {
@@ -16,8 +16,9 @@ class Controller_home
 	
 	public function prepare()
 	{
-		$this->meta["title"] = __("The Web Template Verification Service");
-		$this->meta["description"] = __("A free service that checks web templates and themes for security and code quality.");
+		I18N::getCurLang();
+		$this->meta["title"] = __("The WordPress Themes Verification Service");
+		$this->meta["description"] = __("A free service that checks WordPress themes for security and code quality.");
 		global $ExistingLangs;
 		foreach ($ExistingLangs as $l)
 		{
@@ -30,6 +31,8 @@ class Controller_home
 	{
 		$html = '';
 		$namesanitized = $themeInfo['namesanitized'];
+		$uriNameSeo = $themeInfo['uriNameSeo'];
+		$uriNameSeoHigherVersion = $themeInfo['uriNameSeoHigherVersion'];
 		$themetype = $themeInfo['themetype'];
 		$score = $themeInfo['score'];
 		$cmsVersion = $themeInfo['cmsVersion'];
@@ -41,61 +44,66 @@ class Controller_home
 			if (empty($cmsVersion)) $themetype_text = __("WordPress theme");
 			else $themetype_text = sprintf(__("WordPress %s theme"), $cmsVersion);
 		else if ($themetype == TT_WORDPRESS_CHILD)
-			if (empty($cmsVersion)) $themetype_text = __("Wordpress child theme");
+			if (empty($cmsVersion)) $themetype_text = __("WordPress child theme");
 			else $themetype_text = sprintf(__("WordPress %s child theme"), $cmsVersion);
 		else if ($themetype == TT_JOOMLA)
 			if (empty($cmsVersion)) $themetype_text = __("Joomla template");
 			else $themetype_text = sprintf(__("Joomla %s template"), $cmsVersion);		
 		
-		$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-                $imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
-                $imgWidth = $imgSize[0];
-                $imgHeight = $imgSize[1];
+		if (empty($uriNameSeo)) // legacy
+			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+		else {
+			if ($themeInfo['isHigherVersion'] == 1)
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeoHigherVersion, "themetype"=>$themetype));
+			else
+				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
+		}
+		
+		$imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
+		$imgWidth = $imgSize[0];
+		$imgHeight = $imgSize[1];
 		
 		$html .= '<div class="block_theme" data-id="'.$themeInfo['id'].'">';
 			$html .= '<div class="content_theme">';
 				$html .= '<div class="bg_theme">';
 				if ($themeInfo['isNsfw']==true) 
-                                {
-                                    $html .= '<a href="'.$url.'" ><img src="/img/nsfw.png"></a>';
-                                }
+				{
+					$html .= '<a href="'.$url.'" ><img src="/img/nsfw.png"></a>';
+				}
 				else 
-                                {
-                                    $html .= '<a href="'.$url.'" ><img  src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
-                                }
+				{
+					$html .= '<a href="'.$url.'" ><img  src="'.TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png"></a>';
+				}
 				$html .= '</div>';
-				
+					
 				$html .= '<div class="footer_theme">';
 					$html .= '<span class="ico_result">';
-                            $html .=  getShield($themeInfo, I18N::getCurLang(), null, $url, TC_HTTPDOMAIN.'/');
+                    $html .= getShield($themeInfo, I18N::getCurLang(), null, $url, TC_HTTPDOMAIN.'/');
 					$html .='</span>';
 					$html .= '<a href="'.$url.'" ><span class="separ_verti">';
 					$html .= '<img src= "'.TC_HTTPDOMAIN.'/img/images/images_theme/separVerti_footer_theme.png" alt="">';
 					$html .='</span></a>';
 					$html .= '<a href="'.$url.'" ><span class="info_theme">';
-					$html .= '<p class="title_theme">'.htmlspecialchars($themeInfo['name']).'</p>';
+					$html .= '<p class="title_theme">'.htmlspecialchars($themeInfo['name']).' '.htmlspecialchars($themeInfo['version']).'</p>';
 					$html .= '<p class="type_theme">'.$themetype_text.'</p>';
-					$html .='</span></a>';
+					$html .= '</span></a>';
 					
 					$html .='<div class="container_iconCms">';
 						$html .= '<div class="content_iconCms"><a href="'.$url.'" >';
 							if ($themeInfo["isOpenSource"])
 							{
-								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?nom='.$themeInfo['name'].'&zipname='.$themeInfo['zipfilename'].'" '
-
+								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?h='.$themeInfo['hash'].'" '
                                 . 'onclick="trackDL(\''.$themeInfo['name'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
 									
-									if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
-									{
-										$themetype_text = $themetype_text.' '.__('Free');
-									}
-									else 
-									{
-										$themetype_text = __('Free').' '.$themetype_text;
-									}
+								if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
+								{
+									$themetype_text = $themetype_text.' '.__('Free');
+								}
+								else 
+								{
+									$themetype_text = __('Free').' '.$themetype_text;
+								}
 							}
-                                                        
-
 							else if ($themeInfo["isThemeForest"]){
 								$html .= '<span class="sprite theme_forest" title="'.__("Themeforest theme").'"></span>';
 							}
@@ -138,11 +146,11 @@ class Controller_home
             <section id="content">
                 <div class="container">
                     <div class="bg_home">
-                        <h1><?php echo __("Verify WordPress themes and Joomla templates"); ?></h1>
+                        <h1><?php echo __("Verify your WordPress themes"); ?></h1>
 
                         <p class="description">
-                        <?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality."); ?><br>
-                        <?php echo __("This service is free and compatible with WordPress themes and Joomla templates."); ?>
+                        <?php echo __("Themecheck.org is a quick service that lets you verify WordPress themes for security and code quality."); ?><br>
+                        <?php echo __("This service is free and compatible with Joomla templates."); ?>
                         </p>
                         <div id="ancreSubmit"></div>
 
@@ -217,7 +225,7 @@ class Controller_home
                                             <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/separation_horizontal.png">
                                         </div>
                                         <div class="descript">
-                                                <?php echo __("Check themes or templates you download before installing them on your site"); ?>
+                                                <?php echo __("Check the themes you find or buy before installing them on your site"); ?>
                                         </div>
                                         <div class="liste">
                                             <ul> 	
@@ -245,7 +253,7 @@ class Controller_home
                                         <div class="liste">
                                             <ul> 	
                                                 <li>
-                                                    <?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?>
+                                                    <?php echo __("Themecheck.org helps you verify they satisfy WordPress standards and common users needs."); ?>
                                                 </li>
                                                 <li class="shareVerif">
                                                     <?php echo __("Share verification score on your site with ThemeCheck.org widget"); ?>
@@ -291,7 +299,7 @@ class Controller_home
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
                                              <select name='sort' class='sortdropdown fake_input' id="select_hidden">
-                                                <option value='id' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
+                                                <option value='modificationDate' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='creationDate'){echo 'selected="selected"';}?>><?php echo __("Newer first");?>></option>
                                                 <option value='score' <?php if(isset($_SESSION['sort']) && $_SESSION['sort']=='score'){echo 'selected="selected"';}?>><?php echo __("Higher scores first");?>></option>
                                             </select>
                                             <div class="selectOptions" id="selectOptionsFirst">
@@ -339,7 +347,7 @@ class Controller_home
 
                                         $('div.select_first .selectOptions .selectOption').each(function(){
 
-                                            if($(this).html() == 'Higher scores first' || $(this).html() == 'Meilleurs scores en premier')
+                                            if($(this).html() == __("Higher scores first") )
                                             {
                                                 $(this).closest('div.select_first').attr('value',$(this).attr('value'));
                                                 $(this).parent().siblings('span.selected').html($(this).html());
@@ -360,25 +368,25 @@ class Controller_home
                 <?php
 
                 // display recent validated file if	history is available			
-                if (USE_DB) 
+                
                 {
-                  $history = new History();
-
+					$history = new History();
+					$history->booom();
                 ?>
 
                                     <div id="alreadyvalidated">
                             <?php 
                             if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
                             {
-                                    $pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
+								$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
                             }
                             else
                             {
-                                    $pagination = $history->getRecent();
+								$pagination = $history->getRecent();
                             }
                             foreach($pagination as $t)
                             {
-                                    echo $this->getThumb($t);
+								echo $this->getThumb($t);
                             }
                             ?>
                                     </div>
@@ -440,11 +448,11 @@ class Controller_home
                                     if(($(this).html() == 'Higher scores first') || ($(this).html() == 'Meilleurs scores en premier'))
                                     {
                                         $('#select_hidden option[value="score"]').attr('selected', true);
-                                        $('#select_hidden option[value="id"]').attr('selected', false);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', false);
                                     }
                                     else
                                     {
-                                        $('#select_hidden option[value="id"]').attr('selected', true);
+                                        $('#select_hidden option[value="modificationDate"]').attr('selected', true);
                                         $('#select_hidden option[value="score"]').attr('selected', false);
                                     }
                                  
@@ -487,31 +495,29 @@ class Controller_home
 		$olderthan = intval($_POST["olderthan"]);
 		$response = null;
 		
-		if (USE_DB)
+		$history = new History();
+		if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
 		{
-			$history = new History();
-			if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
-			{
-				$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme'], $olderthan);
-			}
-			else
-			{
-				$pagination = $history->getRecent($olderthan);
-			}
-			
-			$smallestid = 0;
-			$html = '';
-			foreach($pagination as $t)
-			{
-				$html .= $this->getThumb($t);
-				if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
-			}
-			
-			$response["html"] = $html;
-			if ($smallestid == 1) $response["nomore"] = true;
-			else $response["nomore"] = false;
-			$response["smallestid"] = $smallestid;
+			$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme'], $olderthan);
 		}
+		else
+		{
+			$pagination = $history->getRecent($olderthan);
+		}
+		
+		$smallestid = 0;
+		$html = '';
+		foreach($pagination as $t)
+		{
+			$html .= $this->getThumb($t);
+			if ($smallestid == 0 || $smallestid > intval($t['id'])) $smallestid = intval($t['id']);
+		}
+		
+		$response["html"] = $html;
+		if ($smallestid == 1) $response["nomore"] = true;
+		else $response["nomore"] = false;
+		$response["smallestid"] = $smallestid;
+
 		ob_clean();
 		header('Content-Type: application/json');
 		echo json_encode($response);

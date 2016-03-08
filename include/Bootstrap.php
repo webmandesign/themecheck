@@ -75,12 +75,10 @@ date_default_timezone_set('UTC');
 global $g_creationDate;
 $g_creationDate = time();
 
-if (!defined("USE_DB")) define("USE_DB", true); // True to save validation history in database. False to avoid history saving, but keep all other functionalities
-
 // ****************************************************************************
 // Init
 // ****************************************************************************
-if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
+include_once (TC_ROOTDIR.'/DB/History.php');
 include_once (TC_INCDIR.'/Route.php');
 include_once (TC_INCDIR.'/I18N.php');
 

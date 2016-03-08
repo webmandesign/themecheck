@@ -11,7 +11,7 @@ namespace ThemeCheck;
 						<img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/line_footer.png"/>
 					</div>
 					<div class="text_footer">
-						<p><?php echo __('Themecheck.org is unofficial fork of the famous Theme Check plugin with new ckecks, reduced false positive rate and multiple CMS compatibility. It is independant of wordpress.org and joomla.org.'); ?></p>
+						<p><?php echo __('Themecheck.org is an unofficial fork of the famous Theme Check plugin. It is independant of wordpress.org and joomla.org.'); ?></p>
 					</div>
 					<div class="container_cms">
 						<ul>
@@ -32,14 +32,14 @@ namespace ThemeCheck;
 				</div>
 				<div class="footer_second_part">
 					<div class="content_footer_second_part">
-						<span class="copyright">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
+						<span class="copyright"><a href="http://www.peoleo.com"><?php echo __("PEOLEO");?></a> &copy; <?php echo date("Y").' '.__("Licensed under the GNU General Public License v2.");?></span>
                                                 <span class="langues">
                                                 <?php 
 						if (!empty($controller->samepage_i18n[I18N::getCurLang()])){
 							$langs="";
 							foreach ($controller->samepage_i18n as $l=>$url) {
 								if ($l == I18N::getCurLang()) $langs .= '&nbsp;<span class="lang_selected">'.strtoupper($l).'</span>&nbsp; | ';
-								else $langs .= '<a href="'.$url.'" >'.strtoupper($l).'</a> | '; 
+								else $langs .= '<a rel="alternate" hreflang="'.$l.'" href="'.$url.'" >'.strtoupper($l).'</a> | '; 
 							}
 							echo trim($langs,' |');
 						}?>
@@ -47,7 +47,7 @@ namespace ThemeCheck;
 						<span class="like_facebook">
 							<div class="fb-like" data-href="http://themecheck.org/" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 						</span>
-						<span class="copyright_hidden hidden">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
+						<span class="copyright_hidden hidden"><a href="http://www.peoleo.com"><?php echo __("PEOLEO");?></a> &copy; <?php echo date("Y").' '.__("Licensed under the GNU General Public License v2.");?></span>
 					</div>
 				</div>
 			</div>

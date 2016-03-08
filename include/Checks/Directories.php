@@ -23,8 +23,8 @@ class Directories_Checker extends CheckPart
 
         if ($error)
         {
-            $this->messages[] = $this->hint;
-						$this->messages[] = __all('<strong>%1$s</strong> was found.', $this->code);
+            $this->messages[] = esc_html($this->hint);
+			$this->messages[] = __all('<strong>%1$s</strong> was found.', esc_html($this->code));
             $this->errorLevel = $this->threatLevel;
         }
     }

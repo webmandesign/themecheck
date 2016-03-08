@@ -16,7 +16,7 @@ class OptionalFiles_Checker extends CheckPart
         }
         if ($missing)
         {
-						$this->messages[] = __all('This theme does not contain optional file <strong>%1$s</strong>.', $mandatoryfile);
+						$this->messages[] = __all('This theme does not contain optional file <strong>%1$s</strong>.', esc_html($mandatoryfile));
             $this->errorLevel = $this->threatLevel;
         }
     }

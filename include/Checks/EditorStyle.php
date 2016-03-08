@@ -11,7 +11,7 @@ class EditorStyle_Checker extends CheckPart
 
         if ( strpos( $php, $this->code ) === false )
         {
-            $this->messages[] =  __all('No reference to <strong>%1$s()</strong> was found in the theme. It is recommended that the theme implements editor styling, so as to make the editor content match the resulting post output in the theme, for a better user experience.', $this->code);
+            $this->messages[] =  __all('No reference to <strong>%1$s()</strong> was found in the theme. It is recommended that the theme implements editor styling, so as to make the editor content match the resulting post output in the theme, for a better user experience.', esc_html($this->code));
             $this->errorLevel = $this->threatLevel;
         }
     }

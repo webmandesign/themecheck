@@ -39,6 +39,9 @@ class ThemeInfo
 	public $zipfilesize; // size of archive
 	public $userIp;// ip of poster
 	public $name;
+	public $namesanitized;
+	public $uriNameSeo;
+	public $uriNameSeoHigherVersion;
 	public $themedir; // directory name of installed theme in cms files
 	public $author;
 	public $description; // HTML description
@@ -430,6 +433,7 @@ class ThemeInfo
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL, $url);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 			$result = curl_exec($ch);
 			curl_close($ch);
 			$result = json_decode($result);
@@ -808,6 +812,8 @@ class ThemeInfo
 		curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($handle, CURLOPT_FOLLOWLOCATION, true);
 		curl_setopt($handle, CURLOPT_HEADER, true);
+		curl_setopt($handle, CURLOPT_CONNECTTIMEOUT, 10); // we don't want to link to slow pages
+		curl_setopt($handle, CURLOPT_TIMEOUT, 15); //timeout in seconds, we don't want to link to slow pages
 
 		$response = curl_exec($handle);
 	
@@ -820,5 +826,31 @@ class ThemeInfo
 		
 		$_SESSION["urlExists"][$url] = $ret;
 		return $ret;
+	}
+	
+	static function sanitizedString($str)
+	{
+		// convert accents to un-accented letters
+		$unwanted_array = array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E',
+                            'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U',
+                            'Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c',
+                            'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o',
+                            'ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+		$str = strtr( $str, $unwanted_array );
+
+		// convert non alphanumeric chars to "-"	
+		$result = preg_replace("/[^-a-zA-Z0-9]+/", "-", $str);
+		$seoname = preg_replace('/\%/',' percentage',$str); 
+		$seoname = preg_replace('/\@/',' at ',$seoname); 
+		$seoname = preg_replace('/\&/',' and ',$seoname); 
+		$seoname = preg_replace('/\*/','x',$seoname); 
+		$seoname = preg_replace('/\s[\s]+/','-',$seoname);    // Strip off multiple spaces 
+		$seoname = preg_replace('/[\s\W]+/','-',$seoname);    // Strip off spaces and non-alpha-numeric 
+		$seoname = preg_replace('/[\-]+/','-',$seoname); // Strip off multiple '-'
+		$seoname = preg_replace('/^[\-]+/','',$seoname); // Strip off the starting hyphens 
+		$seoname = preg_replace('/[\-]+$/','',$seoname); // // Strip off the ending hyphens 
+		$result = strtolower($seoname); 
+
+		return $result;
 	}
 }

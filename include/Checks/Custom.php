@@ -10,7 +10,7 @@ class Custom_Checker extends CheckPart
         $php = implode( ' ', $php_files );
         
         if ( ! preg_match( $this->code[0], $php ) ) {
-            $this->messages[] = __all('No reference to <strong>%1$s</strong> was found in the theme.', $this->code[1]);
+            $this->messages[] = __all('No reference to <strong>%1$s</strong> was found in the theme.', esc_html($this->code[1]));
             $this->errorLevel = $this->threatLevel;
         }
     }

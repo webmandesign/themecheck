@@ -53,7 +53,7 @@ class Controller_unittests
 			if ($this->fileValidator)
 			{
 				$themeInfo = $this->fileValidator->themeInfo;
-				if ($themeInfo->serializable && USE_DB) {
+				if ($themeInfo->serializable) {
 					$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"unittests", "hash"=>$themeInfo->hash));
 				} else {
 					$this->samepage_i18n[$l] = null;
@@ -169,78 +169,76 @@ class Controller_unittests
 		if ($themeid < 1) $themeid = 1;
 
 		$checkid = $_POST["checkid"];
-		if (USE_DB)
+
+		$history = new History();
+		$themInfo = $history->getFewInfo($themeid);
+		$hash = $themInfo["hash"];
+		$fileValidator = FileValidator::unserialize($hash);
+
+		$fileValidator->validate($checkid);	
+		//if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
+
+		$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
+		
+		if (count($validationResults->check_critical) > 0 || count($validationResults->check_warnings) > 0 || count($validationResults->check_info) > 0) 
 		{
-			$history = new History();
-			$themInfo = $history->getFewInfo($themeid);
-			$hash = $themInfo["hash"];
-			$fileValidator = FileValidator::unserialize($hash);
+			$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results", "hash"=>$hash));
+			$html = '<h2 style="color:#D00;">'.$themInfo["name"].'<a href="'.$url.'" target="_blank" style="font-size:14px;margin-left:6px"><span class="glyphicon glyphicon-new-window"></span></a>'.'</h2>';
+		}
+		if (count($validationResults->check_critical) > 0)
+		{
+			//$html .= '<h2 style="line-height:100px;color:#D00;">'.__("Critical alerts").'</h2>';
+			$html .= '<ol>';
+			foreach ($validationResults->check_critical as $check)
+			{
+				$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
+				if (!empty($check->messages)) {
+					$html .= '<p style="color:#c94b4b;">'.implode('<br/>',$check->messages).'</p>';
+				}
+			}
+			$html .='</ol>';
+		}
 
-			$fileValidator->validate($checkid);	
-			//if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
-
-			$validationResults = $fileValidator->getValidationResults(I18N::getCurLang());
-			
-			if (count($validationResults->check_critical) > 0 || count($validationResults->check_warnings) > 0 || count($validationResults->check_info) > 0) 
+		if (count($validationResults->check_warnings) > 0)
+		{
+			//$html .= '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
+			$html .= '<ol>';
+			foreach ($validationResults->check_warnings as $check)
 			{
-				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>"en", "phpfile"=>"results", "hash"=>$hash));
-				$html = '<h2 style="color:#D00;">'.$themInfo["name"].'<a href="'.$url.'" target="_blank" style="font-size:14px;margin-left:6px"><span class="glyphicon glyphicon-new-window"></span></a>'.'</h2>';
-			}
-			if (count($validationResults->check_critical) > 0)
-			{
-				//$html .= '<h2 style="line-height:100px;color:#D00;">'.__("Critical alerts").'</h2>';
-				$html .= '<ol>';
-				foreach ($validationResults->check_critical as $check)
-				{
-					$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
-					if (!empty($check->messages)) {
-						$html .= '<p style="color:#c94b4b;">'.implode('<br/>',$check->messages).'</p>';
-					}
+				$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
+				if (!empty($check->messages)) {
+					$html .= '<p style="color:#eea43a;">'.implode('<br/>',$check->messages).'</p>';
 				}
-				$html .='</ol>';
 			}
-
-			if (count($validationResults->check_warnings) > 0)
+			$html .= '</ol>';
+		}
+		
+		if (count($validationResults->check_info) > 0)
+		{
+			//$html .= '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
+			$html .= '<ol>';
+			foreach ($validationResults->check_info as $check)
 			{
-				//$html .= '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
-				$html .= '<ol>';
-				foreach ($validationResults->check_warnings as $check)
-				{
-					$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
-					if (!empty($check->messages)) {
-						$html .= '<p style="color:#eea43a;">'.implode('<br/>',$check->messages).'</p>';
-					}
+				$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
+				if (!empty($check->messages)) {
+					$html .= '<p style="color:#00b6e3;">'.implode('<br/>',$check->messages).'</p>';
 				}
-				$html .= '</ol>';
 			}
-			
-			if (count($validationResults->check_info) > 0)
+			$html .= '</ol>';
+		}
+		$response["html"] = $html;
+		
+		// get info about next theme to check
+		{
+			$prevId = $history->getPrevId($themeid );
+			if (!empty($prevId))
 			{
-				//$html .= '<h2 style="line-height:100px;color:#eea43a;">'.__("Warnings").'</h2>';
-				$html .= '<ol>';
-				foreach ($validationResults->check_info as $check)
-				{
-					$html .= '<h4 style="color:#666;margin-top:40px;"><li>'.$check->title.' : '.$check->hint.'</li></h4>';
-					if (!empty($check->messages)) {
-						$html .= '<p style="color:#00b6e3;">'.implode('<br/>',$check->messages).'</p>';
-					}
-				}
-				$html .= '</ol>';
-			}
-			$response["html"] = $html;
-			
-			// get info about next theme to check
-			{
-				$prevId = $history->getPrevId($themeid );
-				if (!empty($prevId))
-				{
-					$themInfoNext = $history->getFewInfo($prevId);
-					$response["next_id"] = $prevId;
-					$response["next_name"] = $themInfoNext["name"];
-				} else {
-					$response["next_id"] = null;
-					$response["next_name"] = null;
-				}
+				$themInfoNext = $history->getFewInfo($prevId);
+				$response["next_id"] = $prevId;
+				$response["next_name"] = $themInfoNext["name"];
+			} else {
+				$response["next_id"] = null;
+				$response["next_name"] = null;
 			}
 		}
 				

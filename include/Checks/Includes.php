@@ -16,7 +16,7 @@ class Includes_Checker extends CheckPart
 				$grep = tc_preg( $error, $php_key );
                 if ( basename($filename) !== 'functions.php' )
                 {
-                    $this->messages[] = __all('The theme appears to use include or require : <strong>%1$s</strong> %2$s If these are being used to include separate sections of a template from independent files, then <strong>get_template_part()</strong> should be used instead. Otherwise, use include_once or require_once instead.', $filename, $grep );
+                    $this->messages[] = __all('The theme appears to use include or require : <strong>%1$s</strong> %2$s If these are being used to include separate sections of a template from independent files, then <strong>get_template_part()</strong> should be used instead. Otherwise, use include_once or require_once instead.', esc_html($filename), $grep );
                     $this->errorLevel = $this->threatLevel;
                 }
             }

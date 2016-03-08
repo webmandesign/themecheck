@@ -1,7 +1,7 @@
 <?php
 namespace ThemeCheck;
 require_once TC_INCDIR."/FileValidator.php";
-if (USE_DB) include_once (TC_ROOTDIR.'/DB/History.php');
+include_once (TC_ROOTDIR.'/DB/History.php');
 
 class Controller_massimport
 {
@@ -16,12 +16,16 @@ class Controller_massimport
 	
 	public function prepare()
 	{
+				Route::getInstance()->updateSitemap(1);
+		Route::getInstance()->updateSitemap(2);
+		Route::getInstance()->updateSitemap(4);
 		$this->meta["title"] = __("Mass import");
 		$this->meta["description"] = __("Mass import");
 	}
 	
 	public function render()
 	{
+	return;
 		?>
          <section id="content">
             <div class="container_massimport">	
@@ -122,7 +126,7 @@ class Controller_massimport
 		foreach ($fileszip as $f)
 		{
 			if ($count > 5) break;
-			if(USE_DB)
+			
 			{
 				$hash_md5 = md5_file($f); 
 				$hash_alpha = base_convert($hash_md5, 16, 36); // shorten hash to shorten urls (better looking, less bandwidth)
@@ -279,7 +283,7 @@ class Controller_massimport
 		if (file_exists($_POST["path"]))
 		{
 			$response["file"] = $_POST["path"];
-			if (USE_DB)
+			
 			{
 				$f = $_POST["path"];
 				global $g_creationDate;

@@ -19,7 +19,7 @@ class AdminMenu_Checker extends CheckPart
 						$filename = tc_filename( $php_key );
 						$error = ltrim( rtrim( $match, '(' ) );
 						$grep = tc_grep( $error, $php_key );
-						$this->messages[] = __all('File <strong>%1$s</strong> : %2$s', $filename, $grep);
+						$this->messages[] = __all('File <strong>%1$s</strong> : %2$s', esc_html($filename), $grep);
 					$this->errorLevel = $this->threatLevel;
 					}
 				}
@@ -30,7 +30,7 @@ class AdminMenu_Checker extends CheckPart
 				if ( preg_match( $this->code, $phpfile, $matches ) ) {
 					$filename = tc_filename( $php_key );
 					$grep = ( isset( $matches[2] ) ) ? tc_grep( $matches[2], $php_key ) : tc_grep( $matches[1], $php_key );
-					$this->messages[] = __all('File <strong>%1$s</strong> : %2$s', $filename, $grep);
+					$this->messages[] = __all('File <strong>%1$s</strong> : %2$s', esc_html($filename), $grep);
 					$this->errorLevel = $this->threatLevel;
 				}
 			}

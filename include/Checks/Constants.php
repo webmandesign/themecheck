@@ -13,7 +13,7 @@ class Constants_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $error = ltrim( rtrim( $matches[0], '(' ) );
                 $grep = tc_grep( $error, $php_key );
-                $this->messages[] = __all('Constant <strong>%1$s</strong> was found in the file <strong>%2$s</strong>. Use <strong>%3$s</strong> instead. %4$s', $error, $filename, $this->code[1], $grep );
+                $this->messages[] = __all('Constant <strong>%1$s</strong> was found in the file <strong>%2$s</strong>. Use <strong>%3$s</strong> instead. %4$s', esc_html($error), esc_html($filename), esc_html($this->code[1]), $grep );
                 $this->errorLevel = $this->threatLevel;
             }
         }

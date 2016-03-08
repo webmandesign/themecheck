@@ -14,7 +14,7 @@ class PHPShort_Checker extends CheckPart
             {
                 $filename = tc_filename( $name );
                 $non_print = tc_preg( $this->code , $name );
-                $this->messages[] = __all('PHP short tags were found in file <strong>%1$s</strong>. &quot;This practice is discouraged because they are only available if enabled with short_open_tag php.ini configuration file directive, or if PHP was configured with the --enable-short-tags option&quot; (php.net), which is not the case on many servers.%2$s', $filename, $non_print);
+                $this->messages[] = __all('PHP short tags were found in file <strong>%1$s</strong>. &quot;This practice is discouraged because they are only available if enabled with short_open_tag php.ini configuration file directive, or if PHP was configured with the --enable-short-tags option&quot; (php.net), which is not the case on many servers.%2$s', esc_html($filename), $non_print);
                 $this->errorLevel = $this->threatLevel;
             }
         }

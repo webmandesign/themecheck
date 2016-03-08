@@ -42,7 +42,7 @@ class Badthings_Checker extends CheckPart
 								$grep = tc_preg( $this->code, $php_key ); 
 							}
 
-							$this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', $error, $filename, $grep);
+							$this->messages[] = __all('Found <strong>%1$s</strong> in file <strong>%2$s</strong>. %3$s', esc_html($error), esc_html($filename), $grep);
 							$this->errorLevel = $this->threatLevel;
             }
         }

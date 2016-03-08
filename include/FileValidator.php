@@ -95,7 +95,7 @@ class FileValidator
 	public function __construct($themeInfo)
 	{
 		$this->themeInfo = $themeInfo;
-		if (USE_DB) $this->history = new History();
+		$this->history = new History();
 	}
 	
 	/** 
@@ -183,9 +183,7 @@ class FileValidator
 		}
 
 		// save meta data
-		if (USE_DB) {
-			$this->history->saveTheme($this->themeInfo, $update);			
-		}
+		$this->history->saveTheme($this->themeInfo, $update);			
 
 		// save validation results
 		foreach($this->validationResults as $lang=>$_validationResults)
@@ -202,9 +200,7 @@ class FileValidator
 	*		Restore check results from a JSON file.
 	**/
 	static public function unserialize($hash)
-	{
-		if (!USE_DB) return null;
-		
+	{	
 		$directory = ThemeInfo::getReportDirectory($hash);
 		if (!file_exists($directory )) return null;
 		
@@ -226,13 +222,15 @@ class FileValidator
 		{
 			$fewInfo = $history->getFewInfo($themeInfo->parentId);
 			if (!empty($fewInfo["id"]))
-			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentNamesanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentUriNameSeo = $fewInfo["uriNameSeo"];
 			$themeInfo->parentThemeType = $fewInfo["themetype"];
+			$themeInfo->parentUriNameSeoHigherVersion = $fewInfo["uriNameSeoHigherVersion"];
+			$themeInfo->parentIsHigherVersion = $fewInfo["isHigherVersion"];
 		}
 			
 		if ($themeInfo->isThemeForest) $fileValidator->generateThemeForestReport();
-			
-			
+
 		return $fileValidator;
 	}
 	
@@ -452,7 +450,7 @@ class FileValidator
 		if ($isUpload)
 			move_uploaded_file($src_path, $zipfilepath); // move file to final place (overwrites if already existing)
 		else
-			copy($src_path, $zipfilepath); // copy the file (overwrites if already existing)
+			copy($src_path, $zipfilepath); // copy file (overwrites if already existing)
 	
 		try {
 			$zip = new \ZipArchive();
@@ -483,16 +481,26 @@ class FileValidator
 		$themeInfo->hash_md5 = $hash_md5;
 		$themeInfo->hash_sha1 = $sha1_file;
 		$r = $themeInfo->initFromUnzippedArchive($unzippath, $src_name, $src_type, $src_size);
+		$themeInfo->isHigherVersion = 0;
+
+		$history = new History();
+		$higherVersionInDb = $history->getHigherVersion($themeInfo->themedir);
+		if (version_compare($themeInfo->version, $higherVersionInDb) > 0) 
+		{
+			$themeInfo->isHigherVersion = true;
+		}
 		
 		if (!empty($themeInfo->parentName))
 		{
-		
 			$history = new History();
 			$fewInfo = $history->getFewInfoFromName($themeInfo->parentName);
 			if (!empty($fewInfo["id"]))
 			$themeInfo->parentId = intval($fewInfo["id"]);
-			$themeInfo->parentNameSanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentNamesanitized = $fewInfo["namesanitized"];
+			$themeInfo->parentUriNameSeo = $fewInfo["uriNameSeo"];
 			$themeInfo->parentThemeType = $fewInfo["themetype"];
+			$themeInfo->parentUriNameSeoHigherVersion = $fewInfo["uriNameSeoHigherVersion"];
+			$themeInfo->parentIsHigherVersion = $fewInfo["isHigherVersion"];
 		}
 		if (!$r) return null;
 		return $themeInfo;	
@@ -647,6 +655,8 @@ class FileValidator
 		if ($isThemeforest) $this->generateThemeForestReport();
 		
 		$this->duration = microtime(true) - $start_time_checker;
+		
+		Route::getInstance()->updateSitemap($this->themeInfo->themetype);
 	}
 	
 	public function getValidationResults($lang)
@@ -666,12 +676,9 @@ class FileValidator
 		if (!isset($this->themeInfo->hash)) return;
 		
 		// don't clean if in DB because it means someone has posted the archive previously, and maybe the current user tries to erase it.
-		if (USE_DB)
-		{
-			$history = new History();
-			$id = $history->getIdFromHash($this->themeInfo->hash);
-			if (!empty($id)) return;
-		}
+		$history = new History();
+		$id = $history->getIdFromHash($this->themeInfo->hash);
+		if (!empty($id)) return;
 		
 		$zipfilepath = self::hashToPathUpload($this->themeInfo->hash);
 		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;

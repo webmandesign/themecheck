@@ -16,7 +16,7 @@ class Deregister_Checker extends CheckPart
 				$error = '/wp_deregister_script/';
 				$grep = tc_preg( $error, $file_path );
 
-				$this->messages[] = __all( 'Found wp_deregister_script in %1$s. Themes must not deregister core scripts. %2$s', '<strong>' . $filename . '</strong>', $grep );
+				$this->messages[] = __all( 'Found wp_deregister_script in %1$s. Themes must not deregister core scripts. %2$s', '<strong>' . esc_html($filename) . '</strong>', $grep );
 				$this->errorLevel = $this->threatLevel;	
 			}
 		}

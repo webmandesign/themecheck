@@ -11,7 +11,7 @@ class PostThumb_Checker extends CheckPart
         
         if ( strpos( $php, $this->code ) === false )
         {
-                $this->messages[] = __all('No reference to <strong>%1$s</strong> was found in the theme.', $this->code);
+                $this->messages[] = __all('No reference to <strong>%1$s</strong> was found in the theme.', esc_html($this->code));
                 $this->errorLevel = $this->threatLevel;
         }
     }

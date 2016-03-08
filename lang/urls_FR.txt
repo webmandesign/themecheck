@@ -2,5 +2,7 @@ error404.php=erreur404.php
 score=score
 wordpress_theme=theme_wordpress
 joomla_template=template_joomla
+wordpress-theme=theme-wordpress
+joomla-template=template-joomla
 unittests=tests_unitaires
 contact=contact

@@ -69,6 +69,7 @@ class Controller_results
 				$themeInfo = FileValidator::upload();
 				if ($themeInfo)
 				{
+					$themeInfo->modificationDate = time(); // set modificationDate only at upload
 					$this->fileValidator = new FileValidator($themeInfo);
 					$this->fileValidator->validate();
 					if (isset($_POST["donotstore"]) || UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
@@ -86,12 +87,13 @@ class Controller_results
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
 				}
 			} else {
-				UserMessage::enqueue(__("Unvalid form"), ERRORLEVEL_FATAL);
+				UserMessage::enqueue(__("Invalid form"), ERRORLEVEL_FATAL);
 			}
 		} else {
 			UserMessage::enqueue(__("No file uploaded."), ERRORLEVEL_FATAL);
 			$this->meta["title"] = __("No file uploaded");
 			$this->meta["description"] = __("No file uploaded");
+			$this->meta["robots"] = "noindex";
 			return ;
 		}
 
@@ -104,13 +106,25 @@ class Controller_results
 				if (strpos(strtolower($themeInfo->name), 'template') === false) $prefix .= " template";
 				if ($prefix == " Joomla template") $prefix = __(" Joomla template");
 				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
+				$this->meta["title"] = str_replace(__(" Joomla template"), __(" Joomla template"), $this->meta["title"]);
 				$this->meta["description"] = sprintf(__("Security and code quality score of Joomla template %s."), htmlspecialchars($themeInfo->name));
+				
+				// avoid most similar title between language variations
+				$this->meta["title"] = str_replace("joomla", "Joomla", $this->meta["title"]);
+				$this->meta["title"] = str_replace("Joomla template", __("Joomla template"), $this->meta["title"]);
 			} else {
 				if (strpos(strtolower($themeInfo->name), 'wordpress') === false) $prefix .= " WordPress";
 				if (strpos(strtolower($themeInfo->name), 'theme') === false) $prefix .= " theme";
-				if ($prefix == " WordPress theme") $prefix = __(" WordPress theme");
+				if ($prefix == " WordPress theme") $prefix = __(" WordPress theme");				
+				
 				$this->meta["title"] = sprintf('%1$s%% : %2$s %3$s', htmlspecialchars($themeInfo->score), $prefix, htmlspecialchars($themeInfo->name));
 				$this->meta["description"] = sprintf(__("Security and code quality score of WordPress theme %s."), htmlspecialchars($themeInfo->name));
+				
+				// avoid most similar title between language variations
+				$this->meta["title"] = str_replace("Wordpress", "WordPress", $this->meta["title"]);
+				$this->meta["title"] = str_replace("wordpress", "WordPress", $this->meta["title"]);
+				$this->meta["title"] = str_replace("WordPress theme", __("WordPress theme"), $this->meta["title"]);
+				$this->meta["title"] = str_replace("theme", __("theme"), $this->meta["title"]);
 			}
 			
 			if ($themeInfo->score<100.0)
@@ -126,9 +140,11 @@ class Controller_results
 				}
 			}
 			
+			if ($themeInfo->isHigherVersion == 0) $this->meta["robots"] = "noindex";
 		} else {
 			$this->meta["title"] = __("Check results");
 			$this->meta["description"] = __("Security and code quality score");
+			$this->meta["robots"] = "noindex";
 		}
 		
 		global $ExistingLangs;
@@ -137,7 +153,7 @@ class Controller_results
 			if ($this->fileValidator)
 			{
 				$themeInfo = $this->fileValidator->themeInfo;
-				if (!empty($themeInfo) && $themeInfo->serializable && USE_DB) {
+				if (!empty($themeInfo) && $themeInfo->serializable) {
 					$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "hash"=>$themeInfo->hash));
 				} else {
 					$this->samepage_i18n[$l] = null;
@@ -258,6 +274,12 @@ class Controller_results
                                 }
                                 ?>
                                     </div>
+									<?php
+									$userMessage = UserMessage::getInstance();
+                        echo '<div class="title_error_validation" style="margin-top:30px">'.UserMessage::getInstance()->getMessagesHtml().'</div>';
+                        ?>
+                                      
+                          
                                 </div>
                                 <div class="img_item">
                                         <img src="<?php if ($themeInfo->isNsfw) echo "/img/nsfw.png"; else echo TC_HTTPDOMAIN.'/'.$themeInfo->hash.'/thumbnail.png';?>">
@@ -358,13 +380,18 @@ class Controller_results
         }
         
     </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-<!--    <a href="http://disqus.com" class="dsq-brlink" rel="nofollow">comments powered by <span class="logo-disqus">Disqus</span></a>-->
     
                             <?php
-                            if (USE_DB)
+                            
                             {
+							
                             ?>
+							
+							
+							<?php
+							$history = new History();
+							
+							?>
                                         <div class="container_otherThemes">
 
                                             <div class="title_alert">
@@ -377,22 +404,38 @@ class Controller_results
 
                                             <div class="container_themes">
                             <?php
-                                    $history = new History();
+                                   
                                     $id = intval($history->getIdFromHash($themeInfo->hash)); 
-                                    for ($i = 1; $i > -3; $i--)
+
+									$cur_id = $id + 2;
+
+									for ($i = 0; $i < 3; $i++)
                                     {
-                                            if ($i == 0) $i--; // not the current one
-                                            $r = $history->getFewInfo($id + $i); 
+                                         //   if ($i == 0) $i--; 
+                                            $r = $history->getFewInfoPreviousOne($cur_id); 
                                             if ($r !== false)
                                             {
+													$cur_id = $r['id'];
+													if ($cur_id == $id) {$i --; continue;}// not the current one
                                                     $html = '';
                                                     $namesanitized = $r['namesanitized'];
+													$uriNameSeo = $r['uriNameSeo'];
+													$uriNameSeoHigherVersion = $r['uriNameSeoHigherVersion'];
                                                     $themetype = $r['themetype'];
                                                     $score = $r['score'];
                                                     $themetype_text = sprintf(__("WordPress %s theme"),$r['cmsVersion']);
                                                     if ($themetype == TT_JOOMLA) $themetype_text = sprintf(__("Joomla %s template"), $r['cmsVersion']);
-                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
-                                                    $html .= '<div class="block_theme">';
+                                                    //$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "hash"=>$r['hash'], "themetype"=>$themetype));
+                                                    if (empty($uriNameSeo)) // legacy
+														$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$namesanitized, "themetype"=>$themetype));
+													else {
+														if ($r['isHigherVersion'] == 1)
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeoHigherVersion, "themetype"=>$themetype));
+														else
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
+													}
+													
+													$html .= '<div class="block_theme">';
                                                         $html .= '<div class="content_theme">';
                                                                 $html .= '<div class="bg_theme">';
                                                                     $html .= '<a href="'.$url.'"><img src="'.TC_HTTPDOMAIN.'/'.$r['hash'].'/thumbnail.png" alt="" class="img_theme"/></a>';
@@ -570,8 +613,18 @@ class Controller_results
                                             if (empty($themeInfo->cmsVersion)) $characteristics[] = array(__("Theme type"), __("WordPress child theme"));
                                             else $characteristics[] = array(__("Theme type"), __("WordPress child theme").' '.$themeInfo->cmsVersion);
                                             if (!empty($themeInfo->parentName)){
-                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNameSanitized , "themetype"=>$themeInfo->parentThemeType ));
-                                                    $characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
+                                                    $url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentUriNameSeo , "themetype"=>$themeInfo->parentThemeType ));
+                                                    
+													if (empty($themeInfo->parentUriNameSeo)) // legacy
+														$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "namesanitized"=>$themeInfo->parentNamesanitized, "themetype"=>$themeInfo->parentThemeType));
+													else {
+														if ($themeInfo->parentIsHigherVersion == 1)
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$themeInfo->parentUriNameSeo, "themetype"=>$themeInfo->parentThemeType));
+														else
+															$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$themeInfo->parentUriNameSeoHigherVersion, "themetype"=>$themeInfo->parentThemeType));
+													}
+													
+													$characteristics[] = array(__("Parent theme name"), "<a href='".$url."'>".htmlspecialchars($themeInfo->parentName)."</a>");
                                             }
                                     }
                                     else if ($themeInfo->themetype == TT_JOOMLA)
@@ -586,8 +639,8 @@ class Controller_results
                                             if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license).'<br>'.htmlspecialchars($themeInfo->licenseText));
                                             else $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license));
                                     else 
-                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
-                                            else $characteristics[] = array(__("License"), '<a href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
+                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
+                                            else $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
                                     $characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
                                     if (!empty($themeInfo->themeUri)) {
                                             if (strpos($themeInfo->themeUri,'themeforest.net')!==false)
@@ -596,7 +649,7 @@ class Controller_results
                                                     $characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'">'.htmlspecialchars($themeInfo->themeUri).'</a>');
                                     }
                                     if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
-                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
+                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a rel="author" href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
                                     if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
                                     /*if (!empty($themeInfo->layout)) {
                                             if ($themeInfo->layout == 1) $characteristics[] = array(__("Layout"), __("Fixed"));
@@ -607,18 +660,26 @@ class Controller_results
                                     if (!empty($themeInfo->creationDate))$characteristics[] = array(__("Creation date"), date("Y-m-d", $themeInfo->creationDate));
                                     if (!empty($themeInfo->modificationDate))$characteristics[] = array(__("Last file update"), date("Y-m-d", $themeInfo->modificationDate));
                                     if (!empty($themeInfo->validationDate))$characteristics[] = array(__("Last validation"), date("Y-m-d H:i", $themeInfo->validationDate));
-
-                                    /*if (!empty($themeInfo->isOpenSource))
-                                    {
-                                            $characteristics[] = array(__("Download"), __("This theme is open source.<br/>Direct download link : ").'<a  href="'.TC_HTTPDOMAIN.'/download?nom='.
-                                              $themeInfo->name.'&zipname='.$themeInfo->zipfilename.'" onclick="trackDL(\''.$themeInfo->name.'\');">'.$themeInfo->zipfilename.'</a>');
-                                    } else {
-                                            if ($themeInfo->isTemplateMonster || $themeInfo->isTemplateMonster || $themeInfo->isTemplateMonster) {
-                                                    $characteristics[] = array(__("Download"), __("This theme is proprietary. Themecheck doesn't distribute commercial themes."));
-                                            } else {
-                                                    $characteristics[] = array(__("Download"), __("This theme seems to be proprietary. Themecheck doesn't distribute commercial themes."));
-                                            }
-                                    }*/
+									
+									$history = new History();
+									$otherVersions = $history->getOtherVersions($themeInfo->hash, $themeInfo->themedir, $themeInfo->themetype);
+									if (!empty($otherVersions))
+									{	
+										$data_array = array();
+										foreach($otherVersions as $row)
+										{
+										//	$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row[uriNameSeo], "themetype"=>$row[themetype]));
+											if ($row['isHigherVersion'] == 1)
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeoHigherVersion"], "themetype"=>$row["themetype"]));
+											else
+												$href = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
+											$versiondata = array("href"=>$href,"version"=>$row["version"], "score"=>$row["score"]);
+											
+											$data_array[] = $versiondata;
+											//echo '<p style="margin:20px"><a href="'.$href.'">'.htmlspecialchars($row["name"]).', version '.htmlspecialchars($row["version"]).' : '.$row["score"].'</a></p>';
+										}
+										$characteristics[] = array(__("Other versions"), $data_array);
+									}
                     $i = 1;
             
                     foreach ($characteristics as $c)
@@ -633,8 +694,19 @@ class Controller_results
                         {
                             $css_class = 'second_line';
                         }
-                        
-                        echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
+
+						if ($c[0] == __("Other versions"))
+						{
+							echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">';
+							$data_array = $c[1];
+							foreach($data_array as $versiondata)
+							{
+								echo '<p style="margin-bottom:10px"><a href="'.$versiondata["href"].'">'.htmlspecialchars($versiondata["version"].' : '.$versiondata["score"].'%').'</a></p>';
+							}
+							echo '</span></li>';
+						} else
+							echo '<li class="'.$css_class.'"><span class="first_col">'.strtoupper($c[0]).'</span><span class="second_col">'.$c[1].'</span></li>';
+
                         $i++;
                     }
                                     ?>
@@ -654,8 +726,7 @@ class Controller_results
                                             <div class="theme_is_open"><?php echo __('This theme is open source.'); ?></div>
 
                                             <div class="button_download">
-                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?nom='.
-                                                      $themeInfo->name.'&zipname='.$themeInfo->zipfilename.'" onclick="trackDL(\''.$themeInfo->name.'\')"'; ?>" style="text-decoration: none;">
+                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?h='.$themeInfo->hash.'" onclick="trackDL(\''.$themeInfo->name.'\')"'; ?>" style="text-decoration: none;">
                                                 <label for="buttonDownload" class="buttonDownload">
                                                         <span class="sprite downloadBold"></span>
                                                         <?php echo __('DOWNLOAD'); ?>

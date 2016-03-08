@@ -22,9 +22,9 @@ class Deprecated_Checker extends CheckPart
 					$grep = tc_grep( $error, $php_key );
 					
 					if (empty($key_instead))
-						$this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>.%4$s', $error, $filename, $deprecatedSinceVersion, $grep );
+						$this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>.%4$s', esc_html($error), esc_html($filename), esc_html($deprecatedSinceVersion), $grep );
 					else
-						$this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', $error, $filename, $deprecatedSinceVersion, htmlspecialchars($key_instead), $grep );
+						$this->messages[] = __all('<strong>%1$s</strong> found in file <strong>%2$s</strong>. Deprecated since version <strong>%3$s</strong>. Use <strong>%4$s</strong> instead.%5$s', esc_html($error), esc_html($filename), esc_html($deprecatedSinceVersion), htmlspecialchars($key_instead), $grep );
 					
 					$this->errorLevel = $this->threatLevel;
 				}

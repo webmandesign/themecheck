@@ -22,7 +22,7 @@ class File_Checker extends CheckPart
         {
             $error = implode( array_unique( $filename ), ' ' );
 						
-            $this->messages[] = __all('<strong>%1$s</strong> was found.', $error) ;
+            $this->messages[] = __all('<strong>%1$s</strong> was found.', esc_html($error)) ;
             $this->errorLevel = $this->threatLevel;
 
 						if ($error == '.svn' || $error == '.git' || $error == '.gitignore' || $error == '.ds_store' || $error == '.tm_properties') $this->errorLevel = ERRORLEVEL_WARNING;

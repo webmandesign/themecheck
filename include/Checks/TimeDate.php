@@ -15,7 +15,7 @@ class TimeDate_Checker extends CheckPart
                 $filename = tc_filename( $php_key );
                 $matches[0] = str_replace(array('"',"'"),'', $matches[0]);
                 $error = trim( esc_html( rtrim( $matches[0], '(' ) ) );
-                $this->messages[] = __all('At least one hard coded date was found in the file <strong>%s</strong>. Function get_option( &#39;date_format&#39; ) should be used instead.', $filename );
+                $this->messages[] = __all('At least one hard coded date was found in the file <strong>%s</strong>. Function get_option( &#39;date_format&#39; ) should be used instead.', esc_html($filename) );
                 $this->errorLevel = $this->threatLevel;
             }
         }
