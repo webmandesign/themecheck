@@ -429,27 +429,29 @@ class History
 		$themeInfo->validationDate = $obj->validationDate;
 		$themeInfo->isOpenSource = $obj->isOpenSource;
    
-		try {
-			$path = TC_VAULTDIR.'/upload';		
-			$fullname = $path.'/'.$hash.'.zip';
-			$dst = TC_ROOTDIR.'/../themecheck_vault/_no_merchant_db/'.$themeInfo->zipfilename;
-			if ($themeInfo->isThemeForest) $dst = TC_ROOTDIR.'/../themecheck_vault/_e_db/'.$themeInfo->zipfilename;
-			if ($themeInfo->isTemplateMonster) $dst = TC_ROOTDIR.'/../themecheck_vault/_t_db/'.$themeInfo->zipfilename;
-			if ($themeInfo->isCreativeMarket) $dst = TC_ROOTDIR.'/../themecheck_vault/_c_db/'.$themeInfo->zipfilename;
-			if ($themeInfo->isPiqpaq) $dst = TC_ROOTDIR.'/../themecheck_vault/_p_db/'.$themeInfo->zipfilename;
+		if ($themeInfo->isHigherVersion == 1)
+		{
+			try {
+				$path = TC_VAULTDIR.'/upload';		
+				$fullname = $path.'/'.$hash.'.zip';
+				$dst = TC_ROOTDIR.'/../themecheck_vault/_no_merchant_db/'.$themeInfo->zipfilename;
+				if ($themeInfo->isThemeForest) $dst = TC_ROOTDIR.'/../themecheck_vault/_e_db/'.$themeInfo->zipfilename;
+				if ($themeInfo->isTemplateMonster) $dst = TC_ROOTDIR.'/../themecheck_vault/_t_db/'.$themeInfo->zipfilename;
+				if ($themeInfo->isCreativeMarket) $dst = TC_ROOTDIR.'/../themecheck_vault/_c_db/'.$themeInfo->zipfilename;
 
-			$path_parts = pathinfo($dst);
-			if (file_exists($path_parts['dirname']))
-			{
-				if (!file_exists($dst))	copy($fullname, $dst);
-				else {
-					$hashsrc = hash_file('md5', $fullname);
-					$hashdst = hash_file('md5', $dst);
-					if ($hashsrc != $hashdst) copy($fullname, $dst);
+				$path_parts = pathinfo($dst);
+				if (file_exists($path_parts['dirname']))
+				{
+					if (!file_exists($dst))	copy($fullname, $dst);
+					else {
+						$hashsrc = hash_file('md5', $fullname);
+						$hashdst = hash_file('md5', $dst);
+						if ($hashsrc != $hashdst) copy($fullname, $dst);
+					}
 				}
 			}
+			catch (Exception $e) {}
 		}
-		catch (Exception $e) {}
 		
 		return $themeInfo;
 	}

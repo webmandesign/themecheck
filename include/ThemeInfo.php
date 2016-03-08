@@ -584,7 +584,6 @@ class ThemeInfo
 		else if ($is_creativemarket) return 'creativemarket';
 		else return null;
 	}
-	
         
 	static public function isNsfw($unzippath, $themeInfo)
 	{
