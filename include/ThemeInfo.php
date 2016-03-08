@@ -524,16 +524,14 @@ class ThemeInfo
 	**/
 	static public function getMerchant($unzippath, $themeInfo)
 	{
-	
 		$is_themeforest = false;
 		$is_templatemonster = false;
 		$is_creativemarket = false;
-		$is_piqpaq = false;
 		$zipname = $themeInfo->zipfilename;
 		
-		if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
-		else if (strpos($themeInfo->themeUri,'piqpaq') !== false || strpos($themeInfo->authorUri,'piqpaq') !== false) $is_piqpaq = true;
-		else if (strpos($themeInfo->themeUri,'creativemarket') !== false || strpos($themeInfo->authorUri,'creativemarket') !== false) $is_creativemarket = true;
+		//if (strpos($zipname,'envato')!== false || strpos($zipname,'themeforest')!== false || strpos($zipname,'theme_forest')!== false) $is_themeforest = true;
+		//else 
+		if (strpos($themeInfo->themeUri,'creativemarket') !== false || strpos($themeInfo->authorUri,'creativemarket') !== false) $is_creativemarket = true;
 		else if (strpos($zipname,'templatemonster')!== false || strpos($zipname,'template_monster')!== false || strpos($zipname,'template monster')!== false) $is_templatemonster = true;
 		else 
 		{
@@ -545,21 +543,45 @@ class ThemeInfo
 					if ( substr( $filename, -9 ) == "style.css" || substr( $filename, -19 ) == "templateDetails.xml")
 					{
 						$s = file_get_contents( $filename );
-						if (strpos($s,'envato') !== false || strpos($s,'themeforest') !== false || strpos($s,'theme forest') !== false) $is_themeforest = true;
-						else if (strpos($s,'creativemarket')!== false || strpos($s,'creative_market')!== false || strpos($s,'creative market')!== false) $is_creativemarket = true;
-						else if (strpos($s,'piqpaq')!== false || strpos($s,'piq_paq')!== false || strpos($s,'piq paq')!== false) $is_piqpaq = true;
+						//if (strpos($s,'envato') !== false || strpos($s,'themeforest') !== false || strpos($s,'theme forest') !== false) $is_themeforest = true;
+						//else 
+						if (strpos($s,'creativemarket')!== false || strpos($s,'creative_market')!== false || strpos($s,'creative market')!== false) $is_creativemarket = true;
 						else if (strpos($s,'templatemonster')!== false || strpos($s,'template_monster')!== false || strpos($s,'template monster')!== false) $is_templatemonster = true;
 					}
 					
-					if ($is_themeforest || $is_templatemonster || $is_creativemarket || $is_piqpaq) break;
+					if ($is_themeforest || $is_templatemonster || $is_creativemarket) break;
 				}
 			}
 		}
 
+		if (defined('ENVATO_KEY'))
+		{ 
+			$sanit_name = self::sanitizedString($themeInfo->name);
+
+			$authorization = "Authorization: Bearer ".ENVATO_KEY;
+			$url = 'https://api.envato.com/v1/discovery/search/search/item?term='.$sanit_name.'&site=themeforest.net&category=wordpress';
+			$handle = curl_init($url);
+			curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+			curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($handle, CURLOPT_FOLLOWLOCATION, 1);
+			curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false); // nothing sensitive, it's okay
+			$result = curl_exec($handle);
+			$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+			if(intval($httpCode) == 200) {
+				$json = json_decode($result);
+				
+				if (!empty($json->matches[0]->url) && strpos($json->matches[0]->url,'/item/'.$sanit_name) !== false) 
+				{
+					$is_themeforest = true;
+				}
+			}
+			curl_close($handle);
+		}
+
+		if (strpos(strtolower($themeInfo->name),'themekiller')) return null;
 		if ($is_themeforest) return 'themeforest';
 		else if ($is_templatemonster) return 'templatemonster';
 		else if ($is_creativemarket) return 'creativemarket';
-		else if ($is_piqpaq) return 'piqpaq';
 		else return null;
 	}
 	
