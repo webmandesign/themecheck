@@ -74,7 +74,7 @@ class ThemeInfo
 	public $isTemplateMonster;
 	public $isThemeForest;	
 	public $isCreativeMarket;
-	public $isPiqpaq;
+	public $merchantUrl;
     public $isOpenSource;  
 	public $isNsfw;
 
@@ -181,44 +181,6 @@ class ThemeInfo
 		}
 
 		$this->themetype = $this->detectThemetype($unzippath);
-		
-        $merchant = self::getMerchant($unzippath, $this); 
-		
-		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
-		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
-		$this->isCreativeMarket = ($merchant == 'creativemarket') ? true : false;
-		$this->isPiqpaq = ($merchant == 'piqpaq') ? true : false;
-
-		if($merchant == null) // if $merchant is null we may be open source
-		{
-			// Look for theme on Wordpress.org et Joomla24
-			$isOpenSource = false;
-			include_once('curl_requests.php');
-
-			if($this->license != 0)
-			{
-				// Does theme exist on open source plateforms
-				if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name, $this->zipfilename);
-				else $isOnOpenSourcePlatform = isOnWordpressOrg($this->themedir);
-				
-				if($isOnOpenSourcePlatform)
-				{
-					$this->isOpenSource = true;
-				}
-				else
-				{
-					$this->isOpenSource = null; // we don't know
-				}
-			}
-			else
-			{
-				$this->isOpenSource = false;
-			}                   
-		}      
-		else 
-		{
-		  $this->isOpenSource = false;
-		}
             
 		$this->themedir = '';
 
@@ -390,6 +352,43 @@ class ThemeInfo
 			$this->themedir = implode('.', $zipfilename_exploded );
 		}
 		
+		$merchant = $this->getMerchant($unzippath, $this); 
+		
+		$this->isThemeForest = ($merchant == 'themeforest') ? true : false;
+		$this->isTemplateMonster = ($merchant == 'templatemonster') ? true : false;
+		$this->isCreativeMarket = ($merchant == 'creativemarket') ? true : false;
+
+		if($merchant == null) // if $merchant is null we may be open source
+		{
+			// Look for theme on Wordpress.org et Joomla24
+			$isOpenSource = false;
+			include_once('curl_requests.php');
+
+			if($this->license != 0)
+			{
+				// Does theme exist on open source plateforms
+				if ($this->themetype == TT_JOOMLA) $isOnOpenSourcePlatform = isOnJoomla24($this->name, $this->zipfilename);
+				else $isOnOpenSourcePlatform = isOnWordpressOrg($this->themedir);
+				
+				if($isOnOpenSourcePlatform)
+				{
+					$this->isOpenSource = true;
+				}
+				else
+				{
+					$this->isOpenSource = null; // we don't know
+				}
+			}
+			else
+			{
+				$this->isOpenSource = false;
+			}                   
+		}      
+		else 
+		{
+		  $this->isOpenSource = false;
+		}
+
 		$this->validationDate = time();
 		$this->license = self::getLicense($rawlicense);
 		
@@ -522,7 +521,7 @@ class ThemeInfo
 	/** 
 	*		Is theme from a market place such as themeforest or template monster ?
 	**/
-	static public function getMerchant($unzippath, $themeInfo)
+	public function getMerchant($unzippath, $themeInfo)
 	{
 		$is_themeforest = false;
 		$is_templatemonster = false;
@@ -565,14 +564,21 @@ class ThemeInfo
 			curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($handle, CURLOPT_FOLLOWLOCATION, 1);
 			curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false); // nothing sensitive, it's okay
-			$result = curl_exec($handle);
+			$this->themeForestApi = curl_exec($handle);
 			$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 			if(intval($httpCode) == 200) {
-				$json = json_decode($result);
-				
-				if (!empty($json->matches[0]->url) && strpos($json->matches[0]->url,'/item/'.$sanit_name) !== false) 
+				$json = json_decode($this->themeForestApi);
+				foreach ($json->matches as $item)
 				{
-					$is_themeforest = true;
+					if (!empty($item->url) && strpos($item->url,'/item/'.$sanit_name) !== false) 
+					{
+						$is_themeforest = true;
+						if (filter_var($item->url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED | FILTER_FLAG_HOST_REQUIRED ))
+						{
+							$themeInfo->merchantUrl = $item->url;
+						}
+						break;
+					}
 				}
 			}
 			curl_close($handle);

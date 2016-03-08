@@ -58,7 +58,7 @@ class Controller_results
 				
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
 				$this->fileValidator->serialize(true);
-				
+				if (function_exists('stats')) stats($themeInfo);
 			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
@@ -79,6 +79,8 @@ class Controller_results
 						$this->fileValidator->serialize(true);
 					}
 					
+					if (function_exists('stats')) stats($themeInfo);
+		
 					$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 					
 					if (isset($_POST["donotstore"]))

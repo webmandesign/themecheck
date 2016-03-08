@@ -303,6 +303,7 @@ class FileValidator
 		$src_type = $_FILES["file"]["type"];
 		
 		$themeInfo = self::prepareThemeInfo($src_path, $src_name, $src_type, true);
+				
 		return $themeInfo;
 	}
 	

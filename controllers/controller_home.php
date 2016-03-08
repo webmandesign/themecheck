@@ -113,9 +113,6 @@ class Controller_home
 							else if ($themeInfo["isTemplateMonster"]){
 								$html .= '<span class="sprite template_monster" title="'.__("Template Monster theme").'"></span>';
 							}
-							else if ($themeInfo["isPiqpaq"]){
-								$html .= '<img src="/img/logo_pipaq18.png" style="margin-right:2px;float:left;" title="'.__("Piqpaq theme").'" alt="'.__("Piqpaq icon").'">';
-							}
 						$html .= '</a></div>';
 					$html .= '</div>';
 				$html .= '</div>';

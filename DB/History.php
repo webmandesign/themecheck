@@ -41,19 +41,19 @@ class History
                             criticalCount, warningsCount, zipfilename, zipmimetype, zipfilesize, userIp, 
                             author, description, descriptionBB, themeUri, version, authorUri, authorMail, 
                             tags, layout, license, licenseUri, filesIncluded, copyright, isThemeForest, 
-                            isTemplateMonster, isCreativeMarket, isPiqpaq, isNsfw, creationDate, 
+                            isTemplateMonster, isCreativeMarket, merchantUrl, isNsfw, creationDate, 
                             modificationDate, validationDate,isOpenSource) VALUES (:hash, UNHEX(:hash_md5), 
                             UNHEX(:hash_sha1), :name, :namesanitized, :uriNameSeo, :uriNameSeoHigherVersion, :themedir, :themetype, :parentId, :cmsVersion,
                             :score,:criticalCount,:warningsCount,:zipfilename,:zipmimetype,:zipfilesize,
                             INET_ATON(:userIp),:author,:description,:descriptionBB,:themeUri,:version,:authorUri,
                             :authorMail,:tags,:layout,:license,:licenseUri,:filesIncluded,:copyright,:isThemeForest,
-                            :isTemplateMonster, :isCreativeMarket, :isPiqpaq, :isNsfw,  FROM_UNIXTIME(:creationDate),
+                            :isTemplateMonster, :isCreativeMarket, :merchantUrl, :isNsfw,  FROM_UNIXTIME(:creationDate),
                             FROM_UNIXTIME(:modificationDate), FROM_UNIXTIME(:validationDate),:isOpenSource)');
 			
 			$this->query_theme_update_score = $this->db->prepare('UPDATE theme SET themeUri=:themeUri, uriNameSeo=:uriNameSeo, uriNameSeoHigherVersion=:uriNameSeoHigherVersion,'
                                 . 'themedir=:themedir, authorUri=:authorUri, licenseUri=:licenseUri, score=:score, criticalCount=:criticalCount, warningsCount=:warningsCount,'
                                 . 'layout=:layout, cmsVersion=:cmsVersion, isThemeForest=:isThemeForest, '
-                                . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, isPiqpaq=:isPiqpaq,'
+                                . 'isTemplateMonster=:isTemplateMonster, isCreativeMarket=:isCreativeMarket, merchantUrl=:merchantUrl,'
                                 . ' isNsfw=:isNsfw, validationDate=FROM_UNIXTIME(:validationDate), modificationDate=FROM_UNIXTIME(:modificationDate), description=:description, '
                                 . 'descriptionBB=:descriptionBB,isOpenSource=:isOpenSource WHERE id = :id');
 		
@@ -161,7 +161,7 @@ class History
 				$this->query_theme_update_score->bindValue(':isThemeForest', 	$themeInfo->isThemeForest, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isTemplateMonster',$themeInfo->isTemplateMonster, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
-				$this->query_theme_update_score->bindValue(':isPiqpaq', 		$themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
+				$this->query_theme_update_score->bindValue(':merchantUrl', 		$themeInfo->merchantUrl, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':isNsfw', 			$themeInfo->isNsfw, \PDO::PARAM_BOOL);
 				$this->query_theme_update_score->bindValue(':modificationDate', $themeInfo->modificationDate, \PDO::PARAM_INT);
 				$this->query_theme_update_score->bindValue(':validationDate', 	$themeInfo->validationDate, \PDO::PARAM_INT);
@@ -232,7 +232,7 @@ class History
 																							 isThemeForest=:isThemeForest,
 																							 isTemplateMonster=:isTemplateMonster,
 																							 isCreativeMarket=:isCreativeMarket,
-																							 isPiqpaq=:isPiqpaq,
+																							 merchantUrl=:merchantUrl,
 																							 isNsfw=:isNsfw,
 																							 creationDate=:creationDate,
 																							 modificationDate=:modificationDate,
@@ -277,7 +277,7 @@ class History
 						$this->query_theme_update_all->bindValue(':isThemeForest', $themeInfo->isThemeForest, \PDO::PARAM_BOOL);
 						$this->query_theme_update_all->bindValue(':isTemplateMonster', $themeInfo->isTemplateMonster, \PDO::PARAM_BOOL);
 						$this->query_theme_update_all->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
-						$this->query_theme_update_all->bindValue(':isPiqpaq', $themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
+						$this->query_theme_update_all->bindValue(':merchantUrl', $themeInfo->merchantUrl, \PDO::PARAM_STR);
 						$this->query_theme_update_all->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
 						$this->query_theme_update_all->bindValue(':creationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
 						$this->query_theme_update_all->bindValue(':modificationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
@@ -355,7 +355,7 @@ class History
 		$this->query_theme_insert->bindValue(':isThemeForest', $themeInfo->isThemeForest, \PDO::PARAM_BOOL);
 		$this->query_theme_insert->bindValue(':isTemplateMonster', $themeInfo->isTemplateMonster, \PDO::PARAM_BOOL);
 		$this->query_theme_insert->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
-		$this->query_theme_insert->bindValue(':isPiqpaq', $themeInfo->isPiqpaq, \PDO::PARAM_BOOL);
+		$this->query_theme_insert->bindValue(':merchantUrl', $themeInfo->merchantUrl, \PDO::PARAM_STR);
 		$this->query_theme_insert->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
 		$this->query_theme_insert->bindValue(':creationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
 		$this->query_theme_insert->bindValue(':modificationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
@@ -421,37 +421,13 @@ class History
 		$themeInfo->isThemeForest = $obj->isThemeForest;
 		$themeInfo->isTemplateMonster = $obj->isTemplateMonster;
 		$themeInfo->isCreativeMarket = $obj->isCreativeMarket;
-		$themeInfo->isPiqpaq = $obj->isPiqpaq;
+		$themeInfo->merchantUrl = $obj->merchantUrl;
 		$themeInfo->isNsfw = $obj->isNsfw;		
 		$themeInfo->filesIncluded = $obj->filesIncluded;
 		$themeInfo->creationDate = $obj->creationDate;
 		$themeInfo->modificationDate = $obj->modificationDate;
 		$themeInfo->validationDate = $obj->validationDate;
 		$themeInfo->isOpenSource = $obj->isOpenSource;
-   
-		if ($themeInfo->isHigherVersion == 1)
-		{
-			try {
-				$path = TC_VAULTDIR.'/upload';		
-				$fullname = $path.'/'.$hash.'.zip';
-				$dst = TC_ROOTDIR.'/../themecheck_vault/_no_merchant_db/'.$themeInfo->zipfilename;
-				if ($themeInfo->isThemeForest) $dst = TC_ROOTDIR.'/../themecheck_vault/_e_db/'.$themeInfo->zipfilename;
-				if ($themeInfo->isTemplateMonster) $dst = TC_ROOTDIR.'/../themecheck_vault/_t_db/'.$themeInfo->zipfilename;
-				if ($themeInfo->isCreativeMarket) $dst = TC_ROOTDIR.'/../themecheck_vault/_c_db/'.$themeInfo->zipfilename;
-
-				$path_parts = pathinfo($dst);
-				if (file_exists($path_parts['dirname']))
-				{
-					if (!file_exists($dst))	copy($fullname, $dst);
-					else {
-						$hashsrc = hash_file('md5', $fullname);
-						$hashdst = hash_file('md5', $dst);
-						if ($hashsrc != $hashdst) copy($fullname, $dst);
-					}
-				}
-			}
-			catch (Exception $e) {}
-		}
 		
 		return $themeInfo;
 	}
