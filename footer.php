@@ -32,7 +32,7 @@ namespace ThemeCheck;
 				</div>
 				<div class="footer_second_part">
 					<div class="content_footer_second_part">
-						<span class="copyright">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
+						<span class="copyright"><a href="http://www.peoleo.com"><?php echo __("PEOLEO");?></a> &copy; <?php echo date("Y").' '.__("Licensed under the GNU General Public License v2.");?></span>
                                                 <span class="langues">
                                                 <?php 
 						if (!empty($controller->samepage_i18n[I18N::getCurLang()])){
@@ -47,7 +47,7 @@ namespace ThemeCheck;
 						<span class="like_facebook">
 							<div class="fb-like" data-href="http://themecheck.org/" data-width="200" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
 						</span>
-						<span class="copyright_hidden hidden">PEOLEO S.A.S &copy; <?php echo date("Y");?> All Rights reserved</span>
+						<span class="copyright_hidden hidden"><a href="http://www.peoleo.com"><?php echo __("PEOLEO");?></a> &copy; <?php echo date("Y").' '.__("Licensed under the GNU General Public License v2.");?></span>
 					</div>
 				</div>
 			</div>

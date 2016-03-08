@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-08 10:09+0100\n"
-"PO-Revision-Date: 2016-03-08 10:09+0100\n"
+"POT-Creation-Date: 2016-03-08 10:21+0100\n"
+"PO-Revision-Date: 2016-03-08 10:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2815,6 +2815,14 @@ msgstr ""
 "un taux réduit de faux positifs et une compatibilité avec plusieurs CMS. Il "
 "est indépendant de wordpress.org et de joomla.org."
 
+#: footer.php:35 footer.php:50
+msgid "PEOLEO"
+msgstr "Agence Péoléo"
+
+#: footer.php:35 footer.php:50
+msgid "Licensed under the GNU General Public License v2."
+msgstr "Edité sous la licence GNU GPLv2"
+
 #: header.php:96
 msgid "CONTACT"
 msgstr "CONTACT"
@@ -2975,7 +2983,6 @@ msgid "Piqpaq icon"
 msgstr "Icône Piqpaq"
 
 #: controllers/controller_home.php:148
-#, fuzzy
 msgid "Verify your WordPress themes"
 msgstr "Vérifiez vos thèmes WordPress"
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-08 10:09+0100\n"
-"PO-Revision-Date: 2016-03-08 10:09+0100\n"
+"POT-Creation-Date: 2016-03-08 10:21+0100\n"
+"PO-Revision-Date: 2016-03-08 10:21+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -252,6 +252,14 @@ msgstr ""
 "Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
 "ckecks, reduced false positive rate and multiple CMS compatibility. It is "
 "independant of wordpress.org and joomla.org."
+
+#: footer.php:35 footer.php:50
+msgid "PEOLEO"
+msgstr "PEOLEO"
+
+#: footer.php:35 footer.php:50
+msgid "Licensed under the GNU General Public License v2."
+msgstr "Licensed under the GNU General Public License v2."
 
 #: header.php:96
 msgid "CONTACT"
@@ -814,6 +822,9 @@ msgstr ""
 "Then increase the version and submit your archive one last time. Note : on "
 "themecheck.org, only the highest version of each theme is marked as "
 "indexable by search engines."
+
+#~ msgid "All Rights reserved."
+#~ msgstr "All Rights reserved."
 
 #~ msgid "Themecheck.org - The page does not exist."
 #~ msgstr "Themecheck.org - The page does not exist."
