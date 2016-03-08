@@ -16,6 +16,7 @@ class Controller_home
 	
 	public function prepare()
 	{
+		I18N::getCurLang();
 		$this->meta["title"] = __("The WordPress Themes Verification Service");
 		$this->meta["description"] = __("A free service that checks WordPress themes for security and code quality.");
 		global $ExistingLangs;

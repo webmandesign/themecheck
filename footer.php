@@ -11,7 +11,7 @@ namespace ThemeCheck;
 						<img src="<?php echo TC_HTTPDOMAIN;?>/img/images/footer/line_footer.png"/>
 					</div>
 					<div class="text_footer">
-						<p><?php echo __('Themecheck.org is unofficial fork of the famous Theme Check plugin with new ckecks, reduced false positive rate and multiple CMS compatibility. It is independant of wordpress.org and joomla.org.'); ?></p>
+						<p><?php echo __('Themecheck.org is an unofficial fork of the famous Theme Check plugin. It is independant of wordpress.org and joomla.org.'); ?></p>
 					</div>
 					<div class="container_cms">
 						<ul>

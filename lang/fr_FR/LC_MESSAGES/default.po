@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-08 10:21+0100\n"
-"PO-Revision-Date: 2016-03-08 10:22+0100\n"
+"POT-Creation-Date: 2016-03-08 10:30+0100\n"
+"PO-Revision-Date: 2016-03-08 10:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2807,13 +2807,11 @@ msgstr "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 
 #: footer.php:14
 msgid ""
-"Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
-"ckecks, reduced false positive rate and multiple CMS compatibility. It is "
+"Themecheck.org is an unofficial fork of the famous Theme Check plugin. It is "
 "independant of wordpress.org and joomla.org."
 msgstr ""
-"Themecheck.org est un fork du fameux plugin avec des checks supplémentaires, "
-"un taux réduit de faux positifs et une compatibilité avec plusieurs CMS. Il "
-"est indépendant de wordpress.org et de joomla.org."
+"Themecheck.org est un fork du fameux plugin ThemeCheck. Il est indépendant "
+"de wordpress.org et de joomla.org."
 
 #: footer.php:35 footer.php:50
 msgid "PEOLEO"
@@ -2887,7 +2885,7 @@ msgstr "Site web"
 msgid "Message"
 msgstr "Message"
 
-#: controllers/controller_contact.php:144 controllers/controller_home.php:184
+#: controllers/controller_contact.php:144 controllers/controller_home.php:185
 msgid "SUBMIT"
 msgstr "SOUMETTRE"
 
@@ -2909,84 +2907,84 @@ msgstr "Erreur 404."
 msgid "Sorry, the page you requested doesn't exist."
 msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
 
-#: controllers/controller_home.php:19
+#: controllers/controller_home.php:20
 msgid "The WordPress Themes Verification Service"
 msgstr "Le Service de Vérification des Thèmes WordPress"
 
-#: controllers/controller_home.php:20
+#: controllers/controller_home.php:21
 msgid ""
 "A free service that checks WordPress themes for security and code quality."
 msgstr ""
 "Un service gratuit de vérification de la sécurité et de la qualité des "
 "thèmes WordPress"
 
-#: controllers/controller_home.php:43 controllers/controller_results.php:126
+#: controllers/controller_home.php:44 controllers/controller_results.php:126
 #: controllers/controller_results.php:610
 #: controllers/controller_results.php:611
 msgid "WordPress theme"
 msgstr "Thème WordPress %s"
 
-#: controllers/controller_home.php:44 controllers/controller_results.php:426
+#: controllers/controller_home.php:45 controllers/controller_results.php:426
 #, php-format
 msgid "WordPress %s theme"
 msgstr "Thème WordPress %s"
 
-#: controllers/controller_home.php:46 controllers/controller_results.php:613
+#: controllers/controller_home.php:47 controllers/controller_results.php:613
 #: controllers/controller_results.php:614
 msgid "WordPress child theme"
 msgstr "Thème WordPress enfant"
 
-#: controllers/controller_home.php:47
+#: controllers/controller_home.php:48
 #, php-format
 msgid "WordPress %s child theme"
 msgstr "Thème WordPress enfant %s"
 
-#: controllers/controller_home.php:49 controllers/controller_results.php:114
+#: controllers/controller_home.php:50 controllers/controller_results.php:114
 #: controllers/controller_results.php:631
 #: controllers/controller_results.php:632
 msgid "Joomla template"
 msgstr "Template Joomla"
 
-#: controllers/controller_home.php:50 controllers/controller_results.php:427
+#: controllers/controller_home.php:51 controllers/controller_results.php:427
 #, php-format
 msgid "Joomla %s template"
 msgstr "Template Joomla %s"
 
-#: controllers/controller_home.php:95
+#: controllers/controller_home.php:96
 msgid "Quick download"
 msgstr "Téléchargement rapide"
 
-#: controllers/controller_home.php:99 controllers/controller_home.php:103
+#: controllers/controller_home.php:100 controllers/controller_home.php:104
 #: controllers/controller_results.php:197
 #: controllers/controller_results.php:201
 msgid "Free"
 msgstr "Gratuit"
 
-#: controllers/controller_home.php:107
+#: controllers/controller_home.php:108
 msgid "Themeforest theme"
 msgstr "Thème Themeforest"
 
-#: controllers/controller_home.php:110
+#: controllers/controller_home.php:111
 msgid "Creative Market theme"
 msgstr "Thème Creative Market"
 
-#: controllers/controller_home.php:113
+#: controllers/controller_home.php:114
 msgid "Template Monster theme"
 msgstr "Thème Template Monster"
 
-#: controllers/controller_home.php:116
+#: controllers/controller_home.php:117
 msgid "Piqpaq theme"
 msgstr "Thème Piqpaq"
 
-#: controllers/controller_home.php:116
+#: controllers/controller_home.php:117
 msgid "Piqpaq icon"
 msgstr "Icône Piqpaq"
 
-#: controllers/controller_home.php:148
+#: controllers/controller_home.php:149
 msgid "Verify your WordPress themes"
 msgstr "Vérifiez vos thèmes WordPress"
 
-#: controllers/controller_home.php:151
+#: controllers/controller_home.php:152
 msgid ""
 "Themecheck.org is a quick service that lets you verify WordPress themes for "
 "security and code quality."
@@ -2994,27 +2992,27 @@ msgstr ""
 "Themecheck.org est un service rapide qui vous permet de vérifier la sécurité "
 "et la qualité du code des thèmes WordPress"
 
-#: controllers/controller_home.php:152
+#: controllers/controller_home.php:153
 msgid "This service is free and compatible with Joomla templates."
 msgstr "Ce service est gratuit et compatible avec les templates Joomla."
 
-#: controllers/controller_home.php:159
+#: controllers/controller_home.php:160
 msgid "Upload a zip file and get its verification score"
 msgstr "Chargez un fichier zip pour obtenir son score"
 
-#: controllers/controller_home.php:166
+#: controllers/controller_home.php:167
 msgid "Select file"
 msgstr "Choisissez un fichier"
 
-#: controllers/controller_home.php:169
+#: controllers/controller_home.php:170
 msgid "SELECT FILE.ZIP"
 msgstr "SELECTIONNER UN FICHIER .ZIP"
 
-#: controllers/controller_home.php:191
+#: controllers/controller_home.php:192
 msgid "Forget uploaded data after results"
 msgstr "Oublier les données uploadées après la validation"
 
-#: controllers/controller_home.php:191
+#: controllers/controller_home.php:192
 msgid ""
 "<ul><li>No data will be kept on themecheck.org servers (or any other)"
 "<li>Validation won't be visible to the public<li>If you want to see the "
@@ -3025,40 +3023,40 @@ msgstr ""
 "personne d'autre<li>Si vous voulez consulter les résultats de validation "
 "dans le futur, il faudra soumettre à nouveau votre fichier</ul>"
 
-#: controllers/controller_home.php:195
+#: controllers/controller_home.php:196
 msgid "Maximum file size"
 msgstr "Taille maximum du fichier"
 
-#: controllers/controller_home.php:210
+#: controllers/controller_home.php:211
 msgid "THEMES ALREADY VERIFIED !"
 msgstr "THÈMES DÉJÀ VÉRIFIÉS !"
 
-#: controllers/controller_home.php:222
+#: controllers/controller_home.php:223
 msgid "Website owners"
 msgstr "Webmasters"
 
-#: controllers/controller_home.php:227
+#: controllers/controller_home.php:228
 msgid "Check the themes you find or buy before installing them on your site"
 msgstr ""
 "Vérifiez les thèmes que vous téléchargez avant de les déployer sur votre site"
 
-#: controllers/controller_home.php:231
+#: controllers/controller_home.php:232
 msgid "Check code quality"
 msgstr "Vérification de qualité de code"
 
-#: controllers/controller_home.php:232
+#: controllers/controller_home.php:233
 msgid "Check presence of malware"
 msgstr "Vérification de présence de code malicieux"
 
-#: controllers/controller_home.php:242
+#: controllers/controller_home.php:243
 msgid "Developers"
 msgstr "Développeurs"
 
-#: controllers/controller_home.php:249
+#: controllers/controller_home.php:250
 msgid "Your create or distribute themes ?"
 msgstr "Vous créez ou distribuez des thèmes ?"
 
-#: controllers/controller_home.php:255
+#: controllers/controller_home.php:256
 msgid ""
 "Themecheck.org helps you verify they satisfy WordPress standards and common "
 "users needs."
@@ -3066,33 +3064,33 @@ msgstr ""
 "Themecheck.org vous aide à vérifier qu'ils vérifient les standards de "
 "WordPress et les bonnes pratiques HTML5."
 
-#: controllers/controller_home.php:258
+#: controllers/controller_home.php:259
 msgid "Share verification score on your site with ThemeCheck.org widget"
 msgstr ""
 "Partagez votre résultat de vérification sur votre site avec le widget "
 "ThemeCheck.org"
 
-#: controllers/controller_home.php:272
+#: controllers/controller_home.php:273
 msgid "Recently checked themes"
 msgstr "Thèmes vérifiés récemment"
 
-#: controllers/controller_home.php:280
+#: controllers/controller_home.php:281
 msgid "FILTER BY : "
 msgstr "FILTRER PAR :"
 
-#: controllers/controller_home.php:291
+#: controllers/controller_home.php:292
 msgid "All theme"
 msgstr "Tous "
 
-#: controllers/controller_home.php:301 controllers/controller_home.php:305
+#: controllers/controller_home.php:302 controllers/controller_home.php:306
 msgid "Newer first"
 msgstr "Nouveau en premier"
 
-#: controllers/controller_home.php:302 controllers/controller_home.php:306
+#: controllers/controller_home.php:303 controllers/controller_home.php:307
 msgid "Higher scores first"
 msgstr "Meilleurs scores en premier"
 
-#: controllers/controller_home.php:399
+#: controllers/controller_home.php:400
 msgid "SEE MORE"
 msgstr "VOIR PLUS"
 

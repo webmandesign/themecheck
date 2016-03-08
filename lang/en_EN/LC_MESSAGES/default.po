@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-08 10:21+0100\n"
-"PO-Revision-Date: 2016-03-08 10:21+0100\n"
+"POT-Creation-Date: 2016-03-08 10:31+0100\n"
+"PO-Revision-Date: 2016-03-08 10:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en\n"
@@ -245,12 +245,10 @@ msgstr "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 
 #: footer.php:14
 msgid ""
-"Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
-"ckecks, reduced false positive rate and multiple CMS compatibility. It is "
+"Themecheck.org is an unofficial fork of the famous Theme Check plugin. It is "
 "independant of wordpress.org and joomla.org."
 msgstr ""
-"Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
-"ckecks, reduced false positive rate and multiple CMS compatibility. It is "
+"Themecheck.org is an unofficial fork of the famous Theme Check plugin. It is "
 "independant of wordpress.org and joomla.org."
 
 #: footer.php:35 footer.php:50
@@ -325,7 +323,7 @@ msgstr "Website"
 msgid "Message"
 msgstr "Message"
 
-#: controllers/controller_contact.php:144 controllers/controller_home.php:184
+#: controllers/controller_contact.php:144 controllers/controller_home.php:185
 msgid "SUBMIT"
 msgstr "SUBMIT"
 
@@ -347,84 +345,84 @@ msgstr "Error 404."
 msgid "Sorry, the page you requested doesn't exist."
 msgstr "Sorry, the page you requested doesn&#39;t exist."
 
-#: controllers/controller_home.php:19
+#: controllers/controller_home.php:20
 msgid "The WordPress Themes Verification Service"
 msgstr "The WordPress Themes Verification Service"
 
-#: controllers/controller_home.php:20
+#: controllers/controller_home.php:21
 msgid ""
 "A free service that checks WordPress themes for security and code quality."
 msgstr ""
 "Un service gratuit de vérification de la sécurité et de la qualité des "
 "thèmes WordPress"
 
-#: controllers/controller_home.php:43 controllers/controller_results.php:126
+#: controllers/controller_home.php:44 controllers/controller_results.php:126
 #: controllers/controller_results.php:610
 #: controllers/controller_results.php:611
 msgid "WordPress theme"
 msgstr "WordPress theme"
 
-#: controllers/controller_home.php:44 controllers/controller_results.php:426
+#: controllers/controller_home.php:45 controllers/controller_results.php:426
 #, php-format
 msgid "WordPress %s theme"
 msgstr "WordPress %s theme"
 
-#: controllers/controller_home.php:46 controllers/controller_results.php:613
+#: controllers/controller_home.php:47 controllers/controller_results.php:613
 #: controllers/controller_results.php:614
 msgid "WordPress child theme"
 msgstr "WordPress child theme"
 
-#: controllers/controller_home.php:47
+#: controllers/controller_home.php:48
 #, php-format
 msgid "WordPress %s child theme"
 msgstr "WordPress %s child theme"
 
-#: controllers/controller_home.php:49 controllers/controller_results.php:114
+#: controllers/controller_home.php:50 controllers/controller_results.php:114
 #: controllers/controller_results.php:631
 #: controllers/controller_results.php:632
 msgid "Joomla template"
 msgstr "Joomla template"
 
-#: controllers/controller_home.php:50 controllers/controller_results.php:427
+#: controllers/controller_home.php:51 controllers/controller_results.php:427
 #, php-format
 msgid "Joomla %s template"
 msgstr "Joomla %s template"
 
-#: controllers/controller_home.php:95
+#: controllers/controller_home.php:96
 msgid "Quick download"
 msgstr "Quick download"
 
-#: controllers/controller_home.php:99 controllers/controller_home.php:103
+#: controllers/controller_home.php:100 controllers/controller_home.php:104
 #: controllers/controller_results.php:197
 #: controllers/controller_results.php:201
 msgid "Free"
 msgstr "Free"
 
-#: controllers/controller_home.php:107
+#: controllers/controller_home.php:108
 msgid "Themeforest theme"
 msgstr "Themeforest theme"
 
-#: controllers/controller_home.php:110
+#: controllers/controller_home.php:111
 msgid "Creative Market theme"
 msgstr "Creative Market theme"
 
-#: controllers/controller_home.php:113
+#: controllers/controller_home.php:114
 msgid "Template Monster theme"
 msgstr "Template Monster theme"
 
-#: controllers/controller_home.php:116
+#: controllers/controller_home.php:117
 msgid "Piqpaq theme"
 msgstr "Piqpaq theme"
 
-#: controllers/controller_home.php:116
+#: controllers/controller_home.php:117
 msgid "Piqpaq icon"
 msgstr "Piqpaq icon"
 
-#: controllers/controller_home.php:148
+#: controllers/controller_home.php:149
 msgid "Verify your WordPress themes"
 msgstr "Verify your WordPress themes"
 
-#: controllers/controller_home.php:151
+#: controllers/controller_home.php:152
 msgid ""
 "Themecheck.org is a quick service that lets you verify WordPress themes for "
 "security and code quality."
@@ -432,27 +430,27 @@ msgstr ""
 "Themecheck.org is a quick service that lets you verify WordPress themes for "
 "security and code quality."
 
-#: controllers/controller_home.php:152
+#: controllers/controller_home.php:153
 msgid "This service is free and compatible with Joomla templates."
 msgstr "This service is free and compatible with Joomla templates."
 
-#: controllers/controller_home.php:159
+#: controllers/controller_home.php:160
 msgid "Upload a zip file and get its verification score"
 msgstr "Upload a zip file and get its verification score"
 
-#: controllers/controller_home.php:166
+#: controllers/controller_home.php:167
 msgid "Select file"
 msgstr "Select file"
 
-#: controllers/controller_home.php:169
+#: controllers/controller_home.php:170
 msgid "SELECT FILE.ZIP"
 msgstr "SELECT FILE.ZIP"
 
-#: controllers/controller_home.php:191
+#: controllers/controller_home.php:192
 msgid "Forget uploaded data after results"
 msgstr "Forget uploaded data after results"
 
-#: controllers/controller_home.php:191
+#: controllers/controller_home.php:192
 msgid ""
 "<ul><li>No data will be kept on themecheck.org servers (or any other)"
 "<li>Validation won't be visible to the public<li>If you want to see the "
@@ -462,39 +460,39 @@ msgstr ""
 "<li>Validation won't be visible to the public<li>If you want to see the "
 "results in the future, you'll have to re-submit your file</ul>"
 
-#: controllers/controller_home.php:195
+#: controllers/controller_home.php:196
 msgid "Maximum file size"
 msgstr "Maximum file size"
 
-#: controllers/controller_home.php:210
+#: controllers/controller_home.php:211
 msgid "THEMES ALREADY VERIFIED !"
 msgstr "THEMES ALREADY VERIFIED !"
 
-#: controllers/controller_home.php:222
+#: controllers/controller_home.php:223
 msgid "Website owners"
 msgstr "Website owners"
 
-#: controllers/controller_home.php:227
+#: controllers/controller_home.php:228
 msgid "Check the themes you find or buy before installing them on your site"
 msgstr "Check the themes you find or buy before installing them on your site"
 
-#: controllers/controller_home.php:231
+#: controllers/controller_home.php:232
 msgid "Check code quality"
 msgstr "Check code quality"
 
-#: controllers/controller_home.php:232
+#: controllers/controller_home.php:233
 msgid "Check presence of malware"
 msgstr "Check presence of malware"
 
-#: controllers/controller_home.php:242
+#: controllers/controller_home.php:243
 msgid "Developers"
 msgstr "Developers"
 
-#: controllers/controller_home.php:249
+#: controllers/controller_home.php:250
 msgid "Your create or distribute themes ?"
 msgstr "Your create or distribute themes ?"
 
-#: controllers/controller_home.php:255
+#: controllers/controller_home.php:256
 msgid ""
 "Themecheck.org helps you verify they satisfy WordPress standards and common "
 "users needs."
@@ -502,31 +500,31 @@ msgstr ""
 "Themecheck.org helps you verify they satisfy WordPress standards and common "
 "users needs."
 
-#: controllers/controller_home.php:258
+#: controllers/controller_home.php:259
 msgid "Share verification score on your site with ThemeCheck.org widget"
 msgstr "Share verification score on your site with ThemeCheck.org widget"
 
-#: controllers/controller_home.php:272
+#: controllers/controller_home.php:273
 msgid "Recently checked themes"
 msgstr "Recently checked themes"
 
-#: controllers/controller_home.php:280
+#: controllers/controller_home.php:281
 msgid "FILTER BY : "
 msgstr "FILTER BY : "
 
-#: controllers/controller_home.php:291
+#: controllers/controller_home.php:292
 msgid "All theme"
 msgstr "All theme"
 
-#: controllers/controller_home.php:301 controllers/controller_home.php:305
+#: controllers/controller_home.php:302 controllers/controller_home.php:306
 msgid "Newer first"
 msgstr "Newer first"
 
-#: controllers/controller_home.php:302 controllers/controller_home.php:306
+#: controllers/controller_home.php:303 controllers/controller_home.php:307
 msgid "Higher scores first"
 msgstr "Higher scores first"
 
-#: controllers/controller_home.php:399
+#: controllers/controller_home.php:400
 msgid "SEE MORE"
 msgstr "SEE MORE"
 
