@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-08 10:00+0100\n"
-"PO-Revision-Date: 2016-03-08 10:03+0100\n"
+"POT-Creation-Date: 2016-03-08 10:09+0100\n"
+"PO-Revision-Date: 2016-03-08 10:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2975,7 +2975,8 @@ msgid "Piqpaq icon"
 msgstr "Icône Piqpaq"
 
 #: controllers/controller_home.php:148
-msgid "Verify WordPress themes"
+#, fuzzy
+msgid "Verify your WordPress themes"
 msgstr "Vérifiez vos thèmes WordPress"
 
 #: controllers/controller_home.php:151
