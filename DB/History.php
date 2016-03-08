@@ -132,7 +132,6 @@ class History
 	{
 		$q = $this->db->query('SELECT id from theme where hash = '.$this->db->quote($themeInfo->hash));
 		$row = $q->fetch();
-		
 		// force wordpress version to last known version
 		if (intval($themeInfo->themetype) == TT_WORDPRESS || intval($themeInfo->themetype) == TT_WORDPRESS_CHILD) $themeInfo->cmsVersion = LAST_WP_VERSION;
 		
@@ -141,6 +140,11 @@ class History
 			if ($update)
 			{
 				$id = intval($row[0]);
+				if (empty($themeInfo->uriNameSeo)) // empty in the specific case where user refreshes /score page just after upload
+					$themeInfo->uriNameSeo = $this->getUniqueUriNameSeo($themeInfo->name, $themeInfo->version, $themeInfo->hash, $themeInfo->themedir);
+				if (empty($themeInfo->uriNameSeoHigherVersion)) // empty in the specific case where user refreshes /score page just after upload
+					$themeInfo->uriNameSeoHigherVersion = $this->getUniqueUriNameSeoHigherVersion($themeInfo->name, $themeInfo->themedir, $themeInfo->hash, $themeInfo->themedir);
+				
 				$this->query_theme_update_score->bindValue(':licenseUri', 		$themeInfo->licenseUri, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':uriNameSeo',   	$themeInfo->uriNameSeo, \PDO::PARAM_STR);
 				$this->query_theme_update_score->bindValue(':uriNameSeoHigherVersion',   	$themeInfo->uriNameSeoHigherVersion, \PDO::PARAM_STR);
@@ -918,7 +922,7 @@ class History
 	// large one time db operations
 	public function booom()
 	{
-		return;
+		//return;
 		/*$query = $this->db->query('SELECT themedir from theme GROUP BY themedir');
 		$query->execute();
 		$rows = $query->fetchAll();
@@ -1003,8 +1007,6 @@ class History
 	public function getHigherVersion($themedir)
 	{
 		$query2 = $this->db->prepare('SELECT id, version from theme WHERE themedir = :themedir');
-		$query3 = $this->db->prepare("UPDATE theme SET isHigherVersion=0 WHERE id!=:id AND themedir=:themedir");
-		$query4 = $this->db->prepare("UPDATE theme SET isHigherVersion=1 WHERE id=:id");
 
 		$query2->bindValue(':themedir', $themedir, \PDO::PARAM_STR);
 		$query2->execute();
