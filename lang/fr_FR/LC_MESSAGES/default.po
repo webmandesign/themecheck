@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: themecheck\n"
-"POT-Creation-Date: 2016-03-05 23:04+0100\n"
-"PO-Revision-Date: 2016-03-05 23:04+0100\n"
+"POT-Creation-Date: 2016-03-08 10:00+0100\n"
+"PO-Revision-Date: 2016-03-08 10:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -2805,22 +2805,6 @@ msgstr "Ce thème est vulnérable à une faille de sécurité."
 msgid "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 msgstr "Copyright &#169; %1$s %2$s. Powered by %3$s and %4$s."
 
-#: error404.php:13
-msgid "Themecheck.org - The page does not exist."
-msgstr "Themecheck.org - La page n&#39;existe pas."
-
-#: error404.php:14
-msgid "Validate your web theme and templates"
-msgstr "Validez votre theme ou votre template"
-
-#: error404.php:45
-msgid "Error 404."
-msgstr "Erreur 404."
-
-#: error404.php:46
-msgid "Sorry, the page you requested doesn't exist."
-msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
-
 #: footer.php:14
 msgid ""
 "Themecheck.org is unofficial fork of the famous Theme Check plugin with new "
@@ -2831,7 +2815,7 @@ msgstr ""
 "un taux réduit de faux positifs et une compatibilité avec plusieurs CMS. Il "
 "est indépendant de wordpress.org et de joomla.org."
 
-#: header.php:90
+#: header.php:96
 msgid "CONTACT"
 msgstr "CONTACT"
 
@@ -2839,7 +2823,7 @@ msgstr "CONTACT"
 msgid "Error"
 msgstr "Erreur"
 
-#: index.php:23 controllers/controller_results.php:823
+#: index.php:23 controllers/controller_results.php:822
 msgid "Warning"
 msgstr "Attention"
 
@@ -2904,17 +2888,29 @@ msgstr "SOUMETTRE"
 msgid "Download"
 msgstr "Telecharger"
 
+#: controllers/controller_error404.php:15
+#: controllers/controller_error404.php:16
+msgid "Error 404 (Not Found)"
+msgstr "Errur 404 (page non trouvée)"
+
+#: controllers/controller_error404.php:30
+msgid "Error 404."
+msgstr "Erreur 404."
+
+#: controllers/controller_error404.php:31
+msgid "Sorry, the page you requested doesn't exist."
+msgstr "Nous sommes désolés, la page demandée n&#39;existe pas."
+
 #: controllers/controller_home.php:19
-msgid "The Web Template Verification Service"
-msgstr "Le Service de Vérification de Modèles Web"
+msgid "The WordPress Themes Verification Service"
+msgstr "Le Service de Vérification des Thèmes WordPress"
 
 #: controllers/controller_home.php:20
 msgid ""
-"A free service that checks web templates and themes for security and code "
-"quality."
+"A free service that checks WordPress themes for security and code quality."
 msgstr ""
-"Un service gratuit qui vérifie la sécurité et la qualité du code des modèles "
-"de sites web."
+"Un service gratuit de vérification de la sécurité et de la qualité des "
+"thèmes WordPress"
 
 #: controllers/controller_home.php:43 controllers/controller_results.php:126
 #: controllers/controller_results.php:610
@@ -2979,24 +2975,20 @@ msgid "Piqpaq icon"
 msgstr "Icône Piqpaq"
 
 #: controllers/controller_home.php:148
-msgid "Verify WordPress themes and Joomla templates"
-msgstr "Vérifiez vos thèmes WordPress et Joomla"
+msgid "Verify WordPress themes"
+msgstr "Vérifiez vos thèmes WordPress"
 
 #: controllers/controller_home.php:151
 msgid ""
-"Themecheck.org is a quick service that lets you verify web themes or "
-"templates for security and code quality."
+"Themecheck.org is a quick service that lets you verify WordPress themes for "
+"security and code quality."
 msgstr ""
 "Themecheck.org est un service rapide qui vous permet de vérifier la sécurité "
-"et la qualité du code des thèmes et des modèles de site Web."
+"et la qualité du code des thèmes WordPress"
 
 #: controllers/controller_home.php:152
-msgid ""
-"This service is free and compatible with WordPress themes and Joomla "
-"templates."
-msgstr ""
-"Ce service est gratuit et compatible avec les thèmes WordPress et les "
-"templates Joomla."
+msgid "This service is free and compatible with Joomla templates."
+msgstr "Ce service est gratuit et compatible avec les templates Joomla."
 
 #: controllers/controller_home.php:159
 msgid "Upload a zip file and get its verification score"
@@ -3038,11 +3030,9 @@ msgid "Website owners"
 msgstr "Webmasters"
 
 #: controllers/controller_home.php:227
-msgid ""
-"Check themes or templates you download before installing them on your site"
+msgid "Check the themes you find or buy before installing them on your site"
 msgstr ""
-"Vérifiez les thèmes et les templates que vous téléchargez avant de les "
-"déployer sur votre site"
+"Vérifiez les thèmes que vous téléchargez avant de les déployer sur votre site"
 
 #: controllers/controller_home.php:231
 msgid "Check code quality"
@@ -3062,11 +3052,11 @@ msgstr "Vous créez ou distribuez des thèmes ?"
 
 #: controllers/controller_home.php:255
 msgid ""
-"Themecheck.org helps you verify they satisfy CMS standards and common users "
-"needs."
+"Themecheck.org helps you verify they satisfy WordPress standards and common "
+"users needs."
 msgstr ""
-"Themecheck.org vous aide à vérifier qu'ils vérifient les standards des CMS "
-"et les attentes de la majorité des utilisateurs."
+"Themecheck.org vous aide à vérifier qu'ils vérifient les standards de "
+"WordPress et les bonnes pratiques HTML5."
 
 #: controllers/controller_home.php:258
 msgid "Share verification score on your site with ThemeCheck.org widget"
@@ -3098,8 +3088,8 @@ msgstr "Meilleurs scores en premier"
 msgid "SEE MORE"
 msgstr "VOIR PLUS"
 
-#: controllers/controller_massimport.php:19
-#: controllers/controller_massimport.php:20
+#: controllers/controller_massimport.php:22
+#: controllers/controller_massimport.php:23
 msgid "Mass import"
 msgstr "Import de masse"
 
@@ -3311,17 +3301,17 @@ msgstr "Autres versions"
 msgid "This theme is open source."
 msgstr "Ce thème est libre de distribution"
 
-#: controllers/controller_results.php:733
+#: controllers/controller_results.php:732
 msgid "DOWNLOAD"
 msgstr "TÉLÉCHARGER"
 
-#: controllers/controller_results.php:747
+#: controllers/controller_results.php:746
 msgid ""
 "This theme is proprietary. Themecheck doesn't distribute commercial themes."
 msgstr ""
 "Ce thème est commercial. Themecheck ne distribue pas de themes non libres."
 
-#: controllers/controller_results.php:751
+#: controllers/controller_results.php:750
 msgid ""
 "This theme seems to be proprietary. Themecheck doesn't distribute commercial "
 "themes."
@@ -3329,7 +3319,7 @@ msgstr ""
 "Ce thème n'est peut être pas libre. Themecheck ne distribue pas de thèmes "
 "commerciaux."
 
-#: controllers/controller_results.php:761
+#: controllers/controller_results.php:760
 msgid ""
 "These results were not saved on themecheck.org servers and will be lost when "
 "you quit this page."
@@ -3337,15 +3327,15 @@ msgstr ""
 "Ces résultats n'ont pas été enregistrés sur les serveurs de themecheck.org "
 "et seront perdu quand vous quitterez cette page."
 
-#: controllers/controller_results.php:770
+#: controllers/controller_results.php:769
 msgid "Line"
 msgstr "Ligne"
 
-#: controllers/controller_results.php:778
+#: controllers/controller_results.php:777
 msgid "Critical alerts"
 msgstr "Alertes critiques"
 
-#: controllers/controller_results.php:864
+#: controllers/controller_results.php:863
 msgid "Tip-off"
 msgstr "Info"
 
@@ -3359,22 +3349,22 @@ msgstr "Tests unitaires"
 msgid "DB Connexion error : %s"
 msgstr "Erreur de connexion à la BDD : %s"
 
-#: DB/History.php:169 DB/History.php:363 DB/History.php:377 DB/History.php:461
-#: DB/History.php:476 DB/History.php:491 DB/History.php:867 DB/History.php:903
-#: DB/History.php:948
+#: DB/History.php:175 DB/History.php:369 DB/History.php:383 DB/History.php:466
+#: DB/History.php:481 DB/History.php:496 DB/History.php:881 DB/History.php:917
+#: DB/History.php:962
 #, php-format
 msgid "DB error : %s"
 msgstr "Erreur BDD : %s"
 
-#: DB/History.php:174
+#: DB/History.php:180
 msgid "This theme has already been submitted."
 msgstr "Ce thème a déjà été soumis."
 
-#: DB/History.php:307
+#: DB/History.php:313
 msgid "Directory \""
 msgstr "Répertoire \""
 
-#: DB/History.php:308
+#: DB/History.php:314
 msgid ""
 "If you are an author in the process of debugging your theme, keep this "
 "version number to resubmit your modified archives until you are satisfied. "
@@ -3388,6 +3378,15 @@ msgstr ""
 "l'archive une ultime fois. Note : sur themecheck.org, seule la plus haute "
 "version de chaque thème est marquée comme indexable par les moteurs de "
 "recherche."
+
+#~ msgid "Themecheck.org - The page does not exist."
+#~ msgstr "Themecheck.org - La page n&#39;existe pas."
+
+#~ msgid "Validate your web theme and templates"
+#~ msgstr "Validez votre theme ou votre template"
+
+#~ msgid "Verify WordPress themes and Joomla templates"
+#~ msgstr "Vérifiez vos thèmes WordPress et Joomla"
 
 #~ msgid "It seems this archive is a new version of the theme \""
 #~ msgstr "Il semble que cette archive soit une nouvelle version du theme \""

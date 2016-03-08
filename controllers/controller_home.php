@@ -16,8 +16,8 @@ class Controller_home
 	
 	public function prepare()
 	{
-		$this->meta["title"] = __("The Web Template Verification Service");
-		$this->meta["description"] = __("A free service that checks web templates and themes for security and code quality.");
+		$this->meta["title"] = __("The WordPress Themes Verification Service");
+		$this->meta["description"] = __("A free service that checks WordPress themes for security and code quality.");
 		global $ExistingLangs;
 		foreach ($ExistingLangs as $l)
 		{
@@ -145,11 +145,11 @@ class Controller_home
             <section id="content">
                 <div class="container">
                     <div class="bg_home">
-                        <h1><?php echo __("Verify WordPress themes and Joomla templates"); ?></h1>
+                        <h1><?php echo __("Verify WordPress themes"); ?></h1>
 
                         <p class="description">
-                        <?php echo __("Themecheck.org is a quick service that lets you verify web themes or templates for security and code quality."); ?><br>
-                        <?php echo __("This service is free and compatible with WordPress themes and Joomla templates."); ?>
+                        <?php echo __("Themecheck.org is a quick service that lets you verify WordPress themes for security and code quality."); ?><br>
+                        <?php echo __("This service is free and compatible with Joomla templates."); ?>
                         </p>
                         <div id="ancreSubmit"></div>
 
@@ -224,7 +224,7 @@ class Controller_home
                                             <img src="<?php echo TC_HTTPDOMAIN;?>/img/images/separation_horizontal.png">
                                         </div>
                                         <div class="descript">
-                                                <?php echo __("Check themes or templates you download before installing them on your site"); ?>
+                                                <?php echo __("Check the themes you find or buy before installing them on your site"); ?>
                                         </div>
                                         <div class="liste">
                                             <ul> 	
@@ -252,7 +252,7 @@ class Controller_home
                                         <div class="liste">
                                             <ul> 	
                                                 <li>
-                                                    <?php echo __("Themecheck.org helps you verify they satisfy CMS standards and common users needs."); ?>
+                                                    <?php echo __("Themecheck.org helps you verify they satisfy WordPress standards and common users needs."); ?>
                                                 </li>
                                                 <li class="shareVerif">
                                                     <?php echo __("Share verification score on your site with ThemeCheck.org widget"); ?>
@@ -346,7 +346,7 @@ class Controller_home
 
                                         $('div.select_first .selectOptions .selectOption').each(function(){
 
-                                            if($(this).html() == 'Higher scores first' || $(this).html() == 'Meilleurs scores en premier')
+                                            if($(this).html() == __("Higher scores first") )
                                             {
                                                 $(this).closest('div.select_first').attr('value',$(this).attr('value'));
                                                 $(this).parent().siblings('span.selected').html($(this).html());
