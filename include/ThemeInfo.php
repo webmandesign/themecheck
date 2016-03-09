@@ -519,20 +519,37 @@ class ThemeInfo
 			}
 		}
 
-		if (defined('ENVATO_KEY') && $themeInfo->themetype==1 || $themeInfo->themetype==4)
-		{ 
+		if (!($is_templatemonster || $is_creativemarket) && ($themeInfo->themetype==1 || $themeInfo->themetype==4))
+		{
+		
+			$p = TC_ROOTDIR.'/../themecheck_vault/_e_json/'.str_replace('.zip', '.json', $zipname);
 			$sanit_name = self::sanitizedString($themeInfo->name);
-			if (empty($sanit_name)) return null;
-			$authorization = "Authorization: Bearer ".ENVATO_KEY;
-			$url = 'https://api.envato.com/v1/discovery/search/search/item?term='.$sanit_name.'&site=themeforest.net&category=wordpress';
-			$handle = curl_init($url);
-			curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-			curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($handle, CURLOPT_FOLLOWLOCATION, 1);
-			curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false); // nothing sensitive, it's okay
-			$this->themeForestApi = curl_exec($handle);
-			$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
-			if(intval($httpCode) == 200) {
+			
+			if (file_exists($p) && (time() - filemtime($p) < 86400*30)) // 1 month
+			{
+				$this->themeForestApi = file_get_contents($p);
+				$json = json_decode($this->themeForestApi);
+				var_dump( $json);
+			} else if (defined('ENVATO_KEY'))
+			{ 
+				if (empty($sanit_name)) return null;
+				$authorization = "Authorization: Bearer ".ENVATO_KEY;
+				$url = 'https://api.envato.com/v1/discovery/search/search/item?term='.$sanit_name.'&site=themeforest.net&category=wordpress';
+				$handle = curl_init($url);
+				curl_setopt($handle, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+				curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($handle, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false); // nothing sensitive, it's okay
+				$response = curl_exec($handle);
+				$httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+				if(intval($httpCode) == 200) {
+					$this->themeForestApi = $response;
+				}
+				curl_close($handle);
+			}
+			
+			if (!empty($this->themeForestApi))
+			{
 				$json = json_decode($this->themeForestApi);
 				foreach ($json->matches as $item)
 				{
@@ -547,9 +564,7 @@ class ThemeInfo
 					}
 				}
 			}
-			curl_close($handle);
 		}
-
 		if (strpos(strtolower($themeInfo->name),'themekiller')) return null;
 		if ($is_themeforest) return 'themeforest';
 		else if ($is_templatemonster) return 'templatemonster';
