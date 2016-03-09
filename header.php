@@ -7,6 +7,7 @@ namespace ThemeCheck;
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
+	<?php if (!empty($controller->abtesting_code)) echo $controller->abtesting_code;?>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title><?php echo $controller->meta["title"]; ?></title>
@@ -47,7 +48,6 @@ namespace ThemeCheck;
 		
 	</head>
 	<body>
-		<?php if (!empty($controller->abtesting_code)) echo $controller->abtesting_code;?>
             <script>
 		(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
