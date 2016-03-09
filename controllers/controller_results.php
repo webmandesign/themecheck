@@ -23,7 +23,7 @@ class Controller_results
 		// There are 2 types of results to display
 		// 1 - Display an already evaluated file which results were stored on the server. Just need the id. e.g : results?id=162804c3c358267d3a16855686ab1887
 		// 2 - Unknown file. Need $_FILES and $_POST["filetype"]
-		if (isset($routeParts["ut"])) // unit tests
+		/*if (isset($routeParts["ut"])) // unit tests
 		{
 			$path_item = TC_ROOTDIR.'/include/unittests/';
 			$filename = urldecode($routeParts["ut"]);
@@ -38,12 +38,12 @@ class Controller_results
 			$this->fileValidator->validate();	
 
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
-		
-		} else	if (isset($routeParts["hash"])) // already uploaded file
+			$this->fileValidator->clean();
+		} else	*/
+		if (isset($routeParts["hash"])) // already uploaded file
 		{
 			$hash = $routeParts["hash"];
-			$this->fileValidator = FileValidator::unserialize($hash);
-			$themeInfo = $this->fileValidator->themeInfo;
+			$fileValidator= FileValidator::unserialize($hash);
 			$checkfiles = scandir(TC_INCDIR.'/Checks');
 			$youngestCheckTimestamp = 0;
 			foreach($checkfiles as $f)
@@ -52,13 +52,23 @@ class Controller_results
 				$m = filemtime(TC_INCDIR.'/Checks/'.$f);
 				if($youngestCheckTimestamp < $m) $youngestCheckTimestamp = $m;
 			}
-			if ($this->fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
+			if ($fileValidator->themeInfo->validationDate < $youngestCheckTimestamp) // if checks changed, revalidate
 			{
+				$src_path = FileValidator::hashToPathUpload($hash);
+				$themeInfo = FileValidator::prepareThemeInfo($src_path, $fileValidator->themeInfo->zipfilename, 'application/zip', false);
+				$this->fileValidator = new FileValidator($themeInfo);
 				$this->fileValidator->validate();	
 				
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) == 0) // serialize only if no fatal errors
-				$this->fileValidator->serialize(true);
+					$this->fileValidator->serialize(true);
+				
+				$themeInfo = $this->fileValidator->themeInfo;
 				if (function_exists('stats')) stats($themeInfo);
+				
+				$this->fileValidator->cleanUnzippedFiles();
+			} else  {
+				$this->fileValidator = $fileValidator;
+				$themeInfo = $this->fileValidator->themeInfo;
 			}
 			$this->validationResults = $this->fileValidator->getValidationResults(I18N::getCurLang());
 		} else if (count($_FILES)>0 && isset($_FILES["file"]) && !empty($_FILES["file"]["name"])) // uploaded file
@@ -87,6 +97,8 @@ class Controller_results
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'not stored');";
 					else 
 						$this->inlinescripts[]= "ga('send', 'event', 'theme', 'submit', 'stored');";
+					
+					$this->fileValidator->cleanUnzippedFiles();
 				}
 			} else {
 				UserMessage::enqueue(__("Invalid form"), ERRORLEVEL_FATAL);

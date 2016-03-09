@@ -184,7 +184,7 @@ class FileValidator
 
 		// save meta data
 		$this->history->saveTheme($this->themeInfo, $update);			
-
+		$this->themeInfo->isHigherVersion = $this->history->isHighestVersion($this->themeInfo->hash);
 		// save validation results
 		foreach($this->validationResults as $lang=>$_validationResults)
 		{
@@ -435,7 +435,6 @@ class FileValidator
 
 		if (!($src_size > 100 || strpos ($src_path, '/unittests/') !== false ))
 		{
-
 			$userMessage = UserMessage::getInstance();
 			$userMessage->enqueueMessage(__('Files under 100 bytes are not accepted. Operation canceled.'), ERRORLEVEL_CRITICAL);
 			return null;
@@ -450,7 +449,7 @@ class FileValidator
 		$zipfilepath = self::hashToPathUpload($hash_alpha);
 		if ($isUpload)
 			move_uploaded_file($src_path, $zipfilepath); // move file to final place (overwrites if already existing)
-		else
+		else if (realpath($src_path) != realpath($zipfilepath))
 			copy($src_path, $zipfilepath); // copy file (overwrites if already existing)
 	
 		try {
@@ -682,9 +681,20 @@ class FileValidator
 		if (!empty($id)) return;
 		
 		$zipfilepath = self::hashToPathUpload($this->themeInfo->hash);
+		if (file_exists($zipfilepath)) unlink($zipfilepath);
+		
+		$this->cleanUnzippedFiles();
+	}
+	
+	public function cleanUnzippedFiles()
+	{
+		if (!isset($this->themeInfo)) return;
+		if (!isset($this->themeInfo->hash)) return;
+				
+		
 		$unzippath = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash;
 		$unzippath_parent = TC_ROOTDIR.'/../themecheck_vault/unzip/'.$this->themeInfo->hash.'_tc_parentzip';
-		if (file_exists($zipfilepath)) unlink($zipfilepath);
+		
 		if (file_exists($unzippath)) ListDirectoryFiles::recursiveRemoveDir($unzippath);
 		if (file_exists($unzippath_parent)) ListDirectoryFiles::recursiveRemoveDir($unzippath_parent);
 	}

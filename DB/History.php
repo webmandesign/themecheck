@@ -183,127 +183,6 @@ class History
 		}
 
 		// If themedir already exists
-		/*$q = $this->db->query('SELECT id,score,hash,name,namesanitized,uriNameSeo, INET_NTOA(userIp) as userIp from theme where themedir = '.$this->db->quote($themeInfo->themedir));
-		$row = $q->fetch();
-		if (!empty($row))
-		{
-			$existing_hash = $row['hash'];
-			$existing_ip = $row['userIp'];
-			$existing_score = $row['score'];
-			$themeInfo->serializable = true;
-			$userMessage = UserMessage::getInstance();
-			if ($existing_hash == $themeInfo->hash){
-				$userMessage->enqueueMessage(__('This theme has already been submitted.'), ERRORLEVEL_INFO);
-			} else {
-				//if (intval($existing_score) < intval($themeInfo->score) || $existing_ip == $themeInfo->userIp) // ip match : consider the theme is a new version of the existing one. ip is the only information we can rely on to be sure the user is the same. Any other data such as author name is easily hackable and mean people could use this to overwrite existing themes.
-				{
-						//$userMessage->enqueueMessage(__('It seems this archive is a new version of the theme "'.htmlspecialchars($themeInfo->name).'" you submitted previously. Validation results were updated.'), ERRORLEVEL_INFO);
-						
-						$this->query_theme_update_all = $this->db->prepare('UPDATE theme SET hash=:hash,
-																							 hash_md5=:hash_md5,
-																							 hash_sha1=:hash_sha1,
-																							 name=:name,
-																							 namesanitized=:namesanitized,
-																							 uriNameSeo=:uriNameSeo,
-																							 themedir=:themedir,
-																							 themetype=:themetype,
-																							 parentId=:parentId,
-																							 cmsVersion=:cmsVersion,
-																							 score=:score,
-																							 criticalCount=:criticalCount,
-																							 warningsCount=:warningsCount,
-																							 zipfilename=:zipfilename,
-																							 zipmimetype=:zipmimetype,
-																							 zipfilesize=:zipfilesize,
-																							 userIp=:userIp,
-																							 author=:author,
-																							 description=:description,
-																							 descriptionBB=:descriptionBB,
-																							 themeUri=:themeUri,
-																							 version=:version,
-																							 authorUri=:authorUri,
-																							 authorMail=:authorMail,
-																							 tags=:tags,
-																							 layout=:layout,
-																							 license=:license,
-																							 licenseUri=:licenseUri,
-																							 filesIncluded=:filesIncluded,
-																							 copyright=:copyright,
-																							 isThemeForest=:isThemeForest,
-																							 isTemplateMonster=:isTemplateMonster,
-																							 isCreativeMarket=:isCreativeMarket,
-																							 merchantUrl=:merchantUrl,
-																							 isNsfw=:isNsfw,
-																							 creationDate=:creationDate,
-																							 modificationDate=:modificationDate,
-																							 validationDate=:validationDate,
-																							 isOpenSource=:isOpenSource WHERE id=:id');
-																																					 
-						$id = intval($row['id']);
-						// update values in DB
-						$themeInfo->namesanitized = $row['namesanitized']; // can't call getUniqueUriNameSeo because it would generate a new unique name, we need the same as before because namesanitized is used to build url and we do'nt want to change url
-						$themeInfo->uriNameSeo = $row['uriNameSeo'];
-						$this->query_theme_update_all->bindValue(':id', $id, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':hash', $themeInfo->hash, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':hash_md5', $themeInfo->hash_md5, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':hash_sha1', $themeInfo->hash_sha1, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':name', $themeInfo->name, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':namesanitized', $themeInfo->namesanitized, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':uriNameSeo', $themeInfo->uriNameSeo, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':themedir', $themeInfo->themedir, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':themetype', $themeInfo->themetype, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':parentId', $themeInfo->parentId, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':cmsVersion', $themeInfo->cmsVersion, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':score', $themeInfo->score, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':criticalCount', $themeInfo->criticalCount, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':warningsCount', $themeInfo->warningsCount, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':zipfilename', $themeInfo->zipfilename, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':zipmimetype', $themeInfo->zipmimetype, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':zipfilesize', $themeInfo->zipfilesize, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':userIp', $themeInfo->userIp, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':author', $themeInfo->author, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':description', $themeInfo->description, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':descriptionBB', $themeInfo->descriptionBB, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':themeUri', $themeInfo->themeUri, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':version', $themeInfo->version, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':authorUri', $themeInfo->authorUri, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':authorMail', $themeInfo->authorMail, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':tags', $themeInfo->tags, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':layout', $themeInfo->layout, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':license', $themeInfo->license, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':licenseUri', $themeInfo->licenseUri, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':filesIncluded', $themeInfo->filesIncluded, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':copyright', $themeInfo->copyright, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':isThemeForest', $themeInfo->isThemeForest, \PDO::PARAM_BOOL);
-						$this->query_theme_update_all->bindValue(':isTemplateMonster', $themeInfo->isTemplateMonster, \PDO::PARAM_BOOL);
-						$this->query_theme_update_all->bindValue(':isCreativeMarket', $themeInfo->isCreativeMarket, \PDO::PARAM_BOOL);
-						$this->query_theme_update_all->bindValue(':merchantUrl', $themeInfo->merchantUrl, \PDO::PARAM_STR);
-						$this->query_theme_update_all->bindValue(':isNsfw', $themeInfo->isNsfw, \PDO::PARAM_BOOL);
-						$this->query_theme_update_all->bindValue(':creationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':modificationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
-						$this->query_theme_update_all->bindValue(':validationDate', $themeInfo->creationDate, \PDO::PARAM_INT);
-                        $this->query_theme_update_all->bindValue(':isOpenSource', $themeInfo->isOpenSource, \PDO::PARAM_BOOL);
-						$r = $this->query_theme_update_all->execute();
-						if ($r===FALSE && TC_ENVIRONMENT !== 'prod')
-						{
-							$e = $this->query_theme_update_all->errorInfo();
-							trigger_error(sprintf(__("DB error : %s"), $e[2]), E_USER_ERROR);
-						}
-						
-						// recalculate highest version among all themes with the same $themedir
-						$this->findHigherVersion($themedir);
-				
-						return ;
-				} else { // ip doesn't match : this is another theme with a duplicate name. Flag it as not serializable and display a message to user. (It would have been possible to generate a new name, but it would make it almost impossible to follow new versions afterwards)
-					$themeInfo->serializable = false;
-					$userMessage->enqueueMessage(__('The name "'.htmlspecialchars($themeInfo->name).'" of this theme is already used by a theme that was previously submitted. The results of this validation could not be saved.'), ERRORLEVEL_WARNING);
-					return;
-				}
-			}
-		}
-		*/
-		
-		// If themedir already exists
 		$q = $this->db->query('SELECT id,score,hash,name,namesanitized,uriNameSeo, INET_NTOA(userIp) as userIp from theme where themedir = '.$this->db->quote($themeInfo->themedir).' AND version = '.$this->db->quote($themeInfo->version));
 		$row = $q->fetch();
 		if (!empty($row))
@@ -644,6 +523,16 @@ class History
 		$query->execute();
 		$r = $query->fetch();
 		if (isset($r['id'])) return $r['id'];
+		return null;
+	}
+	
+	public function getHashFromId($id)
+	{		
+		$query = $this->db->prepare('SELECT hash from theme WHERE id=:id');
+		$query->bindValue(':id', $id, \PDO::PARAM_INT);
+		$query->execute();
+		$r = $query->fetch();
+		if (isset($r['hash'])) return $r['hash'];
 		return null;
 	}
 	

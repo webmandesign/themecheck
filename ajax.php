@@ -24,9 +24,7 @@ $controller = $_GET["controller"];
 $action = $_GET["action"];
 if (($controller == "home" && $action == "seemore") || 
 		($controller == "home" && $action == "sort")||
-		($controller == "massimport" && ($action == "importnext" || 
-                 $action == "updatenext" || $action == "updateOpenSource" ||
-                 $action == "nombreTheme"  || $action == "progressVerif")) ||
+		($controller == "massimport" && $action == "updatenext") ||
 		($controller == "unittests" && $action == "sample")
 		)
 {

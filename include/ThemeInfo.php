@@ -556,7 +556,7 @@ class ThemeInfo
 		if (defined('ENVATO_KEY'))
 		{ 
 			$sanit_name = self::sanitizedString($themeInfo->name);
-
+			if (empty($sanit_name)) return null;
 			$authorization = "Authorization: Bearer ".ENVATO_KEY;
 			$url = 'https://api.envato.com/v1/discovery/search/search/item?term='.$sanit_name.'&site=themeforest.net&category=wordpress';
 			$handle = curl_init($url);
