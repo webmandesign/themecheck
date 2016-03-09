@@ -23,6 +23,8 @@ class Controller_massimport
 	
 	public function render()
 	{
+		$history = new History(); 
+		$max_id = $history->getMaxId();
 		?><script type="text/javascript"> var page="massimport" </script>
 		<section id="content">
 			<div class="container" style="background-color:#212121;text-align:center;padding:150px 0 100px 0;color:#FFF">
@@ -31,14 +33,15 @@ class Controller_massimport
 						<button type="button" id="update-btn" class="btn">
 							<?php echo "Update DB files";?>
 						</button>
+						<input id="start_id" type="text" value="<?php echo $max_id ;?>">
 					</div>
 					<div id="container_results" style="width:60%;margin:auto;text-color:#888;font-size:10px;text-align:left;">
 					</div>
 				</div>
 			</div>
 		<script>
-		var theme_id_start = <?php $history = new History(); echo $history->getMaxId(); ?>;
-		var theme_id = theme_id_start;
+		var theme_id_start = -1;
+		var theme_id = -1;
 		var t_count = 0;
 		var percent = 100.0 * (theme_id_start - theme_id) / theme_id_start;
 		function updateNext()
@@ -52,23 +55,37 @@ class Controller_massimport
 				data : {id : theme_id}
 			}).done(function( obj ) {
 				console.log(obj);
-				var themetype = 'wordpress';
-				if (obj.themetype ==2) themetype = 'joomla';
-				if (obj.themetype ==4) themetype = 'wordpress child';
-				$( "#container_results" ).append( "&nbsp;<span>&quot;"+obj.name+"&quot; ("+themetype+") : "+obj.size+", "+obj.duration+"</span><br/>" );
-				if (obj.nextId == null) {
+				if (obj.nextId != null)
+				{
+					theme_id = obj.nextId;
+					if (obj.name == undefined || obj.name == null)
+					{
+						$( "#container_results" ).append( "&nbsp;<span>unknown id</span><br/>" );
+						updateNext();
+					} else 
+					{
+						var themetype = 'wordpress';
+						if (obj.themetype ==2) themetype = 'joomla';
+						if (obj.themetype ==4) themetype = 'wordpress child';
+						$( "#container_results" ).append( "&nbsp;<span>&quot;"+obj.name+"&quot; ("+themetype+") : "+obj.size+", "+obj.duration+"</span><br/>" );
+						setTimeout(function(){updateNext();}, 5000); // no overload
+					}
+				}
+				else 
+				{
 					console.log("update done");
 					$( "#container_results" ).append("update done");
 					theme_id = theme_id_start;
-				} else {
-					theme_id = obj.nextId;
-					setTimeout(function(){updateNext();}, 5000); // no overload
 				}
 			}).fail(function() {
 				console.log("ajax error");
 			})
 		}
-		$('#update-btn').click(updateNext);
+		$('#update-btn').click(function(){
+			theme_id_start = parseInt($( "#start_id" ).val());
+			theme_id = theme_id_start;
+			updateNext();
+		});
                 
 		</script>
 		<?php
@@ -85,16 +102,17 @@ class Controller_massimport
 			if ($id < 1) $i = 1;
 			
 			$history = new History();
-			$themeInfo = $history->getFewInfo($id);
 			
+			$nextId = $history->getPrevId($id);
+			$response["nextId"] = $nextId;	
+				
+			$themeInfo = $history->getFewInfo($id);
+						
 			if (!empty($themeInfo) && !empty($themeInfo["hash"]))
 			{	
 				$hash = $themeInfo["hash"];
 				$src_path = FileValidator::hashToPathUpload($hash);
 				$themeInfo = FileValidator::prepareThemeInfo($src_path, $themeInfo["zipfilename"], 'application/zip', false);
-
-				$nextId = $history->getPrevId($id);
-				$response["nextId"] = $nextId;
 				
 				//$themeInfo = $history->loadThemeFromHash($themeInfo["hash"]);// need an objet and not an array
 				//$r = $themeInfo->initFromUnzippedArchive($unzippath, $themeInfo->zipfilename, $themeInfo->zipmimetype, $themeInfo->zipfilesize); // merchant...
@@ -141,6 +159,8 @@ class Controller_massimport
 				}
 				if (function_exists('stats'))  stats($themeInfo);
 				$this->fileValidator->cleanUnzippedFiles();
+			} else if ($nextId != 0 && $nextId != $id) {
+				
 			} else {
 				if (UserMessage::getCount(ERRORLEVEL_FATAL) > 0)
 				{
@@ -168,8 +188,3 @@ class Controller_massimport
 		echo json_encode($response);
 	}
 }
-
-
-
-
-

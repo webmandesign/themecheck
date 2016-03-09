@@ -529,7 +529,7 @@ class ThemeInfo
 			{
 				$this->themeForestApi = file_get_contents($p);
 				$json = json_decode($this->themeForestApi);
-				var_dump( $json);
+				//var_dump( $json);
 			} else if (defined('ENVATO_KEY'))
 			{ 
 				if (empty($sanit_name)) return null;
