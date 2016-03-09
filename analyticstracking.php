@@ -9,8 +9,11 @@
 
 
 		var trackDL = function(name) {
-		console.log(name);
 		   ga('send', 'event', 'download', 'click', name);
 		}
 
+		var linkout = function(linktype, uriNameSeo) {
+		console.log('linktype:'+linktype+',uriNameSeo:'+uriNameSeo);
+		   ga('send', 'event', 'linkout', linktype, uriNameSeo);
+		}
 </script>

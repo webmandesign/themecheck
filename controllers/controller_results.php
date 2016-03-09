@@ -362,20 +362,7 @@ class Controller_results
      <!-- ok -->                               
                         
                             
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'themecheck'; // required: replace example with your forum shortname
-				var disqus_url = '<?php echo $this->samepage_i18n[I18N::getCurLang()];?>';
-				
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-        
-        /* New Integration*/
-       
+    <script type="text/javascript">       
         $('.iframe_result_theme .text_iframe').text(($("#select_banner_style option:selected").val()));//($("#select_banner_style option:selected").innerHtml);
         
         $('#select_banner_style').change(function(){
@@ -653,17 +640,26 @@ class Controller_results
                                             if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license).'<br>'.htmlspecialchars($themeInfo->licenseText));
                                             else $characteristics[] = array(__("License"), ThemeInfo::getLicenseName($themeInfo->license));
                                     else 
-                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
-                                            else $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
+                                            if (!empty($themeInfo->licenseText)) $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow" onclick="linkout(\'licenseURI\', \''.ThemeInfo::getLicenseName($themeInfo->license).'\');">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>'.'<br>'.htmlspecialchars($themeInfo->licenseText));
+                                            else $characteristics[] = array(__("License"), '<a rel="license" href="'.$themeInfo->licenseUri.'" rel="nofollow" onclick="linkout(\'licenseURI\', \''.ThemeInfo::getLicenseName($themeInfo->license).'\');">'.ThemeInfo::getLicenseName($themeInfo->license).'</a>');
                                     $characteristics[] = array(__("Files included"), htmlspecialchars($themeInfo->filesIncluded, defined('ENT_HTML5')?ENT_QUOTES | ENT_HTML5:ENT_QUOTES));
-                                    if (!empty($themeInfo->themeUri)) {
-                                            if (strpos($themeInfo->themeUri,'themeforest.net')!==false)
-                                                    $characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'?ref=themecheck">'.htmlspecialchars($themeInfo->themeUri).'</a>');
-                                            else 
-                                                    $characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->themeUri.'">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+                                    
+									if (!empty($themeInfo->merchantUrl)) {
+										if (strpos($themeInfo->merchantUrl,'themeforest.net')!==false)
+											$characteristics[] = array(__("Themeforest page"), '<a href="'.$themeInfo->merchantUrl.'?ref=themecheck" target="_blank" onclick="linkout(\'themeforest\', \''.$themeInfo->uriNameSeo.'\');">'.htmlspecialchars($themeInfo->merchantUrl).'</a>');
+										else
+											$characteristics[] = array(__("Theme URI"), '<a href="'.$themeInfo->merchantUrl.'" target="_blank" onclick="linkout(\'themeURI\', \''.$themeInfo->uriNameSeo.'\');">'.htmlspecialchars($themeInfo->merchantUrl).'</a>');
+									}
+									if (!empty($themeInfo->themeUri)) {
+										if (empty($themeInfo->merchantUrl) || $themeInfo->merchantUrl != $themeInfo->themeUri ) {
+											$col_name = __("Theme URI");
+											$linktype = "themeURI";
+											if (strpos($themeInfo->themeUri,'demo')!==false) {$col_name = __("Demo page");$linktype = "demo";}
+											$characteristics[] = array($col_name, '<a href="'.$themeInfo->themeUri.'" target="_blank" onclick="linkout(\''.$linktype.'\', \''.$themeInfo->uriNameSeo.'\');">'.htmlspecialchars($themeInfo->themeUri).'</a>');
+										}
                                     }
                                     if (!empty($themeInfo->version)) $characteristics[] = array(__("Version"), htmlspecialchars($themeInfo->version));
-                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a rel="author" href="'.$themeInfo->authorUri.'">'.htmlspecialchars($themeInfo->authorUri).'</a>');
+                                    if (!empty($themeInfo->authorUri)) $characteristics[] = array(__("Author URI"), '<a rel="author" href="'.$themeInfo->authorUri.'" target="_blank" onclick="linkout(\'authorURI\', \''.$themeInfo->uriNameSeo.'\');">'.htmlspecialchars($themeInfo->authorUri).'</a>');
                                     if (!empty($themeInfo->tags))$characteristics[] = array(__("Tags"), htmlspecialchars($themeInfo->tags));
                                     /*if (!empty($themeInfo->layout)) {
                                             if ($themeInfo->layout == 1) $characteristics[] = array(__("Layout"), __("Fixed"));
