@@ -377,7 +377,7 @@ class Route {
 			foreach($rows as $row)
 			{
 				$l = 'en';
-				$d = $row["validationDate"];
+				$d = substr($row["validationDate"],0,10);
 				global $ExistingLangs;
 				foreach($ExistingLangs as $l)
 				{

@@ -14,9 +14,9 @@ class Controller_massimport
 	
 	public function prepare()
 	{
-		/*Route::getInstance()->updateSitemap(1);
+		Route::getInstance()->updateSitemap(1);
 		Route::getInstance()->updateSitemap(2);
-		Route::getInstance()->updateSitemap(4);*/
+		Route::getInstance()->updateSitemap(4);
 		$this->meta["title"] = __("Mass import");
 		$this->meta["description"] = __("Mass import");
 	}
