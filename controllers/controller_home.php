@@ -143,7 +143,12 @@ class Controller_home
             <section id="content">
                 <div class="container">
                     <div class="bg_home">
-                        <h1><?php echo __("Verify your WordPress themes"); ?></h1>
+                        <h1><?php 
+							if (isset($_GET["v"]) && $_GET["v"]==1)
+								echo __("The WordPress themes verification service"); 
+							else 
+								echo __("Verify your WordPress themes"); 
+							?></h1>
 
                         <p class="description">
                         <?php echo __("Themecheck.org is a quick service that lets you verify WordPress themes for security and code quality."); ?><br>
