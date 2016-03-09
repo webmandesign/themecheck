@@ -422,40 +422,6 @@ class ThemeInfo
 
 		$this->filesIncluded = trim($this->filesIncluded, " ,");
 		
-		// get themeforest url and check if really exists on themeforest
-		if ($this->isThemeForest)
-		{
-				
-			preg_match('/[ 0-9a-zA-Z_-]+/', $this->name, $matches, PREG_OFFSET_CAPTURE);
-			$search = trim($matches[0][0]);
-			$url = 'http://marketplace.envato.com/api/edge/search:themeforest,wordpress,'.$search.'.json';
-			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, $url);
-			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-			$result = curl_exec($ch);
-			curl_close($ch);
-			$result = json_decode($result);
-			if (!empty($result) && !empty($result->search))
-			{
-				$bestindex = -1;
-				$bestsales = 0;
-				$i = 0;
-				foreach($result->search as $v)
-				{
-					if (intval($v->sales) > $bestsales) {
-						$bestindex = $i;
-						$bestsales = intval($v->sales);
-					}
-					$i++;
-				}
-				if ($bestindex >=0) $this->themeUri = $result->search[0]->url;
-				//else $this->isThemeForest = false;
-			} else {
-				//$this->isThemeForest = false;
-			}
-		}
-		
 		// adult ?
 		$this->isNsfw = self::isNsfw($unzippath, $this);
 
@@ -553,7 +519,7 @@ class ThemeInfo
 			}
 		}
 
-		if (defined('ENVATO_KEY'))
+		if (defined('ENVATO_KEY') && $themeInfo->themetype==1 || $themeInfo->themetype==4)
 		{ 
 			$sanit_name = self::sanitizedString($themeInfo->name);
 			if (empty($sanit_name)) return null;
