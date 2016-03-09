@@ -159,7 +159,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                     <div class="bg_home">
                         <h1><?php 
 							if (isset($_GET["v"]) && $_GET["v"]==1)
-								echo __("The WordPress themes verification service"); 
+								echo __("The WordPress themes verification platform"); 
 							else 
 								echo __("Verify your WordPress themes"); 
 							?></h1>
