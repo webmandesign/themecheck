@@ -47,6 +47,7 @@ namespace ThemeCheck;
 		
 	</head>
 	<body>
+		<?php if (!empty($controller->abtesting_code)) echo $controller->abtesting_code;?>
             <script>
 		(function(d, s, id) {
 		  var js, fjs = d.getElementsByTagName(s)[0];
