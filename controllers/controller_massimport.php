@@ -37,7 +37,7 @@ class Controller_massimport
 				</div>
 			</div>
 		<script>
-		var theme_id_start = <?php $history = new History(); echo '7989';//$history->getMaxId(); ?>;
+		var theme_id_start = <?php $history = new History(); echo $history->getMaxId(); ?>;
 		var theme_id = theme_id_start;
 		var t_count = 0;
 		var percent = 100.0 * (theme_id_start - theme_id) / theme_id_start;
