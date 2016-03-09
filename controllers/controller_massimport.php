@@ -62,7 +62,7 @@ class Controller_massimport
 					theme_id = theme_id_start;
 				} else {
 					theme_id = obj.nextId;
-					updateNext();
+					setTimeout(function(){updateNext();}, 1000); // no overload
 				}
 			}).fail(function() {
 				console.log("ajax error");
