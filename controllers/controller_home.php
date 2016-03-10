@@ -107,7 +107,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 							if ($themeInfo["isOpenSource"])
 							{
 								$html .= '<a style="display:inline" href="'.TC_HTTPDOMAIN.'/download?h='.$themeInfo['hash'].'" '
-                                . 'onclick="trackDL(\''.$themeInfo['name'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
+                                . 'onclick="trackDL(\''.$themeInfo['uriNameSeo'].'\');"><span class="sprite download" title="'.__("Quick download").'"></span></a>';
 									
 								if(preg_match('/\bfr\b/i',$_SERVER['REQUEST_URI']))
 								{

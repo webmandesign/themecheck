@@ -225,7 +225,7 @@ class Controller_results
                                             <span class="text_validation_results"><?php echo __('Validation results'); ?></span>
                                     </div>                              
                                     <div class="line"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/line_content-home.png"/></div>
-                                    <h1><?php echo $themeInfo->name; ?></h1>
+                                    <h1><?php echo htmlspecialchars($themeInfo->name); ?></h1>
                                    
                                     <div class="responsive_theme">
                                 <?php 
@@ -301,7 +301,7 @@ class Controller_results
                             </div>
                             
                              <div class="container_details_theme">     
-                                <h1><?php echo $themeInfo->name; ?></h1>
+                                <h1><?php echo htmlspecialchars($themeInfo->name); ?></h1>
                                 <div class="open_source_theme">
                                         <span><?php echo $cms; ?></span>
                                 </div>
@@ -566,16 +566,6 @@ class Controller_results
                                             <div class="content_desc_results">
 
                                                 <span class="img_separt"><img src="<?php echo TC_HTTPDOMAIN;?>/img/images/images_theme/separVerti_footer_theme.png" alt=""/></span>
-<!--                                                <span class="title_desc_results"><?php //echo $themeInfo->name; ?>
-                                                        <p class="desc_open_source"><?php //echo $cms; ?></p>
-                                                </span>
-                                                <div class="view_detail">
-                                                        <input type="button" class="fake_input" name="viewDetail">
-                                                        <label for="viewDetail" class="viewDetail">
-                                                                <span class="sprite arrow_grey"></span>
-                                                                VIEW DETAIL ON THEMECHECK.ORG
-                                                        </label>
-                                                </div>-->
                                             </div>
                                             <div class="iframe_result_theme">
                                                 <span class="text_iframe"></span>
@@ -736,7 +726,7 @@ class Controller_results
                                             <div class="theme_is_open"><?php echo __('This theme is open source.'); ?></div>
 
                                             <div class="button_download">
-                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?h='.$themeInfo->hash.'" onclick="trackDL(\''.$themeInfo->name.'\')"'; ?>" style="text-decoration: none;">
+                                                <a href="<?php echo TC_HTTPDOMAIN.'/download?h='.$themeInfo->hash.'" onclick="trackDL(\''.$themeInfo->uriNameSeo.'\')"'; ?>" style="text-decoration: none;">
                                                 <label for="buttonDownload" class="buttonDownload">
                                                         <span class="sprite downloadBold"></span>
                                                         <?php echo __('DOWNLOAD'); ?>
