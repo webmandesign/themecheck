@@ -16,7 +16,7 @@ class Controller_home
 	
 	public function prepare()
 	{
-		$l =I18N::getCurLang();
+		$curlang =I18N::getCurLang();
 		$this->meta["title"] = __("The WordPress Themes Verification Service");
 		$this->meta["description"] = __("A free service that checks WordPress themes for security and code quality.");
 		global $ExistingLangs;
@@ -25,7 +25,7 @@ class Controller_home
 			$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"index.php"));
 		}
 		
-		if ($l == 'en')
+		if ($curlang == 'en')
 		{
 			$this->abtesting_code = "<!-- Google Analytics Content Experiment code -->
 <script>function utmx_section(){}function utmx(){}(function(){var
