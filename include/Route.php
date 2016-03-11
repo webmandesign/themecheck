@@ -378,6 +378,7 @@ class Route {
 			{
 				$l = 'en';
 				$d = substr($row["validationDate"],0,10);
+				
 				global $ExistingLangs;
 				foreach($ExistingLangs as $l)
 				{
@@ -386,9 +387,9 @@ class Route {
 					else
 						$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"results", "uriNameSeo"=>$row["uriNameSeo"], "themetype"=>$row["themetype"]));
 					$string = '<url>
-	<loc>'.$url.'</loc>
-	<lastmod>'.$d.'</lastmod>
-	<changefreq>monthly</changefreq>
+	<loc>'.$url.'</loc>';
+	if ($d !== '0000-00-00') $string .= '<lastmod>'.$d.'</lastmod>';
+	$string .= '<changefreq>monthly</changefreq>
 	<priority>0.5</priority>
   </url>';
 					fwrite($fp, $string);
