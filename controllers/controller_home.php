@@ -16,7 +16,7 @@ class Controller_home
 	
 	public function prepare()
 	{
-		I18N::getCurLang();
+		$l =I18N::getCurLang();
 		$this->meta["title"] = __("The WordPress Themes Verification Service");
 		$this->meta["description"] = __("A free service that checks WordPress themes for security and code quality.");
 		global $ExistingLangs;
@@ -24,7 +24,10 @@ class Controller_home
 		{
 			$this->samepage_i18n[$l] = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>$l, "phpfile"=>"index.php"));
 		}
-        $this->abtesting_code = "<!-- Google Analytics Content Experiment code -->
+		
+		if ($l == 'en')
+		{
+			$this->abtesting_code = "<!-- Google Analytics Content Experiment code -->
 <script>function utmx_section(){}function utmx(){}(function(){var
 k='99548996-0',d=document,l=d.location,c=d.cookie;
 if(l.search.indexOf('utm_expid='+k)>0)return;
@@ -39,6 +42,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 </script><script>utmx('url','A/B');</script>
 <!-- End of Google Analytics Content Experiment code -->
 ";
+		}
 	}
 	
 	private function getThumb($themeInfo)
