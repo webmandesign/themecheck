@@ -45,11 +45,17 @@ function enableSelectBoxes(){
 
 		if(sessionTheme == "")
 		{
-			$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
-			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+				// first value selected
+
+			//$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:first').html());
+			//$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:first').attr('value'));
+
+				// second value selected
+			$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:nth-child(0n+2)').html());
+			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:nth-child(0n+1)').attr('value'));
 		}
 	
-		
+			
             //Open Options    
 		$(this).children('span.selected,span.selectArrow').on('click', function(){
 			if($(this).parent().children('div.selectOptions').css('display') == 'none'){

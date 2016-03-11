@@ -305,7 +305,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                                             <input type='checkbox' name='theme[]' value='joomla' id="joomla"<?php if(isset($_SESSION['theme'])){if(in_array("joomla",$_SESSION['theme'])){echo 'checked="checked"';}} else {echo 'checked="checked"';};?> class="sortdropdown fake_input"/>
                                             
                                             <div class="selectOptions" id="filterThemes">
-                                                <span class="selectOption" value="All theme"><?php echo __("All theme");?></span>
+                                                <span class="selectOption" value="all_theme"><?php echo __("All theme");?></span>
                                                 <span class="selectOption" value='wordpress'>Wordpress themes</span>
                                                 <span class="selectOption" value='joomla' >Joomla themes</span>
                                             </div>
@@ -329,29 +329,57 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                             <script type="text/javascript"> 
                                 var sessionTheme = "";
                                 var sessionSort = "";
+
+                                var defautSelected = function(element){
+
+                                    $(element).closest('div.select_cms').attr('value',$(element).attr('value'));
+                                    $(element).parent().siblings('span.selected').html($(element).html());
+                                };
+                             
                             </script>
                 
                        <?php  if(isset($_SESSION['theme']))
-                               { 
+                               {  
                                     if(count($_SESSION['theme']) < 2)
                                     {  
                               
                                 ?>
                                         <script type="text/javascript"> 
-                                          
+   
                                         sessionTheme = <?php echo $_SESSION['theme'][0]; ?>; 
                                        
                                         $('div.select_cms .selectOptions .selectOption').each(function(){
 
                                             if($(this).attr('value') == sessionTheme['value'])
                                             {
-                                                $(this).closest('div.select_cms').attr('value',$(this).attr('value'));
-                                                $(this).parent().siblings('span.selected').html($(this).html());
+
+                                                defautSelected(this);
+
+                                              /*  $(this).closest('div.select_cms').attr('value',$(this).attr('value'));
+                                                $(this).parent().siblings('span.selected').html($(this).html());*/
                                             }
                                         });
     
                                         </script>
                         <?php
+                                    }
+                                    else
+                                    {
+                                ?>
+                                        <script type="text/javascript"> 
+
+                                            var selected = "all_theme";
+                                            var element = $('div.select_cms .selectOptions .selectOption[value='+selected+']')
+                                            var itemSelected = element.html();
+
+                                            defautSelected(element);
+
+                                           /* $(element).closest('div.select_cms').attr('value',$(element).attr('value'));
+                                            $(element).parent().siblings('span.selected').html($(element).html());*/
+
+                                            sessionTheme = selected;
+                                        </script>
+                                <?php
                                     }
                                }
                                
