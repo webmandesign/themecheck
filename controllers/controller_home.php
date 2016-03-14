@@ -301,7 +301,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                                     <label><?php echo __("FILTER BY : "); ?></label>
                 <!-- SELECT CMS -->
                                     <div class="selec_filters">	
-                                        <div class="select_cms">
+                                        <div class="select_cms" value="wordpress">
                                             <span class='selected'></span>
                                             <span class="selectArrow"><span class="sprite arrow_bottom"></span></span>
     
@@ -333,6 +333,7 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                             <script type="text/javascript"> 
                                 var sessionTheme = "";
                                 var sessionSort = "";
+                                var firstLoad = true;
 
                                 var defautSelected = function(element){
 
@@ -358,9 +359,6 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                                             {
 
                                                 defautSelected(this);
-
-                                              /*  $(this).closest('div.select_cms').attr('value',$(this).attr('value'));
-                                                $(this).parent().siblings('span.selected').html($(this).html());*/
                                             }
                                         });
     
@@ -377,9 +375,6 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                                             var itemSelected = element.html();
 
                                             defautSelected(element);
-
-                                           /* $(element).closest('div.select_cms').attr('value',$(element).attr('value'));
-                                            $(element).parent().siblings('span.selected').html($(element).html());*/
 
                                             sessionTheme = selected;
                                         </script>
@@ -410,7 +405,8 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                                
                                }
                         ?>
-                        
+         <script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home-dist.js"></script>  
+      
                             <div class="block_container_themes">
                                 <div class="container_themes">
                 <?php
@@ -427,6 +423,11 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                             if(isset($_SESSION['sort']) && isset($_SESSION['theme']))
                             {
 								$pagination = $history->getSorted($_SESSION['sort'], $_SESSION['theme']);
+                         ?>
+                                <script type="text/javascript">
+                                    firstLoad = false;
+                                </script>
+                        <?php
                             }
                             else
                             {
@@ -452,9 +453,10 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
                 </div>	
             </section>
 
-            <script src="<?php echo TC_HTTPDOMAIN;?>/scripts/Home-dist.js"></script>
+         
 
 			<script>
+               
 				  $('#seemore-btn').click(function () { 
 						$.ajax({
 							type: "POST",
@@ -479,60 +481,70 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 //						$("#alreadyvalidated").html(obj.html);
 //					}); 
 //      				});
+
+                           
                                 
-                                function ajaxSelectItem()
-                                {
-                                    $.ajax({
-						type: "POST",
-						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
-						data: $("#sortform").serialize()
-					}).done(function(obj){
-						$("#alreadyvalidated").html(obj.html);
-					}); 
-                                }
+                    function ajaxSelectItem()
+                    {
+                            $.ajax({
+    						type: "POST",
+    						url: "<?php echo TC_HTTPDOMAIN.'/ajax.php?controller=home&action=sort';?>",
+    						data: $("#sortform").serialize()
+    					}).done(function(obj){
+    						$("#alreadyvalidated").html(obj.html);
+    					}); 
+                    }
                                 
-                                $('#selectOptionsFirst .selectOption').on("click", function(){ 
-                                  
-                                    if(($(this).html() == 'Higher scores first') || ($(this).html() == 'Meilleurs scores en premier'))
-                                    {
-                                        $('#select_hidden option[value="score"]').attr('selected', true);
-                                        $('#select_hidden option[value="modificationDate"]').attr('selected', false);
-                                    }
-                                    else
-                                    {
-                                        $('#select_hidden option[value="modificationDate"]').attr('selected', true);
-                                        $('#select_hidden option[value="score"]').attr('selected', false);
-                                    }
-                                 
-                                    ajaxSelectItem();
-                                });
+                    $('#selectOptionsFirst .selectOption').on("click", function(){ 
+                      
+                        if(($(this).html() == 'Higher scores first') || ($(this).html() == 'Meilleurs scores en premier'))
+                        {
+                            $('#select_hidden option[value="score"]').attr('selected', true);
+                            $('#select_hidden option[value="modificationDate"]').attr('selected', false);
+                        }
+                        else
+                        {
+                            $('#select_hidden option[value="modificationDate"]').attr('selected', true);
+                            $('#select_hidden option[value="score"]').attr('selected', false);
+                        }
+                     
+                        ajaxSelectItem();
+                    });
                                 
-                                
-                                 $('#filterThemes .selectOption').on("click", function(){ 
-                                   
-                                   var selected = $(this).attr('value'); //theme selected
-                                   var select_cms = $('.select_cms input[type=checkbox]'); //input hidden
-                             
-                                   if(selected == 'wordpress' )
-                                   {
-                                       select_cms[0]['checked'] = true;  
-                                       select_cms[1]['checked'] = false;
-                                   }
-                                   else if (selected == 'joomla')
-                                   {
-                                       select_cms[1]['checked'] = true;
-                                       select_cms[0]['checked'] = false;  
-                                   }
-                                   else
-                                   {
-                                       select_cms[0]['checked'] = true;
-                                       select_cms[1]['checked'] = true;
-                                   }
-                                   
-                                   ajaxSelectItem();
-                                });
-                                
-                                
+                    
+                     $('#filterThemes .selectOption').on("click", function(){ 
+                       
+                       var selected = $(this).attr('value'); //theme selected
+        
+                       checkSelect(selected);
+                    });
+
+                    var checkSelect =  function(selected){
+                            var select_cms = $('.select_cms input[type=checkbox]'); //input hidden
+
+                          if(selected == 'wordpress' )
+                           {
+                               select_cms[0]['checked'] = true;  
+                               select_cms[1]['checked'] = false;
+                           }
+                           else if (selected == 'joomla')
+                           {
+                               select_cms[1]['checked'] = true;
+                               select_cms[0]['checked'] = false;  
+                           }
+                           else
+                           {
+                               select_cms[0]['checked'] = true;
+                               select_cms[1]['checked'] = true;
+                           }
+                           ajaxSelectItem();
+                    };
+               
+                    if(firstLoad)
+                    {                       
+                        checkSelect($('div.select_cms').attr('value'));
+                    }
+
 				</script>
 				<?php
 	}

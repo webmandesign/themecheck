@@ -43,7 +43,7 @@ function enableSelectBoxes(){
 // All themes
 	$('div.select_cms').each(function(){
 
-		if(sessionTheme == "")
+		if(firstLoad)
 		{
 				// first value selected
 
@@ -52,9 +52,8 @@ function enableSelectBoxes(){
 
 				// second value selected
 			$(this).children('span.selected').html($(this).children('div.selectOptions').children('span.selectOption:nth-child(0n+2)').html());
-			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:nth-child(0n+1)').attr('value'));
+			$(this).attr('value',$(this).children('div.selectOptions').children('span.selectOption:nth-child(0n+2)').attr('value'));
 		}
-	
 			
             //Open Options    
 		$(this).children('span.selected,span.selectArrow').on('click', function(){
