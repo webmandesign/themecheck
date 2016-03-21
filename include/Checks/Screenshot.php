@@ -4,29 +4,29 @@ namespace ThemeCheck;
 
 class Screenshot_Checker extends CheckPart
 {
-		private function pgcd($i, $j)
-		{
-			if($j == 0) return $i;
-	
-			return $this->pgcd($j, $i % $j);
-		}
+	private function pgcd($i, $j)
+	{
+		if($j == 0) return $i;
 
-		private function reduc(&$a, &$b)
-		{
-			$p = $this->pgcd($a,$b);
-			if ($p==0) return;
-			$a = $a / $p;
-			$b = $b / $p;
-			
-			// show 16:x instead of 8:x
-			if ($a == 8)
-			{
-				$a = 16;
-				$b *= 2;
-			}
-		}
+		return $this->pgcd($j, $i % $j);
+	}
+
+	private function reduc(&$a, &$b)
+	{
+		$p = $this->pgcd($a,$b);
+		if ($p==0) return;
+		$a = $a / $p;
+		$b = $b / $p;
 		
-		public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
+		// show 16:x instead of 8:x
+		if ($a == 8)
+		{
+			$a = 16;
+			$b *= 2;
+		}
+	}
+	
+	public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {
         $found = false;
         $this->errorLevel = ERRORLEVEL_WARNING;
@@ -54,6 +54,24 @@ class Screenshot_Checker extends CheckPart
                     $this->messages[] = __all('Screenshot size is <strong>%1$sx%2$spx</strong>. Screenshot size should be 1200x900, to account for HiDPI displays. Any 4:3 image size is acceptable, but 1200x900 is preferred.',$image[0], $image[1]);
                     $this->errorLevel = ERRORLEVEL_WARNING;
                 }
+				
+				$finfo = finfo_open(FILEINFO_MIME_TYPE); // Retourne le type mime à l'extension mimetype
+				$mimetype = strtolower(finfo_file($finfo, $other_key));
+				finfo_close($finfo);
+				if ( pathinfo($other_key, PATHINFO_EXTENSION) == 'png' && $mimetype != "image/png" )  {
+					$this->messages[] = __all('Bad screenshot file extension ! File <strong>%1$s</strong> is not an actual PNG file. Detected type was : <strong>&quot;%2$s&quot;</strong>.', htmlspecialchars(basename( $other_key )), $mimetype);
+                    $this->errorLevel = $this->threatLevel;
+				}
+				if ( pathinfo($other_key, PATHINFO_EXTENSION) != 'jpg' && $mimetype != "image/jpeg" )  {
+					$this->messages[] = __all('Bad screenshot file extension ! File <strong>%1$s</strong> is not an actual JPG file. Detected type was : <strong>&quot;%2$s&quot;</strong>.', htmlspecialchars(basename( $other_key )), $mimetype);
+                    $this->errorLevel = $this->threatLevel;
+				}
+				
+				//$image_src = @imagecreatefrompng($thumbfile);
+				//else $image_src = @imagecreatefromjpeg($thumbfile);
+				
+				
+				
                 break;
             }
         }
@@ -61,7 +79,7 @@ class Screenshot_Checker extends CheckPart
         if(!$found)
         {
             $this->messages[] = __all("No screenshot detected. Theme archive must contain a <strong>screenshot.png</strong> file with a recommanded resolution of 600x450.");
-						$this->errorLevel = $this->threatLevel;
+			$this->errorLevel = $this->threatLevel;
         }
     }
 }

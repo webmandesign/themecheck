@@ -153,11 +153,15 @@ class FileValidator
 		$height = intval(($height_src * $width) / $width_src);
 		$image_p = imagecreatetruecolor($width, $height);
 		
-		if (pathinfo($thumbfile, PATHINFO_EXTENSION) == 'png') $image_src = @imagecreatefrompng($thumbfile);
+		$finfo = finfo_open(FILEINFO_MIME_TYPE); // Retourne le type mime à l'extension mimetype
+		
+		if ( strtolower(finfo_file($finfo, $thumbfile)) == "image/png" ) $image_src = @imagecreatefrompng($thumbfile);
 		else $image_src = @imagecreatefromjpeg($thumbfile);
 		
-		if(!$image_src) return false;	
+		finfo_close($finfo);
 		
+		if(!$image_src) return false;	
+	
 		imagecopyresampled($image_p, $image_src, 0, 0, 0, 0, $width, $height, $width_src, $height_src); // resample and copy image. Since the image is shown on page results, resample even if same size, to avoid potential hacks.
 		
 		// 1 : save for front-end display (even if not serializable since we want to display a thumbnail on the results page)
