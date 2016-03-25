@@ -55,7 +55,7 @@ class Screenshot_Checker extends CheckPart
                     $this->errorLevel = ERRORLEVEL_WARNING;
                 }
 				
-				$finfo = finfo_open(FILEINFO_MIME_TYPE); // Retourne le type mime à l'extension mimetype
+				$finfo = finfo_open(FILEINFO_MIME_TYPE);
 				$mimetype = strtolower(finfo_file($finfo, $other_key));
 				finfo_close($finfo);
 				if ( pathinfo($other_key, PATHINFO_EXTENSION) == 'png' && $mimetype != "image/png" )  {
@@ -66,12 +66,6 @@ class Screenshot_Checker extends CheckPart
 					$this->messages[] = __all('Bad screenshot file extension ! File <strong>%1$s</strong> is not an actual JPG file. Detected type was : <strong>&quot;%2$s&quot;</strong>.', htmlspecialchars(basename( $other_key )), $mimetype);
                     $this->errorLevel = $this->threatLevel;
 				}
-				
-				//$image_src = @imagecreatefrompng($thumbfile);
-				//else $image_src = @imagecreatefromjpeg($thumbfile);
-				
-				
-				
                 break;
             }
         }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.4.12
 -- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Sam 05 Mars 2016 à 23:03
--- Version du serveur: 5.5.44-0ubuntu0.14.04.1
--- Version de PHP: 5.5.9-1ubuntu4.13
+-- Client :  127.0.0.1
+-- Généré le :  Ven 25 Mars 2016 à 09:47
+-- Version du serveur :  5.6.25
+-- Version de PHP :  5.6.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données: `themecheck`
+-- Base de données :  `themecheck`
 --
 
 -- --------------------------------------------------------
@@ -27,10 +27,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `download` (
-  `user_ip` int(11) NOT NULL AUTO_INCREMENT,
-  `date_download` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`user_ip`,`date_download`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2147483647 ;
+  `user_ip` int(11) NOT NULL,
+  `date_download` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -39,15 +38,14 @@ CREATE TABLE IF NOT EXISTS `download` (
 --
 
 CREATE TABLE IF NOT EXISTS `theme` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL,
   `hash` char(25) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'hash code of archive',
   `hash_md5` binary(16) NOT NULL,
   `hash_sha1` binary(20) NOT NULL,
   `name` varchar(64) NOT NULL,
   `namesanitized` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `uriNameSeo` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
+  `uriNameSeo` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL COMMENT 'seo optimized name',
   `uriNameSeoHigherVersion` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `seoUri` varchar(64) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
   `themedir` varchar(256) NOT NULL COMMENT 'name of theme directory in wordpress/joomla directories',
   `themetype` int(11) unsigned NOT NULL COMMENT '0:undefined, 1:wordpress, 2:joomla, 4:wordpress-child',
   `parentId` int(11) DEFAULT NULL,
@@ -77,22 +75,14 @@ CREATE TABLE IF NOT EXISTS `theme` (
   `isThemeForest` tinyint(1) NOT NULL DEFAULT '0',
   `isTemplateMonster` tinyint(1) NOT NULL DEFAULT '0',
   `isCreativeMarket` tinyint(1) NOT NULL DEFAULT '0',
-  `isPiqpaq` tinyint(1) NOT NULL DEFAULT '0',
+  `merchantUrl` varchar(260) DEFAULT NULL,
   `isNsfw` tinyint(1) NOT NULL DEFAULT '0',
   `isOpenSource` tinyint(1) DEFAULT NULL,
   `filesIncluded` varchar(256) NOT NULL,
   `creationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'first insertion in DB',
   `modificationDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'last update of archive content',
-  `validationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'last validation date',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `public_id` (`hash`),
-  KEY `name` (`name`,`namesanitized`),
-  KEY `zipfilesize` (`zipfilesize`),
-  KEY `validationDate` (`validationDate`),
-  KEY `score` (`score`),
-  KEY `themetype` (`themetype`),
-  KEY `creationDate` (`creationDate`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9995 ;
+  `validationDate` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'last validation date'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -102,8 +92,7 @@ CREATE TABLE IF NOT EXISTS `theme` (
 
 CREATE TABLE IF NOT EXISTS `theme_wpvulnd` (
   `theme_hash` char(25) CHARACTER SET ascii COLLATE ascii_bin NOT NULL,
-  `vuln_id` int(11) NOT NULL,
-  PRIMARY KEY (`theme_hash`,`vuln_id`)
+  `vuln_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -120,10 +109,58 @@ CREATE TABLE IF NOT EXISTS `wpvulndb_vulnerabilities` (
   `published_date` datetime NOT NULL,
   `vuln_type` varchar(32) NOT NULL,
   `fixed_in` varchar(32) DEFAULT NULL,
-  `refs` varchar(2048) NOT NULL,
-  PRIMARY KEY (`id`)
+  `refs` varchar(2048) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `download`
+--
+ALTER TABLE `download`
+  ADD PRIMARY KEY (`user_ip`,`date_download`);
+
+--
+-- Index pour la table `theme`
+--
+ALTER TABLE `theme`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `public_id` (`hash`),
+  ADD KEY `name` (`name`,`namesanitized`),
+  ADD KEY `zipfilesize` (`zipfilesize`),
+  ADD KEY `validationDate` (`validationDate`),
+  ADD KEY `score` (`score`),
+  ADD KEY `themetype` (`themetype`),
+  ADD KEY `creationDate` (`creationDate`);
+
+--
+-- Index pour la table `theme_wpvulnd`
+--
+ALTER TABLE `theme_wpvulnd`
+  ADD PRIMARY KEY (`theme_hash`,`vuln_id`);
+
+--
+-- Index pour la table `wpvulndb_vulnerabilities`
+--
+ALTER TABLE `wpvulndb_vulnerabilities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `download`
+--
+ALTER TABLE `download`
+  MODIFY `user_ip` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `theme`
+--
+ALTER TABLE `theme`
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
