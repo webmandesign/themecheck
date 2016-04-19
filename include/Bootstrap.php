@@ -67,7 +67,7 @@ define("ERRORLEVEL_CRITICAL", 2); // security threats or inacceptable errors
 define("ERRORLEVEL_WARNING", 3);
 define("ERRORLEVEL_SUCCESS", 4);
 define("ERRORLEVEL_INFO", 5);
-define("LAST_WP_VERSION", "4.4.2");
+define("LAST_WP_VERSION", "4.5");
 define("TC_CONTACT_MAIL", "g.baudhuin@peoleo.fr");
 define("TC_CONTACT_NAME", "Guillaume Baudhuin");
 

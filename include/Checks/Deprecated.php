@@ -252,6 +252,16 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_PREPREVIEW_ADDED_WIDGET_INSTANCE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('prepreview_added_widget_instance'), array('prepreview_added_widget_instance', 'customize_dynamic_setting_args', '4.2' ),'ut_deprecatedwordpress_prepreview_added_widget_instance.zip'),
 					new Deprecated_Checker('DEPRECATED_REMOVE_PREPREVIEW_FILTERS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('remove_prepreview_filters'), array('remove_prepreview_filters', 'customize_dynamic_setting_args', '4.2' ),'ut_deprecatedwordpress_remove_prepreview_filters.zip'),
 			
+					new Deprecated_Checker('DEPRECATED_WP_GET_HTTP', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('wp_get_http'), array('wp_get_http', 'WP_Http', '4.4' ), 'tobedefined.zip'),
+					
+					new Deprecated_Checker('DEPRECATED_IS_COMMENTS_POPUP', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('is_comments_popup'), array('is_comments_popup', '', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_ADD_OBJECT_PAGE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('add_object_page'), array('add_object_page', 'add_menu_page', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_ADD_UTILITY_PAGE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('add_utility_page'), array('add_utility_page', 'add_menu_page', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_COMMENTS_POPUP_TEMPLATE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('get_comments_popup_template'), array('get_comments_popup_template', '', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_COMMENTS_POPUP_SCRIPT', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('comments_popup_script'), array('comments_popup_script', '', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_POPUPLINKS', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('popuplinks'), array('popuplinks', '', '4.5' ), 'tobedefined.zip'),
+					new Deprecated_Checker('DEPRECATED_GET_CURRENTUSERINFO', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_CRITICAL, __all('get_currentuserinfo'), array('get_currentuserinfo', 'wp_get_current_user', '4.5' ), 'tobedefined.zip'),
+			
 					// recently deprecated : warning
 					// from plugin's file dep_recommend.php 
 					new Deprecated_Checker('DEPRECATED_preview_theme', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('preview_theme'), array('preview_theme', '', '4.3' ), 'tobedefined.zip'),
@@ -264,7 +274,7 @@ class Deprecated extends Check
 					new Deprecated_Checker('DEPRECATED_wp_ajax_wp_fullscreen_save_post', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_ajax_wp_fullscreen_save_post'), array('wp_ajax_wp_fullscreen_save_post', '', '4.3' ), 'tobedefined.zip'),
 			
 					new Deprecated_Checker('DEPRECATED_post_permalink', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('post_permalink'), array('post_permalink', 'get_permalink', '4.4' ), 'tobedefined.zip'),
-					new Deprecated_Checker('DEPRECATED_wp_get_http', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('wp_get_http'), array('wp_get_http', 'WP_Http', '4.4' ), 'tobedefined.zip'),
+					
 					new Deprecated_Checker('DEPRECATED_force_ssl_login', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('force_ssl_login'), array('force_ssl_login', 'force_ssl_admin', '4.4' ), 'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_create_empty_blog', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('create_empty_blog'), array('create_empty_blog', '', '4.4' ), 'tobedefined.zip'),
 					new Deprecated_Checker('DEPRECATED_get_admin_users_for_domain', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('get_admin_users_for_domain'), array('get_admin_users_for_domain', '', '4.4' ), 'tobedefined.zip'),
