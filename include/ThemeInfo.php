@@ -237,7 +237,7 @@ class ThemeInfo
                     }
 					if ( preg_match('/[ \t\/*#]*Author:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->author = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Theme URI:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->themeUri = trim($match[1]);
-					if ( preg_match('/[ \t\/*#]*Author URI:(.*)$/mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->authorUri = trim($match[1]);
+					if ( preg_match('/[ \t\/*#]*Author URI:(.*)$/mi', 		$file_content, $match) && !empty($match) && count($match)==2) $this->authorUri = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*Version:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $this->version = trim($match[1]);
 					if ( preg_match('/[ \t\/*#]*License:(.*)$/mi', 			$file_content, $match) && !empty($match) && count($match)==2) $rawlicense = trim($match[1]);
 					if ( preg_match('%[ \t\/*#]*License URI:.*(https?://[A-Za-z0-9-\./_~:?#@!$&\'()*+,;=]*)%mi', 	$file_content, $match) && !empty($match) && count($match)==2) $this->licenseUri = trim($match[1]);
@@ -256,7 +256,15 @@ class ThemeInfo
 					global $g_creationDate;
 					$this->creationDate = $g_creationDate;
 			}
-			$this->cmsVersion = LAST_WP_VERSION;
+			
+			// get last wp version
+			$json = file_get_contents('https://api.wordpress.org/core/version-check/1.7/');
+			$data = json_decode($json);
+			$wp_version = $data->offers[0]->current;
+			$wp_version = preg_replace('/[^a-zA-Z0-9_\-\.\+]*/', '', $wp_version);
+			if (empty($wp_version)) $wp_version = "4.6+";
+
+			$this->cmsVersion = $wp_version;
 		}
 
 		if ($this->themetype == TT_JOOMLA)
@@ -390,6 +398,7 @@ class ThemeInfo
 		}
 
 		$this->validationDate = time();
+		$this->modificationDate = time();
 		$this->license = self::getLicense($rawlicense);
 		
 		// check URIs. Invalid URIs are changed to null

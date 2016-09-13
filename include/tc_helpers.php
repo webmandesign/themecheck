@@ -4,7 +4,7 @@ namespace ThemeCheck;
 // helper functions imported from wordpress "theme checks" plugin 
 
 function tc_filename( $file ) {
-	$filename = ( preg_match( '/themes\/[a-z0-9]*\/(.*)/', $file, $out ) ) ? $out[1] : basename( $file );
+	$filename = ( preg_match( '/themes\/[a-z0-9-]*\/(.*)/', $file, $out ) ) ? $out[1] : basename( $file );
 	return $filename;
 }
 

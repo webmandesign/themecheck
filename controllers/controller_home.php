@@ -77,10 +77,6 @@ valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
 				$url = TC_HTTPDOMAIN.'/'.Route::getInstance()->assemble(array("lang"=>I18N::getCurLang(), "phpfile"=>"results", "uriNameSeo"=>$uriNameSeo, "themetype"=>$themetype));
 		}
 		
-		$imgSize = getimagesize(TC_HTTPDOMAIN.'/'.$themeInfo['hash'].'/thumbnail.png');
-		$imgWidth = $imgSize[0];
-		$imgHeight = $imgSize[1];
-		
 		$html .= '<div class="block_theme" data-id="'.$themeInfo['id'].'">';
 			$html .= '<div class="content_theme">';
 				$html .= '<div class="bg_theme">';

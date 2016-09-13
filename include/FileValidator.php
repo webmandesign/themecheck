@@ -67,6 +67,7 @@ class FileValidator
 			"OptionalFiles",
 			"LineEndings",
 			"AdminMenu",
+			"AdminBar",
 			"Generated",
 			"Basic",
 			"CommentPagination",
@@ -89,7 +90,8 @@ class FileValidator
 			"Tags",
 			"TimeDate",
 			"Screenshot",
-			"JManifest"
+			"JManifest",
+			"IncludedPlugins",
 	);
 
 	public function __construct($themeInfo)
@@ -186,6 +188,7 @@ class FileValidator
 			}
 		}
 
+	
 		// save meta data
 		$this->history->saveTheme($this->themeInfo, $update);			
 		$this->themeInfo->isHigherVersion = $this->history->isHighestVersion($this->themeInfo->hash);
@@ -193,6 +196,11 @@ class FileValidator
 		foreach($this->validationResults as $lang=>$_validationResults)
 		{
 			$_validationResults->serialize($this->themeInfo->hash);
+		}
+		
+		// updates all wp themes in db with last wp version
+		if ($this->themeInfo->themetype == TT_WORDPRESS || $this->themeInfo->themetype == TT_WORDPRESS_CHILD) {	
+			$this->history->updateWpVersion($this->themeInfo->cmsVersion);
 		}
 		
 		// we don't serialize themeforest report. They'll be regenerated at unserialization.
@@ -657,7 +665,7 @@ class FileValidator
 		
 		// generate themeforest themes auxiliary report
 		if ($isThemeforest) $this->generateThemeForestReport();
-		
+			
 		$this->duration = microtime(true) - $start_time_checker;
 		
 		Route::getInstance()->updateSitemap($this->themeInfo->themetype);

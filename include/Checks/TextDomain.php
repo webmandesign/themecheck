@@ -156,6 +156,7 @@ class TextDomain_Checker extends CheckPart
 
 		return $title;
 	}
+	
     public function doCheck($php_files, $php_files_filtered, $css_files, $other_files, $themeInfo)
     {		
         $this->errorLevel = ERRORLEVEL_SUCCESS;
@@ -169,7 +170,7 @@ class TextDomain_Checker extends CheckPart
 			$themeName = $this->code[0]; // Notice : in themecheck plugin, variable $themename holds the theme directory
 			$themeDir = $this->code[1]; 
 
-			if ( !in_array($themeDir, $exceptions) ) { // check for exeptions but not for !defined( 'WPORGPATH' ) as the plugin does because it doesn't make sense when not in a WordPress installation.
+			if ( !in_array($themeDir, $exceptions) ) { // check for exceptions but not for !defined( 'WPORGPATH' ) as the plugin does because it doesn't make sense when not in a WordPress installation.
 				$correct_domain = $this->sanitize_title_with_dashes($themeName);
 
 				if ( $themeDir != $correct_domain ) {

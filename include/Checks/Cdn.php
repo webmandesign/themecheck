@@ -8,12 +8,14 @@ class Cdn_Checker extends CheckPart
         $this->errorLevel = ERRORLEVEL_SUCCESS;
 		
         // combine all the php files into one string to make it easier to search
-        $php = implode( ' ', $php_files );
-        
+        $php_code = implode( ' ', $php_files );
+        $css_code = implode( ' ', $css_files );
+		$all_code = $php_code . ' ' . $css_code;
+		
 		foreach ( $this->code as $cdn_slug => $cdn_url)
 		{
-			if ( false !== strpos( $php, $cdn_url ) ) {
-				$this->messages[] = __all( 'Found the URL of a CDN in the code: %s. You should not load CSS or Javascript resources from a CDN, please bundle them with the theme.',  '<code>' . esc_html( $cdn_url ) . '</code>' );
+			if ( false !== strpos( $all_code, $cdn_url ) ) {
+				$this->messages[] = __all( 'Found the URL of a CDN in the code: %s. CSS or Javascript resources should not be loaded from a CDN. These resources should be bundled with the theme.',  '<code>' . esc_html( $cdn_url ) . '</code>' );
 				$this->errorLevel = $this->threatLevel;
 				break;
 			}

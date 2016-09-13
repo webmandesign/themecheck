@@ -30,6 +30,12 @@ if (strpos($url,'localhost/') !== FALSE)
 	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
 	define("TC_DOMAIN", 'localhost'.$port.'/themecheck');
 	define("TC_ENVIRONMENT", 'dev'); 
+} else if (strpos($url,'_themecheck.org') !== FALSE)
+{
+	$port = '';
+	if ($_SERVER['SERVER_PORT'] != '80') $port = ':'.$_SERVER['SERVER_PORT'];
+	define("TC_DOMAIN", '_themecheck.org');
+	define("TC_ENVIRONMENT", 'dev'); 
 }
 else if (strpos($url,'192.168.2.89/') !== FALSE)
 {
@@ -67,7 +73,6 @@ define("ERRORLEVEL_CRITICAL", 2); // security threats or inacceptable errors
 define("ERRORLEVEL_WARNING", 3);
 define("ERRORLEVEL_SUCCESS", 4);
 define("ERRORLEVEL_INFO", 5);
-define("LAST_WP_VERSION", "4.5");
 define("TC_CONTACT_MAIL", "g.baudhuin@peoleo.fr");
 define("TC_CONTACT_NAME", "Guillaume Baudhuin");
 

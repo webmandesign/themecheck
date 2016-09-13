@@ -20,7 +20,7 @@ class AdminMenu_Checker extends CheckPart
 						$error = ltrim( rtrim( $match, '(' ) );
 						$grep = tc_grep( $error, $php_key );
 						$this->messages[] = __all('File <strong>%1$s</strong> : %2$s', esc_html($filename), $grep);
-					$this->errorLevel = $this->threatLevel;
+						$this->errorLevel = $this->threatLevel;
 					}
 				}
 			}

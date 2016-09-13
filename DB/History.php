@@ -133,7 +133,7 @@ class History
 		$q = $this->db->query('SELECT id from theme where hash = '.$this->db->quote($themeInfo->hash));
 		$row = $q->fetch();
 		// force wordpress version to last known version
-		if (intval($themeInfo->themetype) == TT_WORDPRESS || intval($themeInfo->themetype) == TT_WORDPRESS_CHILD) $themeInfo->cmsVersion = LAST_WP_VERSION;
+		//if (intval($themeInfo->themetype) == TT_WORDPRESS || intval($themeInfo->themetype) == TT_WORDPRESS_CHILD) $themeInfo->cmsVersion = LAST_WP_VERSION;
 		
 		if ($row !== false)
 		{
@@ -893,5 +893,12 @@ class History
 		}
 		
 		return $higherVersion;
+	}
+	
+	public function updateWpVersion($wpVersion)
+	{
+		$query = $this->db->prepare("UPDATE theme SET cmsVersion=:cmsVersion WHERE themetype=1 OR themetype=4");
+		$query->bindValue(':cmsVersion',$wpVersion,\PDO::PARAM_STR);
+		$query->execute();
 	}
 }

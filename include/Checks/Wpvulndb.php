@@ -37,6 +37,13 @@ class Wpvulndb extends Check
 	
 		$history = new History();
 	
+		stream_context_set_default( [
+			'ssl' => [
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+			],
+		]);
+
 		foreach ($this->checks as &$check)
 		{
 			$url = 'https://wpvulndb.com/api/v2/themes/'.urlencode($themeInfo->name);

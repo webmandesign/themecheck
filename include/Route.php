@@ -73,7 +73,7 @@ class Route {
 	
 	// Rewritten URL -> Parameters
 	public function match($url = null) 
-	{ 
+	{	
 		global $ExistingLangs;
 		$i18n = I18N::getInstance();
 	

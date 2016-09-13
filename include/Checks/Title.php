@@ -20,19 +20,19 @@ class Title_Checker extends CheckPart
 		// Look for add_theme_support( 'title-tag' ) first
 		$titletag = true;
 		if ( ! preg_match( '#add_theme_support\s?\(\s?[\'|"]title-tag#', $php ) ) {
-			$this->messages[] = __all('No reference to <strong>add_theme_support( "title-tag" )</strong> was found in the theme. It is recommended that the theme implement this functionality for WordPress 4.1 and above.' );
-			$this->errorLevel = ERRORLEVEL_WARNING;
+			$this->messages[] = __all('No reference to <strong>add_theme_support( "title-tag" )</strong> was found in the theme.' );
+			$this->errorLevel = ERRORLEVEL_CRITICAL;
 			$titletag = false;
 		}
 		
 		// Look for <title> and </title> tags.
-		if ( ( false === strpos( $php, '<title>' ) || false === strpos( $php, '</title>' ) ) && !$titletag  ) {
+		if ( ( 0 <= strpos( $php, '<title>' ) || 0 <= strpos( $php, '</title>' ) ) && !$titletag  ) {
 			$this->messages[] = __all( 'The theme needs to have <strong>&lt;title&gt;</strong> tags, ideally in the <strong>header.php</strong> file.');
 			$this->errorLevel = ERRORLEVEL_CRITICAL;
 		}
 
 		// Check whether there is a call to wp_title()
-		if ( false === strpos( $php, 'wp_title(' ) && !$titletag ) {
+		if ( 0 <= strpos( $php, 'wp_title(' ) && !$titletag ) {
 			$this->messages[] = __all( 'The theme needs to have a call to <strong>wp_title()</strong>, ideally in the <strong>header.php</strong> file.');
 			$this->errorLevel = ERRORLEVEL_CRITICAL;
 		}
@@ -40,7 +40,7 @@ class Title_Checker extends CheckPart
 		//Check whether the the <title> tag contains something besides a call to wp_title()
 		foreach ( $php_files as $file_path => $file_content ) {
 			// Look for anything that looks like <svg>...</svg> and exclude it (inline svg's have titles too)
-			$file_content = preg_replace('/<svg>.*<\/svg>/s', '', $file_content);
+			$file_content = preg_replace('/<svg.*>.*<\/svg>/s', '', $file_content);
 			
 			// First looks ahead to see of there's <title>...</title>
 			// Then performs a negative look ahead for <title> wp_title(...); </title>
