@@ -391,7 +391,7 @@ class Controller_results
 							
 							<?php
 							$history = new History();
-							/* 04-19-2016 : test without other themes
+							
 							?>
                                         <div class="container_otherThemes">
 
@@ -493,7 +493,7 @@ class Controller_results
                                                     </div>
                                             </div>
                                         </div>
-										<?php */ ?>
+										<?php  ?>
                                     </div>
                                 </div>
                                 </section>

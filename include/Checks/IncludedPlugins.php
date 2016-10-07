@@ -21,7 +21,7 @@ class IncludedPlugins_Checker extends CheckPart
 			if ( $filename = preg_grep( '/' . $file . '/', $filenames ) ) {
 				$error = implode( array_unique( $filename ), ' ' );
 				
-				$this->messages[] = __all('<Plugins are not allowed in themes. The zip file found was <code>%s</code>.', $error );
+				$this->messages[] = __all('Plugins are not allowed in themes. The zip file found was %s.', '<code>'.$error.'</code>' );
 				$this->errorLevel = $this->threatLevel;
 			}
 		}
