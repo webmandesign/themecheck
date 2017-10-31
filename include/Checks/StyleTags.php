@@ -9,7 +9,7 @@ class StyleTags_Checker extends CheckPart
         $this->errorLevel = ERRORLEVEL_SUCCESS;
 
 		$deprecated_tags = array("flexible-width","fixed-width","black","blue","brown","gray","green","orange","pink","purple","red","silver","tan","white","yellow","dark","light","fixed-layout","fluid-layout","responsive-layout","blavatar","holiday","photoblogging","seasonal");
-		$allowed_tags = array('grid-layout',"one-column","two-columns","three-columns","four-columns","left-sidebar","right-sidebar","flexible-header",'footer-widgets',"accessibility-ready","buddypress","custom-background","custom-colors","custom-header","custom-menu","editor-style","featured-image-header","featured-images","front-page-post-form","full-width-template","microformats","post-formats","rtl-language-support","sticky-post","theme-options","threaded-comments","translation-ready",'blog','e-commerce','education','entertainment','food-and-drink','holiday','news','photography','portfolio');
+		$allowed_tags = array('grid-layout',"one-column","two-columns","three-columns","four-columns","left-sidebar","right-sidebar","flexible-header",'footer-widgets',"accessibility-ready","buddypress","custom-background","custom-colors","custom-header","custom-menu","custom-logo","editor-style","featured-image-header","featured-images","front-page-post-form","full-width-template","microformats","post-formats","rtl-language-support","sticky-post","theme-options","threaded-comments","translation-ready",'blog','e-commerce','education','entertainment','food-and-drink','holiday','news','photography','portfolio');
 		$subject_tags = array('blog','e-commerce','education','entertainment','food-and-drink','holiday','news','photography','portfolio');
 		$subject_tags_count = 0;
 		$subject_tags_name = "";
