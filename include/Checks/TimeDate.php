@@ -28,9 +28,9 @@ class TimeDate extends Check
     {
 			$this->title = __all("Date and time implementation");
 			$this->checks = array(
-						new TimeDate_Checker('TIMEDATE_DATE_I18N', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of date_i18n()'), '/\sdate_i18n\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_date_i18n.zip'),
-						new TimeDate_Checker('TIMEDATE_THE_DATE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of the_date()'), '/[^get_]the_date\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_the_date.zip'),
-						new TimeDate_Checker('TIMEDATE_THE_TIME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_WARNING, __all('Use of the_time()'), '/[^get_]the_time\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_the_time.zip'),
+						new TimeDate_Checker('TIMEDATE_DATE_I18N', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_INFO, __all('Use of date_i18n()'), '/\sdate_i18n\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_date_i18n.zip'),
+						new TimeDate_Checker('TIMEDATE_THE_DATE', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_INFO, __all('Use of the_date()'), '/[^get_]the_date\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_the_date.zip'),
+						new TimeDate_Checker('TIMEDATE_THE_TIME', TT_WORDPRESS | TT_WORDPRESS_CHILD, ERRORLEVEL_INFO, __all('Use of the_time()'), '/[^get_]the_time\s?\(\s?["|\'][A-Za-z\s]+["|\']\s?\)/', 'ut_timedate_the_time.zip'),
 			);
     }
 }
